@@ -12,3 +12,9 @@ wrap/
 gtsam/config.h
 gtsam/dllexport.h
 gtsam_unstable/dllexport.h
+*.so
+*.so.1
+*.so.1.*
+*.so.4
+*.so.4.*
+*.a
