@@ -1,0 +1,14 @@
+*.cmake
+*.make
+link.txt
+*.ts
+progress.marks
+Makefile
+CMakeCache.txt
+examples/
+python/
+CMakeFiles/
+wrap/
+gtsam/config.h
+gtsam/dllexport.h
+gtsam_unstable/dllexport.h

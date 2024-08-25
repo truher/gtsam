@@ -57,3 +57,6 @@ if(GTSAM_ENABLE_MEMORY_SANITIZER)
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address  -fsanitize=leak")
   set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fsanitize=address  -fsanitize=leak")
 endif()
+
+# avoid complaints about incomplete types
+add_compile_options("-fpermissive")
