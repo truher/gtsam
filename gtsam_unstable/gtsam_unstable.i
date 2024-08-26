@@ -543,6 +543,7 @@ virtual class IncrementalFixedLagSmoother : gtsam::FixedLagSmoother {
   gtsam::ISAM2Params params() const;
 
   gtsam::NonlinearFactorGraph getFactors() const;
+  gtsam::ISAM2Result getISAM2Result() const;
   gtsam::ISAM2 getISAM2() const;
 };
 
