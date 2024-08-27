@@ -45,6 +45,7 @@ using CustomErrorFunction = std::function<Vector(const CustomFactor &, const Val
 class GTSAM_EXPORT CustomFactor: public NoiseModelFactor {
 protected:
   CustomErrorFunction error_function_;
+  std::uint64_t key_;
 
 protected:
 
@@ -66,6 +67,13 @@ public:
    */
   CustomFactor(const SharedNoiseModel &noiseModel, const KeyVector &keys, const CustomErrorFunction &errorFunction) :
       Base(noiseModel, keys) {
+    this->key_ = 0;
+    this->error_function_ = errorFunction;
+  }
+
+  CustomFactor(std::uint64_t key, const SharedNoiseModel &noiseModel, const KeyVector &keys, const CustomErrorFunction &errorFunction) :
+      Base(noiseModel, keys) {
+    this->key_ = key;
     this->error_function_ = errorFunction;
   }
 
@@ -78,6 +86,10 @@ public:
   /** print */
   void print(const std::string &s,
              const KeyFormatter &keyFormatter = DefaultKeyFormatter) const override;
+
+  std::uint64_t getKey() {
+    return this->key_;
+  }
 
   /**
    * Mark not sendable
