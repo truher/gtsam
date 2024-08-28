@@ -37,7 +37,7 @@ option(GTSAM_ENABLE_MEMORY_SANITIZER        "Enable/Disable memory sanitizer" OF
 option(GTSAM_WITH_TBB                       "Use Intel Threaded Building Blocks (TBB) if available" OFF)
 option(GTSAM_WITH_EIGEN_MKL                 "Eigen will use Intel MKL if available" OFF)
 option(GTSAM_WITH_EIGEN_MKL_OPENMP          "Eigen, when using Intel MKL, will also use OpenMP for multithreading if available" OFF)
-option(GTSAM_THROW_CHEIRALITY_EXCEPTION     "Throw exception when a triangulated point is behind a camera" ON)
+option(GTSAM_THROW_CHEIRALITY_EXCEPTION     "Throw exception when a triangulated point is behind a camera" OFF)
 option(GTSAM_BUILD_PYTHON                   "Enable/Disable building & installation of Python module with pybind11" ON)
 option(GTSAM_INSTALL_MATLAB_TOOLBOX         "Enable/Disable installation of matlab toolbox"  OFF)
 option(GTSAM_ALLOW_DEPRECATED_SINCE_V43     "Allow use of methods/functions deprecated in GTSAM 4.3" ON)
