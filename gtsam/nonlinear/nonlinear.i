@@ -74,6 +74,7 @@ class NonlinearFactorGraph {
                  gtsam::Pose2,
                  gtsam::Pose3,
                  gtsam::Cal3_S2,
+                 gtsam::Cal3DS2,
                  gtsam::Cal3Fisheye,
                  gtsam::Cal3Unified,
                  gtsam::CalibratedCamera,
