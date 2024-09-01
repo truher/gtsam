@@ -446,6 +446,9 @@ class Pose2 {
   gtsam::Rot2 bearing(const gtsam::Point2& point) const;
   gtsam::Rot2 bearing(const gtsam::Point2& point, Eigen::Ref<Eigen::MatrixXd> H1,
                       Eigen::Ref<Eigen::MatrixXd> H2) const;
+  gtsam::Rot2 bearing(const gtsam::Pose2& pose) const;
+  gtsam::Rot2 bearing(const gtsam::Pose2& pose, Eigen::Ref<Eigen::MatrixXd> H1,
+                      Eigen::Ref<Eigen::MatrixXd> H2) const;
   double range(const gtsam::Point2& point) const;
   double range(const gtsam::Point2& point, Eigen::Ref<Eigen::MatrixXd> H1,
                       Eigen::Ref<Eigen::MatrixXd> H2) const;
