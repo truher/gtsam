@@ -415,7 +415,9 @@ class Pose2 {
 
   // Lie Group
   static gtsam::Pose2 Expmap(gtsam::Vector v);
+  static gtsam::Pose2 Expmap(gtsam::Vector v, Eigen::Ref<Eigen::MatrixXd> H);
   static gtsam::Vector Logmap(const gtsam::Pose2& p);
+  static gtsam::Vector Logmap(const gtsam::Pose2& p, Eigen::Ref<Eigen::MatrixXd> H);
   gtsam::Vector logmap(const gtsam::Pose2& p);
   gtsam::Vector logmap(const gtsam::Pose2& p, Eigen::Ref<Eigen::MatrixXd> H);
   static gtsam::Matrix ExpmapDerivative(gtsam::Vector v);
@@ -430,6 +432,8 @@ class Pose2 {
   // Group Actions on Point2
   gtsam::Point2 transformFrom(const gtsam::Point2& p) const;
   gtsam::Point2 transformTo(const gtsam::Point2& p) const;
+  gtsam::Point2 transformTo(const gtsam::Point2& p, Eigen::Ref<Eigen::MatrixXd> Hself,
+                            Eigen::Ref<Eigen::MatrixXd> Hpoint) const;
 
   // gtsam::Matrix versions
   gtsam::Matrix transformFrom(const gtsam::Matrix& points) const;
@@ -440,7 +444,11 @@ class Pose2 {
   double y() const;
   double theta() const;
   gtsam::Rot2 bearing(const gtsam::Point2& point) const;
+  gtsam::Rot2 bearing(const gtsam::Point2& point, Eigen::Ref<Eigen::MatrixXd> H1,
+                      Eigen::Ref<Eigen::MatrixXd> H2) const;
   double range(const gtsam::Point2& point) const;
+  double range(const gtsam::Point2& point, Eigen::Ref<Eigen::MatrixXd> H1,
+                      Eigen::Ref<Eigen::MatrixXd> H2) const;
   gtsam::Point2 translation() const;
   gtsam::Point2 translation(Eigen::Ref<Eigen::MatrixXd> Hself) const;
   gtsam::Rot2 rotation() const;
