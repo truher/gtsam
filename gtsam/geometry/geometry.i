@@ -399,6 +399,7 @@ class Pose2 {
   // Group
   static gtsam::Pose2 Identity();
   gtsam::Pose2 inverse() const;
+  gtsam::Pose2 inverse(Eigen::Ref<Eigen::MatrixXd> H) const;
   gtsam::Pose2 compose(const gtsam::Pose2& p2) const;
   gtsam::Pose2 compose(const gtsam::Pose2& p2, Eigen::Ref<Eigen::MatrixXd> H1, Eigen::Ref<Eigen::MatrixXd> H2) const;
   gtsam::Pose2 between(const gtsam::Pose2& p2) const;
@@ -431,6 +432,8 @@ class Pose2 {
 
   // Group Actions on Point2
   gtsam::Point2 transformFrom(const gtsam::Point2& p) const;
+  gtsam::Point2 transformFrom(const gtsam::Point2& point, Eigen::Ref<Eigen::MatrixXd> Hself,
+                              Eigen::Ref<Eigen::MatrixXd> Hpoint) const;
   gtsam::Point2 transformTo(const gtsam::Point2& p) const;
   gtsam::Point2 transformTo(const gtsam::Point2& p, Eigen::Ref<Eigen::MatrixXd> Hself,
                             Eigen::Ref<Eigen::MatrixXd> Hpoint) const;
@@ -451,6 +454,9 @@ class Pose2 {
                       Eigen::Ref<Eigen::MatrixXd> H2) const;
   double range(const gtsam::Point2& point) const;
   double range(const gtsam::Point2& point, Eigen::Ref<Eigen::MatrixXd> H1,
+                      Eigen::Ref<Eigen::MatrixXd> H2) const;
+  double range(const gtsam::Pose2& point) const;
+  double range(const gtsam::Pose2& point, Eigen::Ref<Eigen::MatrixXd> H1,
                       Eigen::Ref<Eigen::MatrixXd> H2) const;
   gtsam::Point2 translation() const;
   gtsam::Point2 translation(Eigen::Ref<Eigen::MatrixXd> Hself) const;
