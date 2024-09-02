@@ -477,6 +477,11 @@ class Pose3 {
   Pose3(const gtsam::Pose2& pose2);
   Pose3(gtsam::Matrix mat);
 
+  static gtsam::Pose3 Create(const gtsam::Rot3& r, const gtsam::Point3& t);
+  static gtsam::Pose3 Create(const gtsam::Rot3& r, const gtsam::Point3& t,
+                             Eigen::Ref<Eigen::MatrixXd> HR, // 6x3
+                             Eigen::Ref<Eigen::MatrixXd> Ht); // 6x3
+
   static std::optional<gtsam::Pose3> Align(const gtsam::Point3Pairs& abPointPairs);
   static std::optional<gtsam::Pose3> Align(const gtsam::Matrix& a, const gtsam::Matrix& b);
 
@@ -526,11 +531,22 @@ class Pose3 {
                           Eigen::Ref<Eigen::MatrixXd> H_x) const;
   static gtsam::Matrix adjointMap(gtsam::Vector xi);
   static gtsam::Vector adjoint(gtsam::Vector xi, gtsam::Vector y);
+  static gtsam::Vector adjoint(gtsam::Vector xi, gtsam::Vector y,
+                               Eigen::Ref<Eigen::MatrixXd> Hxi,
+                               Eigen::Ref<Eigen::MatrixXd> H_y);
   static gtsam::Matrix adjointMap_(gtsam::Vector xi);
   static gtsam::Vector adjoint_(gtsam::Vector xi, gtsam::Vector y);
   static gtsam::Vector adjointTranspose(gtsam::Vector xi, gtsam::Vector y);
+  static gtsam::Vector adjointTranspose(gtsam::Vector xi, gtsam::Vector y,
+                                        Eigen::Ref<Eigen::MatrixXd> Hxi,
+                                        Eigen::Ref<Eigen::MatrixXd> H_y);
+  
   static gtsam::Matrix ExpmapDerivative(gtsam::Vector xi);
   static gtsam::Matrix LogmapDerivative(const gtsam::Pose3& xi);
+
+  static gtsam::Matrix3 ComputeQforExpmapDerivative(const gtsam::Vector6 xi,
+                                                    double nearZeroThreshold = 1e-5);
+
   static gtsam::Matrix wedge(double wx, double wy, double wz, double vx, double vy,
                       double vz);
 
@@ -566,6 +582,12 @@ class Pose3 {
                Eigen::Ref<Eigen::MatrixXd> Hpoint);
   double range(const gtsam::Pose3& pose);
   double range(const gtsam::Pose3& pose, Eigen::Ref<Eigen::MatrixXd> Hself,
+               Eigen::Ref<Eigen::MatrixXd> Hpose);
+  Unit3 bearing(const gtsam::Point3& point);
+  Unit3 bearing(const gtsam::Point3& point, Eigen::Ref<Eigen::MatrixXd> Hself,
+               Eigen::Ref<Eigen::MatrixXd> Hpoint);
+  Unit3 bearing(const gtsam::Pose3& pose);
+  Unit3 bearing(const gtsam::Pose3& pose, Eigen::Ref<Eigen::MatrixXd> Hself,
                Eigen::Ref<Eigen::MatrixXd> Hpose);
 
   // enabling serialization functionality
@@ -979,6 +1001,9 @@ class PinholeCamera {
   static This Level(const gtsam::Pose2& pose, double height);
   static This Lookat(const gtsam::Point3& eye, const gtsam::Point3& target,
                      const gtsam::Point3& upVector, const CALIBRATION& K);
+  static This Create(const gtsam::Pose3& pose, const CALIBRATION& K,
+                     Eigen::Ref<Eigen::MatrixXd> H1,
+                     Eigen::Ref<Eigen::MatrixXd> H2);
 
   // Testable
   void print(string s = "PinholeCamera") const;
@@ -986,6 +1011,7 @@ class PinholeCamera {
 
   // Standard Interface
   gtsam::Pose3 pose() const;
+  gtsam::Pose3 getPose(Eigen::Ref<Eigen::MatrixXd> H) const;
   CALIBRATION calibration() const;
 
   // Manifold
@@ -1002,6 +1028,15 @@ class PinholeCamera {
                         Eigen::Ref<Eigen::MatrixXd> Dpose,
                         Eigen::Ref<Eigen::MatrixXd> Dpoint,
                         Eigen::Ref<Eigen::MatrixXd> Dcal);
+  gtsam::Point2 project(const gtsam::Unit3& point);
+  gtsam::Point2 project(const gtsam::Unit3& point,
+                        Eigen::Ref<Eigen::MatrixXd> Dpose,
+                        Eigen::Ref<Eigen::MatrixXd> Dpoint,
+                        Eigen::Ref<Eigen::MatrixXd> Dcal);
+  gtsam::Point2 project2(const gtsam::Point3& pw);
+  gtsam::Point2 project2(const gtsam::Point3& pw,
+                         Eigen::Ref<Eigen::MatrixXd> Dcamera,
+                         Eigen::Ref<Eigen::MatrixXd> Dpoint);
   gtsam::Point3 backproject(const gtsam::Point2& p, double depth) const;
   gtsam::Point3 backproject(const gtsam::Point2& p, double depth,
                             Eigen::Ref<Eigen::MatrixXd> Dresult_dpose,
