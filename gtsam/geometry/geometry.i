@@ -753,6 +753,8 @@ virtual class Cal3DS2_Base {
   gtsam::Point2 calibrate(const gtsam::Point2& p,
                           Eigen::Ref<Eigen::MatrixXd> Dcal,
                           Eigen::Ref<Eigen::MatrixXd> Dp) const;
+  gtsam::Matrix D2d_intrinsic(const gtsam::Point2& p) const;
+  gtsam::Matrix D2d_calibration(const gtsam::Point2& p) const;
 
   // enabling serialization functionality
   void serialize() const;
