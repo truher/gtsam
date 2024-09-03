@@ -945,6 +945,11 @@ class Cal3Bundler {
 };
 
 #include <gtsam/geometry/CalibratedCamera.h>
+class PinholeBase {
+  static gtsam::Pose3 LookatPose(const gtsam::Point3& eye, const gtsam::Point3& target,
+                                 const gtsam::Point3& upVector);
+};
+
 class CalibratedCamera {
   // Standard Constructors and Named Constructors
   CalibratedCamera();
