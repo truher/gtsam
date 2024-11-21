@@ -1,6 +1,6 @@
-message("running the main CMakeLists file")
-string(TIMESTAMP TODAY "%Y.%m.%d.%h.%M)
-message("current time " TODAY)
+message(NOTICE "Running the main CMakeLists file")
+string(TIMESTAMP NOW "%Y.%m.%d.%H.%M")
+message(NOTICE "Current time ${NOW}")
 
 cmake_minimum_required(VERSION 3.9)
 if (POLICY CMP0082)
