@@ -1,0 +1,46 @@
+# to try to figure out how to do nightly build, and also how to make my
+# fork available on pypi.
+
+name: Joel's Workflow
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install (Linux)
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install cmake build-essential pkg-config libpython3-dev python3-numpy libboost-all-dev ninja-build
+
+          sudo apt-get install -y g++ g++-multilib
+          echo "CC=gcc" >> $GITHUB_ENV
+          echo "CXX=g++" >> $GITHUB_ENV
+
+      - name: Set Swap Space (Linux)
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 6
+
+      - name: Install System Dependencies
+        run: |
+          bash .github/scripts/python.sh -d
+
+      - name: Install Python Dependencies
+        shell: bash
+        run: python3 -m pip install -r python/dev_requirements.txt
+
+      - name: Build
+        shell: bash
+        run: |
+          bash .github/scripts/python.sh -b
+
+      - name: Test
+        shell: bash
+        run: |
+          bash .github/scripts/python.sh -t
