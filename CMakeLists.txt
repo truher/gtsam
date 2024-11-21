@@ -1,3 +1,7 @@
+message("running the main CMakeLists file")
+string(TIMESTAMP TODAY "%Y.%m.%d.%h.%M)
+message("current time " TODAY)
+
 cmake_minimum_required(VERSION 3.9)
 if (POLICY CMP0082)
     cmake_policy(SET CMP0082 NEW) # install from sub-directories immediately
