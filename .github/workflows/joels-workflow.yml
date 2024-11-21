@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PYTHON_VERSION: 3.10
+      # quote the number because yaml thinks 3.10 and 3.1 are the same, like it's a number, man.
+      # https://yaml.org/spec/1.2.2/ the yaml spec is 50 pages
+      PYTHON_VERSION: '3.10'
 
     steps:
       - name: Checkout
