@@ -112,6 +112,8 @@ endif()
 
 # Link to cephes library
 list(APPEND GTSAM_ADDITIONAL_LIBRARIES cephes-gtsam-if)
+# hunting the missing .so file error
+list(APPEND GTSAM_ADDITIONAL_LIBRARIES cephes-gtsam)
 
 # Versions
 set(gtsam_version   ${GTSAM_VERSION_STRING})
