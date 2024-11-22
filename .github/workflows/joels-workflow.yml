@@ -59,7 +59,7 @@ jobs:
         run: python3 -m pip install --upgrade pip build wheel pytest
 
       - name: Build for Publishing
-        run: python3 -m build python
+        run: python3 -m build build/python
 
       - name: Publish
         uses: pypa/gh-action-pypi-publish@release/v1
