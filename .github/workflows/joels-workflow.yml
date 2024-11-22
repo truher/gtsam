@@ -44,14 +44,19 @@ jobs:
         run: python3 -m pip install -r python/dev_requirements.txt
 
       - name: Build
+        # this builds the cmake "python-install" target which puts a wheel in tmp/cache...
         shell: bash
         run: |
           bash .github/scripts/python.sh -b
 
       - name: Test
+        # this runs python3 -m unittest.  TODO: stop using python.sh for this.
         shell: bash
         run: |
           bash .github/scripts/python.sh -t
+
+      - name: Build for Publishing
+        run: python3 -m build
 
       - name: Publish
         uses: pypa/gh-action-pypi-publish@release/v1
