@@ -55,6 +55,9 @@ jobs:
         run: |
           bash .github/scripts/python.sh -t
 
+      - name: Install Build Tools
+        run: python3 -m pip install --upgrade pip build wheel pytest
+
       - name: Build for Publishing
         run: python3 -m build
 
