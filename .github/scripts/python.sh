@@ -62,10 +62,18 @@ function build()
       -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/gtsam_install
 
 
+  echo "cmake --build build"
+  
   # Set to 2 cores so that Actions does not error out during resource provisioning.
   cmake --build build -j2
 
+  echo "cmake --build build target python-install"
+
   cmake --build build --target python-install
+
+  echo "done!"
+
+  ls
 }
 
 function test()

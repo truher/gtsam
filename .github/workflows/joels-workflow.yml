@@ -8,6 +8,9 @@ on: [workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
 
     env:
       # quote the number because yaml thinks 3.10 and 3.1 are the same, like it's a number, man.
@@ -49,3 +52,8 @@ jobs:
         shell: bash
         run: |
           bash .github/scripts/python.sh -t
+
+      - name: Publish
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
