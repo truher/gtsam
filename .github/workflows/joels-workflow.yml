@@ -43,6 +43,9 @@ jobs:
         shell: bash
         run: python3 -m pip install -r python/dev_requirements.txt
 
+      - name: Set Nightly Flag
+        run: echo "NIGHTLY=1" >> $GITHUB_ENV
+
       - name: Build
         # this builds the cmake "python-install" target which puts a wheel in tmp/cache...
         shell: bash
