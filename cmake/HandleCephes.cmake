@@ -8,6 +8,7 @@
 add_subdirectory(${GTSAM_SOURCE_DIR}/gtsam/3rdparty/cephes)
 
 list(APPEND GTSAM_EXPORTED_TARGETS cephes-gtsam)
+add_library(cephes-gtsam)
 
 add_library(cephes-gtsam-if INTERFACE)
 target_link_libraries(cephes-gtsam-if INTERFACE cephes-gtsam)
