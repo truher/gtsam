@@ -71,7 +71,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          path: dist/
+          path: build/python/dist/
       
 
   upload_all:
@@ -87,7 +87,7 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
-          path: dist/
+          path: build/python/dist/
           merge-multiple: true
 
       - name: Publish
