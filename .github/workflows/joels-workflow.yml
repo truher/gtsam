@@ -63,7 +63,7 @@ jobs:
 
       - name: Build for Publishing
 #        run: python3 -m pip wheel -w dist build/python
-        run: python3 -m pip build build/python
+        run: python3 -m build build/python
 
       - name: Publish
         uses: pypa/gh-action-pypi-publish@release/v1
