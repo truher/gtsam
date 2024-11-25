@@ -40,8 +40,6 @@ else()
     set (SETUP_NAME "gtsam")
 endif()
 
-message(NOTICE "GTSAM_VERSION_STRING ${GTSAM_VERSION_STRING}")
-
 project(GTSAM
         LANGUAGES CXX C
         VERSION "${GTSAM_VERSION_MAJOR}.${GTSAM_VERSION_MINOR}.${GTSAM_VERSION_PATCH}")
@@ -81,7 +79,7 @@ include(GtsamPrinting)
 
 ############### Decide on BOOST ######################################
 # Enable or disable serialization with GTSAM_ENABLE_BOOST_SERIALIZATION
-# (note serialization tests fail when this is off)
+# (Serialization tests fail when this is off.)
 option(GTSAM_ENABLE_BOOST_SERIALIZATION "Enable Boost serialization" ON)
 if(GTSAM_ENABLE_BOOST_SERIALIZATION)
   add_definitions(-DGTSAM_ENABLE_BOOST_SERIALIZATION)
