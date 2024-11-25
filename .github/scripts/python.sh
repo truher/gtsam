@@ -63,8 +63,6 @@ function build()
       -DGTSAM_ALLOW_DEPRECATED_SINCE_V43=OFF \
       -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/gtsam_install
 
-      # -DGTSAM_FORCE_STATIC_LIB=ON \
-
 
   # Set to 2 cores so that Actions does not error out during resource provisioning.
   cmake --build build -j2
