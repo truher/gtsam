@@ -55,7 +55,7 @@ function build()
       -DGTSAM_BUILD_EXAMPLES_ALWAYS=OFF \
       -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF \
       -DGTSAM_BUILD_PYTHON=${BUILD_PYBIND} \
-      -DBUILD_SHARED_LIBS=ON \
+      -DBUILD_SHARED_LIBS=OFF \
       -DBUILD_STATIC_METIS=ON \
       -DGTSAM_FORCE_STATIC_LIB=ON \
       -DGTSAM_UNSTABLE_BUILD_PYTHON=${GTSAM_BUILD_UNSTABLE:-ON} \
@@ -65,18 +65,10 @@ function build()
       -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/gtsam_install
 
 
-  echo "cmake --build build"
-  
   # Set to 2 cores so that Actions does not error out during resource provisioning.
   cmake --build build -j2
 
-  echo "cmake --build build target python-install"
-
   cmake --build build --target python-install
-
-  echo "done!"
-
-  ls
 }
 
 function test()

@@ -1,12 +1,3 @@
-message(NOTICE "Running the main CMakeLists file")
-string(TIMESTAMP NOW "%Y.%m.%d.%H.%M")
-message(NOTICE "Current time ${NOW}")
-
-if (DEFINED ENV{NIGHTLY})
-  message(NOTICE "NIGHTLY BUILD ${NOW}")
-endif()
-
-
 cmake_minimum_required(VERSION 3.9)
 if (POLICY CMP0082)
     cmake_policy(SET CMP0082 NEW) # install from sub-directories immediately
@@ -34,12 +25,19 @@ set (GTSAM_VERSION_PATCH 0)
 set (GTSAM_PRERELEASE_VERSION "a0")
 math (EXPR GTSAM_VERSION_NUMERIC "10000 * ${GTSAM_VERSION_MAJOR} + 100 * ${GTSAM_VERSION_MINOR} + ${GTSAM_VERSION_PATCH}")
 
+# Use the current timestamp as the version string, if the "NIGHTLY" flag is set.
 if (DEFINED ENV{NIGHTLY})
+    string(TIMESTAMP NOW "%Y.%m.%d.%H.%M")
+    message(NOTICE "NIGHTLY BUILD ${NOW}")
     set (GTSAM_VERSION_STRING "${NOW}")
+    # TODO: use the correct pypi nightly name
+    set (SETUP_NAME "truher-gtsam-nightly")
 elseif ("${GTSAM_PRERELEASE_VERSION}" STREQUAL "")
     set (GTSAM_VERSION_STRING "${GTSAM_VERSION_MAJOR}.${GTSAM_VERSION_MINOR}.${GTSAM_VERSION_PATCH}")
+    set (SETUP_NAME "gtsam")
 else()
     set (GTSAM_VERSION_STRING "${GTSAM_VERSION_MAJOR}.${GTSAM_VERSION_MINOR}${GTSAM_PRERELEASE_VERSION}")
+    set (SETUP_NAME "gtsam")
 endif()
 
 message(NOTICE "GTSAM_VERSION_STRING ${GTSAM_VERSION_STRING}")

@@ -21,10 +21,11 @@ package_data = {
 readme_contents = open("${GTSAM_SOURCE_DIR}/README.md").read()
 
 setup(
-    # TODO: pass this as a variable, like the version string
-    name='truher-gtsam-nightly',
+    # This is set in the top-level CMakeLists.txt.
+    name='${SETUP_NAME}',
     description='Georgia Tech Smoothing And Mapping library',
     url='https://gtsam.org/',
+    # This is set in the top-level CMakeLists.txt.
     version='${GTSAM_VERSION_STRING}',  # https://www.python.org/dev/peps/pep-0440/
     author='Frank Dellaert et. al.',
     author_email='frank.dellaert@gtsam.org',

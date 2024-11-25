@@ -1,5 +1,4 @@
-# to try to figure out how to do nightly build, and also how to make my
-# fork available on pypi.
+# Nightly build uploads to test.pypi.org.
 
 name: Joel's Workflow
 
@@ -62,7 +61,6 @@ jobs:
         run: python3 -m pip install --upgrade pip build wheel pytest
 
       - name: Build for Publishing
-#        run: python3 -m pip wheel -w dist build/python
         run: python3 -m build build/python
 
       - name: Publish

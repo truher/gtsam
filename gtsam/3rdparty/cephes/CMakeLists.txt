@@ -89,6 +89,7 @@ set(CEPHES_SOURCES
     cephes/zetac.c)
 
 # Add library source files
+# Needs to be static for the python build to work.
 add_definitions(-fPIC)
 add_library(cephes-gtsam STATIC ${CEPHES_SOURCES})
 
