@@ -24,10 +24,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          #python-version: '3.10'
+          python-version: ${{matrix.python_version}}
+
       - name: Install (Linux)
         run: |
           sudo apt-get -y update
-          sudo apt-get -y install cmake build-essential pkg-config libpython3-dev python3-numpy libboost-all-dev ninja-build
+          sudo apt-get -y install cmake build-essential pkg-config python3-numpy libboost-all-dev ninja-build
 
           sudo apt-get install -y g++ g++-multilib
           echo "CC=gcc" >> $GITHUB_ENV
