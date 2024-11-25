@@ -8,17 +8,17 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     python_version: ['3.9', '3.10', '3.11', '3.12']
+    strategy:
+      fail-fast: false
+      matrix:
+        python_version: ['3.9', '3.10', '3.11', '3.12']
 
 
     env:
       # quote the number because yaml thinks 3.10 and 3.1 are the same, like it's a number, man.
       # https://yaml.org/spec/1.2.2/ the yaml spec is 50 pages
-      PYTHON_VERSION: '3.10'
-      # PYTHON_VERSION: ${{matrix.python_version}}
+      # PYTHON_VERSION: '3.10'
+      PYTHON_VERSION: ${{matrix.python_version}}
 
     steps:
       - name: Checkout
