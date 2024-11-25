@@ -12,8 +12,6 @@ jobs:
     #   fail-fast: false
     #   matrix:
     #     python_version: ['3.9', '3.10', '3.11', '3.12']
-    permissions:
-      id-token: write
 
 
     env:
@@ -83,6 +81,8 @@ jobs:
     name: Upload All
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
