@@ -62,10 +62,11 @@ jobs:
         run: python3 -m pip install --upgrade pip build wheel pytest
 
       - name: Build for Publishing
-        run: python3 -m pip wheel -w dist build/python
+#        run: python3 -m pip wheel -w dist build/python
+        run: python3 -m pip build build/python
 
       - name: Publish
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          skip-existing: true
+          packages-dir: build/python/dist/
           repository-url: https://test.pypi.org/legacy/
