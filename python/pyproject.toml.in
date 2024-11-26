@@ -37,5 +37,13 @@ dependencies = [
 [project.urls]
 Homepage = "https://gtsam.org/"
 
-[tool.setuptools]
-packages = ["gtsam"]
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ['build', 'build.*', 'CMakeFiles', 'CMakeFiles.*',
+           'gtsam.notebooks', '*.preamble', '*.specializations', 'dist']
+
+[tool.setuptools.package-data]
+"*" = ["./*.so",
+        "./*.dll",
+        "./*.pyd",
+        "*.pyi", "**/*.pyi"]
