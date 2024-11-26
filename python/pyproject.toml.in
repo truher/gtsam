@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "${SETUP_NAME}"
-version = ${GTSAM_PYTHON_VERSION}
+version = "${GTSAM_VERSION_STRING}"
 description = "Georgia Tech Smoothing And Mapping library"
 readme = "README.md"
 license = "Simplified BSD license"
