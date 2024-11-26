@@ -46,6 +46,7 @@ setup(
         'Programming Language :: Python :: 3',
     ],
     packages=packages,
+    python_requires=">=${GTSAM_PYTHON_VERSION}",
     include_package_data=True,
     package_data=package_data,
     test_suite="gtsam.tests",
