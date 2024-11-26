@@ -71,7 +71,7 @@ jobs:
         run: python3 -m pip install --upgrade pip # cibuildwheel
 
       - name: Build for Publishing
-        run: python3 -m pip wheel -w build/python/dist -f .
+        run: python3 -m pip wheel . -w build/python/dist
 
 #      - name: Build for Publishing
 #        # Puts a wheel in dist/
