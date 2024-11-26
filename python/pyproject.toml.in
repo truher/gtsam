@@ -39,7 +39,7 @@ Homepage = "https://gtsam.org/"
 
 [tool.setuptools]
 ext-modules = [
-  {name = "", sources = []}
+  {name = "gtsam", sources = []}
 ]
 
 [tool.setuptools.packages.find]
