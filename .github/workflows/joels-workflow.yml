@@ -68,15 +68,20 @@ jobs:
           bash .github/scripts/python.sh -t
 
       - name: Install Build Tools
-        run: python3 -m pip install --upgrade pip cibuildwheel
+        run: python3 -m pip install --upgrade pip # cibuildwheel
 
       - name: Build for Publishing
-        # Puts a wheel in dist/
-        # run: python3 -m build build/python
-        uses: pypa/cibuildwheel@v2.22.0
-        with:
-          package-dir: build/python
-          output-dir: build/python/dist/
+        run: python3 -m pip wheel -w build/python/dist
+
+#      - name: Build for Publishing
+#        # Puts a wheel in dist/
+#        # run: python3 -m build build/python
+#        uses: pypa/cibuildwheel@v2.22.0
+#        env:
+#          CIBW_BUILD_VERBOSITY: 1
+#        with:
+#          package-dir: build/python
+#          output-dir: build/python/dist/
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
