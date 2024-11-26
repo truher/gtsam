@@ -3,7 +3,7 @@ requires = ["setuptools >= 61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "${SETUP-NAME}"
+name = "${SETUP_NAME}"
 version = ${GTSAM_PYTHON_VERSION}
 description = "Georgia Tech Smoothing And Mapping library"
 readme = "README.md"
