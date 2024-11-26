@@ -37,6 +37,11 @@ dependencies = [
 [project.urls]
 Homepage = "https://gtsam.org/"
 
+[tool.setuptools]
+ext-modules = [
+  {name = "", sources = []}
+]
+
 [tool.setuptools.packages.find]
 where = ["."]
 exclude = ['build', 'build.*', 'CMakeFiles', 'CMakeFiles.*',
