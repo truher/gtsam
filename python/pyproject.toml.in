@@ -7,7 +7,7 @@ name = "${SETUP_NAME}"
 version = "${GTSAM_VERSION_STRING}"
 description = "Georgia Tech Smoothing And Mapping library"
 readme = "README.md"
-license = "Simplified BSD license"
+license = {text = "Simplified BSD license"}
 authors = [
     { name = "Frank Dellaert et. al.", email = "frank.dellaert@gtsam.org" },
 ]
@@ -31,7 +31,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "numpy>=1.11.0",
+    "numpy>=1.11.0,<2",
 ]
 
 [project.urls]
