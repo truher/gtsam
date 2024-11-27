@@ -1,7 +1,7 @@
 # Nightly build for Raspberry Pi
 # Uploads to test.pypi.org.
 
-name: Joel's Workflow
+name: ARM Nightly
 
 on: [workflow_dispatch]
 
