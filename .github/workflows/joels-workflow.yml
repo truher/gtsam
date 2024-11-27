@@ -73,6 +73,9 @@ jobs:
       - name: Build for Publishing
         run: python3 -m pip wheel build/python -w build/python/dist
 
+      - name: Debug
+        run: ls -R build/python
+
 #      - name: Build for Publishing
 #        # Puts a wheel in dist/
 #        # run: python3 -m build build/python
