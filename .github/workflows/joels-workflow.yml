@@ -68,7 +68,7 @@ jobs:
           bash .github/scripts/python.sh -t
 
       - name: Install Build Tools
-        run: python3 -m pip install --upgrade pip # cibuildwheel
+        run: python3 -m pip install --upgrade pip auditwheel # cibuildwheel
 
       - name: Build for Publishing
         run: python3 -m pip wheel build/python -w build/python/dist
