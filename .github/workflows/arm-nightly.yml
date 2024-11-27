@@ -37,6 +37,10 @@ jobs:
           sudo apt-get -y install cmake build-essential pkg-config python3-numpy libboost-all-dev ninja-build
 
           sudo apt-get install -y g++ g++-multilib
+          
+          sudo apt get install -y g++-aarch64-linux-gnu
+          sudo apt-get install -y gcc-aarch64-linux-gnu
+
           echo "CC=gcc-aarch64-linux-gnu" >> $GITHUB_ENV
           echo "CXX=g++-aarch64-linux-gnu" >> $GITHUB_ENV
 
