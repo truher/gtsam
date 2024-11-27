@@ -1,7 +1,7 @@
 # Nightly build for Linux.
 # Uploads to test.pypi.org.
 
-name: Linuz Nightly
+name: Linux Nightly
 
 on: [workflow_dispatch]
 
@@ -16,8 +16,6 @@ jobs:
 
 
     env:
-      # quote the number because yaml thinks 3.10 and 3.1 are the same, like it's a number, man.
-      # https://yaml.org/spec/1.2.2/ the yaml spec is 50 pages
       # PYTHON_VERSION: '3.10'
       PYTHON_VERSION: ${{matrix.python_version}}
 
@@ -46,8 +44,7 @@ jobs:
           swap-size-gb: 6
 
       - name: Install System Dependencies
-        run: |
-          bash .github/scripts/python.sh -d
+        run: bash .github/scripts/python.sh -d
 
       - name: Install Python Dependencies
         shell: bash
@@ -59,39 +56,22 @@ jobs:
       - name: Build
         # Builds the cmake "python-install" target which is a local install.
         shell: bash
-        run: |
-          bash .github/scripts/python.sh -b
+        run: bash .github/scripts/python.sh -b
 
       - name: Test
         # Uses the local install for python3 -m unittest.
         shell: bash
-        run: |
-          bash .github/scripts/python.sh -t
+        run: bash .github/scripts/python.sh -t
 
       - name: Install Build Tools
-        run: python3 -m pip install --upgrade pip auditwheel # cibuildwheel
+        run: python3 -m pip install --upgrade pip auditwheel
 
       - name: Build for Publishing
         run: python3 -m pip wheel build/python -w build/python/dist
 
-      - name: ldd
-        run: ldd --version
-
       - name: Repair Wheels
+        # TODO: use the actual glibc version here
         run: python3 -m auditwheel repair --plat manylinux_2_35_x86_64 -w build/python/repaired/ build/python/dist/truher_gtsam_nightly*
-
-      - name: ls
-        run: ls -R build/python
-
-#      - name: Build for Publishing
-#        # Puts a wheel in dist/
-#        # run: python3 -m build build/python
-#        uses: pypa/cibuildwheel@v2.22.0
-#        env:
-#          CIBW_BUILD_VERBOSITY: 1
-#        with:
-#          package-dir: build/python
-#          output-dir: build/python/dist/
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
