@@ -74,7 +74,7 @@ jobs:
         run: python3 -m pip wheel build/python -w build/python/dist
 
       - name: Repair Wheels
-        run: python3 -m auditwheel repair -w build/python/repaired/ build/python/dist/* -v
+        run: python3 -m auditwheel repair -w build/python/repaired/ build/python/dist/*
 
       - name: Debug
         run: ls -R build/python
