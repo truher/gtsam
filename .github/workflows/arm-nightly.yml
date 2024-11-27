@@ -1,0 +1,14 @@
+# this works around this issue
+# https://github.com/orgs/community/discussions/25746
+# which i consider a bug
+# so i can run my workflow in a feature branch
+name: dummy
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: do nothing
+        run: echo nothing!
