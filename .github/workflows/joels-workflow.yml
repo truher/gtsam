@@ -73,10 +73,13 @@ jobs:
       - name: Build for Publishing
         run: python3 -m pip wheel build/python -w build/python/dist
 
-      - name: Repair Wheels
-        run: python3 -m auditwheel repair -w build/python/repaired/ build/python/dist/truher_gtsam_nightly*
+      - name: ldd
+        run: ldd --version
 
-      - name: Debug
+      - name: Repair Wheels
+        run: python3 -m auditwheel repair --plat manylinux_2_35_x86_64 -w build/python/repaired/ build/python/dist/truher_gtsam_nightly*
+
+      - name: ls
         run: ls -R build/python
 
 #      - name: Build for Publishing
