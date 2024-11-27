@@ -31,16 +31,24 @@ jobs:
           python-version: '3.11'
           # python-version: ${{matrix.python_version}}
 
-      - name: Install (Linux)
+        # these are all separate to make the log easier to read
+      - name: Install 1
+        run: sudo apt-get -y update
+
+      - name: Install 2
+        run: sudo apt-get -y install cmake build-essential pkg-config python3-numpy libboost-all-dev ninja-build
+
+      - name: Install 3
+        run: sudo apt-get install -y g++ g++-multilib
+
+      - name: Install g++
+        run: sudo apt get install -y g++-aarch64-linux-gnu
+
+      - name: Install gcc
+        run: sudo apt-get install -y gcc-aarch64-linux-gnu
+
+      - name: Set compiler env
         run: |
-          sudo apt-get -y update
-          sudo apt-get -y install cmake build-essential pkg-config python3-numpy libboost-all-dev ninja-build
-
-          sudo apt-get install -y g++ g++-multilib
-          
-          sudo apt get install -y g++-aarch64-linux-gnu
-          sudo apt-get install -y gcc-aarch64-linux-gnu
-
           echo "CC=gcc-aarch64-linux-gnu" >> $GITHUB_ENV
           echo "CXX=g++-aarch64-linux-gnu" >> $GITHUB_ENV
 
