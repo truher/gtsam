@@ -49,8 +49,8 @@ jobs:
 
       - name: Set compiler env
         run: |
-          echo "CC=gcc-aarch64-linux-gnu" >> $GITHUB_ENV
-          echo "CXX=g++-aarch64-linux-gnu" >> $GITHUB_ENV
+          echo "CC=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
+          echo "CXX=aarch64-linux-gnu-g++" >> $GITHUB_ENV
 
       - name: Set Swap Space (Linux)
         uses: pierotofy/set-swap-space@master
