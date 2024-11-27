@@ -73,6 +73,9 @@ jobs:
       - name: Build for Publishing
         run: python3 -m pip wheel build/python -w build/python/dist
 
+      - name: Repair Wheels
+        run: python3 -m auditwheel repair -v -w build/python/repaired/ build/python/dist/*
+
       - name: Debug
         run: ls -R build/python
 
@@ -91,7 +94,7 @@ jobs:
         with:
           # TODO: define the name as ENV, use it in CMakeLists.txt 
           name: artifact${{matrix.python_version}}
-          path: build/python/dist/truher_gtsam_nightly*
+          path: build/python/repaired/truher_gtsam_nightly*
       
 
   upload_all:
@@ -107,11 +110,11 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
-          path: build/python/dist/
+          path: dist/
           merge-multiple: true
 
       - name: Publish
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages-dir: build/python/dist/
+          packages-dir: dist/
           repository-url: https://test.pypi.org/legacy/
