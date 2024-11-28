@@ -58,8 +58,8 @@ jobs:
             sudo apt-get -y install g++
             echo "=== DEPEND ==="
             bash .github/scripts/python.sh -d
-            echo "=== REQ ==="
-            python3 -m pip install -r python/dev_requirements.txt
+            # echo "=== REQ ==="
+            # python3 -m pip install -r python/dev_requirements.txt
             echo "=== BUILD ==="
             bash .github/scripts/python.sh -b
             echo "=== TEST ==="
