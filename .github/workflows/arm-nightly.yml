@@ -36,24 +36,38 @@ jobs:
           base_image: $IMG
           bind_mount_repository: $BIND
           cpu: $CPU
-          debug: false
+          debug: true
           image_additional_mb: 20000
           commands: |
+            echo "=== CPU INFO ==="
             cat /proc/cpuinfo
+            echo "=== UPDATE ==="
             sudo apt-get -y update
+            echo "=== INSTALL 1 ==="
             sudo apt-get -y install python3 cmake build-essential pkg-config python3-numpy
+            echo "=== INSTALL 2 ==="
             sudo apt-get -y install libboost-all-dev ninja-build 
+            echo "=== INSTALL 3 ==="
             sudo apt-get -y install g++
-            echo "CC=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
-            echo "CXX=aarch64-linux-gnu-g++" >> $GITHUB_ENV
+            echo "=== SET VARS ==="            
+            echo "CC=gcc" >> $GITHUB_ENV
+            echo "CXX=g++" >> $GITHUB_ENV
+            echo "=== DEPEND ==="
             bash .github/scripts/python.sh -d
+            echo "=== REQ ==="
             python3 -m pip install -r python/dev_requirements.txt
             echo "NIGHTLY=1" >> $GITHUB_ENV
+            echo "=== BUILD ==="
             bash .github/scripts/python.sh -b
+            echo "=== TEST ==="
             bash .github/scripts/python.sh -t
+            echo "=== INSTALL AUDITWHEEL ==="
             python3 -m pip install --upgrade pip auditwheel
+            echo "=== BUILD WHEEL ==="
             python3 -m pip wheel build/python -w build/python/dist
+            echo "=== CHECK LDD VERSION ==="
             ldd --version
+            echo "=== AUDITWHEEL ==="
             python3 -m auditwheel repair --plat manylinux_2_35_aarch64 -w build/python/repaired/ build/python/dist/truher_gtsam_nightly*
 
 
