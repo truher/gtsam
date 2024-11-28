@@ -60,6 +60,10 @@ jobs:
             bash .github/scripts/python.sh -d
             echo "=== REQ ==="
             python3 -m pip install --break-system-packages -r python/dev_requirements.txt
+            echo "=== PWD ==="
+            pwd
+            echo "=== ls ==="
+            ls -R
             echo "=== BUILD ==="
             bash .github/scripts/python.sh -b
             echo "=== TEST ==="
