@@ -36,13 +36,14 @@ jobs:
           base_image: $IMG
           bind_mount_repository: $BIND
           cpu: $CPU
+          debug: false
           image_additional_mb: 20000
           commands: |
             cat /proc/cpuinfo
             sudo apt-get -y update
             sudo apt-get -y install python3 cmake build-essential pkg-config python3-numpy
             sudo apt-get -y install libboost-all-dev ninja-build 
-            sudo apt-get -y install g++ g++-multilib
+            sudo apt-get -y install g++
             echo "CC=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
             echo "CXX=aarch64-linux-gnu-g++" >> $GITHUB_ENV
             bash .github/scripts/python.sh -d
