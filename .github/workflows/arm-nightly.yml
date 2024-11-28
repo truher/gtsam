@@ -42,7 +42,7 @@ jobs:
         with:
           base_image: $IMG
           bind_mount_repository: $BIND
-          copy_repository_path: /home/runner/work/gtsam
+          copy_repository_path: /home/runner/work
           cpu: $CPU
           debug: true
           image_additional_mb: 20000

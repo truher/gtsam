@@ -73,8 +73,7 @@ if(GEOGRAPHICLIB-NOTFOUND)
 else()
   set(install_geographiclib_default OFF)
 endif()
-# option(GTSAM_INSTALL_GEOGRAPHICLIB "Build and install the 3rd-party library GeographicLib" ${install_geographiclib_default})
-option(GTSAM_INSTALL_GEOGRAPHICLIB "Build and install the 3rd-party library GeographicLib" OFF)
+option(GTSAM_INSTALL_GEOGRAPHICLIB "Build and install the 3rd-party library GeographicLib" ${install_geographiclib_default})
 
 # Print warning if we'll overwrite GeographicLib
 if(GEOGRAPHICLIB_FOUND AND GTSAM_INSTALL_GEOGRAPHICLIB)
