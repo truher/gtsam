@@ -30,6 +30,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: env
+        run: |
+            echo "=== SET VARS ==="            
+            echo "CC=gcc" >> $GITHUB_ENV
+            echo "CXX=g++" >> $GITHUB_ENV
+            echo "NIGHTLY=1" >> $GITHUB_ENV
+
       - name: Run on ARM
         uses: pguyot/arm-runner-action@v2
         with:
@@ -49,14 +56,10 @@ jobs:
             sudo apt-get -y install libboost-all-dev ninja-build 
             echo "=== INSTALL 3 ==="
             sudo apt-get -y install g++
-            echo "=== SET VARS ==="            
-            echo "CC=gcc" >> $GITHUB_ENV
-            echo "CXX=g++" >> $GITHUB_ENV
             echo "=== DEPEND ==="
             bash .github/scripts/python.sh -d
             echo "=== REQ ==="
             python3 -m pip install -r python/dev_requirements.txt
-            echo "NIGHTLY=1" >> $GITHUB_ENV
             echo "=== BUILD ==="
             bash .github/scripts/python.sh -b
             echo "=== TEST ==="
