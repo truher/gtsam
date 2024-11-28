@@ -115,6 +115,7 @@ jobs:
                 -S . \
                 -DGTSAM_BUILD_EXAMPLES_ALWAYS=OFF \
                 -DGTSAM_ALLOW_DEPRECATED_SINCE_V43=OFF \
+                -DBUILD_SHARED_LIBS=ON \
                 -DBOOST_ROOT="${BOOST_ROOT}" \
                 -DBOOST_INCLUDEDIR="${BOOST_ROOT}\boost\include" \
                 -DBOOST_LIBRARYDIR="${BOOST_ROOT}\lib"
