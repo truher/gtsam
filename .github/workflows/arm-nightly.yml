@@ -5,10 +5,15 @@ name: ARM Nightly
 
 on: [workflow_dispatch]
 
+env:
+  IMG: raspios_lite_arm64:latest
+  BIND: true
+  CPU: cortex-a76
+
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # strategy:
     #   fail-fast: false
     #   matrix:
@@ -28,8 +33,11 @@ jobs:
       - name: Run on ARM
         uses: pguyot/arm-runner-action@v2
         with:
+          base_image: $IMG
+          bind_mount_repository: $BIND
+          cpu: $CPU
           commands: |
-            echo "hello"
+            cat /proc/cpuinfo
 
       # - name: Setup Python
       #   uses: actions/setup-python@v5
@@ -37,9 +45,14 @@ jobs:
       #     python-version: '3.11'
       #     # python-version: ${{matrix.python_version}}
 
-      #   # these are all separate to make the log easier to read
-      # - name: Install 1
-      #   run: sudo apt-get -y update
+      - name: Install 1
+        uses: pguyot/arm-runner-action@v2
+        with:
+          base_image: $IMG
+          bind_mount_repository: $BIND
+          cpu: $CPU
+          commands: |
+            sudo apt-get -y update
 
       # - name: Install 2
       #   run: sudo apt-get -y install cmake build-essential pkg-config python3-numpy libboost-all-dev ninja-build
