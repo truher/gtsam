@@ -70,7 +70,7 @@ jobs:
             echo "=== TEST ==="
             bash .github/scripts/python.sh -t
             echo "=== INSTALL AUDITWHEEL ==="
-            python3 -m pip install --upgrade pip auditwheel
+            python3 -m pip install --break-system-packages --upgrade pip auditwheel
             echo "=== BUILD WHEEL ==="
             python3 -m pip wheel build/python -w build/python/dist
             echo "=== CHECK LDD VERSION ==="
