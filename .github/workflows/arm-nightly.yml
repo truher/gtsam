@@ -56,7 +56,7 @@ jobs:
             echo "=== INSTALL 2 ==="
             sudo apt-get -y install libboost-all-dev ninja-build 
             echo "=== INSTALL 3 ==="
-            sudo apt-get -y install g++
+            sudo apt-get -y install g++ patchelf
             echo "=== DEPEND ==="
             bash .github/scripts/python.sh -d
             echo "=== REQ ==="
@@ -70,7 +70,7 @@ jobs:
             echo "=== TEST ==="
             bash .github/scripts/python.sh -t
             echo "=== INSTALL AUDITWHEEL ==="
-            python3 -m pip install --break-system-packages --upgrade pip auditwheel patchelf
+            python3 -m pip install --break-system-packages --upgrade pip auditwheel
             echo "=== BUILD WHEEL ==="
             python3 -m pip wheel build/python -w build/python/dist
             echo "=== CHECK LDD VERSION ==="
