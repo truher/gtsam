@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/geometry/SOn.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/geometry/SOn.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 /**

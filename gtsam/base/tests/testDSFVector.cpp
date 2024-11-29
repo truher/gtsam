@@ -16,7 +16,7 @@
  * @brief unit tests for DSF
  */
 
-#include <gtsam/base/DSFVector.h>
+#include "gtsam/base/DSFVector.h"
 
 #include <CppUnitLite/TestHarness.h>
 

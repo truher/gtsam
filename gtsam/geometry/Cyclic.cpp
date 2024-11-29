@@ -15,7 +15,7 @@
  * @author Frank Dellaert
  **/
 
-#include <gtsam/geometry/Cyclic.h>
+#include "gtsam/geometry/Cyclic.h"
 
 namespace gtsam {
 } // \namespace gtsam

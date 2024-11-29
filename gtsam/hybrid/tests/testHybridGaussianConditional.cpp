@@ -18,14 +18,14 @@
  * @date    December 2021
  */
 
-#include <gtsam/discrete/DecisionTree.h>
-#include <gtsam/discrete/DiscreteKey.h>
-#include <gtsam/discrete/DiscreteValues.h>
-#include <gtsam/hybrid/HybridGaussianConditional.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianConditional.h>
+#include "gtsam/discrete/DecisionTree.h"
+#include "gtsam/discrete/DiscreteKey.h"
+#include "gtsam/discrete/DiscreteValues.h"
+#include "gtsam/hybrid/HybridGaussianConditional.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianConditional.h"
 
 #include <memory>
 #include <vector>

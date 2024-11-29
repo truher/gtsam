@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/symbolic/SymbolicBayesTree.h>
-#include <gtsam/inference/JunctionTree.h>
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/symbolic/SymbolicBayesTree.h"
+#include "gtsam/inference/JunctionTree.h"
 
 namespace gtsam {
 

@@ -6,10 +6,10 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Vector.h>
-#include <gtsam/navigation/ImuBias.h>
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/nonlinear/factorTesting.h>
+#include "gtsam/base/Vector.h"
+#include "gtsam/navigation/ImuBias.h"
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/nonlinear/factorTesting.h"
 
 using namespace std;
 using namespace std::placeholders;

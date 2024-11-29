@@ -20,12 +20,12 @@
 #include <stack>
 #include <queue>
 
-#include <gtsam/base/timing.h>
-#include <gtsam/base/treeTraversal-inst.h>
-#include <gtsam/inference/EliminationTree.h>
-#include <gtsam/inference/VariableIndex.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/inference/inference-inst.h>
+#include "gtsam/base/timing.h"
+#include "gtsam/base/treeTraversal-inst.h"
+#include "gtsam/inference/EliminationTree.h"
+#include "gtsam/inference/VariableIndex.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/inference/inference-inst.h"
 
 namespace gtsam {
 

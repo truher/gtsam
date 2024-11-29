@@ -17,9 +17,9 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/linear/KalmanFilter.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/linear/KalmanFilter.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/base/Testable.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

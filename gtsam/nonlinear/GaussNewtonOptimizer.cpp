@@ -16,10 +16,10 @@
  * @date   Feb 26, 2012
  */
 
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/nonlinear/internal/NonlinearOptimizerState.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/nonlinear/internal/NonlinearOptimizerState.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/VectorValues.h"
 
 namespace gtsam {
 

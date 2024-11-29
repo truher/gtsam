@@ -17,9 +17,9 @@
  * See http://www.di.ens.fr/~mschmidt/Software/UGM/small.html
  */
 
-#include <gtsam/base/Vector.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/discrete/DiscreteMarginals.h>
+#include "gtsam/base/Vector.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/discrete/DiscreteMarginals.h"
 
 using namespace std;
 using namespace gtsam;

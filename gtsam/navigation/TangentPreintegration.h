@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include <gtsam/navigation/PreintegrationBase.h>
+#include "gtsam/navigation/PreintegrationBase.h"
 
 namespace gtsam {
 

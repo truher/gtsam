@@ -16,23 +16,23 @@
  *  @date Nov 2009
  */
 
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/slam/ProjectionFactor.h>
-#include <gtsam_unstable/slam/MultiProjectionFactor.h>
-#include <gtsam/nonlinear/ISAM2.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/LinearContainerFactor.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/JunctionTree.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/Cal3DS2.h>
-#include <gtsam/geometry/Cal3_S2.h>
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/slam/ProjectionFactor.h"
+#include "gtsam_unstable/slam/MultiProjectionFactor.h"
+#include "gtsam/nonlinear/ISAM2.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/LinearContainerFactor.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/JunctionTree.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/Cal3DS2.h"
+#include "gtsam/geometry/Cal3_S2.h"
 #include <CppUnitLite/TestHarness.h>
 
 

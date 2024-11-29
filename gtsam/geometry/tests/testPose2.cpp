@@ -15,13 +15,13 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/lieProxies.h>
-#include <gtsam/base/testLie.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Rot2.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/base/lieProxies.h"
+#include "gtsam/base/testLie.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Rot2.h"
 
 #include <optional>
 #include <cmath>

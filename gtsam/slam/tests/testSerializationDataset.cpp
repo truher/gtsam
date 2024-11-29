@@ -16,10 +16,10 @@
  * @date Jan 1, 2021
  */
 
-#include <gtsam/sfm/SfmData.h>
-#include <gtsam/slam/dataset.h>
+#include "gtsam/sfm/SfmData.h"
+#include "gtsam/slam/dataset.h"
 
-#include <gtsam/base/serializationTestHelpers.h>
+#include "gtsam/base/serializationTestHelpers.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

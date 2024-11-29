@@ -20,10 +20,10 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/slam/PoseTranslationPrior.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/slam/PoseTranslationPrior.h"
 
 #include <iostream>
 
@@ -961,7 +961,7 @@ TEST(SmartProjectionRigFactor, Cal3Bundler) {
   EXPECT(assert_equal(cam3.pose(), result.at<Pose3>(x3), 1e-6));
 }
 
-#include <gtsam/slam/ProjectionFactor.h>
+#include "gtsam/slam/ProjectionFactor.h"
 typedef GenericProjectionFactor<Pose3, Point3> TestProjectionFactor;
 static Symbol l0('L', 0);
 /* *************************************************************************/
@@ -1179,7 +1179,7 @@ TEST(SmartProjectionRigFactor, optimization_3poses_measurementsFromSamePose) {
 }
 
 #ifndef DISABLE_TIMING
-#include <gtsam/base/timing.h>
+#include "gtsam/base/timing.h"
 // this factor is slightly slower (but comparable) to original
 // SmartProjectionPoseFactor
 //-Total: 0 CPU (0 times, 0 wall, 0.17 children, min: 0 max: 0)
@@ -1319,7 +1319,7 @@ TEST(SmartProjectionFactorP, optimization_3poses_sphericalCamera) {
 }
 
 #ifndef DISABLE_TIMING
-#include <gtsam/base/timing.h>
+#include "gtsam/base/timing.h"
 // using spherical camera is slightly slower (but comparable) to
 // PinholePose<Cal3_S2>
 //|   -SmartFactorP spherical LINEARIZE: 0.01 CPU (1000 times, 0.008178 wall,

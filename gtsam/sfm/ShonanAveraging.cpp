@@ -18,16 +18,16 @@
 
 #include <SymEigsSolver.h>
 #include <cmath>
-#include <gtsam/linear/PCGSolver.h>
-#include <gtsam/linear/SubgraphPreconditioner.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/sfm/ShonanAveraging.h>
-#include <gtsam/sfm/ShonanFactor.h>
-#include <gtsam/sfm/ShonanGaugeFactor.h>
-#include <gtsam/slam/FrobeniusFactor.h>
-#include <gtsam/slam/KarcherMeanFactor-inl.h>
+#include "gtsam/linear/PCGSolver.h"
+#include "gtsam/linear/SubgraphPreconditioner.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/sfm/ShonanAveraging.h"
+#include "gtsam/sfm/ShonanFactor.h"
+#include "gtsam/sfm/ShonanGaugeFactor.h"
+#include "gtsam/slam/FrobeniusFactor.h"
+#include "gtsam/slam/KarcherMeanFactor-inl.h"
 
 #include <Eigen/Eigenvalues>
 #include <algorithm>

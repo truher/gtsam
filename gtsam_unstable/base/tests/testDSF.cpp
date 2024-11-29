@@ -16,7 +16,7 @@
  * @brief unit tests for DSF
  */
 
-#include <gtsam_unstable/base/DSF.h>
+#include "gtsam_unstable/base/DSF.h"
 
 #include <CppUnitLite/TestHarness.h>
 

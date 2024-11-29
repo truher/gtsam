@@ -23,8 +23,8 @@
 
 #pragma once
 
-#include <gtsam/base/Manifold.h>
-#include <gtsam/base/Group.h>
+#include "gtsam/base/Manifold.h"
+#include "gtsam/base/Group.h"
 
 namespace gtsam {
 

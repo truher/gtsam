@@ -15,8 +15,8 @@
  * @author  Michael Kaess
  */
 
-#include <gtsam/symbolic/SymbolicISAM.h>
-#include <gtsam/symbolic/tests/symbolicExampleGraphs.h>
+#include "gtsam/symbolic/SymbolicISAM.h"
+#include "gtsam/symbolic/tests/symbolicExampleGraphs.h"
 
 #include <CppUnitLite/TestHarness.h>
 

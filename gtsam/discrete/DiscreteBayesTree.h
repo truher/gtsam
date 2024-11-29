@@ -20,11 +20,11 @@
 
 #pragma once
 
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/inference/BayesTree.h>
-#include <gtsam/inference/Conditional.h>
-#include <gtsam/inference/BayesTreeCliqueBase.h>
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/inference/BayesTree.h"
+#include "gtsam/inference/Conditional.h"
+#include "gtsam/inference/BayesTreeCliqueBase.h"
 
 #include <string>
 

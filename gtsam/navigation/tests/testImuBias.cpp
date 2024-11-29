@@ -15,8 +15,8 @@
  * @author  Vadim Indelman, Stephen Williams
  */
 
-#include <gtsam/navigation/ImuBias.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/navigation/ImuBias.h"
+#include "gtsam/base/numericalDerivative.h"
 
 #include <CppUnitLite/TestHarness.h>
 

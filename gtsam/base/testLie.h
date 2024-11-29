@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/base/Lie.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/base/Lie.h"
+#include "gtsam/base/numericalDerivative.h"
 
 #include <CppUnitLite/TestResult.h>
 #include <CppUnitLite/Test.h>

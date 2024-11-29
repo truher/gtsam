@@ -15,7 +15,7 @@
  * @date    Apr 8, 2011
  */
 
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/base/numericalDerivative.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

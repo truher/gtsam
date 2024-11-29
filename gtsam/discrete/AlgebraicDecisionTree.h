@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/discrete/DecisionTree-inl.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/discrete/DecisionTree-inl.h"
 
 #include <algorithm>
 #include <limits>

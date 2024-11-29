@@ -19,8 +19,8 @@
 // \callgraph
 #pragma once
 
-#include <gtsam_unstable/nonlinear/ConcurrentFilteringAndSmoothing.h>
-#include <gtsam/nonlinear/ISAM2.h>
+#include "gtsam_unstable/nonlinear/ConcurrentFilteringAndSmoothing.h"
+#include "gtsam/nonlinear/ISAM2.h"
 
 namespace gtsam {
 

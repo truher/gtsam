@@ -17,11 +17,11 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/utilities.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/utilities.h"
 
 using namespace gtsam;
 using gtsam::symbol_shorthand::L;

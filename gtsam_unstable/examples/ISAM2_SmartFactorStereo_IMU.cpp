@@ -8,9 +8,9 @@
  * The data file is at examples/Data/ISAM2_SmartFactorStereo_IMU.txt
  * It contains 5 frames of stereo matches and IMU data.
  */
-#include <gtsam/navigation/CombinedImuFactor.h>
-#include <gtsam/nonlinear/ISAM2.h>
-#include <gtsam_unstable/slam/SmartStereoProjectionPoseFactor.h>
+#include "gtsam/navigation/CombinedImuFactor.h"
+#include "gtsam/nonlinear/ISAM2.h"
+#include "gtsam_unstable/slam/SmartStereoProjectionPoseFactor.h"
 
 #include <fstream>
 #include <iostream>

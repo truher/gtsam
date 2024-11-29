@@ -18,11 +18,11 @@
 
 #pragma once
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/std_optional_serialization.h>
-#include <gtsam/dllexport.h>
-#include <gtsam/linear/LossFunctions.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/std_optional_serialization.h"
+#include "gtsam/dllexport.h"
+#include "gtsam/linear/LossFunctions.h"
 
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION
 #include <boost/serialization/nvp.hpp>

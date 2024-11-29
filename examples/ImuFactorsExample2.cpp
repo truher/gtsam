@@ -15,14 +15,14 @@
  * @author Robert Truax
  */
 
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/navigation/ImuBias.h>
-#include <gtsam/navigation/ImuFactor.h>
-#include <gtsam/navigation/Scenario.h>
-#include <gtsam/nonlinear/ISAM2.h>
-#include <gtsam/slam/BetweenFactor.h>
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/navigation/ImuBias.h"
+#include "gtsam/navigation/ImuFactor.h"
+#include "gtsam/navigation/Scenario.h"
+#include "gtsam/nonlinear/ISAM2.h"
+#include "gtsam/slam/BetweenFactor.h"
 
 #include <vector>
 

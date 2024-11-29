@@ -17,10 +17,10 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/DiscreteDistribution.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/DiscreteDistribution.h"
+#include "gtsam/inference/Symbol.h"
 
 using namespace std;
 using namespace gtsam;

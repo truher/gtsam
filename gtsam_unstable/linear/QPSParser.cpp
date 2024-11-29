@@ -17,12 +17,12 @@
 
 #define BOOST_SPIRIT_USE_PHOENIX_V3 1
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam_unstable/linear/QP.h>
-#include <gtsam_unstable/linear/QPSParser.h>
-#include <gtsam_unstable/linear/QPSParserException.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam_unstable/linear/QP.h"
+#include "gtsam_unstable/linear/QPSParser.h"
+#include "gtsam_unstable/linear/QPSParserException.h"
 
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/sequence.hpp>

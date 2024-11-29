@@ -15,8 +15,8 @@
  * @author Frank Dellaert
  **/
 
-#include <gtsam/base/Group.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/base/Group.h"
+#include "gtsam/base/Testable.h"
 #include <Eigen/Core>
 #include <iostream>
 
@@ -70,7 +70,7 @@ struct traits<Symmetric<N> > : internal::MultiplicativeGroupTraits<Symmetric<N> 
 
 } // namespace gtsam
 
-#include <gtsam/base/Testable.h>
+#include "gtsam/base/Testable.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

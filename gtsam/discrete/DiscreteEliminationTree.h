@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/inference/EliminationTree.h>
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/inference/EliminationTree.h"
 
 namespace gtsam {
 

@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gtsam/inference/ISAM.h>
-#include <gtsam/inference/VariableIndex.h>
+#include "gtsam/inference/ISAM.h"
+#include "gtsam/inference/VariableIndex.h"
 
 namespace gtsam {
 

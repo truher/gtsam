@@ -17,9 +17,9 @@
  * @author Alex Cunningham
  */
 
-#include <gtsam/geometry/StereoPoint2.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/lieProxies.h>
+#include "gtsam/geometry/StereoPoint2.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/lieProxies.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

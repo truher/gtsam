@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/internal/ExpressionNode.h>
+#include "gtsam/nonlinear/internal/ExpressionNode.h"
 
 #include <map>
 #include <memory>

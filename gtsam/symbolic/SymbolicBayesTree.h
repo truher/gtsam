@@ -18,10 +18,10 @@
 
 #pragma once
 
-#include <gtsam/symbolic/SymbolicBayesNet.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/inference/BayesTree.h>
-#include <gtsam/inference/BayesTreeCliqueBase.h>
+#include "gtsam/symbolic/SymbolicBayesNet.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/inference/BayesTree.h"
+#include "gtsam/inference/BayesTreeCliqueBase.h"
 
 namespace gtsam {
 

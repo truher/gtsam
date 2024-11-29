@@ -4,7 +4,7 @@
 
 namespace gtsam {
 
-#include <gtsam/hybrid/HybridValues.h>
+#include "gtsam/hybrid/HybridValues.h"
 class HybridValues {
   gtsam::VectorValues continuous() const;
   gtsam::DiscreteValues discrete() const;
@@ -34,7 +34,7 @@ class HybridValues {
   gtsam::Vector& at(gtsam::Key j);
 };
 
-#include <gtsam/hybrid/HybridFactor.h>
+#include "gtsam/hybrid/HybridFactor.h"
 virtual class HybridFactor : gtsam::Factor {
   void print(string s = "HybridFactor\n",
              const gtsam::KeyFormatter& keyFormatter =
@@ -51,7 +51,7 @@ virtual class HybridFactor : gtsam::Factor {
   gtsam::KeyVector continuousKeys() const;
 };
 
-#include <gtsam/hybrid/HybridConditional.h>
+#include "gtsam/hybrid/HybridConditional.h"
 virtual class HybridConditional {
   void print(string s = "Hybrid Conditional\n",
              const gtsam::KeyFormatter& keyFormatter =
@@ -72,7 +72,7 @@ virtual class HybridConditional {
   double error(const gtsam::HybridValues& values) const;
 };
 
-#include <gtsam/hybrid/HybridGaussianFactor.h>
+#include "gtsam/hybrid/HybridGaussianFactor.h"
 class HybridGaussianFactor : gtsam::HybridFactor {
   HybridGaussianFactor(
       const gtsam::DiscreteKey& discreteKey,
@@ -87,7 +87,7 @@ class HybridGaussianFactor : gtsam::HybridFactor {
                  gtsam::DefaultKeyFormatter) const;
 };
 
-#include <gtsam/hybrid/HybridGaussianConditional.h>
+#include "gtsam/hybrid/HybridGaussianConditional.h"
 class HybridGaussianConditional : gtsam::HybridFactor {
   HybridGaussianConditional(
       const gtsam::DiscreteKeys& discreteParents,
@@ -106,7 +106,7 @@ class HybridGaussianConditional : gtsam::HybridFactor {
                  gtsam::DefaultKeyFormatter) const;
 };
 
-#include <gtsam/hybrid/HybridBayesTree.h>
+#include "gtsam/hybrid/HybridBayesTree.h"
 class HybridBayesTreeClique {
   HybridBayesTreeClique();
   HybridBayesTreeClique(const gtsam::HybridConditional* conditional);
@@ -132,7 +132,7 @@ class HybridBayesTree {
                  gtsam::DefaultKeyFormatter) const;
 };
 
-#include <gtsam/hybrid/HybridBayesNet.h>
+#include "gtsam/hybrid/HybridBayesNet.h"
 class HybridBayesNet {
   HybridBayesNet();
   void push_back(const gtsam::HybridGaussianConditional* s);
@@ -170,7 +170,7 @@ class HybridBayesNet {
       const gtsam::DotWriter& writer = gtsam::DotWriter()) const;
 };
 
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
 class HybridGaussianFactorGraph {
   HybridGaussianFactorGraph();
   HybridGaussianFactorGraph(const gtsam::HybridBayesNet& bayesNet);
@@ -220,7 +220,7 @@ class HybridGaussianFactorGraph {
       const gtsam::DotWriter& writer = gtsam::DotWriter()) const;
 };
 
-#include <gtsam/hybrid/HybridNonlinearFactorGraph.h>
+#include "gtsam/hybrid/HybridNonlinearFactorGraph.h"
 class HybridNonlinearFactorGraph {
   HybridNonlinearFactorGraph();
   HybridNonlinearFactorGraph(const gtsam::HybridNonlinearFactorGraph& graph);
@@ -241,7 +241,7 @@ class HybridNonlinearFactorGraph {
                  gtsam::DefaultKeyFormatter) const;
 };
 
-#include <gtsam/hybrid/HybridNonlinearFactor.h>
+#include "gtsam/hybrid/HybridNonlinearFactor.h"
 class HybridNonlinearFactor : gtsam::HybridFactor {
   HybridNonlinearFactor(
       const gtsam::DiscreteKey& discreteKey,

@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/linear/GaussianISAM.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/linear/GaussianISAM.h"
 
 namespace gtsam {
 /**

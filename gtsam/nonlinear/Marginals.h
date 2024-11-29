@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
 
 namespace gtsam {
 

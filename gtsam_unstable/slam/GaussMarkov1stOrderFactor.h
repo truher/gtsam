@@ -16,11 +16,11 @@
  **/
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/linear/GaussianFactor.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/Lie.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/linear/GaussianFactor.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/Lie.h"
 
 #include <ostream>
 

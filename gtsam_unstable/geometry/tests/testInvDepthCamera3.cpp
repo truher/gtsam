@@ -7,12 +7,12 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Cal3_S2.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Cal3_S2.h"
 
-#include <gtsam_unstable/geometry/InvDepthCamera3.h>
+#include "gtsam_unstable/geometry/InvDepthCamera3.h"
 
 using namespace std;
 using namespace gtsam;

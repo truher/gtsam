@@ -16,15 +16,15 @@
  * @date    January 2023
  */
 
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/discrete/DiscreteConditional.h>
-#include <gtsam/hybrid/HybridBayesNet.h>
-#include <gtsam/hybrid/HybridBayesTree.h>
-#include <gtsam/hybrid/HybridConditional.h>
-#include <gtsam/hybrid/HybridGaussianConditional.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianConditional.h>
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/discrete/DiscreteConditional.h"
+#include "gtsam/hybrid/HybridBayesNet.h"
+#include "gtsam/hybrid/HybridBayesTree.h"
+#include "gtsam/hybrid/HybridConditional.h"
+#include "gtsam/hybrid/HybridGaussianConditional.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianConditional.h"
 
 #include "Switching.h"
 

@@ -17,12 +17,12 @@
  * @author  Varun Agrawal
  */
 
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/base/testLie.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/base/lieProxies.h>
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/base/testLie.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/base/lieProxies.h"
 
 #include <CppUnitLite/TestHarness.h>
 

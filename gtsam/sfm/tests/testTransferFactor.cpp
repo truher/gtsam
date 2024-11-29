@@ -6,10 +6,10 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/SimpleCamera.h>
-#include <gtsam/nonlinear/factorTesting.h>
-#include <gtsam/sfm/TransferFactor.h>
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/SimpleCamera.h"
+#include "gtsam/nonlinear/factorTesting.h"
+#include "gtsam/sfm/TransferFactor.h"
 
 #include <memory>
 

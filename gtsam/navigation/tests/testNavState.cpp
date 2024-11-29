@@ -16,9 +16,9 @@
  * @date    July 2015
  */
 
-#include <gtsam/navigation/NavState.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/navigation/NavState.h"
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/base/numericalDerivative.h"
 
 #include <CppUnitLite/TestHarness.h>
 

@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/inference/EliminateableFactorGraph.h>
-#include <gtsam/inference/inferenceExceptions.h>
+#include "gtsam/inference/EliminateableFactorGraph.h"
+#include "gtsam/inference/inferenceExceptions.h"
 
 namespace gtsam {
 

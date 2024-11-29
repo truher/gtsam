@@ -17,19 +17,19 @@
 
 #pragma once
 
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/slam/ProjectionFactor.h>
-#include <gtsam/linear/Sampler.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/PinholeCamera.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/slam/ProjectionFactor.h"
+#include "gtsam/linear/Sampler.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/PinholeCamera.h"
 
 #include <exception>
 

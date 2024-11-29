@@ -6,17 +6,17 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/CalibratedCamera.h>
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/expressionTesting.h>
-#include <gtsam/nonlinear/factorTesting.h>
-#include <gtsam/sfm/SfmData.h>
-#include <gtsam/slam/EssentialMatrixFactor.h>
-#include <gtsam/slam/dataset.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/CalibratedCamera.h"
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/expressionTesting.h"
+#include "gtsam/nonlinear/factorTesting.h"
+#include "gtsam/sfm/SfmData.h"
+#include "gtsam/slam/EssentialMatrixFactor.h"
+#include "gtsam/slam/dataset.h"
 
 using namespace std::placeholders;
 using namespace std;

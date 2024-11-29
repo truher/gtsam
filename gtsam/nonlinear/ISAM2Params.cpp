@@ -15,7 +15,7 @@
  * @author  Michael Kaess, Richard Roberts, Frank Dellaert
  */
 
-#include <gtsam/nonlinear/ISAM2Params.h>
+#include "gtsam/nonlinear/ISAM2Params.h"
 
 using namespace std;
 

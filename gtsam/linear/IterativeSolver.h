@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/base/Vector.h>
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/base/Vector.h"
 
 #include <memory>
 

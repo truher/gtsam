@@ -20,14 +20,14 @@
  * @author Stephen Williams
  */
 
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/slam/BetweenFactor.h>
-//#include <gtsam/nonlinear/Ordering.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/geometry/Point2.h>
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/slam/BetweenFactor.h"
+//#include "gtsam/nonlinear/Ordering.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/geometry/Point2.h"
 
 using namespace std;
 using namespace gtsam;

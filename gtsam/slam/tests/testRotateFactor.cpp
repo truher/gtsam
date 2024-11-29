@@ -5,11 +5,11 @@
  * @date December 17, 2013
  */
 
-#include <gtsam/slam/RotateFactor.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/slam/RotateFactor.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/base/numericalDerivative.h"
 #include <CppUnitLite/TestHarness.h>
 
 #include <vector>

@@ -19,9 +19,9 @@
 
 #pragma once
 
-#include <gtsam/base/FastList.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/Vector.h>
+#include "gtsam/base/FastList.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/Vector.h"
 
 #include <string>
 

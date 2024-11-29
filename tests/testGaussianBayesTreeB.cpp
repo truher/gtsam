@@ -16,13 +16,13 @@
  */
 
 #include <tests/smallExample.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/GaussianDensity.h>
-#include <gtsam/linear/HessianFactor.h>
-#include <gtsam/geometry/Rot2.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/GaussianDensity.h"
+#include "gtsam/linear/HessianFactor.h"
+#include "gtsam/geometry/Rot2.h"
 
 #include <CppUnitLite/TestHarness.h>
 

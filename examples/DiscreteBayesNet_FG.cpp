@@ -22,8 +22,8 @@
  * except that everything is using GTSAM.
  */
 
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/discrete/DiscreteMarginals.h>
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/discrete/DiscreteMarginals.h"
 
 #include <iomanip>
 

@@ -18,7 +18,7 @@
 #include <time.h>
 #include <iostream>
 
-#include <gtsam/geometry/Rot3.h>
+#include "gtsam/geometry/Rot3.h"
 
 using namespace std;
 using namespace gtsam;

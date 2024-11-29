@@ -15,16 +15,16 @@
  * @brief test general SFM class, with nonlinear optimization and BAL files
  */
 
-#include <gtsam/sfm/SfmData.h>
-#include <gtsam/slam/dataset.h>
-#include <gtsam/slam/GeneralSFMFactor.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/NonlinearOptimizer.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/NoiseModel.h>
+#include "gtsam/sfm/SfmData.h"
+#include "gtsam/slam/dataset.h"
+#include "gtsam/slam/GeneralSFMFactor.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/NonlinearOptimizer.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/NoiseModel.h"
 
 #include <CppUnitLite/Failure.h>
 #include <CppUnitLite/Test.h>

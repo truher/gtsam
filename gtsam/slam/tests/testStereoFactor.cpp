@@ -15,16 +15,16 @@
  * @author  Chris Beall
  */
 
-#include <gtsam/slam/StereoFactor.h>
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/geometry/StereoCamera.h>
-#include <gtsam/geometry/Cal3_S2Stereo.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Point3.h>
+#include "gtsam/slam/StereoFactor.h"
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/geometry/StereoCamera.h"
+#include "gtsam/geometry/Cal3_S2Stereo.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Point3.h"
 
 #include <CppUnitLite/TestHarness.h>
 

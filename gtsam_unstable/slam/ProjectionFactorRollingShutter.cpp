@@ -15,7 +15,7 @@
  * @author Yotam Stern
  */
 
-#include <gtsam_unstable/slam/ProjectionFactorRollingShutter.h>
+#include "gtsam_unstable/slam/ProjectionFactorRollingShutter.h"
 
 namespace gtsam {
 

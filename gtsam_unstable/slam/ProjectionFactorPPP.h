@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Cal3_S2.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Cal3_S2.h"
 
 namespace gtsam {
 

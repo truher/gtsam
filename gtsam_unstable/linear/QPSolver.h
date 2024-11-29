@@ -19,9 +19,9 @@
 
 #pragma once
 
-#include <gtsam_unstable/linear/QP.h>
-#include <gtsam_unstable/linear/ActiveSetSolver.h>
-#include <gtsam_unstable/linear/QPInitSolver.h>
+#include "gtsam_unstable/linear/QP.h"
+#include "gtsam_unstable/linear/ActiveSetSolver.h"
+#include "gtsam_unstable/linear/QPInitSolver.h"
 #include <limits>
 #include <algorithm>
 

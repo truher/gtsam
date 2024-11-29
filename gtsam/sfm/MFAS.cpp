@@ -5,7 +5,7 @@
  *  @date July 2020
  */
 
-#include <gtsam/sfm/MFAS.h>
+#include "gtsam/sfm/MFAS.h"
 
 #include <algorithm>
 #include <map>

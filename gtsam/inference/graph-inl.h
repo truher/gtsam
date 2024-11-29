@@ -29,7 +29,7 @@
 #endif
 #include <boost/graph/prim_minimum_spanning_tree.hpp>
 
-#include <gtsam/inference/graph.h>
+#include "gtsam/inference/graph.h"
 
 namespace gtsam {
 

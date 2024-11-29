@@ -17,9 +17,9 @@
  **/
 #pragma once
 
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/navigation/NavState.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/navigation/NavState.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 

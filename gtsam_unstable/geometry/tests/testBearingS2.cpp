@@ -9,9 +9,9 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/base/TestableAssertions.h"
 
-#include <gtsam_unstable/geometry/BearingS2.h>
+#include "gtsam_unstable/geometry/BearingS2.h"
 
 using namespace gtsam;
 

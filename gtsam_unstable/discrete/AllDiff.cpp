@@ -5,9 +5,9 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam_unstable/discrete/AllDiff.h>
-#include <gtsam_unstable/discrete/Domain.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam_unstable/discrete/AllDiff.h"
+#include "gtsam_unstable/discrete/Domain.h"
 
 #include <optional>
 

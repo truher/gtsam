@@ -19,11 +19,11 @@
 
 #pragma once
 
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/base/numericalDerivative.h"
 
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/slam/BoundingConstraint.h>
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/slam/BoundingConstraint.h"
 #include <tests/simulated2D.h>
 #include "gtsam/nonlinear/NonlinearFactor.h"
 

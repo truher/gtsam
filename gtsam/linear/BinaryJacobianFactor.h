@@ -20,9 +20,9 @@
 
 #pragma once
 
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/base/SymmetricBlockMatrix.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/base/SymmetricBlockMatrix.h"
+#include "gtsam/base/timing.h"
 
 namespace gtsam {
 

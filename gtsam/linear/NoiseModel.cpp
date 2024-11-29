@@ -16,8 +16,8 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/base/timing.h"
 
 #include <cmath>
 #include <iostream>

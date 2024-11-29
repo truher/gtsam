@@ -18,12 +18,12 @@
  *  @date   August, 2014
  */
 
-#include <gtsam/slam/InitializePose.h>
+#include "gtsam/slam/InitializePose.h"
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/slam/dataset.h>
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/slam/dataset.h"
 
 #include <cmath>
 

@@ -17,10 +17,10 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/basis/Chebyshev.h>
-#include <gtsam/basis/FitBasis.h>
-#include <gtsam/nonlinear/factorTesting.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/basis/Chebyshev.h"
+#include "gtsam/basis/FitBasis.h"
+#include "gtsam/nonlinear/factorTesting.h"
 
 using namespace std;
 using namespace gtsam;
@@ -67,8 +67,8 @@ TEST(Chebyshev, Evaluation) {
 }
 
 //******************************************************************************
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/nonlinear/Marginals.h>
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/nonlinear/Marginals.h"
 TEST(Chebyshev, Expression) {
   // Create linear factor graph
   NonlinearFactorGraph graph;

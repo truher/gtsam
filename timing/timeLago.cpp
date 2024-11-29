@@ -16,12 +16,12 @@
  * @date    Dec 3, 2010
  */
 
-#include <gtsam/slam/dataset.h>
-#include <gtsam/slam/lago.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/linear/Sampler.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/slam/dataset.h"
+#include "gtsam/slam/lago.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/linear/Sampler.h"
+#include "gtsam/base/timing.h"
 
 #include <iostream>
 

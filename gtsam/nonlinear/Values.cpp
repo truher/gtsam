@@ -22,8 +22,8 @@
  *  which is also a manifold element, and hence supports operations dim, retract, and localCoordinates.
  */
 
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/linear/VectorValues.h"
 
 #include <list>
 #include <memory>

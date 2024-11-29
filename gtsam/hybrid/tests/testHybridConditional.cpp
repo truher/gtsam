@@ -15,7 +15,7 @@
  * @date    January 2023
  */
 
-#include <gtsam/hybrid/HybridConditional.h>
+#include "gtsam/hybrid/HybridConditional.h"
 
 #include "TinyHybridExample.h"
 

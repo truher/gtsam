@@ -23,11 +23,11 @@
 
 #pragma once
 
-#include <gtsam/geometry/Unit3.h>
-#include <gtsam/geometry/Quaternion.h>
-#include <gtsam/geometry/SO3.h>
-#include <gtsam/base/concepts.h>
-#include <gtsam/config.h> // Get GTSAM_USE_QUATERNIONS macro
+#include "gtsam/geometry/Unit3.h"
+#include "gtsam/geometry/Quaternion.h"
+#include "gtsam/geometry/SO3.h"
+#include "gtsam/base/concepts.h"
+#include "gtsam/config.h" // Get GTSAM_USE_QUATERNIONS macro
 
 #include <random>
 

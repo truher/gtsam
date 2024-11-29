@@ -17,17 +17,17 @@
  * @author  Christian Potthast
  */
 
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/linearExceptions.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/inference/FactorGraph-inst.h>
-#include <gtsam/config.h> // for GTSAM_USE_TBB
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/linearExceptions.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/inference/FactorGraph-inst.h"
+#include "gtsam/config.h" // for GTSAM_USE_TBB
 
 #ifdef GTSAM_USE_TBB
 #  include <tbb/parallel_for.h>

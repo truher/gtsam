@@ -18,10 +18,10 @@
 
 #include "timeSFMBAL.h"
 
-#include <gtsam/slam/SmartProjectionFactor.h>
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Point3.h>
+#include "gtsam/slam/SmartProjectionFactor.h"
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Point3.h"
 
 using namespace std;
 using namespace gtsam;

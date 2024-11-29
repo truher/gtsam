@@ -15,7 +15,7 @@
  * @author: Alex Cunningham
  */
 
-#include <gtsam/inference/LabeledSymbol.h>
+#include "gtsam/inference/LabeledSymbol.h"
 
 #include <iostream>
 #include <limits>

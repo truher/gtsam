@@ -23,7 +23,7 @@
 #pragma once
 
 /* GTSAM includes */
-#include <gtsam/navigation/PreintegrationCombinedParams.h>
+#include "gtsam/navigation/PreintegrationCombinedParams.h"
 
 namespace gtsam {
 

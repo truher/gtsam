@@ -18,8 +18,8 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/discrete/Signature.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/discrete/Signature.h"
 
 #include <vector>
 

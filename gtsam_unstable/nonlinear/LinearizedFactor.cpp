@@ -15,7 +15,7 @@
  * @author Alex Cunningham
  */
 
-#include <gtsam_unstable/nonlinear/LinearizedFactor.h>
+#include "gtsam_unstable/nonlinear/LinearizedFactor.h"
 #include <iostream>
 
 namespace gtsam {

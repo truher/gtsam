@@ -16,7 +16,7 @@
  * @date    October 2022
  */
 
-#include <gtsam/hybrid/HybridSmoother.h>
+#include "gtsam/hybrid/HybridSmoother.h"
 
 #include <algorithm>
 #include <unordered_set>

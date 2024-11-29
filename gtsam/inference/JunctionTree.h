@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <gtsam/inference/ClusterTree.h>
+#include "gtsam/inference/ClusterTree.h"
 
 namespace gtsam {
 

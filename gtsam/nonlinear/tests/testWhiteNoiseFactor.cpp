@@ -14,8 +14,8 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/nonlinear/WhiteNoiseFactor.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/nonlinear/WhiteNoiseFactor.h"
+#include "gtsam/base/Testable.h"
 
 #include <CppUnitLite/TestHarness.h>
 

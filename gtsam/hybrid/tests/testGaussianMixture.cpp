@@ -17,16 +17,16 @@
  * @date    September 2024
  */
 
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/DiscreteConditional.h>
-#include <gtsam/discrete/DiscreteKey.h>
-#include <gtsam/hybrid/HybridBayesNet.h>
-#include <gtsam/hybrid/HybridGaussianConditional.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/NoiseModel.h>
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/DiscreteConditional.h"
+#include "gtsam/discrete/DiscreteKey.h"
+#include "gtsam/hybrid/HybridBayesNet.h"
+#include "gtsam/hybrid/HybridGaussianConditional.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/NoiseModel.h"
 
 // Include for test suite
 #include <CppUnitLite/TestHarness.h>

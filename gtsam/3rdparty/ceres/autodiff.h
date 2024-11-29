@@ -142,10 +142,10 @@
 
 #include <stddef.h>
 
-#include <gtsam/3rdparty/ceres/jet.h>
-#include <gtsam/3rdparty/ceres/eigen.h>
-#include <gtsam/3rdparty/ceres/fixed_array.h>
-#include <gtsam/3rdparty/ceres/variadic_evaluate.h>
+#include "gtsam/3rdparty/ceres/jet.h"
+#include "gtsam/3rdparty/ceres/eigen.h"
+#include "gtsam/3rdparty/ceres/fixed_array.h"
+#include "gtsam/3rdparty/ceres/variadic_evaluate.h"
 #define DCHECK assert
 #define DCHECK_GT(a,b) assert((a)>(b))
 

@@ -17,13 +17,13 @@
  */
 #pragma once
 
-#include <gtsam/base/FastList.h>
-#include <gtsam/base/FastMap.h>
-#include <gtsam/base/FastSet.h>
-#include <gtsam/base/FastVector.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/types.h>
-#include <gtsam/dllexport.h>
+#include "gtsam/base/FastList.h"
+#include "gtsam/base/FastMap.h"
+#include "gtsam/base/FastSet.h"
+#include "gtsam/base/FastVector.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/types.h"
+#include "gtsam/dllexport.h"
 
 #include <functional>
 

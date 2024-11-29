@@ -19,9 +19,9 @@
 
 #pragma once
 
-#include <gtsam/config.h> // for GTSAM_USE_TBB
+#include "gtsam/config.h" // for GTSAM_USE_TBB
 
-#include <gtsam/dllexport.h>
+#include "gtsam/dllexport.h"
 #include <string>
 #include <typeinfo>
 #include <exception>

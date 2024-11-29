@@ -23,12 +23,12 @@
    */
 
 // In this example, a 2D rotation will be used as the variable of interest
-#include <gtsam/geometry/Rot2.h>
+#include "gtsam/geometry/Rot2.h"
 
 // Each variable in the system (poses) must be identified with a unique key.
 // We can either use simple integer keys (1, 2, 3, ...) or symbols (X1, X2, L1).
 // Here we will use symbols
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/inference/Symbol.h"
 
 // In GTSAM, measurement functions are represented as 'factors'. Several common factors
 // have been provided with the library for solving robotics/SLAM/Bundle Adjustment problems.
@@ -37,20 +37,20 @@
 
 // When the factors are created, we will add them to a Factor Graph. As the factors we are using
 // are nonlinear factors, we will need a Nonlinear Factor Graph.
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
 
 // The nonlinear solvers within GTSAM are iterative solvers, meaning they linearize the
 // nonlinear functions around an initial linearization point, then solve the linear system
 // to update the linearization point. This happens repeatedly until the solver converges
 // to a consistent set of variable values. This requires us to specify an initial guess
 // for each variable, held in a Values container.
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/nonlinear/Values.h"
 
 // Finally, once all of the factors have been added to our factor graph, we will want to
 // solve/optimize to graph to find the best (Maximum A Posteriori) set of variable values.
 // GTSAM includes several nonlinear optimizers to perform this step. Here we will use the
 // standard Levenberg-Marquardt solver
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
 
 
 using namespace std;

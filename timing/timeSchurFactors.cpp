@@ -6,13 +6,13 @@
  */
 
 #include "DummyFactor.h"
-#include <gtsam/base/timing.h>
+#include "gtsam/base/timing.h"
 
-#include <gtsam/slam/JacobianFactorQ.h>
+#include "gtsam/slam/JacobianFactorQ.h"
 #include "gtsam/slam/JacobianFactorQR.h"
-#include <gtsam/slam/RegularImplicitSchurFactor.h>
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/PinholePose.h>
+#include "gtsam/slam/RegularImplicitSchurFactor.h"
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/PinholePose.h"
 
 #include <fstream>
 

@@ -18,9 +18,9 @@
 // \callgraph
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/geometry/Point2.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/geometry/Point2.h"
 #include "gtsam/base/OptionalJacobian.h"
 
 // \namespace

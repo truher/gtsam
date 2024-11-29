@@ -16,10 +16,10 @@
  * @date    Oct 26, 2013
  */
 
-#include <gtsam/base/timing.h>
-#include <gtsam/base/DSFVector.h>
-#include <gtsam_unstable/base/DSF.h>
-#include <gtsam/base/DSFMap.h>
+#include "gtsam/base/timing.h"
+#include "gtsam/base/DSFVector.h"
+#include "gtsam_unstable/base/DSF.h"
+#include "gtsam/base/DSFMap.h"
 
 #include <fstream>
 #include <iostream>

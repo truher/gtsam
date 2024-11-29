@@ -17,15 +17,15 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/geometry/Cal3DS2.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam_unstable/slam/ProjectionFactorRollingShutter.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/geometry/Cal3DS2.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam_unstable/slam/ProjectionFactorRollingShutter.h"
 
 using namespace std::placeholders;
 using namespace std;

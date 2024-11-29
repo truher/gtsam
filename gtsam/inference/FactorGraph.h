@@ -22,10 +22,10 @@
 
 #pragma once
 
-#include <gtsam/inference/DotWriter.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/base/FastVector.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/inference/DotWriter.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/base/FastVector.h"
+#include "gtsam/base/Testable.h"
 
 #include <Eigen/Core>  // for Eigen::aligned_allocator
 
@@ -433,4 +433,4 @@ class FactorGraph {
 };  // FactorGraph
 }  // namespace gtsam
 
-#include <gtsam/inference/FactorGraph-inst.h>
+#include "gtsam/inference/FactorGraph-inst.h"

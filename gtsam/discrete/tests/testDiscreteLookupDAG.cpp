@@ -17,8 +17,8 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/discrete/DiscreteLookupDAG.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/discrete/DiscreteLookupDAG.h"
 
 using namespace gtsam;
 

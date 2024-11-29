@@ -19,7 +19,7 @@
  *  @author Frank Dellaert
  **/
 
-#include <gtsam/navigation/ImuFactor.h>
+#include "gtsam/navigation/ImuFactor.h"
 
 /* External or standard includes */
 #include <ostream>

@@ -16,8 +16,8 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/treeTraversal-inst.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/base/treeTraversal-inst.h"
 
 #include <vector>
 #include <list>

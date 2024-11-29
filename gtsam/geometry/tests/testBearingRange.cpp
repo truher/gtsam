@@ -16,10 +16,10 @@
  *  @date July 2015
  */
 
-#include <gtsam/geometry/BearingRange.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/base/serializationTestHelpers.h>
+#include "gtsam/geometry/BearingRange.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/base/serializationTestHelpers.h"
 
 #include <CppUnitLite/TestHarness.h>
 

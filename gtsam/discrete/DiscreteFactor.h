@@ -18,10 +18,10 @@
 
 #pragma once
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/discrete/AlgebraicDecisionTree.h>
-#include <gtsam/discrete/DiscreteValues.h>
-#include <gtsam/inference/Factor.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/discrete/AlgebraicDecisionTree.h"
+#include "gtsam/discrete/DiscreteValues.h"
+#include "gtsam/inference/Factor.h"
 
 #include <string>
 namespace gtsam {

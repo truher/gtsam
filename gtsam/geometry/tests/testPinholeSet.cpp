@@ -16,16 +16,16 @@
  *  @date   Feb 19, 2015
  */
 
-#include <gtsam/geometry/PinholeSet.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/geometry/PinholeSet.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/base/numericalDerivative.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;
 using namespace gtsam;
 
 /* ************************************************************************* */
-#include <gtsam/geometry/CalibratedCamera.h>
+#include "gtsam/geometry/CalibratedCamera.h"
 TEST(PinholeSet, Stereo) {
   typedef Point2Vector ZZ;
   PinholeSet<CalibratedCamera> set;
@@ -67,8 +67,8 @@ TEST(PinholeSet, Stereo) {
 
 /* ************************************************************************* */
 // Cal3Bundler test
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Cal3Bundler.h>
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Cal3Bundler.h"
 TEST(PinholeSet, Pinhole) {
   typedef PinholeCamera<Cal3Bundler> Camera;
   typedef Point2Vector ZZ;

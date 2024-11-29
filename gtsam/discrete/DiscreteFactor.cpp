@@ -17,9 +17,9 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/base/Vector.h>
-#include <gtsam/discrete/DiscreteFactor.h>
-#include <gtsam/hybrid/HybridValues.h>
+#include "gtsam/base/Vector.h"
+#include "gtsam/discrete/DiscreteFactor.h"
+#include "gtsam/hybrid/HybridValues.h"
 
 #include <cmath>
 #include <sstream>

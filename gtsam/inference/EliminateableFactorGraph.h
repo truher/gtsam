@@ -23,8 +23,8 @@
 #include <functional>
 #include <optional>
 
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/inference/VariableIndex.h>
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/inference/VariableIndex.h"
 
 namespace gtsam {
   /// Traits class for eliminateable factor graphs, specifies the types that result from

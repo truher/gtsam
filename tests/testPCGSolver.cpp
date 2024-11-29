@@ -17,12 +17,12 @@
  */
 
 #include <tests/smallExample.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/PCGSolver.h>
-#include <gtsam/linear/SubgraphPreconditioner.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/base/Matrix.h>
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/PCGSolver.h"
+#include "gtsam/linear/SubgraphPreconditioner.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/base/Matrix.h"
 
 #include <CppUnitLite/TestHarness.h>
 

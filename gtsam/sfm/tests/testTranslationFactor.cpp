@@ -16,9 +16,9 @@
  *  @date March 2020
  */
 
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/sfm/TranslationFactor.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/sfm/TranslationFactor.h"
 
 #include <CppUnitLite/TestHarness.h>
 

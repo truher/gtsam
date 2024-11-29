@@ -16,11 +16,11 @@
  * @author  Stephen Williams
  */
 
-#include <gtsam_unstable/nonlinear/ConcurrentBatchSmoother.h>
-#include <gtsam/nonlinear/LinearContainerFactor.h>
-#include <gtsam/linear/GaussianJunctionTree.h>
-#include <gtsam/base/timing.h>
-#include <gtsam/base/debug.h>
+#include "gtsam_unstable/nonlinear/ConcurrentBatchSmoother.h"
+#include "gtsam/nonlinear/LinearContainerFactor.h"
+#include "gtsam/linear/GaussianJunctionTree.h"
+#include "gtsam/base/timing.h"
+#include "gtsam/base/debug.h"
 
 namespace gtsam {
 

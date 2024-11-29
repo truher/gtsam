@@ -22,10 +22,10 @@
 #pragma once
 
 #include <tests/simulated2D.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
 
 namespace gtsam {
 namespace example {

@@ -18,7 +18,7 @@
  */
 #pragma once
 
-#include <gtsam/linear/linearExceptions.h>
+#include "gtsam/linear/linearExceptions.h"
 
 namespace gtsam {
 

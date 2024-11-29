@@ -15,10 +15,10 @@
  * @author Frank Dellaert
  **/
 
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/base/lieProxies.h>
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/base/lieProxies.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

@@ -18,10 +18,10 @@
 
 #include "timeSFMBAL.h"
 
-#include <gtsam/slam/expressions.h>
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/Point3.h>
+#include "gtsam/slam/expressions.h"
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/Point3.h"
 
 
 using namespace std;

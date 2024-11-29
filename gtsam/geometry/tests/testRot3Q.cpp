@@ -15,11 +15,11 @@
  * @author  Alireza Fathi
  */
 
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/geometry/Quaternion.h>
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/geometry/Quaternion.h"
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/numericalDerivative.h"
 
 #include <CppUnitLite/TestHarness.h>
 

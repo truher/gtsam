@@ -6,14 +6,14 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/HessianFactor.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/nonlinear/LinearContainerFactor.h>
-#include <gtsam/slam/BetweenFactor.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/HessianFactor.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/nonlinear/LinearContainerFactor.h"
+#include "gtsam/slam/BetweenFactor.h"
 
 using namespace std;
 using namespace gtsam;

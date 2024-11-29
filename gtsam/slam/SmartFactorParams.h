@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <gtsam/geometry/triangulation.h>
+#include "gtsam/geometry/triangulation.h"
 
 namespace gtsam {
 

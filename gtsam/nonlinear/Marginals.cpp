@@ -16,10 +16,10 @@
  * @date May 14, 2012
  */
 
-#include <gtsam/base/timing.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/linear/HessianFactor.h>
-#include <gtsam/nonlinear/Marginals.h>
+#include "gtsam/base/timing.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/linear/HessianFactor.h"
+#include "gtsam/nonlinear/Marginals.h"
 
 using namespace std;
 

@@ -18,8 +18,8 @@
  */
 
 
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/base/TestableAssertions.h"
 
 #include <CppUnitLite/TestHarness.h>
 

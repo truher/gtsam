@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <gtsam/base/FastMap.h>
-#include <gtsam/base/types.h>
-#include <gtsam/dllexport.h>
+#include "gtsam/base/FastMap.h"
+#include "gtsam/base/types.h"
+#include "gtsam/dllexport.h"
 
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION
 #include <boost/serialization/version.hpp>

@@ -24,8 +24,8 @@
 
 #pragma once
 
-#include <gtsam/base/OptionalJacobian.h>
-#include <gtsam/base/Vector.h>
+#include "gtsam/base/OptionalJacobian.h"
+#include "gtsam/base/Vector.h"
 
 #include <vector>
 

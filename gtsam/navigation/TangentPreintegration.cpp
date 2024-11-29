@@ -16,7 +16,7 @@
  **/
 
 #include "TangentPreintegration.h"
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/base/numericalDerivative.h"
 
 using namespace std;
 

@@ -9,8 +9,8 @@
 
 #pragma once
 
-#include <gtsam/geometry/concepts.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/geometry/concepts.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 
 namespace gtsam {

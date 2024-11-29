@@ -18,16 +18,16 @@
 */
 
 
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/nonlinear/utilities.h>
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/slam/ProjectionFactor.h>
-#include <gtsam/slam/GeneralSFMFactor.h>
-#include <gtsam/slam/dataset.h>
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/nonlinear/utilities.h"
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/slam/ProjectionFactor.h"
+#include "gtsam/slam/GeneralSFMFactor.h"
+#include "gtsam/slam/dataset.h"
 
 #include <string>
 #include <fstream>

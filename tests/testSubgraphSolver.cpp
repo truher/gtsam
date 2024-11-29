@@ -15,16 +15,16 @@
  *  @author Yong-Dian Jian
  **/
 
-#include <gtsam/linear/SubgraphSolver.h>
+#include "gtsam/linear/SubgraphSolver.h"
 
 #include <tests/smallExample.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/iterative.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/SubgraphBuilder.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/iterative.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/SubgraphBuilder.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/base/numericalDerivative.h"
 
 #include <CppUnitLite/TestHarness.h>
 

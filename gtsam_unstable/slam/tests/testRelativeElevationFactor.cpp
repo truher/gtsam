@@ -7,9 +7,9 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam_unstable/slam/RelativeElevationFactor.h>
+#include "gtsam_unstable/slam/RelativeElevationFactor.h"
 
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/base/numericalDerivative.h"
 
 using namespace std::placeholders;
 using namespace gtsam;

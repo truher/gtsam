@@ -1,3 +1,8 @@
+bazel-*
+*.lock
+*.swp
+
+
 /build*
 /debug*
 .idea

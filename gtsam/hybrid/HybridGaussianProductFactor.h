@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/discrete/DecisionTree.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam/discrete/DecisionTree.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
 
 #include <iostream>
 

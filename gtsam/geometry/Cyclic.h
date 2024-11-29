@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gtsam/base/Group.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/base/Group.h"
+#include "gtsam/base/Testable.h"
 
 #include <cassert>
 #include <iostream>  // for cout :-(

@@ -17,14 +17,14 @@
 
 #pragma once
 
-#include <gtsam/linear/SubgraphBuilder.h>
-#include <gtsam/linear/Errors.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/IterativeSolver.h>
-#include <gtsam/linear/Preconditioner.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/dllexport.h>
+#include "gtsam/linear/SubgraphBuilder.h"
+#include "gtsam/linear/Errors.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/IterativeSolver.h"
+#include "gtsam/linear/Preconditioner.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/dllexport.h"
 
 #include <memory>
 

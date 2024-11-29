@@ -19,10 +19,10 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/internal/JacobianMap.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/base/OptionalJacobian.h>
-#include <gtsam/base/VectorSpace.h>
+#include "gtsam/nonlinear/internal/JacobianMap.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/base/OptionalJacobian.h"
+#include "gtsam/base/VectorSpace.h"
 
 #include <map>
 
@@ -304,5 +304,5 @@ std::vector<Expression<T> > createUnknowns(size_t n, char c, size_t start = 0);
 
 } // namespace gtsam
 
-#include <gtsam/nonlinear/Expression-inl.h>
+#include "gtsam/nonlinear/Expression-inl.h"
 

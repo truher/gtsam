@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/base/Manifold.h>
-#include <gtsam/nonlinear/NonlinearOptimizer.h>
+#include "gtsam/base/Manifold.h"
+#include "gtsam/nonlinear/NonlinearOptimizer.h"
 
 #include <stdexcept>
 

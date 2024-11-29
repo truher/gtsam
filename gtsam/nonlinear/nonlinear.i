@@ -4,30 +4,30 @@
 
 namespace gtsam {
 
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/Cal3DS2.h>
-#include <gtsam/geometry/Cal3Fisheye.h>
-#include <gtsam/geometry/Cal3Unified.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/CalibratedCamera.h>
-#include <gtsam/geometry/EssentialMatrix.h>
-#include <gtsam/geometry/FundamentalMatrix.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Rot2.h>
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/geometry/SO3.h>
-#include <gtsam/geometry/SO4.h>
-#include <gtsam/geometry/SOn.h>
-#include <gtsam/geometry/StereoPoint2.h>
-#include <gtsam/geometry/Unit3.h>
-#include <gtsam/navigation/ImuBias.h>
-#include <gtsam/navigation/NavState.h>
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/Cal3DS2.h"
+#include "gtsam/geometry/Cal3Fisheye.h"
+#include "gtsam/geometry/Cal3Unified.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/CalibratedCamera.h"
+#include "gtsam/geometry/EssentialMatrix.h"
+#include "gtsam/geometry/FundamentalMatrix.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Rot2.h"
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/geometry/SO3.h"
+#include "gtsam/geometry/SO4.h"
+#include "gtsam/geometry/SOn.h"
+#include "gtsam/geometry/StereoPoint2.h"
+#include "gtsam/geometry/Unit3.h"
+#include "gtsam/navigation/ImuBias.h"
+#include "gtsam/navigation/NavState.h"
 
-#include <gtsam/nonlinear/GraphvizFormatting.h>
+#include "gtsam/nonlinear/GraphvizFormatting.h"
 class GraphvizFormatting : gtsam::DotWriter {
   GraphvizFormatting();
 
@@ -39,7 +39,7 @@ class GraphvizFormatting : gtsam::DotWriter {
   bool mergeSimilarFactors;
 };
 
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
 class NonlinearFactorGraph {
   NonlinearFactorGraph();
   NonlinearFactorGraph(const gtsam::NonlinearFactorGraph& graph);
@@ -119,7 +119,7 @@ class NonlinearFactorGraph {
   void serialize() const;
 };
 
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
 virtual class NonlinearFactor : gtsam::Factor {
   // Factor base class
   void print(string s = "", const gtsam::KeyFormatter& keyFormatter =
@@ -134,7 +134,7 @@ virtual class NonlinearFactor : gtsam::Factor {
   gtsam::NonlinearFactor* rekey(const gtsam::KeyVector& newKeys) const;
 };
 
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
 virtual class NoiseModelFactor : gtsam::NonlinearFactor {
   bool equals(const gtsam::NoiseModelFactor& other, double tol) const;
   gtsam::noiseModel::Base* noiseModel() const;
@@ -143,7 +143,7 @@ virtual class NoiseModelFactor : gtsam::NonlinearFactor {
   gtsam::Vector whitenedError(const gtsam::Values& x) const;
 };
 
-#include <gtsam/nonlinear/Marginals.h>
+#include "gtsam/nonlinear/Marginals.h"
 class Marginals {
   Marginals(const gtsam::NonlinearFactorGraph& graph,
             const gtsam::Values& solution);
@@ -169,7 +169,7 @@ class JointMarginal {
                                 gtsam::DefaultKeyFormatter) const;
 };
 
-#include <gtsam/nonlinear/LinearContainerFactor.h>
+#include "gtsam/nonlinear/LinearContainerFactor.h"
 virtual class LinearContainerFactor : gtsam::NonlinearFactor {
   LinearContainerFactor(gtsam::GaussianFactor* factor,
                         const gtsam::Values& linearizationPoint);
@@ -194,7 +194,7 @@ virtual class LinearContainerFactor : gtsam::NonlinearFactor {
 };  // \class LinearContainerFactor
 
 // Summarization functionality
-//#include <gtsam/nonlinear/summarization.h>
+//#include "gtsam/nonlinear/summarization.h"
 //
 //// Uses partial QR approach by default
 // gtsam::GaussianFactorGraph summarize(
@@ -208,7 +208,7 @@ virtual class LinearContainerFactor : gtsam::NonlinearFactor {
 //*************************************************************************
 // Nonlinear optimizers
 //*************************************************************************
-#include <gtsam/nonlinear/NonlinearOptimizerParams.h>
+#include "gtsam/nonlinear/NonlinearOptimizerParams.h"
 virtual class NonlinearOptimizerParams {
   NonlinearOptimizerParams();
   void print(string s = "") const;
@@ -248,12 +248,12 @@ bool checkConvergence(double relativeErrorTreshold,
 bool checkConvergence(const gtsam::NonlinearOptimizerParams& params,
                       double currentError, double newError);
 
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
 virtual class GaussNewtonParams : gtsam::NonlinearOptimizerParams {
   GaussNewtonParams();
 };
 
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
 virtual class LevenbergMarquardtParams : gtsam::NonlinearOptimizerParams {
   LevenbergMarquardtParams();
 
@@ -285,7 +285,7 @@ virtual class LevenbergMarquardtParams : gtsam::NonlinearOptimizerParams {
       gtsam::LevenbergMarquardtParams params, const gtsam::Ordering& ordering);
 };
 
-#include <gtsam/nonlinear/DoglegOptimizer.h>
+#include "gtsam/nonlinear/DoglegOptimizer.h"
 virtual class DoglegParams : gtsam::NonlinearOptimizerParams {
   DoglegParams();
 
@@ -296,7 +296,7 @@ virtual class DoglegParams : gtsam::NonlinearOptimizerParams {
   void setVerbosityDL(string verbosityDL) const;
 };
 
-#include <gtsam/nonlinear/GncParams.h>
+#include "gtsam/nonlinear/GncParams.h"
 enum GncLossType {
   GM /*Geman McClure*/,
   TLS /*Truncated least squares*/
@@ -338,7 +338,7 @@ virtual class GncParams {
 typedef gtsam::GncParams<gtsam::GaussNewtonParams> GncGaussNewtonParams;
 typedef gtsam::GncParams<gtsam::LevenbergMarquardtParams> GncLMParams;
   
-#include <gtsam/nonlinear/NonlinearOptimizer.h>
+#include "gtsam/nonlinear/NonlinearOptimizer.h"
 virtual class NonlinearOptimizer {
   gtsam::Values optimize();
   gtsam::Values optimizeSafely();
@@ -349,7 +349,7 @@ virtual class NonlinearOptimizer {
   gtsam::GaussianFactorGraph* iterate() const;
 };
 
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
 virtual class GaussNewtonOptimizer : gtsam::NonlinearOptimizer {
   GaussNewtonOptimizer(const gtsam::NonlinearFactorGraph& graph,
                        const gtsam::Values& initialValues);
@@ -358,7 +358,7 @@ virtual class GaussNewtonOptimizer : gtsam::NonlinearOptimizer {
                        const gtsam::GaussNewtonParams& params);
 };
 
-#include <gtsam/nonlinear/DoglegOptimizer.h>
+#include "gtsam/nonlinear/DoglegOptimizer.h"
 virtual class DoglegOptimizer : gtsam::NonlinearOptimizer {
   DoglegOptimizer(const gtsam::NonlinearFactorGraph& graph,
                   const gtsam::Values& initialValues);
@@ -369,7 +369,7 @@ virtual class DoglegOptimizer : gtsam::NonlinearOptimizer {
 };
   
 // TODO(dellaert): This will only work when GTSAM_USE_BOOST_FEATURES is true.
-#include <gtsam/nonlinear/GncOptimizer.h>
+#include "gtsam/nonlinear/GncOptimizer.h"
 template<PARAMS>
 virtual class GncOptimizer {
   GncOptimizer(const gtsam::NonlinearFactorGraph& graph,
@@ -386,7 +386,7 @@ virtual class GncOptimizer {
 typedef gtsam::GncOptimizer<gtsam::GncParams<gtsam::GaussNewtonParams>> GncGaussNewtonOptimizer;
 typedef gtsam::GncOptimizer<gtsam::GncParams<gtsam::LevenbergMarquardtParams>> GncLMOptimizer;
 
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
 virtual class LevenbergMarquardtOptimizer : gtsam::NonlinearOptimizer {
   LevenbergMarquardtOptimizer(const gtsam::NonlinearFactorGraph& graph,
                               const gtsam::Values& initialValues,
@@ -402,7 +402,7 @@ virtual class LevenbergMarquardtOptimizer : gtsam::NonlinearOptimizer {
   void print(string s = "") const;
 };
 
-#include <gtsam/nonlinear/ISAM2.h>
+#include "gtsam/nonlinear/ISAM2.h"
 class ISAM2GaussNewtonParams {
   ISAM2GaussNewtonParams(double _wildfireThreshold = 0.001);
 
@@ -569,7 +569,7 @@ class ISAM2 {
                                gtsam::DefaultKeyFormatter) const;
 };
 
-#include <gtsam/nonlinear/NonlinearISAM.h>
+#include "gtsam/nonlinear/NonlinearISAM.h"
 class NonlinearISAM {
   NonlinearISAM();
   NonlinearISAM(int reorderInterval);
@@ -595,7 +595,7 @@ class NonlinearISAM {
 //*************************************************************************
 // Nonlinear factor types
 //*************************************************************************
-#include <gtsam/nonlinear/PriorFactor.h>
+#include "gtsam/nonlinear/PriorFactor.h"
 template <T = {double,
                gtsam::Vector,
                gtsam::Point2,
@@ -629,7 +629,7 @@ virtual class PriorFactor : gtsam::NoiseModelFactor {
   void serialize() const;
 };
 
-#include <gtsam/nonlinear/NonlinearEquality.h>
+#include "gtsam/nonlinear/NonlinearEquality.h"
 template <T = {gtsam::Point2, gtsam::StereoPoint2, gtsam::Point3, gtsam::Rot2,
                gtsam::SO3, gtsam::SO4, gtsam::SOn, gtsam::Rot3, gtsam::Pose2,
                gtsam::Pose3, gtsam::Cal3_S2, gtsam::CalibratedCamera,
@@ -661,7 +661,7 @@ virtual class NonlinearEquality2 : gtsam::NoiseModelFactor {
   gtsam::Vector evaluateError(const T& x1, const T& x2);
 };
 
-#include <gtsam/nonlinear/FixedLagSmoother.h>
+#include "gtsam/nonlinear/FixedLagSmoother.h"
 class FixedLagSmootherKeyTimestampMapValue {
   FixedLagSmootherKeyTimestampMapValue(size_t key, double timestamp);
   FixedLagSmootherKeyTimestampMapValue(const gtsam::FixedLagSmootherKeyTimestampMapValue& other);
@@ -706,7 +706,7 @@ virtual class FixedLagSmoother {
   gtsam::Values calculateEstimate() const;
 };
 
-#include <gtsam/nonlinear/BatchFixedLagSmoother.h>
+#include "gtsam/nonlinear/BatchFixedLagSmoother.h"
 virtual class BatchFixedLagSmoother : gtsam::FixedLagSmoother {
   BatchFixedLagSmoother();
   BatchFixedLagSmoother(double smootherLag);

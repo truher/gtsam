@@ -17,9 +17,9 @@
  *  @date December 2014
  */
 
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/nonlinear/Expression.h>
-#include <gtsam_unstable/geometry/Event.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/nonlinear/Expression.h"
+#include "gtsam_unstable/geometry/Event.h"
 
 #include <CppUnitLite/TestHarness.h>
 

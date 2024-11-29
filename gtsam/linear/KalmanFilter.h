@@ -19,9 +19,9 @@
 
 #pragma once
 
-#include <gtsam/linear/GaussianDensity.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/NoiseModel.h>
+#include "gtsam/linear/GaussianDensity.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/NoiseModel.h"
 
 #ifndef KALMANFILTER_DEFAULT_FACTORIZATION
 #define KALMANFILTER_DEFAULT_FACTORIZATION QR

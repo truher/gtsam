@@ -16,11 +16,11 @@
  *  @date July 2020
  */
 
-#include <gtsam/sfm/BinaryMeasurement.h>
+#include "gtsam/sfm/BinaryMeasurement.h"
 
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/geometry/Unit3.h>
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/geometry/Unit3.h"
+#include "gtsam/geometry/Pose3.h"
 
 #include <CppUnitLite/TestHarness.h>
 

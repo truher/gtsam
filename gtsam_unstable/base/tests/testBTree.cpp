@@ -17,7 +17,7 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam_unstable/base/BTree.h>
+#include "gtsam_unstable/base/BTree.h"
 
 #include <list>
 

@@ -19,7 +19,7 @@
 // \callgraph
 #pragma once
 
-#include <gtsam/linear/GaussianConditional.h>
+#include "gtsam/linear/GaussianConditional.h"
 
 namespace gtsam {
 

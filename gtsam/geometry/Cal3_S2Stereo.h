@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include <gtsam/geometry/Cal3_S2.h>
+#include "gtsam/geometry/Cal3_S2.h"
 #include <iosfwd>
 
 namespace gtsam {

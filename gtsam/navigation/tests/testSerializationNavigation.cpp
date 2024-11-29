@@ -21,10 +21,10 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/navigation/AttitudeFactor.h>
-#include <gtsam/navigation/CombinedImuFactor.h>
-#include <gtsam/navigation/ImuFactor.h>
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/navigation/AttitudeFactor.h"
+#include "gtsam/navigation/CombinedImuFactor.h"
+#include "gtsam/navigation/ImuFactor.h"
 
 #include <fstream>
 

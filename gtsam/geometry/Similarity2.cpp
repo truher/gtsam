@@ -15,11 +15,11 @@
  * @author John Lambert, Varun Agrawal
  */
 
-#include <gtsam/base/Manifold.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/geometry/Similarity2.h>
-#include <gtsam/slam/KarcherMeanFactor-inl.h>
+#include "gtsam/base/Manifold.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/geometry/Similarity2.h"
+#include "gtsam/slam/KarcherMeanFactor-inl.h"
 
 namespace gtsam {
 

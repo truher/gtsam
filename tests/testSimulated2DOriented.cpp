@@ -18,9 +18,9 @@
 
 #include <tests/simulated2D.h>
 #include <tests/simulated2DOriented.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/numericalDerivative.h"
 
 using namespace std;
 using namespace gtsam;

@@ -1,6 +1,6 @@
 namespace gtsam {
 
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/geometry/Pose3.h"
 class Pose3 {
   Pose3();
   Pose3(gtsam::Rot3 R, gtsam::Point3 t);

@@ -26,28 +26,28 @@
 #include "SFMdata.h"
 
 // Camera observations of landmarks will be stored as Point2 (x, y).
-#include <gtsam/geometry/Point2.h>
+#include "gtsam/geometry/Point2.h"
 
 // Each variable in the system (poses and landmarks) must be identified with a
 // unique key. We can either use simple integer keys (1, 2, 3, ...) or symbols
 // (X1, X2, L1). Here we will use Symbols
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/inference/Symbol.h"
 
 // We want to use iSAM2 to solve the structure-from-motion problem
 // incrementally, so include iSAM2 here
-#include <gtsam/nonlinear/ISAM2.h>
+#include "gtsam/nonlinear/ISAM2.h"
 
 // iSAM2 requires as input a set of new factors to be added stored in a factor
 // graph, and initial guesses for any new variables used in the added factors
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
 
 // In GTSAM, measurement functions are represented as 'factors'. Several common
 // factors have been provided with the library for solving robotics/SLAM/Bundle
 // Adjustment problems. Here we will use Projection factors to model the
 // camera's landmark observations. Also, we will initialize the robot at some
 // location using a Prior factor.
-#include <gtsam/slam/ProjectionFactor.h>
+#include "gtsam/slam/ProjectionFactor.h"
 
 #include <vector>
 

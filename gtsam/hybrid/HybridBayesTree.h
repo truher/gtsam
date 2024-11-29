@@ -19,12 +19,12 @@
 
 #pragma once
 
-#include <gtsam/hybrid/HybridBayesNet.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/inference/BayesTree.h>
-#include <gtsam/inference/BayesTreeCliqueBase.h>
-#include <gtsam/inference/Conditional.h>
-#include <gtsam/linear/GaussianBayesTree.h>
+#include "gtsam/hybrid/HybridBayesNet.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/inference/BayesTree.h"
+#include "gtsam/inference/BayesTreeCliqueBase.h"
+#include "gtsam/inference/Conditional.h"
+#include "gtsam/linear/GaussianBayesTree.h"
 
 #include <string>
 

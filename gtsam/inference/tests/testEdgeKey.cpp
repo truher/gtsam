@@ -17,7 +17,7 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/inference/EdgeKey.h>
+#include "gtsam/inference/EdgeKey.h"
 
 #include <sstream>
 

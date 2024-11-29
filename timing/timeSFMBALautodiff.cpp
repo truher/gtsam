@@ -17,10 +17,10 @@
  */
 
 #include "timeSFMBAL.h"
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam/nonlinear/AdaptAutoDiff.h>
-#include <gtsam/3rdparty/ceres/example.h>
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam/nonlinear/AdaptAutoDiff.h"
+#include "gtsam/3rdparty/ceres/example.h"
 
 #include <stddef.h>
 #include <stdexcept>

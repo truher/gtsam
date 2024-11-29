@@ -16,9 +16,9 @@
  * @date    October 2022
  */
 
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/hybrid/HybridBayesNet.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/hybrid/HybridBayesNet.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
 
 #include <optional>
 

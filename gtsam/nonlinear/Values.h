@@ -24,10 +24,10 @@
 
 #pragma once
 
-#include <gtsam/inference/Key.h>
-#include <gtsam/base/FastDefaultAllocator.h>
-#include <gtsam/base/GenericValue.h>
-#include <gtsam/base/VectorSpace.h>
+#include "gtsam/inference/Key.h"
+#include "gtsam/base/FastDefaultAllocator.h"
+#include "gtsam/base/GenericValue.h"
+#include "gtsam/base/VectorSpace.h"
 
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION
 #include <boost/serialization/unique_ptr.hpp>
@@ -523,4 +523,4 @@ namespace gtsam {
 } //\ namespace gtsam
 
 
-#include <gtsam/nonlinear/Values-inl.h>
+#include "gtsam/nonlinear/Values-inl.h"

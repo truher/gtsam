@@ -16,7 +16,7 @@
  * @author Luca Carlone
  */
 
-#include <gtsam/geometry/SphericalCamera.h>
+#include "gtsam/geometry/SphericalCamera.h"
 
 using namespace std;
 

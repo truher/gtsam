@@ -16,7 +16,7 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam_unstable/base/FixedVector.h>
+#include "gtsam_unstable/base/FixedVector.h"
 
 using namespace gtsam;
 

@@ -533,7 +533,7 @@ class TestInterfaceParser(unittest.TestCase):
     def test_include(self):
         """Test for include statements."""
         include = Include.rule.parseString(
-            "#include <gtsam/slam/PriorFactor.h>")[0]
+            "#include "gtsam/slam/PriorFactor.h"")[0]
         self.assertEqual("gtsam/slam/PriorFactor.h", include.header)
 
     def test_forward_declaration(self):
@@ -608,7 +608,7 @@ class TestInterfaceParser(unittest.TestCase):
         """Test for namespace parsing."""
         namespace = Namespace.rule.parseString("""
         namespace gtsam {
-          #include <gtsam/geometry/Point2.h>
+          #include "gtsam/geometry/Point2.h"
           class Point2 {
             Point2();
             Point2(double x, double y);
@@ -620,7 +620,7 @@ class TestInterfaceParser(unittest.TestCase):
             void argUChar(unsigned char a) const;
           };
 
-          #include <gtsam/geometry/Point3.h>
+          #include "gtsam/geometry/Point3.h"
           class Point3 {
             Point3(double x, double y, double z);
             double norm() const;

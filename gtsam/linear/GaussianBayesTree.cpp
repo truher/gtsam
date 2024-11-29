@@ -17,13 +17,13 @@
  * @author  Richard Roberts
  */
 
-#include <gtsam/base/treeTraversal-inst.h>
-#include <gtsam/inference/BayesTree-inst.h>
-#include <gtsam/inference/BayesTreeCliqueBase-inst.h>
-#include <gtsam/linear/linearAlgorithms-inst.h>
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/base/treeTraversal-inst.h"
+#include "gtsam/inference/BayesTree-inst.h"
+#include "gtsam/inference/BayesTreeCliqueBase-inst.h"
+#include "gtsam/linear/linearAlgorithms-inst.h"
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/VectorValues.h"
 
 namespace gtsam {
 

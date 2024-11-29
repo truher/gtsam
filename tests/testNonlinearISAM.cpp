@@ -5,16 +5,16 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/sam/BearingRangeFactor.h>
-#include <gtsam/slam/dataset.h>
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/nonlinear/NonlinearISAM.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/Sampler.h>
-#include <gtsam/geometry/Pose2.h>
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/sam/BearingRangeFactor.h"
+#include "gtsam/slam/dataset.h"
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/nonlinear/NonlinearISAM.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/Sampler.h"
+#include "gtsam/geometry/Pose2.h"
 
 #include <iostream>
 #include <sstream>

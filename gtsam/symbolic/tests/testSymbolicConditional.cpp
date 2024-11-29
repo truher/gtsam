@@ -17,8 +17,8 @@
 
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/symbolic/SymbolicConditional.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/symbolic/SymbolicConditional.h"
 
 using namespace std;
 using namespace gtsam;

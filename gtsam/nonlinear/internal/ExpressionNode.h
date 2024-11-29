@@ -19,9 +19,9 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/internal/ExecutionTrace.h>
-#include <gtsam/nonlinear/internal/CallRecord.h>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/nonlinear/internal/ExecutionTrace.h"
+#include "gtsam/nonlinear/internal/CallRecord.h"
+#include "gtsam/nonlinear/Values.h"
 
 #include <typeinfo>       // operator typeid
 #include <ostream>

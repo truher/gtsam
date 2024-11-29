@@ -16,9 +16,9 @@
  * @date   January 22, 2014
  */
 
-#include <gtsam/navigation/GPSFactor.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/navigation/GPSFactor.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/numericalDerivative.h"
 
 #include <CppUnitLite/TestHarness.h>
 

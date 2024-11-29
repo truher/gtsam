@@ -35,7 +35,7 @@ string html(const gtsam::DiscreteValues& values,
             const gtsam::KeyFormatter& keyFormatter,
             std::map<gtsam::Key, std::vector<std::string>> names);
 
-#include <gtsam/discrete/DiscreteFactor.h>
+#include "gtsam/discrete/DiscreteFactor.h"
 virtual class DiscreteFactor : gtsam::Factor {
   void print(string s = "DiscreteFactor\n",
              const gtsam::KeyFormatter& keyFormatter =
@@ -44,7 +44,7 @@ virtual class DiscreteFactor : gtsam::Factor {
   double operator()(const gtsam::DiscreteValues& values) const;
 };
 
-#include <gtsam/discrete/DecisionTreeFactor.h>
+#include "gtsam/discrete/DecisionTreeFactor.h"
 virtual class DecisionTreeFactor : gtsam::DiscreteFactor {
   DecisionTreeFactor();
 
@@ -92,8 +92,8 @@ virtual class DecisionTreeFactor : gtsam::DiscreteFactor {
               std::map<gtsam::Key, std::vector<std::string>> names) const;
 };
 
-#include <gtsam/discrete/DiscreteConditional.h>
-#include <gtsam/hybrid/HybridValues.h>
+#include "gtsam/discrete/DiscreteConditional.h"
+#include "gtsam/hybrid/HybridValues.h"
 virtual class DiscreteConditional : gtsam::DecisionTreeFactor {
   DiscreteConditional();
   DiscreteConditional(size_t nFrontals, const gtsam::DecisionTreeFactor& f);
@@ -155,7 +155,7 @@ virtual class DiscreteConditional : gtsam::DecisionTreeFactor {
   double error(const gtsam::HybridValues& x) const;
 };
 
-#include <gtsam/discrete/DiscreteDistribution.h>
+#include "gtsam/discrete/DiscreteDistribution.h"
 virtual class DiscreteDistribution : gtsam::DiscreteConditional {
   DiscreteDistribution();
   DiscreteDistribution(const gtsam::DecisionTreeFactor& f);
@@ -168,7 +168,7 @@ virtual class DiscreteDistribution : gtsam::DiscreteConditional {
   std::vector<double> pmf() const;
 };
 
-#include <gtsam/discrete/DiscreteBayesNet.h>
+#include "gtsam/discrete/DiscreteBayesNet.h"
 class DiscreteBayesNet {
   DiscreteBayesNet();
   void add(const gtsam::DiscreteConditional& s);
@@ -211,7 +211,7 @@ class DiscreteBayesNet {
               std::map<gtsam::Key, std::vector<std::string>> names) const;
 };
 
-#include <gtsam/discrete/DiscreteBayesTree.h>
+#include "gtsam/discrete/DiscreteBayesTree.h"
 class DiscreteBayesTreeClique {
   DiscreteBayesTreeClique();
   DiscreteBayesTreeClique(const gtsam::DiscreteConditional* conditional);
@@ -260,7 +260,7 @@ class DiscreteBayesTree {
               std::map<gtsam::Key, std::vector<std::string>> names) const;
 };
 
-#include <gtsam/discrete/DiscreteLookupDAG.h>
+#include "gtsam/discrete/DiscreteLookupDAG.h"
 
 class DiscreteLookupTable : gtsam::DiscreteConditional{
   DiscreteLookupTable(size_t nFrontals, const gtsam::DiscreteKeys& keys,
@@ -285,7 +285,7 @@ class DiscreteLookupDAG {
   gtsam::DiscreteValues argmax(gtsam::DiscreteValues given) const;
 };
 
-#include <gtsam/discrete/DiscreteFactorGraph.h>
+#include "gtsam/discrete/DiscreteFactorGraph.h"
 pair<gtsam::DiscreteConditional*, gtsam::DecisionTreeFactor*>
 EliminateDiscrete(const gtsam::DiscreteFactorGraph& factors,
                   const gtsam::Ordering& frontalKeys);
@@ -381,7 +381,7 @@ class DiscreteFactorGraph {
               std::map<gtsam::Key, std::vector<std::string>> names) const;
 };
 
-#include <gtsam/discrete/DiscreteEliminationTree.h>
+#include "gtsam/discrete/DiscreteEliminationTree.h"
 
 class DiscreteEliminationTree {
   DiscreteEliminationTree(const gtsam::DiscreteFactorGraph& factorGraph,
@@ -398,7 +398,7 @@ class DiscreteEliminationTree {
               double tol = 1e-9) const;
 };
 
-#include <gtsam/discrete/DiscreteJunctionTree.h>
+#include "gtsam/discrete/DiscreteJunctionTree.h"
 
 class DiscreteCluster {
   gtsam::Ordering orderedFrontalKeys;

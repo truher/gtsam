@@ -16,12 +16,12 @@
  * @brief Tests the OrientedPlane3Factor class
  */
 
-#include <gtsam/slam/OrientedPlane3Factor.h>
+#include "gtsam/slam/OrientedPlane3Factor.h"
 
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/nonlinear/ISAM2.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/nonlinear/ISAM2.h"
 
 #include <CppUnitLite/TestHarness.h>
 

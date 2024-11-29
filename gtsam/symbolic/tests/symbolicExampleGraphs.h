@@ -20,13 +20,13 @@
 
 #pragma once
 
-#include <gtsam/base/FastDefaultAllocator.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/symbolic/SymbolicFactor.h>
-#include <gtsam/symbolic/SymbolicConditional.h>
-#include <gtsam/symbolic/SymbolicBayesTree.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/base/FastDefaultAllocator.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/symbolic/SymbolicFactor.h"
+#include "gtsam/symbolic/SymbolicConditional.h"
+#include "gtsam/symbolic/SymbolicBayesTree.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/inference/Symbol.h"
 
 namespace gtsam {
   namespace {

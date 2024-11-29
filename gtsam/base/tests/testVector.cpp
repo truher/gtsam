@@ -15,9 +15,9 @@
  * @author Frank Dellaert
  **/
 
-#include <gtsam/base/Vector.h>
-#include <gtsam/base/VectorSpace.h>
-#include <gtsam/base/testLie.h>
+#include "gtsam/base/Vector.h"
+#include "gtsam/base/VectorSpace.h"
+#include "gtsam/base/testLie.h"
 #include <CppUnitLite/TestHarness.h>
 #include <iostream>
 

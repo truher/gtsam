@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <gtsam/inference/FactorGraph.h>
+#include "gtsam/inference/FactorGraph.h"
 
 #include <stdio.h>
 #include <algorithm>

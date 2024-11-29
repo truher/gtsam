@@ -25,7 +25,7 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <memory>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/nonlinear/Values.h"
 
 namespace gtsam {
 
@@ -109,4 +109,4 @@ namespace gtsam {
 
 } // namespace gtsam
 
-#include <gtsam/inference/graph-inl.h>
+#include "gtsam/inference/graph-inl.h"

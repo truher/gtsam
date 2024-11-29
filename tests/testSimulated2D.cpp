@@ -19,8 +19,8 @@
 #include <iostream>
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/numericalDerivative.h"
 #include <tests/simulated2D.h>
 
 using namespace std;

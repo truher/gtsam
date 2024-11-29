@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-#include <gtsam_unstable/geometry/BearingS2.h>
+#include "gtsam_unstable/geometry/BearingS2.h"
 
 namespace gtsam {
 

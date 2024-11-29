@@ -16,11 +16,11 @@
  *  @date July 2015
  */
 
-#include <gtsam/sam/BearingFactor.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/nonlinear/factorTesting.h>
-#include <gtsam/nonlinear/expressionTesting.h>
+#include "gtsam/sam/BearingFactor.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/nonlinear/factorTesting.h"
+#include "gtsam/nonlinear/expressionTesting.h"
 
 #include <CppUnitLite/TestHarness.h>
 

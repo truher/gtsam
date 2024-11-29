@@ -34,9 +34,9 @@
 
 #include <stddef.h>
 
-#include <gtsam/3rdparty/ceres/jet.h>
-#include <gtsam/3rdparty/ceres/eigen.h>
-#include <gtsam/3rdparty/ceres/fixed_array.h>
+#include "gtsam/3rdparty/ceres/jet.h"
+#include "gtsam/3rdparty/ceres/eigen.h"
+#include "gtsam/3rdparty/ceres/fixed_array.h"
 
 namespace ceres {
 namespace internal {

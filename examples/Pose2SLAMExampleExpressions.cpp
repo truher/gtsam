@@ -17,14 +17,14 @@
  */
 
 // The two new headers that allow using our Automatic Differentiation Expression framework
-#include <gtsam/slam/expressions.h>
-#include <gtsam/nonlinear/ExpressionFactorGraph.h>
+#include "gtsam/slam/expressions.h"
+#include "gtsam/nonlinear/ExpressionFactorGraph.h"
 
 // For an explanation of headers below, please see Pose2SLAMExample.cpp
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/nonlinear/Marginals.h>
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/nonlinear/Marginals.h"
 
 using namespace std;
 using namespace gtsam;

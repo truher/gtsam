@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/inference/BayesNet.h>
-#include <gtsam/inference/FactorGraph-inst.h>
+#include "gtsam/inference/BayesNet.h"
+#include "gtsam/inference/FactorGraph-inst.h"
 
 #include <fstream>
 #include <string>

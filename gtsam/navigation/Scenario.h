@@ -16,8 +16,8 @@
  */
 
 #pragma once
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/navigation/NavState.h>
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/navigation/NavState.h"
 
 namespace gtsam {
 

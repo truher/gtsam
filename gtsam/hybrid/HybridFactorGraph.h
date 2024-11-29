@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/hybrid/HybridFactor.h>
-#include <gtsam/inference/FactorGraph.h>
+#include "gtsam/hybrid/HybridFactor.h"
+#include "gtsam/inference/FactorGraph.h"
 
 #include <unordered_map>
 

@@ -21,13 +21,13 @@
 
 #pragma once
 
-#include <gtsam/slam/JacobianFactorQ.h>
-#include <gtsam/slam/JacobianFactorSVD.h>
-#include <gtsam/slam/RegularImplicitSchurFactor.h>
+#include "gtsam/slam/JacobianFactorQ.h"
+#include "gtsam/slam/JacobianFactorSVD.h"
+#include "gtsam/slam/RegularImplicitSchurFactor.h"
 
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/linear/RegularHessianFactor.h>
-#include <gtsam/geometry/CameraSet.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/linear/RegularHessianFactor.h"
+#include "gtsam/geometry/CameraSet.h"
 
 #include <optional>
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION

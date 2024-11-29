@@ -17,7 +17,7 @@
  * @date June 14, 2012
  */
 
-#include <gtsam_unstable/base/Dummy.h>
+#include "gtsam_unstable/base/Dummy.h"
 #include <iostream>
 
 namespace gtsam {

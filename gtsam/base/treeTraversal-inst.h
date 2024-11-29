@@ -16,13 +16,13 @@
  */
 #pragma once
 
-#include <gtsam/base/treeTraversal/parallelTraversalTasks.h>
-#include <gtsam/base/treeTraversal/statistics.h>
+#include "gtsam/base/treeTraversal/parallelTraversalTasks.h"
+#include "gtsam/base/treeTraversal/statistics.h"
 
-#include <gtsam/base/FastList.h>
-#include <gtsam/base/FastVector.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/config.h> // for GTSAM_USE_TBB
+#include "gtsam/base/FastList.h"
+#include "gtsam/base/FastVector.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/config.h" // for GTSAM_USE_TBB
 
 #include <stack>
 #include <vector>

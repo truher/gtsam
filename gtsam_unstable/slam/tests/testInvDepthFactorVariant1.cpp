@@ -6,16 +6,16 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam_unstable/slam/InvDepthFactorVariant1.h>
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Point2.h>
+#include "gtsam_unstable/slam/InvDepthFactorVariant1.h"
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Point2.h"
 
 using namespace std;
 using namespace gtsam;

@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/inference/ISAM.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/inference/ISAM.h"
+#include "gtsam/base/Testable.h"
 
 namespace gtsam {
 

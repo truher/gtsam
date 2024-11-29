@@ -6,7 +6,7 @@
  *  Description: unit tests for generic graph
  */
 
-#include <gtsam_unstable/partition/GenericGraph.h>
+#include "gtsam_unstable/partition/GenericGraph.h"
 
 #include <CppUnitLite/TestHarness.h>
 

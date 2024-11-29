@@ -17,7 +17,7 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/DSFMap.h>
+#include "gtsam/base/DSFMap.h"
 
 #include <iostream>
 #include <list>

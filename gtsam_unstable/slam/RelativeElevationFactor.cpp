@@ -5,7 +5,7 @@
  * @author Alex Cunningham
  */
 
-#include <gtsam_unstable/slam/RelativeElevationFactor.h>
+#include "gtsam_unstable/slam/RelativeElevationFactor.h"
 
 namespace gtsam {
 

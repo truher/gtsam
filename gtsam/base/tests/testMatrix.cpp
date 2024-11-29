@@ -16,9 +16,9 @@
  * @author Carlos Nieto
  **/
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/VectorSpace.h>
-#include <gtsam/base/testLie.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/VectorSpace.h"
+#include "gtsam/base/testLie.h"
 #include <CppUnitLite/TestHarness.h>
 #include <iostream>
 #include <sstream>

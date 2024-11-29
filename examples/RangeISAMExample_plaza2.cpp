@@ -17,43 +17,43 @@
  */
 
 // Both relative poses and recovered trajectory poses will be stored as Pose2.
-#include <gtsam/geometry/Pose2.h>
+#include "gtsam/geometry/Pose2.h"
 using gtsam::Pose2;
 
 // gtsam::Vectors are dynamic Eigen vectors, Vector3 is statically sized.
-#include <gtsam/base/Vector.h>
+#include "gtsam/base/Vector.h"
 using gtsam::Vector;
 using gtsam::Vector3;
 
 // Unknown landmarks are of type Point2 (which is just a 2D Eigen vector).
-#include <gtsam/geometry/Point2.h>
+#include "gtsam/geometry/Point2.h"
 using gtsam::Point2;
 
 // Each variable in the system (poses and landmarks) must be identified with a
 // unique key. We can either use simple integer keys (1, 2, 3, ...) or symbols
 // (X1, X2, L1). Here we will use Symbols.
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/inference/Symbol.h"
 using gtsam::Symbol;
 
 // We want to use iSAM2 to solve the range-SLAM problem incrementally.
-#include <gtsam/nonlinear/ISAM2.h>
+#include "gtsam/nonlinear/ISAM2.h"
 
 // iSAM2 requires as input a set set of new factors to be added stored in a
 // factor graph, and initial guesses for any new variables in the added factors.
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
 
 // We will use a non-linear solver to batch-initialize from the first 150 frames
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
 
 // Measurement functions are represented as 'factors'. Several common factors
 // have been provided with the library for solving robotics SLAM problems:
-#include <gtsam/sam/RangeFactor.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/slam/dataset.h>
+#include "gtsam/sam/RangeFactor.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/slam/dataset.h"
 
 // Timing, with functions below, provides nice facilities to benchmark.
-#include <gtsam/base/timing.h>
+#include "gtsam/base/timing.h"
 using gtsam::tictoc_print_;
 
 // Standard headers, added last, so we know headers above work on their own.

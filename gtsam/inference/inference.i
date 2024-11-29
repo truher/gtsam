@@ -5,13 +5,13 @@
 namespace gtsam {
 
 // Headers for overloaded methods below, break hierarchy :-/
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
 
-#include <gtsam/inference/Key.h>
+#include "gtsam/inference/Key.h"
 
 // Default keyformatter
 void PrintKeyList(
@@ -24,7 +24,7 @@ void PrintKeySet(
     const gtsam::KeySet& keys, const string& s = "",
     const gtsam::KeyFormatter& keyFormatter = gtsam::DefaultKeyFormatter);
 
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/inference/Symbol.h"
 class Symbol {
   Symbol();
   Symbol(char c, uint64_t j);
@@ -72,7 +72,7 @@ size_t Y(size_t j);
 size_t Z(size_t j);
 }  // namespace symbol_shorthand
 
-#include <gtsam/inference/LabeledSymbol.h>
+#include "gtsam/inference/LabeledSymbol.h"
 class LabeledSymbol {
   LabeledSymbol(size_t full_key);
   LabeledSymbol(const gtsam::LabeledSymbol& key);
@@ -96,7 +96,7 @@ unsigned char mrsymbolChr(size_t key);
 unsigned char mrsymbolLabel(size_t key);
 size_t mrsymbolIndex(size_t key);
 
-#include <gtsam/inference/EdgeKey.h>
+#include "gtsam/inference/EdgeKey.h"
 class EdgeKey {
   EdgeKey(std::uint32_t i, std::uint32_t j);
   EdgeKey(size_t key);
@@ -109,7 +109,7 @@ class EdgeKey {
   void print(string s = "") const;
 };
 
-#include <gtsam/inference/Ordering.h>
+#include "gtsam/inference/Ordering.h"
 class Ordering {
   /// Type of ordering to use
   enum OrderingType { COLAMD, METIS, NATURAL, CUSTOM };
@@ -169,7 +169,7 @@ class Ordering {
   void serialize() const;
 };
 
-#include <gtsam/inference/DotWriter.h>
+#include "gtsam/inference/DotWriter.h"
 class DotWriter {
   DotWriter(double figureWidthInches = 5, double figureHeightInches = 5,
             bool plotFactorPoints = true, bool connectKeysToFactor = true,
@@ -187,7 +187,7 @@ class DotWriter {
   std::map<size_t, gtsam::Vector2> factorPositions;
 };
 
-#include <gtsam/inference/VariableIndex.h>
+#include "gtsam/inference/VariableIndex.h"
 class VariableIndex {
   // Standard Constructors and Named Constructors
   VariableIndex();
@@ -208,7 +208,7 @@ class VariableIndex {
   size_t nEntries() const;
 };
 
-#include <gtsam/inference/Factor.h>
+#include "gtsam/inference/Factor.h"
 virtual class Factor {
   void print(string s = "Factor\n", const gtsam::KeyFormatter& keyFormatter =
                                         gtsam::DefaultKeyFormatter) const;

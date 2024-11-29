@@ -16,10 +16,10 @@
  **/
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/linear/HessianFactor.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam_unstable/linear/LinearEquality.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/linear/HessianFactor.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam_unstable/linear/LinearEquality.h"
 
 using namespace std;
 using namespace gtsam;

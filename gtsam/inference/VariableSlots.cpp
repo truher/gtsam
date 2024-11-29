@@ -15,7 +15,7 @@
  * @date    Oct 5, 2010
  */
 
-#include <gtsam/inference/VariableSlots.h>
+#include "gtsam/inference/VariableSlots.h"
 
 #include <iostream>
 #include <limits>

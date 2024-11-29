@@ -16,20 +16,20 @@
  * @date    Jan 5, 2013
  */
 
-#include <gtsam_unstable/nonlinear/ConcurrentBatchSmoother.h>
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/nonlinear/ISAM2.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/LinearContainerFactor.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/JunctionTree.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam_unstable/nonlinear/ConcurrentBatchSmoother.h"
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/nonlinear/ISAM2.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/LinearContainerFactor.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/JunctionTree.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/base/TestableAssertions.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

@@ -6,9 +6,9 @@
  */
 
 #include "../AHRS.h"
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/base/Vector.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/base/Vector.h"
+#include "gtsam/base/Testable.h"
 #include <CppUnitLite/TestHarness.h>
 #include <list>
 

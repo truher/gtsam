@@ -18,16 +18,16 @@
  * @date   Mar 12, 2022
  */
 
-#include <gtsam/base/types.h>
-#include <gtsam/base/utilities.h>
-#include <gtsam/discrete/DecisionTree-inl.h>
-#include <gtsam/discrete/DecisionTree.h>
-#include <gtsam/hybrid/HybridFactor.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/hybrid/HybridGaussianProductFactor.h>
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/linear/GaussianFactor.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam/base/types.h"
+#include "gtsam/base/utilities.h"
+#include "gtsam/discrete/DecisionTree-inl.h"
+#include "gtsam/discrete/DecisionTree.h"
+#include "gtsam/hybrid/HybridFactor.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/hybrid/HybridGaussianProductFactor.h"
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/linear/GaussianFactor.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
 
 namespace gtsam {
 

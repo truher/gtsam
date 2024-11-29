@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <gtsam/discrete/DiscreteDistribution.h>
-#include <gtsam/inference/BayesNet.h>
-#include <gtsam/inference/FactorGraph.h>
+#include "gtsam/discrete/DiscreteDistribution.h"
+#include "gtsam/inference/BayesNet.h"
+#include "gtsam/inference/FactorGraph.h"
 
 #include <memory>
 #include <string>

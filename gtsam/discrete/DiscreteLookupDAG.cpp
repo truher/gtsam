@@ -16,9 +16,9 @@
  *  @author Frank Dellaert
  */
 
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam/discrete/DiscreteLookupDAG.h>
-#include <gtsam/discrete/DiscreteValues.h>
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam/discrete/DiscreteLookupDAG.h"
+#include "gtsam/discrete/DiscreteValues.h"
 
 #include <iterator>
 #include <string>

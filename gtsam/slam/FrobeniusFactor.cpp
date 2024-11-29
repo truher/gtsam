@@ -16,7 +16,7 @@
  * @brief  Various factors that minimize some Frobenius norm
  */
 
-#include <gtsam/slam/FrobeniusFactor.h>
+#include "gtsam/slam/FrobeniusFactor.h"
 
 using namespace std;
 

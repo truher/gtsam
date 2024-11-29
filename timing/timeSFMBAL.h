@@ -18,15 +18,15 @@
 
 #pragma once
 
-#include <gtsam/sfm/SfmData.h>
-#include <gtsam/slam/dataset.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/sfm/SfmData.h"
+#include "gtsam/slam/dataset.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/base/timing.h"
 
 #include <string>
 #include <vector>

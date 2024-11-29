@@ -15,7 +15,7 @@
  * @author  Fan Jiang
  */
 
-#include <gtsam/nonlinear/CustomFactor.h>
+#include "gtsam/nonlinear/CustomFactor.h"
 
 namespace gtsam {
 

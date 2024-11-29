@@ -17,10 +17,10 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam/base/debug.h>
-#include <gtsam/nonlinear/ISAM2.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam_unstable/slam/SmartStereoProjectionPoseFactor.h>
+#include "gtsam/base/debug.h"
+#include "gtsam/nonlinear/ISAM2.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam_unstable/slam/SmartStereoProjectionPoseFactor.h"
 
 #include <array>
 #include <fstream>

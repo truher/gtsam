@@ -18,7 +18,7 @@
  * @date    March 2019
  */
 
-#include <gtsam/base/Matrix.h>
+#include "gtsam/base/Matrix.h"
 
 #include <iostream>
 

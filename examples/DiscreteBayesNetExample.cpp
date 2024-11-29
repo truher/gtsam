@@ -16,9 +16,9 @@
  * @date  JULY 10, 2020
  */
 
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/discrete/DiscreteMarginals.h>
-#include <gtsam/inference/BayesNet.h>
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/discrete/DiscreteMarginals.h"
+#include "gtsam/inference/BayesNet.h"
 
 #include <iomanip>
 

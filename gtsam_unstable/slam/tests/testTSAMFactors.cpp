@@ -16,8 +16,8 @@
  *  @date May 2014
  */
 
-#include <gtsam_unstable/slam/TSAMFactors.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam_unstable/slam/TSAMFactors.h"
+#include "gtsam/base/numericalDerivative.h"
 
 #include <CppUnitLite/TestHarness.h>
 #include "gtsam/geometry/Point2.h"

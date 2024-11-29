@@ -15,7 +15,7 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/geometry/Cal3.h>
+#include "gtsam/geometry/Cal3.h"
 
 #include <cmath>
 #include <fstream>

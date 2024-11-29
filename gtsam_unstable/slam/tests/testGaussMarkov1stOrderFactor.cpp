@@ -17,11 +17,11 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Vector.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam_unstable/slam/GaussMarkov1stOrderFactor.h>
+#include "gtsam/base/Vector.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam_unstable/slam/GaussMarkov1stOrderFactor.h"
 
 using namespace std::placeholders;
 using namespace std;

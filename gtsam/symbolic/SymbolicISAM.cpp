@@ -16,8 +16,8 @@
  * @author Richard Roberts
  */
 
-#include <gtsam/symbolic/SymbolicISAM.h>
-#include <gtsam/inference/ISAM-inst.h>
+#include "gtsam/symbolic/SymbolicISAM.h"
+#include "gtsam/inference/ISAM-inst.h"
 
 namespace gtsam {
 

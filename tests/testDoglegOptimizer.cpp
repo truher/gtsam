@@ -19,13 +19,13 @@
 #include <CppUnitLite/TestHarness.h>
 
 #include <tests/smallExample.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/nonlinear/DoglegOptimizer.h>
-#include <gtsam/nonlinear/DoglegOptimizerImpl.h>
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/nonlinear/ISAM2.h>
-#include <gtsam/slam/SmartProjectionPoseFactor.h>
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/nonlinear/DoglegOptimizer.h"
+#include "gtsam/nonlinear/DoglegOptimizerImpl.h"
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/nonlinear/ISAM2.h"
+#include "gtsam/slam/SmartProjectionPoseFactor.h"
 #include "examples/SFMdata.h"
 
 #include <functional>

@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/linear/VectorValues.h"
 
 namespace gtsam {
 

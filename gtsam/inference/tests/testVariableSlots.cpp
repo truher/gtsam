@@ -17,10 +17,10 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/base/TestableAssertions.h"
 
-#include <gtsam/inference/VariableSlots.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
+#include "gtsam/inference/VariableSlots.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
 
 using namespace gtsam;
 using namespace std;

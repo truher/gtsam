@@ -9,8 +9,8 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/base/std_optional_serialization.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/base/std_optional_serialization.h"
 
 #include <optional>
 

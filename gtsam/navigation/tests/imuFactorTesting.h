@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gtsam/navigation/ImuBias.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/navigation/ImuBias.h"
+#include "gtsam/inference/Symbol.h"
 
 using namespace std;
 using namespace gtsam;

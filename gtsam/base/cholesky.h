@@ -17,7 +17,7 @@
  */
 #pragma once
 
-#include <gtsam/base/Matrix.h>
+#include "gtsam/base/Matrix.h"
 
 namespace gtsam {
 

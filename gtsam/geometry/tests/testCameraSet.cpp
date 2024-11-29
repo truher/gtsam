@@ -16,10 +16,10 @@
  *  @date   Feb 19, 2015
  */
 
-#include <gtsam/geometry/CameraSet.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/geometry/CameraSet.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/base/numericalDerivative.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;
@@ -27,8 +27,8 @@ using namespace gtsam;
 
 /* ************************************************************************* */
 // Cal3Bundler test
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Cal3Bundler.h>
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Cal3Bundler.h"
 TEST(CameraSet, Pinhole) {
   typedef PinholeCamera<Cal3Bundler> Camera;
   typedef CameraSet<Camera> Set;
@@ -210,7 +210,7 @@ TEST(CameraSet, SchurComplementAndRearrangeBlocks) {
 }
 
 /* ************************************************************************* */
-#include <gtsam/geometry/StereoCamera.h>
+#include "gtsam/geometry/StereoCamera.h"
 TEST(CameraSet, Stereo) {
   CameraSet<StereoCamera> set;
   typedef StereoCamera::MeasurementVector ZZ;

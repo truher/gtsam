@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include <gtsam/discrete/DiscreteConditional.h>
+#include "gtsam/discrete/DiscreteConditional.h"
 
 #include <string>
 #include <vector>

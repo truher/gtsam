@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/linear/HessianFactor.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/linear/HessianFactor.h"
 #include <cmath>
 
 namespace gtsam {

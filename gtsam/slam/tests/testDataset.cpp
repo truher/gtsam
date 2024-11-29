@@ -16,11 +16,11 @@
  */
 
 
-#include <gtsam/slam/dataset.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/slam/dataset.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/base/TestableAssertions.h"
 
 #include <CppUnitLite/TestHarness.h>
 

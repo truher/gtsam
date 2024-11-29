@@ -18,11 +18,11 @@
  */
 #pragma once
 
-#include <gtsam/linear/GaussianFactor.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/base/VerticalBlockMatrix.h>
-#include <gtsam/global_includes.h>
-#include <gtsam/inference/VariableSlots.h>
+#include "gtsam/linear/GaussianFactor.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/base/VerticalBlockMatrix.h"
+#include "gtsam/global_includes.h"
+#include "gtsam/inference/VariableSlots.h"
 
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION
 #include <boost/serialization/version.hpp>
@@ -472,6 +472,6 @@ struct traits<JacobianFactor> : public Testable<JacobianFactor> {
 BOOST_CLASS_VERSION(gtsam::JacobianFactor, 1)
 #endif
 
-#include <gtsam/linear/JacobianFactor-inl.h>
+#include "gtsam/linear/JacobianFactor-inl.h"
 
 

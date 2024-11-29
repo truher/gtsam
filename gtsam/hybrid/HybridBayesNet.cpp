@@ -16,11 +16,11 @@
  * @date   January 2022
  */
 
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam/discrete/DiscreteConditional.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/hybrid/HybridBayesNet.h>
-#include <gtsam/hybrid/HybridValues.h>
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam/discrete/DiscreteConditional.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/hybrid/HybridBayesNet.h"
+#include "gtsam/hybrid/HybridValues.h"
 
 #include <memory>
 

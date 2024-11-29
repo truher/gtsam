@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 

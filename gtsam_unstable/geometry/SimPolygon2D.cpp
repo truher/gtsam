@@ -6,7 +6,7 @@
 #include <iostream>
 #include <random>
 
-#include <gtsam_unstable/geometry/SimPolygon2D.h>
+#include "gtsam_unstable/geometry/SimPolygon2D.h"
 
 namespace gtsam {
 

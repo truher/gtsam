@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/Expression.h>
-#include <gtsam/base/Lie.h>
+#include "gtsam/nonlinear/Expression.h"
+#include "gtsam/base/Lie.h"
 
 namespace gtsam {
 

@@ -21,10 +21,10 @@
 
 #include <memory>
 
-#include <gtsam/inference/Key.h>
-#include <gtsam/base/FastList.h>
-#include <gtsam/base/ConcurrentMap.h>
-#include <gtsam/base/FastVector.h>
+#include "gtsam/inference/Key.h"
+#include "gtsam/base/FastList.h"
+#include "gtsam/base/ConcurrentMap.h"
+#include "gtsam/base/FastVector.h"
 
 #include <string>
 

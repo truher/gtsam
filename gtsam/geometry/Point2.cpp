@@ -15,7 +15,7 @@
  * @author  Frank Dellaert
  */
 
-#include <gtsam/geometry/Point2.h>
+#include "gtsam/geometry/Point2.h"
 #include <cmath>
 #include <iostream>
 

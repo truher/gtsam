@@ -17,9 +17,9 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/sfm/SfmData.h>
-#include <gtsam/sfm/TranslationRecovery.h>
-#include <gtsam/slam/dataset.h>
+#include "gtsam/sfm/SfmData.h"
+#include "gtsam/sfm/TranslationRecovery.h"
+#include "gtsam/slam/dataset.h"
 
 using namespace std;
 using namespace gtsam;

@@ -16,8 +16,8 @@
  * @author Richard Roberts
  */
 
-#include <gtsam/inference/EliminationTree-inst.h>
-#include <gtsam/symbolic/SymbolicEliminationTree.h>
+#include "gtsam/inference/EliminationTree-inst.h"
+#include "gtsam/symbolic/SymbolicEliminationTree.h"
 
 namespace gtsam {
 

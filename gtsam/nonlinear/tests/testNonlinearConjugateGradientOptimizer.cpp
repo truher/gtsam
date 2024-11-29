@@ -7,14 +7,14 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/NonlinearConjugateGradientOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/nonlinear/factorTesting.h>
-#include <gtsam/slam/BetweenFactor.h>
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/NonlinearConjugateGradientOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/nonlinear/factorTesting.h"
+#include "gtsam/slam/BetweenFactor.h"
 
 using namespace std;
 using namespace gtsam;

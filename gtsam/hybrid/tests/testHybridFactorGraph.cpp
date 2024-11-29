@@ -15,13 +15,13 @@
 
 #include <CppUnitLite/Test.h>
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/utilities.h>
-#include <gtsam/hybrid/HybridFactorGraph.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/nonlinear/PriorFactor.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/base/utilities.h"
+#include "gtsam/hybrid/HybridFactorGraph.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/nonlinear/PriorFactor.h"
 
 using namespace std;
 using namespace gtsam;

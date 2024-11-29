@@ -20,10 +20,10 @@
 
 #pragma once
 
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
 
 #include <map>
 #include <vector>

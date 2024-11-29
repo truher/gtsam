@@ -15,11 +15,11 @@
  * @author  Frank Dellaert
  */
 
-#include <gtsam/navigation/PreintegrationBase.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/nonlinear/factorTesting.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/navigation/PreintegrationBase.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/nonlinear/factorTesting.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/base/numericalDerivative.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

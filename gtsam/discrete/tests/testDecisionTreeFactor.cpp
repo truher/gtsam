@@ -18,14 +18,14 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/DiscreteDistribution.h>
-#include <gtsam/discrete/DiscreteFactor.h>
-#include <gtsam/discrete/Signature.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/Ordering.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/DiscreteDistribution.h"
+#include "gtsam/discrete/DiscreteFactor.h"
+#include "gtsam/discrete/Signature.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/Ordering.h"
 
 using namespace std;
 using namespace gtsam;

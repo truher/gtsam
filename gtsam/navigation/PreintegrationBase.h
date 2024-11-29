@@ -21,10 +21,10 @@
 
 #pragma once
 
-#include <gtsam/navigation/PreintegrationParams.h>
-#include <gtsam/navigation/NavState.h>
-#include <gtsam/navigation/ImuBias.h>
-#include <gtsam/linear/NoiseModel.h>
+#include "gtsam/navigation/PreintegrationParams.h"
+#include "gtsam/navigation/NavState.h"
+#include "gtsam/navigation/ImuBias.h"
+#include "gtsam/linear/NoiseModel.h"
 
 #include <iosfwd>
 #include <string>

@@ -9,8 +9,8 @@
 
 #pragma once
 
-#include <gtsam_unstable/dllexport.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam_unstable/dllexport.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 

@@ -17,14 +17,14 @@
  */
 
 // For an explanation of headers, see SFMExample.cpp
-#include <gtsam/slam/GeneralSFMFactor.h>
-#include <gtsam/sfm/SfmData.h>  // for loading BAL datasets !
-#include <gtsam/slam/dataset.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/slam/GeneralSFMFactor.h"
+#include "gtsam/sfm/SfmData.h"  // for loading BAL datasets !
+#include "gtsam/slam/dataset.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/base/timing.h"
 
 #include <vector>
 

@@ -19,9 +19,9 @@
 
 #pragma once
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/types.h>
-#include <gtsam/discrete/Assignment.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/types.h"
+#include "gtsam/discrete/Assignment.h"
 
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION
 #include <boost/serialization/nvp.hpp>

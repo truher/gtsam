@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/OptionalJacobian.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/OptionalJacobian.h"
 
 #include <iostream>
 

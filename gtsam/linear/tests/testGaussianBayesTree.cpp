@@ -16,12 +16,12 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/debug.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/GaussianJunctionTree.h>
+#include "gtsam/base/debug.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/GaussianJunctionTree.h"
 
 #include <iostream>
 #include <vector>

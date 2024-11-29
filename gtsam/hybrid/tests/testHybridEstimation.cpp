@@ -15,24 +15,24 @@
  * @author  Varun Agrawal
  */
 
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/hybrid/HybridBayesNet.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/hybrid/HybridNonlinearFactor.h>
-#include <gtsam/hybrid/HybridNonlinearFactorGraph.h>
-#include <gtsam/hybrid/HybridNonlinearISAM.h>
-#include <gtsam/hybrid/HybridSmoother.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/slam/BetweenFactor.h>
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/hybrid/HybridBayesNet.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/hybrid/HybridNonlinearFactor.h"
+#include "gtsam/hybrid/HybridNonlinearFactorGraph.h"
+#include "gtsam/hybrid/HybridNonlinearISAM.h"
+#include "gtsam/hybrid/HybridSmoother.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/slam/BetweenFactor.h"
 
 // Include for test suite
 #include <CppUnitLite/TestHarness.h>

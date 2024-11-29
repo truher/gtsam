@@ -17,9 +17,9 @@
  * @date     6/16/16
  */
 
-#include <gtsam_unstable/linear/LPInitSolver.h>
-#include <gtsam_unstable/linear/LPSolver.h>
-#include <gtsam_unstable/linear/InfeasibleOrUnboundedProblem.h>
+#include "gtsam_unstable/linear/LPInitSolver.h"
+#include "gtsam_unstable/linear/LPSolver.h"
+#include "gtsam_unstable/linear/InfeasibleOrUnboundedProblem.h"
 
 namespace gtsam {
 

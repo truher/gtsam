@@ -556,7 +556,7 @@ class TestTemplateInstantiator(unittest.TestCase):
         """Test for instantiate_namespace."""
         namespace = Namespace.rule.parseString("""
             namespace gtsam {
-                #include <gtsam/nonlinear/Values.h>
+                #include "gtsam/nonlinear/Values.h"
                 template<T={gtsam::Basis}>
                 class Values {
                     Values(const T& other);

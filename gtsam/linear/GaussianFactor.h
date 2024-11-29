@@ -20,9 +20,9 @@
 
 #pragma once
 
-#include <gtsam/inference/Factor.h>
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/inference/Factor.h"
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/Testable.h"
 
 namespace gtsam {
 

@@ -19,7 +19,7 @@
 
 #include "AlgebraicDecisionTree.h"
 
-#include <gtsam/base/types.h>
+#include "gtsam/base/types.h"
 
 namespace gtsam {
 

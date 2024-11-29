@@ -20,10 +20,10 @@
 
 #pragma once
 
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/inference/BayesTree.h>
-#include <gtsam/base/treeTraversal-inst.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/inference/BayesTree.h"
+#include "gtsam/base/treeTraversal-inst.h"
+#include "gtsam/base/timing.h"
 
 #include <fstream>
 #include <queue>

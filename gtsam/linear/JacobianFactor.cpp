@@ -17,19 +17,19 @@
  * @date    Dec 8, 2010
  */
 
-#include <gtsam/linear/linearExceptions.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/linear/Scatter.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/inference/VariableSlots.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/base/debug.h>
-#include <gtsam/base/timing.h>
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/FastMap.h>
-#include <gtsam/base/cholesky.h>
+#include "gtsam/linear/linearExceptions.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/linear/Scatter.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/inference/VariableSlots.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/base/debug.h"
+#include "gtsam/base/timing.h"
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/FastMap.h"
+#include "gtsam/base/cholesky.h"
 
 #include <cmath>
 #include <sstream>

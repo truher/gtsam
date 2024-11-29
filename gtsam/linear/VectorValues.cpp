@@ -16,7 +16,7 @@
  * @author Alex Cunningham
  */
 
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/linear/VectorValues.h"
 
 #include <functional>
 #include <utility>

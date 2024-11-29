@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/nonlinear/DoglegOptimizerImpl.h>
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/nonlinear/DoglegOptimizerImpl.h"
 
 #include <string>
 #include <variant>

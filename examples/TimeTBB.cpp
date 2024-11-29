@@ -15,8 +15,8 @@
 * @date    November 6, 2013
 */
 
-#include <gtsam/global_includes.h>
-#include <gtsam/base/Matrix.h>
+#include "gtsam/global_includes.h"
+#include "gtsam/base/Matrix.h"
 
 #include <map>
 #include <iostream>

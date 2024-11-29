@@ -17,15 +17,15 @@
  * @brief unit tests for Block Automatic Differentiation
  */
 
-#include <gtsam/3rdparty/ceres/example.h>
-#include <gtsam/nonlinear/AdaptAutoDiff.h>
-#include <gtsam/nonlinear/Expression.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/3rdparty/ceres/example.h"
+#include "gtsam/nonlinear/AdaptAutoDiff.h"
+#include "gtsam/nonlinear/Expression.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/base/Testable.h"
 
 #include <CppUnitLite/TestHarness.h>
 

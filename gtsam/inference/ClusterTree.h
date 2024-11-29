@@ -9,9 +9,9 @@
 
 #pragma once
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/FastVector.h>
-#include <gtsam/inference/Ordering.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/FastVector.h"
+#include "gtsam/inference/Ordering.h"
 
 namespace gtsam {
 
@@ -251,4 +251,4 @@ class EliminatableClusterTree : public ClusterTree<GRAPH> {
 };
 }
 
-#include <gtsam/inference/ClusterTree-inst.h>
+#include "gtsam/inference/ClusterTree-inst.h"

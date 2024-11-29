@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/base/Vector.h>
-#include <gtsam/base/Manifold.h>
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/base/Vector.h"
+#include "gtsam/base/Manifold.h"
 
 namespace gtsam {
 

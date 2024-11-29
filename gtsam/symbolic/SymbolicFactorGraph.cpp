@@ -16,13 +16,13 @@
  */
 
 
-#include <gtsam/inference/FactorGraph-inst.h>
-#include <gtsam/inference/EliminateableFactorGraph-inst.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/symbolic/SymbolicEliminationTree.h>
-#include <gtsam/symbolic/SymbolicJunctionTree.h>
-#include <gtsam/symbolic/SymbolicBayesTree.h>
-#include <gtsam/symbolic/SymbolicConditional.h>
+#include "gtsam/inference/FactorGraph-inst.h"
+#include "gtsam/inference/EliminateableFactorGraph-inst.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/symbolic/SymbolicEliminationTree.h"
+#include "gtsam/symbolic/SymbolicJunctionTree.h"
+#include "gtsam/symbolic/SymbolicBayesTree.h"
+#include "gtsam/symbolic/SymbolicConditional.h"
 
 namespace gtsam {
 

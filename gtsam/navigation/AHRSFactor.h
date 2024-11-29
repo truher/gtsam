@@ -20,9 +20,9 @@
 #pragma once
 
 /* GTSAM includes */
-#include <gtsam/navigation/PreintegratedRotation.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/navigation/PreintegratedRotation.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/geometry/Pose3.h"
 
 #include <optional>
 

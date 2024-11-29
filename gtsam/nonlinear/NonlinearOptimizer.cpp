@@ -16,16 +16,16 @@
  * @date Jul 17, 2010
  */
 
-#include <gtsam/nonlinear/NonlinearOptimizer.h>
-#include <gtsam/nonlinear/internal/NonlinearOptimizerState.h>
-#include <gtsam/linear/GaussianEliminationTree.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/linear/SubgraphSolver.h>
-#include <gtsam/linear/PCGSolver.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/nonlinear/NonlinearOptimizer.h"
+#include "gtsam/nonlinear/internal/NonlinearOptimizerState.h"
+#include "gtsam/linear/GaussianEliminationTree.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/linear/SubgraphSolver.h"
+#include "gtsam/linear/PCGSolver.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/VectorValues.h"
 
-#include <gtsam/inference/Ordering.h>
+#include "gtsam/inference/Ordering.h"
 
 #include <stdexcept>
 #include <iostream>

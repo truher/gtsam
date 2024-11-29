@@ -15,11 +15,11 @@
  * @author ghaggin
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/geometry/Cal3Fisheye.h>
-#include <gtsam/geometry/Point3.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/geometry/Cal3Fisheye.h"
+#include "gtsam/geometry/Point3.h"
 
 #include <CppUnitLite/TestHarness.h>
 

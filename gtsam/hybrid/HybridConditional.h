@@ -18,13 +18,13 @@
 
 #pragma once
 
-#include <gtsam/discrete/DiscreteConditional.h>
-#include <gtsam/hybrid/HybridFactor.h>
-#include <gtsam/hybrid/HybridGaussianConditional.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/inference/Conditional.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/linear/GaussianConditional.h>
+#include "gtsam/discrete/DiscreteConditional.h"
+#include "gtsam/hybrid/HybridFactor.h"
+#include "gtsam/hybrid/HybridGaussianConditional.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/inference/Conditional.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/linear/GaussianConditional.h"
 
 #include <memory>
 #include <stdexcept>

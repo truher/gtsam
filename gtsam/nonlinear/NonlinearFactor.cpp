@@ -16,8 +16,8 @@
  * @author  Richard Roberts
  */
 
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 

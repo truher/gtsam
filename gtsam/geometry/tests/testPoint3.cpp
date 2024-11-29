@@ -15,9 +15,9 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/geometry/Point3.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/geometry/Point3.h"
 
 using namespace std::placeholders;
 using namespace gtsam;

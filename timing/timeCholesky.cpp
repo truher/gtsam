@@ -16,7 +16,7 @@
  * @date    March 4, 2016
  */
 
-#include <gtsam/base/cholesky.h>
+#include "gtsam/base/cholesky.h"
 
 #include <time.h>
 #include <iostream>

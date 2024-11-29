@@ -16,7 +16,7 @@
  * @date    Dec 3, 2010
  */
 
-#include <gtsam/base/timing.h>
+#include "gtsam/base/timing.h"
 
 #include <memory>
 

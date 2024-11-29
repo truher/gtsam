@@ -16,10 +16,10 @@
  * @date    Aug 23, 2011
  */
 
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Cal3_S2.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Cal3_S2.h"
 
 using namespace gtsam;
 using namespace gtsam::noiseModel;

@@ -19,12 +19,12 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/VectorSpace.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/AcceleratedPowerMethod.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/tests/powerMethodExample.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/VectorSpace.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/AcceleratedPowerMethod.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/tests/powerMethodExample.h"
 
 #include <Eigen/Core>
 #include <Eigen/Dense>

@@ -16,13 +16,13 @@
  * @date   Feb 26, 2012
  */
 
-#include <gtsam/nonlinear/DoglegOptimizer.h>
-#include <gtsam/nonlinear/DoglegOptimizerImpl.h>
-#include <gtsam/nonlinear/internal/NonlinearOptimizerState.h>
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/nonlinear/DoglegOptimizer.h"
+#include "gtsam/nonlinear/DoglegOptimizerImpl.h"
+#include "gtsam/nonlinear/internal/NonlinearOptimizerState.h"
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/VectorValues.h"
 
 namespace gtsam {
 

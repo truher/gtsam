@@ -17,9 +17,9 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/symbolic/SymbolicEliminationTree.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/symbolic/SymbolicEliminationTree.h"
 
 #include <vector>
 

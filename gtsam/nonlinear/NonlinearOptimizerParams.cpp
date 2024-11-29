@@ -8,7 +8,7 @@
  * @author Andrew Melim
  */
 
-#include <gtsam/nonlinear/NonlinearOptimizerParams.h>
+#include "gtsam/nonlinear/NonlinearOptimizerParams.h"
 
 namespace gtsam {
 

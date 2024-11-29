@@ -17,12 +17,12 @@
 // \callgraph
 #pragma once
 
-#include <gtsam/config.h>
+#include "gtsam/config.h"
 
-#include <gtsam/geometry/BearingRange.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/base/Lie.h>
+#include "gtsam/geometry/BearingRange.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/base/Lie.h"
 
 namespace gtsam {
 

@@ -19,9 +19,9 @@
  * for more explanation. This code demos the same example using GTSAM.
  */
 
-#include <gtsam/base/timing.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/discrete/DiscreteMarginals.h>
+#include "gtsam/base/timing.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/discrete/DiscreteMarginals.h"
 
 #include <iomanip>
 

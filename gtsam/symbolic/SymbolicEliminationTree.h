@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/symbolic/SymbolicBayesNet.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/inference/EliminationTree.h>
+#include "gtsam/symbolic/SymbolicBayesNet.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/inference/EliminationTree.h"
 
 namespace gtsam {
 

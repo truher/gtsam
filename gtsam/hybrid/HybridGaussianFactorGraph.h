@@ -18,16 +18,16 @@
 
 #pragma once
 
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/discrete/DiscreteKey.h>
-#include <gtsam/hybrid/HybridFactor.h>
-#include <gtsam/hybrid/HybridFactorGraph.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/inference/EliminateableFactorGraph.h>
-#include <gtsam/inference/FactorGraph.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/linear/GaussianFactor.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/discrete/DiscreteKey.h"
+#include "gtsam/hybrid/HybridFactor.h"
+#include "gtsam/hybrid/HybridFactorGraph.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/inference/EliminateableFactorGraph.h"
+#include "gtsam/inference/FactorGraph.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/linear/GaussianFactor.h"
+#include "gtsam/linear/VectorValues.h"
 
 #include <functional>
 #include <optional>

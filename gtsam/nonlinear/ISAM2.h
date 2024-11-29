@@ -20,12 +20,12 @@
 
 #pragma once
 
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/nonlinear/ISAM2Clique.h>
-#include <gtsam/nonlinear/ISAM2Params.h>
-#include <gtsam/nonlinear/ISAM2Result.h>
-#include <gtsam/nonlinear/ISAM2UpdateParams.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/nonlinear/ISAM2Clique.h"
+#include "gtsam/nonlinear/ISAM2Params.h"
+#include "gtsam/nonlinear/ISAM2Result.h"
+#include "gtsam/nonlinear/ISAM2UpdateParams.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
 
 #include <vector>
 

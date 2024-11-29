@@ -17,4 +17,4 @@
 
 // Note: PriorFactor has been moved to gtsam/nonlinear/PriorFactor.h. This file
 // has been left here for backwards compatibility.
-#include <gtsam/nonlinear/PriorFactor.h>
+#include "gtsam/nonlinear/PriorFactor.h"

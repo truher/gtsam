@@ -19,8 +19,8 @@
 #include <vector>
 #include <limits>
 
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/3rdparty/CCOLAMD/Include/ccolamd.h>
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/3rdparty/CCOLAMD/Include/ccolamd.h"
 
 #ifdef GTSAM_SUPPORT_NESTED_DISSECTION
 #include <metis.h>

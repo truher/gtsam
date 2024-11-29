@@ -16,8 +16,8 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/navigation/PreintegratedRotation.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/navigation/PreintegratedRotation.h"
 
 #include <memory>
 

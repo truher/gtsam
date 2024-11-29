@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <gtsam/discrete/DiscreteFactor.h>
-#include <gtsam/discrete/DiscreteValues.h>
-#include <gtsam_unstable/dllexport.h>
+#include "gtsam/discrete/DiscreteFactor.h"
+#include "gtsam/discrete/DiscreteValues.h"
+#include "gtsam_unstable/dllexport.h"
 
 #include <map>
 

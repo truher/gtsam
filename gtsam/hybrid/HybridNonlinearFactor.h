@@ -19,12 +19,12 @@
 
 #pragma once
 
-#include <gtsam/discrete/DiscreteValues.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Symbol.h>
+#include "gtsam/discrete/DiscreteValues.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Symbol.h"
 
 #include <vector>
 

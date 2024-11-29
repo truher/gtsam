@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <gtsam/base/FastDefaultAllocator.h>
+#include "gtsam/base/FastDefaultAllocator.h"
 #include <list>
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION
 #include <boost/serialization/nvp.hpp>

@@ -16,13 +16,13 @@
  * @date   May 28, 2022
  */
 
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/TableFactor.h>
-#include <gtsam/hybrid/HybridGaussianConditional.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/hybrid/HybridNonlinearFactor.h>
-#include <gtsam/hybrid/HybridNonlinearFactorGraph.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/TableFactor.h"
+#include "gtsam/hybrid/HybridGaussianConditional.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/hybrid/HybridNonlinearFactor.h"
+#include "gtsam/hybrid/HybridNonlinearFactorGraph.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 

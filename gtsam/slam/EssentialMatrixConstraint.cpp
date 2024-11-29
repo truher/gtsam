@@ -16,9 +16,9 @@
  *  @date   Jan 5, 2014
  **/
 
-#include <gtsam/slam/EssentialMatrixConstraint.h>
-//#include <gtsam/linear/GaussianFactor.h>
-//#include <gtsam/base/Testable.h>
+#include "gtsam/slam/EssentialMatrixConstraint.h"
+//#include "gtsam/linear/GaussianFactor.h"
+//#include "gtsam/base/Testable.h"
 
 #include <ostream>
 

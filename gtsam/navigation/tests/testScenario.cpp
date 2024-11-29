@@ -15,8 +15,8 @@
  * @author  Frank Dellaert
  */
 
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/navigation/Scenario.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/navigation/Scenario.h"
 
 #include <CppUnitLite/TestHarness.h>
 #include <cmath>

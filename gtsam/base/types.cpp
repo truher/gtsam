@@ -17,7 +17,7 @@
  * @ingroup base
  */
 
-#include <gtsam/base/types.h>
+#include "gtsam/base/types.h"
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN

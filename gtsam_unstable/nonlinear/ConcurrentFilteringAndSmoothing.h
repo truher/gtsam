@@ -20,10 +20,10 @@
 // \callgraph
 #pragma once
 
-#include <gtsam_unstable/dllexport.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam_unstable/dllexport.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
 
 namespace gtsam {
 

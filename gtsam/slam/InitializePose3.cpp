@@ -16,16 +16,16 @@
  *  @date   August, 2014
  */
 
-#include <gtsam/slam/InitializePose3.h> 
+#include "gtsam/slam/InitializePose3.h" 
 
-#include <gtsam/slam/InitializePose.h> 
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/slam/InitializePose.h" 
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/base/timing.h"
 
 #include <utility>
 

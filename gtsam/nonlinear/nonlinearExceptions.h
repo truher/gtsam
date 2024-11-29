@@ -19,7 +19,7 @@
 
 #include <exception>
 
-#include <gtsam/inference/Key.h>
+#include "gtsam/inference/Key.h"
 
 namespace gtsam {
 

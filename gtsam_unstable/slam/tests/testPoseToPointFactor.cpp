@@ -7,8 +7,8 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam_unstable/slam/PoseToPointFactor.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam_unstable/slam/PoseToPointFactor.h"
 
 using namespace gtsam;
 using namespace gtsam::noiseModel;

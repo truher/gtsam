@@ -26,17 +26,17 @@
  *  -makes monocular observations of many landmarks
  */
 
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Cal3_S2Stereo.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/nonlinear/utilities.h>
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/slam/dataset.h>
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Cal3_S2Stereo.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/nonlinear/utilities.h"
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/slam/dataset.h"
 
-#include <gtsam_unstable/slam/SmartStereoProjectionPoseFactor.h>
+#include "gtsam_unstable/slam/SmartStereoProjectionPoseFactor.h"
 
 #include <string>
 #include <fstream>

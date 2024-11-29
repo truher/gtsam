@@ -15,9 +15,9 @@
  * @author Frank Dellaert
  **/
 
-#include <gtsam/geometry/Quaternion.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/base/testLie.h>
+#include "gtsam/geometry/Quaternion.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/base/testLie.h"
 
 #include <CppUnitLite/TestHarness.h>
 

@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include <gtsam/global_includes.h>
+#include "gtsam/global_includes.h"
 
 /**
  * Global functions in a separate testing namespace

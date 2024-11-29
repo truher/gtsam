@@ -18,13 +18,13 @@
  * @date    December 2021
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/discrete/DiscreteFactor.h>
-#include <gtsam/hybrid/HybridBayesNet.h>
-#include <gtsam/hybrid/HybridBayesTree.h>
-#include <gtsam/hybrid/HybridConditional.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/discrete/DiscreteFactor.h"
+#include "gtsam/hybrid/HybridBayesNet.h"
+#include "gtsam/hybrid/HybridBayesTree.h"
+#include "gtsam/hybrid/HybridConditional.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
 
 #include "Switching.h"
 #include "TinyHybridExample.h"

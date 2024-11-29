@@ -16,11 +16,11 @@
  * @brief  Various factors that minimize some Frobenius norm
  */
 
-#include <gtsam/sfm/ShonanFactor.h>
+#include "gtsam/sfm/ShonanFactor.h"
 
-#include <gtsam/base/timing.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/slam/FrobeniusFactor.h>
+#include "gtsam/base/timing.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/slam/FrobeniusFactor.h"
 
 #include <cmath>
 #include <iostream>

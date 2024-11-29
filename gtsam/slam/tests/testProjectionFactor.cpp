@@ -16,14 +16,14 @@
  *  @date Nov 2009
  */
 
-#include <gtsam/slam/ProjectionFactor.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/geometry/Cal3DS2.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/slam/ProjectionFactor.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/geometry/Cal3DS2.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/base/TestableAssertions.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

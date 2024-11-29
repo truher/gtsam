@@ -8,6 +8,6 @@
 #ifndef GTSAM_3RDPARTY_METIS_METIS_H_
 #define GTSAM_3RDPARTY_METIS_METIS_H_
 
-#include <gtsam/3rdparty/metis/include/metis.h>
+#include "gtsam/3rdparty/metis/include/metis.h"
 
 #endif /* GTSAM_3RDPARTY_METIS_METIS_H_ */

@@ -17,14 +17,14 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/base/numericalDerivative.h"
 
-#include <gtsam_unstable/slam/InvDepthFactor3.h>
+#include "gtsam_unstable/slam/InvDepthFactor3.h"
 
 using namespace std;
 using namespace gtsam;

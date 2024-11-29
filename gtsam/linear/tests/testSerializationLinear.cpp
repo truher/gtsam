@@ -16,13 +16,13 @@
  * @date Feb 7, 2012
  */
 
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/linear/HessianFactor.h>
-#include <gtsam/linear/GaussianISAM.h>
-#include <gtsam/linear/NoiseModel.h>
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/linear/HessianFactor.h"
+#include "gtsam/linear/GaussianISAM.h"
+#include "gtsam/linear/NoiseModel.h"
 
-#include <gtsam/base/serializationTestHelpers.h>
+#include "gtsam/base/serializationTestHelpers.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

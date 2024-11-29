@@ -18,7 +18,7 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam/linear/Sampler.h>
+#include "gtsam/linear/Sampler.h"
 
 using namespace gtsam;
 

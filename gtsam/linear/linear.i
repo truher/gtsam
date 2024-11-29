@@ -4,7 +4,7 @@
 namespace gtsam {
 
 namespace noiseModel {
-#include <gtsam/linear/NoiseModel.h>
+#include "gtsam/linear/NoiseModel.h"
 virtual class Base {
   void print(string s = "") const;
   // Methods below are available for all noise models. However, can't add them
@@ -253,7 +253,7 @@ virtual class Robust : gtsam::noiseModel::Base {
 
 }///\namespace noiseModel
 
-#include <gtsam/linear/Sampler.h>
+#include "gtsam/linear/Sampler.h"
 class Sampler {
   // Constructors
   Sampler(gtsam::noiseModel::Diagonal* model, int seed);
@@ -266,7 +266,7 @@ class Sampler {
   gtsam::Vector sample();
 };
 
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/linear/VectorValues.h"
 class VectorValues {
   //Constructors
   VectorValues();
@@ -310,7 +310,7 @@ class VectorValues {
   string html() const;
 };
 
-#include <gtsam/linear/GaussianFactor.h>
+#include "gtsam/linear/GaussianFactor.h"
 virtual class GaussianFactor : gtsam::Factor {
   void print(string s = "", const gtsam::KeyFormatter& keyFormatter =
                                 gtsam::DefaultKeyFormatter) const;
@@ -324,7 +324,7 @@ virtual class GaussianFactor : gtsam::Factor {
   pair<gtsam::Matrix, gtsam::Vector> jacobian() const;
 };
 
-#include <gtsam/linear/JacobianFactor.h>
+#include "gtsam/linear/JacobianFactor.h"
 virtual class JacobianFactor : gtsam::GaussianFactor {
   //Constructors
   JacobianFactor();
@@ -378,7 +378,7 @@ virtual class JacobianFactor : gtsam::GaussianFactor {
 pair<gtsam::GaussianConditional*, gtsam::JacobianFactor*> EliminateQR(
     const gtsam::GaussianFactorGraph& factors, const gtsam::Ordering& keys);
 
-#include <gtsam/linear/HessianFactor.h>
+#include "gtsam/linear/HessianFactor.h"
 virtual class HessianFactor : gtsam::GaussianFactor {
   //Constructors
   HessianFactor();
@@ -408,7 +408,7 @@ virtual class HessianFactor : gtsam::GaussianFactor {
   void serialize() const;
 };
 
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam/linear/GaussianFactorGraph.h"
 class GaussianFactorGraph {
   GaussianFactorGraph();
   GaussianFactorGraph(const gtsam::GaussianBayesNet& bayesNet);
@@ -500,8 +500,8 @@ class GaussianFactorGraph {
   void serialize() const;
 };
 
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/hybrid/HybridValues.h>
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/hybrid/HybridValues.h"
 virtual class GaussianConditional : gtsam::JacobianFactor {
   // Constructors
   GaussianConditional(size_t key, gtsam::Vector d, gtsam::Matrix R,
@@ -577,7 +577,7 @@ virtual class GaussianConditional : gtsam::JacobianFactor {
   double error(const gtsam::HybridValues& x) const;
 };
 
-#include <gtsam/linear/GaussianDensity.h>
+#include "gtsam/linear/GaussianDensity.h"
 virtual class GaussianDensity : gtsam::GaussianConditional {
   // Constructors
   GaussianDensity(gtsam::Key key, gtsam::Vector d, gtsam::Matrix R,
@@ -598,7 +598,7 @@ virtual class GaussianDensity : gtsam::GaussianConditional {
   gtsam::Matrix covariance() const;
 };
 
-#include <gtsam/linear/GaussianBayesNet.h>
+#include "gtsam/linear/GaussianBayesNet.h"
 virtual class GaussianBayesNet {
     //Constructors
   GaussianBayesNet();
@@ -654,7 +654,7 @@ virtual class GaussianBayesNet {
       const gtsam::DotWriter& writer = gtsam::DotWriter()) const;
 };
 
-#include <gtsam/linear/GaussianBayesTree.h>
+#include "gtsam/linear/GaussianBayesTree.h"
 virtual class GaussianBayesTree {
   // Standard Constructors and Named Constructors
   GaussianBayesTree();
@@ -685,7 +685,7 @@ virtual class GaussianBayesTree {
   gtsam::GaussianBayesNet* jointBayesNet(size_t key1, size_t key2) const;
 };
 
-#include <gtsam/linear/GaussianISAM.h>
+#include "gtsam/linear/GaussianISAM.h"
 class GaussianISAM {
   //Constructor
   GaussianISAM();
@@ -696,7 +696,7 @@ class GaussianISAM {
   void clear();
 };
 
-#include <gtsam/linear/IterativeSolver.h>
+#include "gtsam/linear/IterativeSolver.h"
 virtual class IterativeOptimizationParameters {
   string getVerbosity() const;
   void setVerbosity(string s) ;
@@ -707,7 +707,7 @@ virtual class IterativeOptimizationParameters {
 //  gtsam::VectorValues optimize ();
 //};
 
-#include <gtsam/linear/ConjugateGradientSolver.h>
+#include "gtsam/linear/ConjugateGradientSolver.h"
 virtual class ConjugateGradientParameters : gtsam::IterativeOptimizationParameters {
   ConjugateGradientParameters();
   int minIterations;
@@ -717,7 +717,7 @@ virtual class ConjugateGradientParameters : gtsam::IterativeOptimizationParamete
   double epsilon_abs;
 };
 
-#include <gtsam/linear/Preconditioner.h>
+#include "gtsam/linear/Preconditioner.h"
 virtual class PreconditionerParameters {
   PreconditionerParameters();
 };
@@ -730,7 +730,7 @@ virtual class BlockJacobiPreconditionerParameters : gtsam::PreconditionerParamet
   BlockJacobiPreconditionerParameters();
 };
 
-#include <gtsam/linear/PCGSolver.h>
+#include "gtsam/linear/PCGSolver.h"
 virtual class PCGSolverParameters : gtsam::ConjugateGradientParameters {
   PCGSolverParameters();
   PCGSolverParameters(const gtsam::PreconditionerParameters* preconditioner);
@@ -739,7 +739,7 @@ virtual class PCGSolverParameters : gtsam::ConjugateGradientParameters {
   std::shared_ptr<gtsam::PreconditionerParameters> preconditioner;
 };
 
-#include <gtsam/linear/SubgraphSolver.h>
+#include "gtsam/linear/SubgraphSolver.h"
 virtual class SubgraphSolverParameters : gtsam::ConjugateGradientParameters {
   SubgraphSolverParameters();
 };
@@ -750,7 +750,7 @@ virtual class SubgraphSolver  {
   gtsam::VectorValues optimize() const;
 };
 
-#include <gtsam/linear/KalmanFilter.h>
+#include "gtsam/linear/KalmanFilter.h"
 class KalmanFilter {
   KalmanFilter(size_t n);
   // gtsam::GaussianDensity* init(gtsam::Vector x0, const gtsam::SharedDiagonal& P0);

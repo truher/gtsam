@@ -18,9 +18,9 @@
 
 // \callgraph
 
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/linear/GaussianFactor.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/linear/GaussianFactor.h"
+#include "gtsam/linear/VectorValues.h"
 
 namespace gtsam {
 

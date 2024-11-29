@@ -16,7 +16,7 @@
  */
 
 #include <iostream>
-#include <gtsam/geometry/StereoPoint2.h>
+#include "gtsam/geometry/StereoPoint2.h"
 
 using namespace std;
 

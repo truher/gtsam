@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/base/treeTraversal-inst.h>
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/base/treeTraversal-inst.h"
 
 #include <memory>
 

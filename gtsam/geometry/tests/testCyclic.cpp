@@ -15,8 +15,8 @@
  * @author Frank Dellaert
  **/
 
-#include <gtsam/geometry/Cyclic.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/geometry/Cyclic.h"
+#include "gtsam/base/Testable.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

@@ -17,11 +17,11 @@
  * @brief unit tests for Block Automatic Differentiation
  */
 
-#include <gtsam/nonlinear/expressions.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/nonlinear/expressions.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/base/Testable.h"
 
 #include <CppUnitLite/TestHarness.h>
 

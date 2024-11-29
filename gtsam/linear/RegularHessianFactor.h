@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/linear/HessianFactor.h>
-#include <gtsam/linear/RegularJacobianFactor.h>
+#include "gtsam/linear/HessianFactor.h"
+#include "gtsam/linear/RegularJacobianFactor.h"
 #include <vector>
 
 namespace gtsam {

@@ -16,8 +16,8 @@
 
 #pragma once
 
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/geometry/Pose3.h"
 
 namespace gtsam {
 

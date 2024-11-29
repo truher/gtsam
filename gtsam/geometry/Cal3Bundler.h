@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/geometry/Cal3f.h>
-#include <gtsam/geometry/Point2.h>
+#include "gtsam/geometry/Cal3f.h"
+#include "gtsam/geometry/Point2.h"
 
 namespace gtsam {
 

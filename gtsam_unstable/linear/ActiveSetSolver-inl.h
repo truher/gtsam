@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <gtsam_unstable/linear/InfeasibleInitialValues.h>
+#include "gtsam_unstable/linear/InfeasibleInitialValues.h"
 
 /******************************************************************************/
 // Convenient macros to reduce syntactic noise. undef later.

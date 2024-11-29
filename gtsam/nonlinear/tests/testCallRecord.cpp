@@ -18,9 +18,9 @@
  * @brief unit tests for CallRecord class
  */
 
-#include <gtsam/nonlinear/internal/CallRecord.h>
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/nonlinear/internal/CallRecord.h"
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/Testable.h"
 
 #include <CppUnitLite/TestHarness.h>
 #include <iostream>

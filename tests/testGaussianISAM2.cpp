@@ -4,24 +4,24 @@
  * @author  Michael Kaess
  */
 
-#include <gtsam/nonlinear/ISAM2.h>
+#include "gtsam/nonlinear/ISAM2.h"
 
 #include <tests/smallExample.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/sam/BearingRangeFactor.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Marginals.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/base/debug.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/treeTraversal-inst.h>
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/sam/BearingRangeFactor.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Marginals.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/base/debug.h"
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/base/treeTraversal-inst.h"
 
 #include <CppUnitLite/TestHarness.h>
 

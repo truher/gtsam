@@ -6,9 +6,9 @@
 
 //#define ENABLE_TIMING
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/timing.h>
-#include <gtsam_unstable/discrete/Scheduler.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/timing.h"
+#include "gtsam_unstable/discrete/Scheduler.h"
 
 
 using namespace std;

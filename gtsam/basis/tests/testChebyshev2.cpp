@@ -18,12 +18,12 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/basis/Chebyshev2.h>
-#include <gtsam/basis/FitBasis.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/nonlinear/factorTesting.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/basis/Chebyshev2.h"
+#include "gtsam/basis/FitBasis.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/nonlinear/factorTesting.h"
 
 #include <cstddef>
 #include <functional>

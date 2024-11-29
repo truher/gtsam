@@ -19,12 +19,12 @@
  *  @date   May 14, 2014
  */
 
-#include <gtsam/slam/lago.h>
-#include <gtsam/slam/InitializePose.h>
-#include <gtsam/slam/dataset.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/slam/lago.h"
+#include "gtsam/slam/InitializePose.h"
+#include "gtsam/slam/dataset.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/inference/Symbol.h"
 
 #include <CppUnitLite/TestHarness.h>
 

@@ -15,10 +15,10 @@
  * @author Frank Dellaert, Varun Agrawal
  */
 
-#include <gtsam/base/timing.h>
-#include <gtsam/inference/FactorGraph-inst.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam/base/timing.h"
+#include "gtsam/inference/FactorGraph-inst.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
 
 #include <fstream>
 #include <iterator>

@@ -16,7 +16,7 @@
  * @date July 4, 2020
  */
 
-#include <gtsam/basis/Chebyshev2.h>
+#include "gtsam/basis/Chebyshev2.h"
 
 namespace gtsam {
 

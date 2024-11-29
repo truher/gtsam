@@ -15,11 +15,11 @@
  * @author Christian Potthast
  */
 
-#include <gtsam/global_includes.h>
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/timing.h>
-#include <gtsam/base/Vector.h>
-#include <gtsam/base/FastList.h>
+#include "gtsam/global_includes.h"
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/timing.h"
+#include "gtsam/base/Vector.h"
+#include "gtsam/base/FastList.h"
 #include <Eigen/SVD>
 #include <Eigen/LU>
 

@@ -11,15 +11,15 @@
 // Use gtsam to create a prior factor for the first pose and N-1 between factors
 // and run optimization.
 
-#include <gtsam/geometry/Cal3_S2Stereo.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/slam/StereoFactor.h>
+#include "gtsam/geometry/Cal3_S2Stereo.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/slam/StereoFactor.h"
 
 #include <random>
 

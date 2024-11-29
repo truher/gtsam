@@ -17,12 +17,12 @@
 
 // For an explanation of these headers, see SFMExample_SmartFactor.cpp
 #include "SFMdata.h"
-#include <gtsam/slam/SmartProjectionPoseFactor.h>
+#include "gtsam/slam/SmartProjectionPoseFactor.h"
 
 // These extra headers allow us a LM outer loop with PCG linear solver (inner loop)
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/linear/Preconditioner.h>
-#include <gtsam/linear/PCGSolver.h>
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/linear/Preconditioner.h"
+#include "gtsam/linear/PCGSolver.h"
 
 using namespace std;
 using namespace gtsam;

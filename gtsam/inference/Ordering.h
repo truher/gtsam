@@ -20,10 +20,10 @@
 
 #pragma once
 
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/VariableIndex.h>
-#include <gtsam/inference/MetisIndex.h>
-#include <gtsam/base/FastSet.h>
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/VariableIndex.h"
+#include "gtsam/inference/MetisIndex.h"
+#include "gtsam/base/FastSet.h"
 
 #include <algorithm>
 #include <vector>

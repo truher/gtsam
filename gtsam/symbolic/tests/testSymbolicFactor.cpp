@@ -16,10 +16,10 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/symbolic/SymbolicFactor.h>
-#include <gtsam/symbolic/SymbolicConditional.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/symbolic/SymbolicFactor.h"
+#include "gtsam/symbolic/SymbolicConditional.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
 
 
 using namespace std;

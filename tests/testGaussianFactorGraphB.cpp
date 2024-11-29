@@ -16,13 +16,13 @@
  **/
 
 #include <tests/smallExample.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/Testable.h"
 
 #include <CppUnitLite/TestHarness.h>
 
@@ -383,9 +383,9 @@ TEST(GaussianFactorGraph, hasConstraints)
   EXPECT(!hasConstraints(fg));
 }
 
-#include <gtsam/slam/ProjectionFactor.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/sam/RangeFactor.h>
+#include "gtsam/slam/ProjectionFactor.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/sam/RangeFactor.h"
 
 /* ************************************************************************* */
 TEST( GaussianFactorGraph, conditional_sigma_failure) {

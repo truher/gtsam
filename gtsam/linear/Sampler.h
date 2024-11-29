@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <gtsam/linear/NoiseModel.h>
+#include "gtsam/linear/NoiseModel.h"
 
 #include <random>
 

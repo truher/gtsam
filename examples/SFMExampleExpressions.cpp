@@ -23,15 +23,15 @@
  */
 
 // The two new headers that allow using our Automatic Differentiation Expression framework
-#include <gtsam/slam/expressions.h>
-#include <gtsam/nonlinear/ExpressionFactorGraph.h>
+#include "gtsam/slam/expressions.h"
+#include "gtsam/nonlinear/ExpressionFactorGraph.h"
 
 // Header order is close to far
 #include "SFMdata.h"
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/nonlinear/DoglegOptimizer.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/nonlinear/DoglegOptimizer.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/inference/Symbol.h"
 
 #include <vector>
 

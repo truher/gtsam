@@ -19,13 +19,13 @@
 
 #pragma once
 
-#include <gtsam/geometry/SOn.h>
+#include "gtsam/geometry/SOn.h"
 
-#include <gtsam/base/Group.h>
-#include <gtsam/base/Lie.h>
-#include <gtsam/base/Manifold.h>
-#include <gtsam/base/Matrix.h>
-#include <gtsam/dllexport.h>
+#include "gtsam/base/Group.h"
+#include "gtsam/base/Lie.h"
+#include "gtsam/base/Manifold.h"
+#include "gtsam/base/Matrix.h"
+#include "gtsam/dllexport.h"
 
 #include <string>
 

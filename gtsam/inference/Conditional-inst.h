@@ -18,7 +18,7 @@
 // \callgraph
 #pragma once
 
-#include <gtsam/inference/Conditional.h>
+#include "gtsam/inference/Conditional.h"
 
 #include <cmath>
 #include <iostream>

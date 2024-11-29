@@ -26,8 +26,8 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
 
 namespace gtsam {
 

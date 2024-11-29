@@ -22,13 +22,13 @@
  * - The robot first moves to (1.0, 0.0, 0.1) and then to (1.0, 1.0, 0.2) 
  */
 
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/nonlinear/GncOptimizer.h>
-#include <gtsam/nonlinear/GncParams.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/LevenbergMarquardtParams.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/slam/BetweenFactor.h>
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/nonlinear/GncOptimizer.h"
+#include "gtsam/nonlinear/GncParams.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/LevenbergMarquardtParams.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/slam/BetweenFactor.h"
 
 #include <iostream>
 

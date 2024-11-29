@@ -20,9 +20,9 @@
 
 #pragma once
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/dllexport.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/dllexport.h"
 
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION
 #include <boost/serialization/extended_type_info.hpp>

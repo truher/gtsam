@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include <gtsam/navigation/PreintegratedRotation.h>
+#include "gtsam/navigation/PreintegratedRotation.h"
 
 namespace gtsam {
 

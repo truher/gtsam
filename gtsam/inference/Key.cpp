@@ -17,8 +17,8 @@
  * @date Feb 20, 2012
  */
 
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/LabeledSymbol.h>
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/LabeledSymbol.h"
 
 #include <iostream>
 

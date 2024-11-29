@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/geometry/CameraSet.h>
-#include <gtsam/slam/SmartProjectionFactor.h>
-#include <gtsam_unstable/dllexport.h>
+#include "gtsam/geometry/CameraSet.h"
+#include "gtsam/slam/SmartProjectionFactor.h"
+#include "gtsam_unstable/dllexport.h"
 
 namespace gtsam {
 /**

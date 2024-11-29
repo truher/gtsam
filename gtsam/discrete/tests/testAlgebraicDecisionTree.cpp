@@ -16,14 +16,14 @@
  * @date   Mar 6, 2011
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/discrete/DiscreteKey.h>  // make sure we have traits
-#include <gtsam/discrete/DiscreteValues.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/discrete/DiscreteKey.h"  // make sure we have traits
+#include "gtsam/discrete/DiscreteValues.h"
 // headers first to make sure no missing headers
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/discrete/AlgebraicDecisionTree.h>
-#include <gtsam/discrete/DecisionTree-inl.h>  // for convert only
-#include <gtsam/discrete/Signature.h>
+#include "gtsam/discrete/AlgebraicDecisionTree.h"
+#include "gtsam/discrete/DecisionTree-inl.h"  // for convert only
+#include "gtsam/discrete/Signature.h"
 
 using namespace std;
 using namespace gtsam;

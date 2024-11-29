@@ -17,7 +17,7 @@
  * @date    March 2019
  */
 
-#include <gtsam/geometry/SOn.h>
+#include "gtsam/geometry/SOn.h"
 
 namespace gtsam {
 

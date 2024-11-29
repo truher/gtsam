@@ -16,9 +16,9 @@
  * @author Yong-Dian Jian
  */
 
-#include <gtsam/linear/IterativeSolver.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/linear/IterativeSolver.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/VectorValues.h"
 #include <iostream>
 
 using namespace std;

@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/inference/ClusterTree.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/inference/ClusterTree.h"
 
 namespace gtsam {
 class NonlinearClusterTree : public ClusterTree<NonlinearFactorGraph> {

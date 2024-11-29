@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <gtsam/discrete/DiscreteKey.h>
-#include <gtsam_unstable/discrete/Constraint.h>
+#include "gtsam/discrete/DiscreteKey.h"
+#include "gtsam_unstable/discrete/Constraint.h"
 
 namespace gtsam {
 

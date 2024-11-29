@@ -16,7 +16,7 @@
  * @date    Jan 21, 2012
  */
 
-#include <gtsam/linear/GaussianDensity.h>
+#include "gtsam/linear/GaussianDensity.h"
 #include <string>
 
 using std::cout;

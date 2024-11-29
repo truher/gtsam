@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/linear/iterative.h>
-#include <gtsam/linear/ConjugateGradientSolver.h>
+#include "gtsam/linear/iterative.h"
+#include "gtsam/linear/ConjugateGradientSolver.h"
 
 namespace gtsam {
 

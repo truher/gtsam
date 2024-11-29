@@ -5,10 +5,10 @@
  * @date   July 30, 2014
  */
 
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam_unstable/slam/BiasedGPSFactor.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam_unstable/slam/BiasedGPSFactor.h"
 
 #include <CppUnitLite/TestHarness.h>
 

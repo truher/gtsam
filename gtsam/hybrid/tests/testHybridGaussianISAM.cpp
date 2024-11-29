@@ -16,16 +16,16 @@
  * @date    Jan 2021
  */
 
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam/discrete/DiscreteDistribution.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/hybrid/HybridConditional.h>
-#include <gtsam/hybrid/HybridGaussianISAM.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/sam/BearingRangeFactor.h>
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam/discrete/DiscreteDistribution.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/hybrid/HybridConditional.h"
+#include "gtsam/hybrid/HybridGaussianISAM.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/sam/BearingRangeFactor.h"
 
 #include "Switching.h"
 

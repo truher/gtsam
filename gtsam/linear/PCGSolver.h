@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <gtsam/linear/ConjugateGradientSolver.h>
+#include "gtsam/linear/ConjugateGradientSolver.h"
 #include <string>
 
 namespace gtsam {

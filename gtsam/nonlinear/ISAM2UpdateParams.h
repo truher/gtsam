@@ -16,10 +16,10 @@
 
 #pragma once
 
-#include <gtsam/base/FastList.h>
-#include <gtsam/dllexport.h>              // GTSAM_EXPORT
-#include <gtsam/inference/Key.h>          // Key, KeySet
-#include <gtsam/nonlinear/ISAM2Result.h>  //FactorIndices
+#include "gtsam/base/FastList.h"
+#include "gtsam/dllexport.h"              // GTSAM_EXPORT
+#include "gtsam/inference/Key.h"          // Key, KeySet
+#include "gtsam/nonlinear/ISAM2Result.h"  //FactorIndices
 #include <optional>
 
 namespace gtsam {

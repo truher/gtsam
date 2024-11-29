@@ -18,8 +18,8 @@
  */
 #pragma once
 
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam_unstable/linear/InequalityFactorGraph.h>
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam_unstable/linear/InequalityFactorGraph.h"
 
 namespace gtsam {
 
@@ -200,4 +200,4 @@ Key maxKey(const PROBLEM& problem) {
 
 } // namespace gtsam
 
-#include <gtsam_unstable/linear/ActiveSetSolver-inl.h>
+#include "gtsam_unstable/linear/ActiveSetSolver-inl.h"

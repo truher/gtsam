@@ -15,7 +15,7 @@
  *  @author Fan Jiang
  */
 
-#include <gtsam/hybrid/HybridFactor.h>
+#include "gtsam/hybrid/HybridFactor.h"
 
 namespace gtsam {
 

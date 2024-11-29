@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <gtsam/base/Lie.h>
+#include "gtsam/base/Lie.h"
 
 namespace gtsam {
 

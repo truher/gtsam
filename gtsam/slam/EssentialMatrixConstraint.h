@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/geometry/EssentialMatrix.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/geometry/EssentialMatrix.h"
 
 namespace gtsam {
 

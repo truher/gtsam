@@ -15,9 +15,9 @@
  *  @author Frank Dellaert
  */
 
-#include <gtsam/hybrid/HybridBayesNet.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/hybrid/HybridBayesNet.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/inference/Symbol.h"
 #pragma once
 
 namespace gtsam {

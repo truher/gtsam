@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/linear/JacobianFactor.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/linear/JacobianFactor.h"
 
 #include <map>
 #include <vector>

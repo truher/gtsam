@@ -10,8 +10,8 @@
 
 #include <map>
 #include <vector>
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/Symbol.h"
 
 #include "PartitionWorkSpace.h"
 

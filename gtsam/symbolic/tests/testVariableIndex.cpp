@@ -16,9 +16,9 @@
  * @date    Sep 26, 2010
  */
 
-#include <gtsam/inference/VariableIndex.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/inference/VariableIndex.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/base/TestableAssertions.h"
 
 #include <CppUnitLite/TestHarness.h>
 

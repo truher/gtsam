@@ -17,7 +17,7 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/discrete/DiscreteMarginals.h>
+#include "gtsam/discrete/DiscreteMarginals.h"
 
 #include <CppUnitLite/TestHarness.h>
 

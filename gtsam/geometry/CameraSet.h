@@ -18,12 +18,12 @@
 
 #pragma once
 
-#include <gtsam/base/FastMap.h>
-#include <gtsam/base/SymmetricBlockMatrix.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/geometry/CalibratedCamera.h>  // for Cheirality exception
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/inference/Key.h>
+#include "gtsam/base/FastMap.h"
+#include "gtsam/base/SymmetricBlockMatrix.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/geometry/CalibratedCamera.h"  // for Cheirality exception
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/inference/Key.h"
 
 #include <vector>
 

@@ -16,9 +16,9 @@
  **/
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/testLie.h>
-#include <gtsam/geometry/SO3.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/testLie.h"
+#include "gtsam/geometry/SO3.h"
 
 using namespace std::placeholders;
 using namespace std;

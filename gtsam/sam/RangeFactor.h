@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/ExpressionFactor.h>
+#include "gtsam/nonlinear/ExpressionFactor.h"
 
 namespace gtsam {
 

@@ -8,8 +8,8 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam_unstable/partition/FindSeparator-inl.h>
-#include <gtsam_unstable/partition/GenericGraph.h>
+#include "gtsam_unstable/partition/FindSeparator-inl.h"
+#include "gtsam_unstable/partition/GenericGraph.h"
 
 using namespace std;
 using namespace gtsam;

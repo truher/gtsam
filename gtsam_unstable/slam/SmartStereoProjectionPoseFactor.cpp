@@ -19,7 +19,7 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam_unstable/slam/SmartStereoProjectionPoseFactor.h>
+#include "gtsam_unstable/slam/SmartStereoProjectionPoseFactor.h"
 
 namespace gtsam {
 

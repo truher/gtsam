@@ -19,8 +19,8 @@
 // \callgraph
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 
@@ -102,4 +102,4 @@ class ExtendedKalmanFilter {
 
 }  // namespace
 
-#include <gtsam/nonlinear/ExtendedKalmanFilter-inl.h>
+#include "gtsam/nonlinear/ExtendedKalmanFilter-inl.h"

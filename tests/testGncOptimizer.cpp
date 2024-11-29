@@ -28,13 +28,13 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/nonlinear/GncOptimizer.h>
-#include <gtsam/nonlinear/LinearContainerFactor.h>
-#include <gtsam/slam/dataset.h>
+#include "gtsam/nonlinear/GncOptimizer.h"
+#include "gtsam/nonlinear/LinearContainerFactor.h"
+#include "gtsam/slam/dataset.h"
 #include <tests/smallExample.h>
 
-#include <gtsam/sam/BearingFactor.h>
-#include <gtsam/geometry/Pose2.h>
+#include "gtsam/sam/BearingFactor.h"
+#include "gtsam/geometry/Pose2.h"
 
 using namespace std;
 using namespace gtsam;

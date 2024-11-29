@@ -9,7 +9,7 @@
 #include <cassert>
 #include <algorithm>
 
-#include <gtsam/base/DSFVector.h>
+#include "gtsam/base/DSFVector.h"
 
 #include "GenericGraph.h"
 

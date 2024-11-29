@@ -16,7 +16,7 @@
  * @brief A simple data structure for a track in Structure from Motion
  */
 
-#include <gtsam/sfm/SfmTrack.h>
+#include "gtsam/sfm/SfmTrack.h"
 
 #include <iostream>
 

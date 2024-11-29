@@ -16,13 +16,13 @@
  * @author Mike Bosse
  */
 
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/TestableAssertions.h"
 
 #include <CppUnitLite/TestHarness.h>
 #include <stdexcept>

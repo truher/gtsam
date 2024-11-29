@@ -18,10 +18,10 @@
 
 #pragma once
 
-#include <gtsam/linear/GaussianFactor.h>
-#include <gtsam/linear/Scatter.h>
-#include <gtsam/base/SymmetricBlockMatrix.h>
-#include <gtsam/base/FastVector.h>
+#include "gtsam/linear/GaussianFactor.h"
+#include "gtsam/linear/Scatter.h"
+#include "gtsam/base/SymmetricBlockMatrix.h"
+#include "gtsam/base/FastVector.h"
 
 
 namespace gtsam {
@@ -418,4 +418,4 @@ struct traits<HessianFactor> : public Testable<HessianFactor> {};
 } // \ namespace gtsam
 
 
-#include <gtsam/linear/HessianFactor-inl.h>
+#include "gtsam/linear/HessianFactor-inl.h"

@@ -15,13 +15,13 @@
  * @date    Dec 15, 2010
  */
 
-#include <gtsam/linear/HessianFactor.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/base/debug.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/linear/HessianFactor.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/base/debug.h"
+#include "gtsam/base/TestableAssertions.h"
 
 #include <CppUnitLite/TestHarness.h>
 

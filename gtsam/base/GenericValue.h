@@ -19,9 +19,9 @@
 
 #pragma once
 
-#include <gtsam/base/Manifold.h>
-#include <gtsam/base/types.h>
-#include <gtsam/base/Value.h>
+#include "gtsam/base/Manifold.h"
+#include "gtsam/base/types.h"
+#include "gtsam/base/Value.h"
 
 #include <cmath>
 #include <iostream>

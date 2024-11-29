@@ -16,12 +16,12 @@
  * @brief unit tests for navigation expression helpers
  */
 
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/navigation/NavState.h>
-#include <gtsam/navigation/expressions.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/slam/expressions.h>
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/navigation/NavState.h"
+#include "gtsam/navigation/expressions.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/slam/expressions.h"
 
 #include <CppUnitLite/TestHarness.h>
 

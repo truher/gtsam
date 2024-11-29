@@ -17,8 +17,8 @@
  */
 
 #pragma once
-#include <gtsam/base/DSFMap.h>
-#include <gtsam/sfm/SfmTrack.h>
+#include "gtsam/base/DSFMap.h"
+#include "gtsam/sfm/SfmTrack.h"
 
 #include <Eigen/Core>
 #include <map>

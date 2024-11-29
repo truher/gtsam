@@ -29,13 +29,13 @@
 // camera positions and Point3 variables (x, y, z) to represent the landmark
 // coordinates. Camera observations of landmarks (i.e. pixel coordinates) will
 // be stored as Point2 (x, y).
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Pose3.h"
 
 // We will also need a camera object to hold calibration information and perform
 // projections.
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/PinholeCamera.h>
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/PinholeCamera.h"
 
 namespace gtsam {
 

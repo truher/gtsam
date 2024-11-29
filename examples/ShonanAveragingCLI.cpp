@@ -30,10 +30,10 @@
  * ./ShonanAveragingCLI -i spere2500.txt -h true
  */
 
-#include <gtsam/base/timing.h>
-#include <gtsam/sfm/ShonanAveraging.h>
-#include <gtsam/slam/InitializePose.h>
-#include <gtsam/slam/dataset.h>
+#include "gtsam/base/timing.h"
+#include "gtsam/sfm/ShonanAveraging.h"
+#include "gtsam/slam/InitializePose.h"
+#include "gtsam/slam/dataset.h"
 
 #include <boost/program_options.hpp>
 

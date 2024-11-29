@@ -33,7 +33,7 @@
 
 #pragma once
 
-#include <gtsam/base/concepts.h>
+#include "gtsam/base/concepts.h"
 
 #include <functional>
 #include <iostream>

@@ -24,16 +24,16 @@
 #include "SFMdata.h"
 
 // Camera observations of landmarks (i.e. pixel coordinates) will be stored as Point2 (x, y).
-#include <gtsam/geometry/Point2.h>
+#include "gtsam/geometry/Point2.h"
 
 // Inference and optimization
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/DoglegOptimizer.h>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/DoglegOptimizer.h"
+#include "gtsam/nonlinear/Values.h"
 
 // SFM-specific factors
-#include <gtsam/slam/GeneralSFMFactor.h>  // does calibration !
+#include "gtsam/slam/GeneralSFMFactor.h"  // does calibration !
 
 // Standard headers
 #include <vector>

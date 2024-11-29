@@ -18,11 +18,11 @@
  * @brief Binary factor for a relative translation direction measurement.
  */
 
-#include <gtsam/base/Vector.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Unit3.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/base/Vector.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Unit3.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 

@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/linear/ConjugateGradientSolver.h>
-#include <gtsam/linear/SubgraphBuilder.h>
+#include "gtsam/linear/ConjugateGradientSolver.h"
+#include "gtsam/linear/SubgraphBuilder.h"
 
 #include <map>
 #include <utility>  // pair

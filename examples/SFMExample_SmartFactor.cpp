@@ -22,11 +22,11 @@
 // Every smart factor represent a single landmark, seen from multiple cameras.
 // The SmartProjectionPoseFactor only optimizes for the poses of a camera,
 // not the calibration, which is assumed known.
-#include <gtsam/slam/SmartProjectionPoseFactor.h>
+#include "gtsam/slam/SmartProjectionPoseFactor.h"
 
 // For an explanation of these headers, see SFMExample.cpp
 #include "SFMdata.h"
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
 
 using namespace std;
 using namespace gtsam;

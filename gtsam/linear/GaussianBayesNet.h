@@ -20,10 +20,10 @@
 
 #pragma once
 
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/inference/BayesNet.h>
-#include <gtsam/inference/FactorGraph.h>
-#include <gtsam/global_includes.h>
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/inference/BayesNet.h"
+#include "gtsam/inference/FactorGraph.h"
+#include "gtsam/global_includes.h"
 
 #include <utility>
 namespace gtsam {

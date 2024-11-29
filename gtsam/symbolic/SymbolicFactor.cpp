@@ -15,12 +15,12 @@
  * @date    Oct 17, 2010
  */
 
-#include <gtsam/base/FastVector.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/symbolic/SymbolicFactor.h>
-#include <gtsam/symbolic/SymbolicConditional.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/symbolic/SymbolicFactor-inst.h>
+#include "gtsam/base/FastVector.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/symbolic/SymbolicFactor.h"
+#include "gtsam/symbolic/SymbolicConditional.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/symbolic/SymbolicFactor-inst.h"
 
 using namespace std;
 

@@ -18,12 +18,12 @@
 
 #pragma once
 
-#include <gtsam/base/Lie.h>
-#include <gtsam/base/Manifold.h>
-#include <gtsam/dllexport.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Rot3.h>
+#include "gtsam/base/Lie.h"
+#include "gtsam/base/Manifold.h"
+#include "gtsam/dllexport.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Rot3.h"
 
 namespace gtsam {
 

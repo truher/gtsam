@@ -17,11 +17,11 @@
 
 #pragma once
 
-#include <gtsam/symbolic/SymbolicFactor.h>
-#include <gtsam/symbolic/SymbolicConditional.h>
-#include <gtsam/inference/Factor.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/symbolic/SymbolicFactor.h"
+#include "gtsam/symbolic/SymbolicConditional.h"
+#include "gtsam/inference/Factor.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/base/timing.h"
 
 #include <memory>
 

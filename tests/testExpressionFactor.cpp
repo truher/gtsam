@@ -18,14 +18,14 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/nonlinear/expressionTesting.h>
-#include <gtsam/slam/GeneralSFMFactor.h>
-#include <gtsam/slam/ProjectionFactor.h>
-#include <gtsam/slam/expressions.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/nonlinear/expressionTesting.h"
+#include "gtsam/slam/GeneralSFMFactor.h"
+#include "gtsam/slam/ProjectionFactor.h"
+#include "gtsam/slam/expressions.h"
 
 using namespace std::placeholders;
 

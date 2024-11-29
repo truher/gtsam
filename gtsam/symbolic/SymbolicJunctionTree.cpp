@@ -16,9 +16,9 @@
  * @author Richard Roberts
  */
 
-#include <gtsam/inference/JunctionTree-inst.h>
-#include <gtsam/symbolic/SymbolicJunctionTree.h>
-#include <gtsam/symbolic/SymbolicEliminationTree.h>
+#include "gtsam/inference/JunctionTree-inst.h"
+#include "gtsam/symbolic/SymbolicJunctionTree.h"
+#include "gtsam/symbolic/SymbolicEliminationTree.h"
 
 namespace gtsam {
 

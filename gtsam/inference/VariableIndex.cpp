@@ -17,7 +17,7 @@
 
 #include <iostream>
 
-#include <gtsam/inference/VariableIndex.h>
+#include "gtsam/inference/VariableIndex.h"
 
 namespace gtsam {
 

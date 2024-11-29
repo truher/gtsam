@@ -16,9 +16,9 @@
  *  @date Nov 2013
  */
 
-#include <gtsam_unstable/slam/SmartRangeFactor.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include "gtsam_unstable/slam/SmartRangeFactor.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

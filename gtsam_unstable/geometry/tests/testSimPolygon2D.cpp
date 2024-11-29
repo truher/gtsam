@@ -3,8 +3,8 @@
  * @author Alex Cunningham
  */
 
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam_unstable/geometry/SimPolygon2D.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam_unstable/geometry/SimPolygon2D.h"
 
 #include <CppUnitLite/TestHarness.h>
 

@@ -16,8 +16,8 @@
  * @date    Nov 28, 2014
  **/
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/OptionalJacobian.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/OptionalJacobian.h"
 #include <CppUnitLite/TestHarness.h>
 
 #include <optional>

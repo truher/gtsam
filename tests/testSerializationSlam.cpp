@@ -20,37 +20,37 @@
 
 #include <tests/smallExample.h>
 
-#include <gtsam/sam/RangeFactor.h>
-#include <gtsam/sam/BearingRangeFactor.h>
+#include "gtsam/sam/RangeFactor.h"
+#include "gtsam/sam/BearingRangeFactor.h"
 
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/slam/GeneralSFMFactor.h>
-#include <gtsam/slam/ProjectionFactor.h>
-#include <gtsam/slam/dataset.h>
-#include <gtsam/slam/StereoFactor.h>
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/slam/GeneralSFMFactor.h"
+#include "gtsam/slam/ProjectionFactor.h"
+#include "gtsam/slam/dataset.h"
+#include "gtsam/slam/StereoFactor.h"
 
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/StereoPoint2.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Rot2.h>
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/Cal3DS2.h>
-#include <gtsam/geometry/Cal3_S2Stereo.h>
-#include <gtsam/geometry/CalibratedCamera.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/StereoCamera.h>
-#include <gtsam/geometry/SimpleCamera.h>
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/StereoPoint2.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Rot2.h"
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/Cal3DS2.h"
+#include "gtsam/geometry/Cal3_S2Stereo.h"
+#include "gtsam/geometry/CalibratedCamera.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/StereoCamera.h"
+#include "gtsam/geometry/SimpleCamera.h"
 
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/linear/SubgraphPreconditioner.h>
-#include <gtsam/linear/GaussianISAM.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/base/std_optional_serialization.h>
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/linear/SubgraphPreconditioner.h"
+#include "gtsam/linear/GaussianISAM.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/base/std_optional_serialization.h"
 
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/serialization/export.hpp>

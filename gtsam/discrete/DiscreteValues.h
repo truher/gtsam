@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <gtsam/discrete/Assignment.h>
-#include <gtsam/discrete/DiscreteKey.h>
-#include <gtsam/inference/Key.h>
+#include "gtsam/discrete/Assignment.h"
+#include "gtsam/discrete/DiscreteKey.h"
+#include "gtsam/inference/Key.h"
 
 #include <map>
 #include <string>

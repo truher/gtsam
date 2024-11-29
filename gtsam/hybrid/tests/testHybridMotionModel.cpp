@@ -18,20 +18,20 @@
  * @date    December 2021
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/discrete/DiscreteConditional.h>
-#include <gtsam/discrete/DiscreteValues.h>
-#include <gtsam/hybrid/HybridBayesNet.h>
-#include <gtsam/hybrid/HybridGaussianConditional.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/slam/BetweenFactor.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/discrete/DiscreteConditional.h"
+#include "gtsam/discrete/DiscreteValues.h"
+#include "gtsam/hybrid/HybridBayesNet.h"
+#include "gtsam/hybrid/HybridGaussianConditional.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/slam/BetweenFactor.h"
 
 // Include for test suite
 #include <CppUnitLite/TestHarness.h>

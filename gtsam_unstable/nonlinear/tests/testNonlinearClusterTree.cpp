@@ -4,13 +4,13 @@
  * @date   March, 2016
  */
 
-#include <gtsam_unstable/nonlinear/NonlinearClusterTree.h>
-#include <gtsam/sam/BearingRangeFactor.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Point2.h>
+#include "gtsam_unstable/nonlinear/NonlinearClusterTree.h"
+#include "gtsam/sam/BearingRangeFactor.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Point2.h"
 
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/inference/Symbol.h"
 
 #include <CppUnitLite/TestHarness.h>
 

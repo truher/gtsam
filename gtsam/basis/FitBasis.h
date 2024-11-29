@@ -24,11 +24,11 @@
 
 #pragma once
 
-#include <gtsam/basis/Basis.h>
-#include <gtsam/basis/BasisFactors.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
+#include "gtsam/basis/Basis.h"
+#include "gtsam/basis/BasisFactors.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
 
 namespace gtsam {
 

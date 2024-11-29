@@ -15,12 +15,12 @@
  * @author Frank Dellaert
  **/
 
-#include <gtsam/base/Manifold.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/lieProxies.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/geometry/SO4.h>
-#include <gtsam/geometry/SO3.h>
+#include "gtsam/base/Manifold.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/lieProxies.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/geometry/SO4.h"
+#include "gtsam/geometry/SO3.h"
 
 #include <CppUnitLite/TestHarness.h>
 

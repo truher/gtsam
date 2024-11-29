@@ -16,13 +16,13 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/discrete/DiscreteBayesTree.h>
-#include <gtsam/discrete/DiscreteEliminationTree.h>
-#include <gtsam/discrete/DiscreteFactor.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/inference/BayesNet.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/discrete/DiscreteBayesTree.h"
+#include "gtsam/discrete/DiscreteEliminationTree.h"
+#include "gtsam/discrete/DiscreteFactor.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/inference/BayesNet.h"
+#include "gtsam/inference/Symbol.h"
 
 using namespace std;
 using namespace gtsam;

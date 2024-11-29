@@ -4,7 +4,7 @@
 
 namespace gtsam {
 
-#include <gtsam/nonlinear/CustomFactor.h>
+#include "gtsam/nonlinear/CustomFactor.h"
 virtual class CustomFactor : gtsam::NoiseModelFactor {
   /*
    * Note CustomFactor will not be wrapped for MATLAB, as there is no supporting

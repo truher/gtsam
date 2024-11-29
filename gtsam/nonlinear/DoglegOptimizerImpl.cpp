@@ -16,7 +16,7 @@
  */
 
 #include <cmath>
-#include <gtsam/nonlinear/DoglegOptimizerImpl.h>
+#include "gtsam/nonlinear/DoglegOptimizerImpl.h"
 
 using namespace std;
 

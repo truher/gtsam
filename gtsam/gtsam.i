@@ -12,7 +12,7 @@
 
 namespace gtsam {
 
-#include <gtsam/inference/Key.h>
+#include "gtsam/inference/Key.h"
 
 const KeyFormatter DefaultKeyFormatter;
 
@@ -160,7 +160,7 @@ class FactorIndices {
 
 namespace utilities {
 
-#include <gtsam/nonlinear/utilities.h>
+#include "gtsam/nonlinear/utilities.h"
 gtsam::KeyList createKeyList(gtsam::Vector I);
 gtsam::KeyList createKeyList(string s, gtsam::Vector I);
 gtsam::KeyVector createKeyVector(gtsam::Vector I);

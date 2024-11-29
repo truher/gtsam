@@ -18,10 +18,10 @@
 
 #pragma once
 
-#include <gtsam/config.h>      // Configuration from CMake
-#include <gtsam/nonlinear/internal/JacobianMap.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/base/Manifold.h>
+#include "gtsam/config.h"      // Configuration from CMake
+#include "gtsam/nonlinear/internal/JacobianMap.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/base/Manifold.h"
 
 #include <Eigen/Core>
 

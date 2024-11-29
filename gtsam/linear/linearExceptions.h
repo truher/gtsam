@@ -17,8 +17,8 @@
  */
 #pragma once
 
-#include <gtsam/base/ThreadsafeException.h>
-#include <gtsam/base/types.h>
+#include "gtsam/base/ThreadsafeException.h"
+#include "gtsam/base/types.h"
 
 namespace gtsam {
 

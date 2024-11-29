@@ -15,7 +15,7 @@
  *  @author Frank Dellaert
  */
 
-#include <gtsam/discrete/DiscreteValues.h>
+#include "gtsam/discrete/DiscreteValues.h"
 
 #include <sstream>
 

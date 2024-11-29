@@ -16,10 +16,10 @@
  **/
 
 #include <tests/simulated3D.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/numericalDerivative.h"
 
 #include <CppUnitLite/TestHarness.h>
 

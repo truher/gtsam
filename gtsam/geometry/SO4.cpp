@@ -16,10 +16,10 @@
  * @author  Luca Carlone
  */
 
-#include <gtsam/base/concepts.h>
-#include <gtsam/base/timing.h>
-#include <gtsam/geometry/SO4.h>
-#include <gtsam/geometry/Unit3.h>
+#include "gtsam/base/concepts.h"
+#include "gtsam/base/timing.h"
+#include "gtsam/geometry/SO4.h"
+#include "gtsam/geometry/Unit3.h"
 
 #include <Eigen/Eigenvalues>
 

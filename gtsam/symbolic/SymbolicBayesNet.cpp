@@ -16,8 +16,8 @@
  * @author Richard Roberts
  */
 
-#include <gtsam/inference/FactorGraph-inst.h>
-#include <gtsam/symbolic/SymbolicBayesNet.h>
+#include "gtsam/inference/FactorGraph-inst.h"
+#include "gtsam/symbolic/SymbolicBayesNet.h"
 
 namespace gtsam {
 

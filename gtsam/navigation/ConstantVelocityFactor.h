@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gtsam/navigation/NavState.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/navigation/NavState.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 

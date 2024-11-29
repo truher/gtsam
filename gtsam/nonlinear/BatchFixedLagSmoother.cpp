@@ -17,11 +17,11 @@
  * @date    Oct 14, 2012
  */
 
-#include <gtsam/nonlinear/BatchFixedLagSmoother.h>
-#include <gtsam/nonlinear/LinearContainerFactor.h>
-#include <gtsam/linear/GaussianJunctionTree.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/GaussianFactor.h>
+#include "gtsam/nonlinear/BatchFixedLagSmoother.h"
+#include "gtsam/nonlinear/LinearContainerFactor.h"
+#include "gtsam/linear/GaussianJunctionTree.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/GaussianFactor.h"
 
 using namespace std;
 

@@ -20,10 +20,10 @@
 
 #include <functional>
 
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/base/Lie.h>
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/base/Lie.h"
 
 namespace gtsam {
 

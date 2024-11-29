@@ -17,8 +17,8 @@
  */
 #pragma once
 
-#include <gtsam/global_includes.h>
-#include <gtsam/inference/Key.h>
+#include "gtsam/global_includes.h"
+#include "gtsam/inference/Key.h"
 
 #include <exception>
 

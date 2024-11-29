@@ -17,13 +17,13 @@
  * @author  Viorela Ila
  */
 
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/symbolic/SymbolicBayesNet.h>
-#include <gtsam/symbolic/SymbolicBayesTree.h>
-#include <gtsam/symbolic/tests/symbolicExampleGraphs.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/symbolic/SymbolicBayesNet.h"
+#include "gtsam/symbolic/SymbolicBayesTree.h"
+#include "gtsam/symbolic/tests/symbolicExampleGraphs.h"
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/base/TestableAssertions.h"
 #include <iterator>
 #include <type_traits>
 

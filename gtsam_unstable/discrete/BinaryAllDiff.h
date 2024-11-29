@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam_unstable/discrete/Constraint.h>
-#include <gtsam_unstable/discrete/Domain.h>
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam_unstable/discrete/Constraint.h"
+#include "gtsam_unstable/discrete/Domain.h"
 
 namespace gtsam {
 

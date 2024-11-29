@@ -20,9 +20,9 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearOptimizer.h>
-#include <gtsam/nonlinear/LevenbergMarquardtParams.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/nonlinear/NonlinearOptimizer.h"
+#include "gtsam/nonlinear/LevenbergMarquardtParams.h"
+#include "gtsam/linear/VectorValues.h"
 #include <chrono>
 
 class NonlinearOptimizerMoreOptimizationTest;

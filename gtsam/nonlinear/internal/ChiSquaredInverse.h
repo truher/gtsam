@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <gtsam/3rdparty/cephes/cephes.h>
+#include "gtsam/3rdparty/cephes/cephes.h"
 
 namespace gtsam {
 namespace internal {

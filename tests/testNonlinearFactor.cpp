@@ -25,13 +25,13 @@
 // TODO: DANGEROUS, create shared pointers
 #define GTSAM_MAGIC_GAUSSIAN 2
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/Matrix.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/Matrix.h"
 #include <tests/smallExample.h>
 #include <tests/simulated2D.h>
-#include <gtsam/linear/GaussianFactor.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/linear/GaussianFactor.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/inference/Symbol.h"
 
 using namespace std;
 using namespace gtsam;

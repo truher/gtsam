@@ -16,9 +16,9 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam/discrete/DiscreteConditional.h>
-#include <gtsam/inference/FactorGraph-inst.h>
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam/discrete/DiscreteConditional.h"
+#include "gtsam/inference/FactorGraph-inst.h"
 
 namespace gtsam {
 

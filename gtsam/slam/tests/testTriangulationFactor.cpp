@@ -16,13 +16,13 @@
  *      Author: cbeall3
  */
 
-#include <gtsam/geometry/triangulation.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/StereoCamera.h>
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/nonlinear/Expression.h>
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/geometry/triangulation.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/StereoCamera.h"
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/nonlinear/Expression.h"
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam/base/numericalDerivative.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

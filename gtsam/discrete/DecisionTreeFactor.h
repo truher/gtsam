@@ -18,10 +18,10 @@
 
 #pragma once
 
-#include <gtsam/discrete/AlgebraicDecisionTree.h>
-#include <gtsam/discrete/DiscreteFactor.h>
-#include <gtsam/discrete/DiscreteKey.h>
-#include <gtsam/inference/Ordering.h>
+#include "gtsam/discrete/AlgebraicDecisionTree.h"
+#include "gtsam/discrete/DiscreteFactor.h"
+#include "gtsam/discrete/DiscreteKey.h"
+#include "gtsam/inference/Ordering.h"
 
 #include <algorithm>
 #include <memory>

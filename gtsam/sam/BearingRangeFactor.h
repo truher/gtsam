@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam/geometry/BearingRange.h>
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam/geometry/BearingRange.h"
 
 namespace gtsam {
 

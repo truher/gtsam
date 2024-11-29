@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <gtsam/linear/IterativeSolver.h>
+#include "gtsam/linear/IterativeSolver.h"
 
 namespace gtsam {
 

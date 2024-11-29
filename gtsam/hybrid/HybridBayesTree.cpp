@@ -17,15 +17,15 @@
  * @author  Fan Jiang, Varun Agrawal
  */
 
-#include <gtsam/base/treeTraversal-inst.h>
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/hybrid/HybridBayesNet.h>
-#include <gtsam/hybrid/HybridBayesTree.h>
-#include <gtsam/hybrid/HybridConditional.h>
-#include <gtsam/inference/BayesTree-inst.h>
-#include <gtsam/inference/BayesTreeCliqueBase-inst.h>
-#include <gtsam/linear/GaussianJunctionTree.h>
+#include "gtsam/base/treeTraversal-inst.h"
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/hybrid/HybridBayesNet.h"
+#include "gtsam/hybrid/HybridBayesTree.h"
+#include "gtsam/hybrid/HybridConditional.h"
+#include "gtsam/inference/BayesTree-inst.h"
+#include "gtsam/inference/BayesTreeCliqueBase-inst.h"
+#include "gtsam/linear/GaussianJunctionTree.h"
 
 #include <memory>
 

@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <gtsam/base/Lie.h>
+#include "gtsam/base/Lie.h"
 #include <utility>  // pair
 
 namespace gtsam {

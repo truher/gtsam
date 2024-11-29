@@ -15,9 +15,9 @@
  * @date    June, 2015
  */
 
-#include <gtsam/linear/Scatter.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/linear/Scatter.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/inference/Symbol.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <gtsam/base/FastDefaultAllocator.h>
+#include "gtsam/base/FastDefaultAllocator.h"
 #include <vector>
 
 namespace gtsam {

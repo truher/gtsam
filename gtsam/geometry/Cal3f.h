@@ -23,7 +23,7 @@
 
 #pragma once
 
-#include <gtsam/geometry/Cal3.h>
+#include "gtsam/geometry/Cal3.h"
 
 namespace gtsam {
 

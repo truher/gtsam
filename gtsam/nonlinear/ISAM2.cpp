@@ -16,14 +16,14 @@
  * @author  Michael Kaess, Richard Roberts, Frank Dellaert
  */
 
-#include <gtsam/nonlinear/ISAM2-impl.h>
-#include <gtsam/nonlinear/ISAM2.h>
-#include <gtsam/nonlinear/ISAM2Result.h>
+#include "gtsam/nonlinear/ISAM2-impl.h"
+#include "gtsam/nonlinear/ISAM2.h"
+#include "gtsam/nonlinear/ISAM2Result.h"
 
-#include <gtsam/base/debug.h>
-#include <gtsam/base/timing.h>
-#include <gtsam/inference/BayesTree-inst.h>
-#include <gtsam/nonlinear/LinearContainerFactor.h>
+#include "gtsam/base/debug.h"
+#include "gtsam/base/timing.h"
+#include "gtsam/inference/BayesTree-inst.h"
+#include "gtsam/nonlinear/LinearContainerFactor.h"
 
 #include <algorithm>
 #include <map>

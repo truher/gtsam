@@ -16,9 +16,9 @@
  */
 
 #include <tests/simulated2DConstraints.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
 
 #include <CppUnitLite/TestHarness.h>
 

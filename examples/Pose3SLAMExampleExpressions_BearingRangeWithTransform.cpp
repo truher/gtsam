@@ -5,12 +5,12 @@
  * @date    January 4th, 2019
  */
 
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/geometry/BearingRange.h>
-#include <gtsam/slam/expressions.h>
-#include <gtsam/nonlinear/ExpressionFactorGraph.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/geometry/BearingRange.h"
+#include "gtsam/slam/expressions.h"
+#include "gtsam/nonlinear/ExpressionFactorGraph.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/Values.h"
 #include <examples/SFMdata.h>
 
 using namespace gtsam;

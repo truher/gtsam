@@ -16,8 +16,8 @@
  */
 
 #include <iostream>
-#include <gtsam/base/timing.h>
-#include <gtsam/base/Matrix.h>
+#include "gtsam/base/timing.h"
+#include "gtsam/base/Matrix.h"
 
 using namespace std;
 using namespace gtsam;

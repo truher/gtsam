@@ -16,20 +16,20 @@
  * @date Feb 7, 2012
  */
 
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Unit3.h>
-#include <gtsam/geometry/EssentialMatrix.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/Cal3_S2Stereo.h>
-#include <gtsam/geometry/CalibratedCamera.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Cal3DS2.h>
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/Cal3Unified.h>
-#include <gtsam/geometry/StereoCamera.h>
-#include <gtsam/geometry/StereoPoint2.h>
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Unit3.h"
+#include "gtsam/geometry/EssentialMatrix.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/Cal3_S2Stereo.h"
+#include "gtsam/geometry/CalibratedCamera.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Cal3DS2.h"
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/Cal3Unified.h"
+#include "gtsam/geometry/StereoCamera.h"
+#include "gtsam/geometry/StereoPoint2.h"
 
-#include <gtsam/base/serializationTestHelpers.h>
+#include "gtsam/base/serializationTestHelpers.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

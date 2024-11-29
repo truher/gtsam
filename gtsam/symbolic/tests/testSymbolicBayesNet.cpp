@@ -15,12 +15,12 @@
  * @author  Frank Dellaert
  */
 
-#include <gtsam/symbolic/SymbolicBayesNet.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/Vector.h>
-#include <gtsam/base/VectorSpace.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/symbolic/SymbolicConditional.h>
+#include "gtsam/symbolic/SymbolicBayesNet.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/Vector.h"
+#include "gtsam/base/VectorSpace.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/symbolic/SymbolicConditional.h"
 
 #include <CppUnitLite/TestHarness.h>
 

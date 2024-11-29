@@ -17,8 +17,8 @@
  * @author  Christian Potthast
  */
 
-#include <gtsam/linear/Errors.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/linear/Errors.h"
+#include "gtsam/linear/VectorValues.h"
 
 using namespace std;
 

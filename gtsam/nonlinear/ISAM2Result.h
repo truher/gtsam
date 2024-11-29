@@ -22,10 +22,10 @@
 #include <string>
 #include <vector>
 
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/nonlinear/DoglegOptimizerImpl.h>
-#include <gtsam/nonlinear/ISAM2Params.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/nonlinear/DoglegOptimizerImpl.h"
+#include "gtsam/nonlinear/ISAM2Params.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
 
 namespace gtsam {
 

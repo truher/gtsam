@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 

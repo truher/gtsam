@@ -5,10 +5,10 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/base/debug.h>
-#include <gtsam/base/timing.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam_unstable/discrete/Scheduler.h>
+#include "gtsam/base/debug.h"
+#include "gtsam/base/timing.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam_unstable/discrete/Scheduler.h"
 
 #include <boost/tokenizer.hpp>
 #include <cmath>

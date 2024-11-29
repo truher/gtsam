@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/basis/Basis.h>
-#include <gtsam/nonlinear/FunctorizedFactor.h>
+#include "gtsam/basis/Basis.h"
+#include "gtsam/nonlinear/FunctorizedFactor.h"
 
 namespace gtsam {
 

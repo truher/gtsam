@@ -20,8 +20,8 @@
 
 #pragma once
 
-#include <gtsam/geometry/Unit3.h>
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/geometry/Unit3.h"
+#include "gtsam/geometry/Pose3.h"
 #include <string>
 
 namespace gtsam {

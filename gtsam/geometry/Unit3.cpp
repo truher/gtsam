@@ -19,9 +19,9 @@
  * @brief The Unit3 class - basically a point on a unit sphere
  */
 
-#include <gtsam/geometry/Unit3.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/config.h>  // for GTSAM_USE_TBB
+#include "gtsam/geometry/Unit3.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/config.h"  // for GTSAM_USE_TBB
 
 #include <iostream>
 #include <limits>

@@ -16,9 +16,9 @@
  * @brief Data structure for dealing with Structure from Motion data
  */
 
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/sfm/SfmData.h>
-#include <gtsam/slam/GeneralSFMFactor.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/sfm/SfmData.h"
+#include "gtsam/slam/GeneralSFMFactor.h"
 
 #include <fstream>
 #include <iostream>

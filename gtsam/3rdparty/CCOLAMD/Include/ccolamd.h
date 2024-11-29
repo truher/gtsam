@@ -111,7 +111,7 @@ extern "C" {
 /* === Prototypes of user-callable routines ================================= */
 /* ========================================================================== */
 
-#include "SuiteSparse_config.h"
+#include "gtsam/3rdparty/SuiteSparse_config/SuiteSparse_config.h"
 
 size_t ccolamd_recommended	/* returns recommended value of Alen, */
 				/* or 0 if input arguments are erroneous */

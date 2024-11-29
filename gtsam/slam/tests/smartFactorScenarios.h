@@ -17,12 +17,12 @@
  */
 
 #pragma once
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/SphericalCamera.h>
-#include <gtsam/slam/GeneralSFMFactor.h>
-#include <gtsam/slam/SmartProjectionFactor.h>
-#include <gtsam/slam/SmartProjectionPoseFactor.h>
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/SphericalCamera.h"
+#include "gtsam/slam/GeneralSFMFactor.h"
+#include "gtsam/slam/SmartProjectionFactor.h"
+#include "gtsam/slam/SmartProjectionPoseFactor.h"
 
 #include "../SmartProjectionRigFactor.h"
 

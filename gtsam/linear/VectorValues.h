@@ -17,12 +17,12 @@
 
 #pragma once
 
-#include <gtsam/linear/Scatter.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/base/Vector.h>
-#include <gtsam/base/ConcurrentMap.h>
-#include <gtsam/base/FastVector.h>
-#include <gtsam/global_includes.h>
+#include "gtsam/linear/Scatter.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/base/Vector.h"
+#include "gtsam/base/ConcurrentMap.h"
+#include "gtsam/base/FastVector.h"
+#include "gtsam/global_includes.h"
 
 #include <memory>
 

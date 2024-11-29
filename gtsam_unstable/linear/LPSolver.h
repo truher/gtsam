@@ -19,9 +19,9 @@
 
 #pragma once
 
-#include <gtsam_unstable/linear/LP.h>
-#include <gtsam_unstable/linear/ActiveSetSolver.h>
-#include <gtsam_unstable/linear/LPInitSolver.h>
+#include "gtsam_unstable/linear/LP.h"
+#include "gtsam_unstable/linear/ActiveSetSolver.h"
+#include "gtsam_unstable/linear/LPInitSolver.h"
 
 #include <limits>
 #include <algorithm>

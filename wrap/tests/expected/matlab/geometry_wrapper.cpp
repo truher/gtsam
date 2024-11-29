@@ -5,8 +5,8 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/serialization/export.hpp>
 
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/Point3.h>
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/Point3.h"
 
 
 BOOST_CLASS_EXPORT_GUID(gtsam::Point2, "gtsamPoint2");

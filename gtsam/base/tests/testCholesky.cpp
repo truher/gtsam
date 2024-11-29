@@ -15,8 +15,8 @@
  * @date    Nov 5, 2010
  */
 
-#include <gtsam/base/debug.h>
-#include <gtsam/base/cholesky.h>
+#include "gtsam/base/debug.h"
+#include "gtsam/base/cholesky.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace gtsam;

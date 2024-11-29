@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <gtsam/slam/RegularImplicitSchurFactor.h>
+#include "gtsam/slam/RegularImplicitSchurFactor.h"
 
 namespace gtsam {
 

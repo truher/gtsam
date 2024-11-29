@@ -19,11 +19,11 @@
 
 #pragma once
 
-#include <gtsam/global_includes.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/inference/Conditional.h>
-#include <gtsam/inference/Conditional-inst.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/global_includes.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/inference/Conditional.h"
+#include "gtsam/inference/Conditional-inst.h"
+#include "gtsam/linear/VectorValues.h"
 
 #include <random> // for std::mt19937_64 
 
@@ -295,5 +295,5 @@ struct traits<GaussianConditional> : public Testable<GaussianConditional> {};
 
 } // \ namespace gtsam
 
-#include <gtsam/linear/GaussianConditional-inl.h>
+#include "gtsam/linear/GaussianConditional-inl.h"
 

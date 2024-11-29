@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <gtsam/geometry/OrientedPlane3.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/geometry/OrientedPlane3.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 

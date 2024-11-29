@@ -23,10 +23,10 @@
  * key2 to key1.
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/inference/Factor.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/linear/NoiseModel.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/inference/Factor.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/linear/NoiseModel.h"
 
 #include <iostream>
 #include <vector>

@@ -21,8 +21,8 @@
 
 #pragma once
 
-#include <gtsam/navigation/NavState.h>
-#include <gtsam/navigation/PreintegrationBase.h>
+#include "gtsam/navigation/NavState.h"
+#include "gtsam/navigation/PreintegrationBase.h"
 
 namespace gtsam {
 

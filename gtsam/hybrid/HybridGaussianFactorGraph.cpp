@@ -18,29 +18,29 @@
  * @date   Mar 11, 2022
  */
 
-#include <gtsam/base/utilities.h>
-#include <gtsam/discrete/Assignment.h>
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/DiscreteEliminationTree.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/discrete/DiscreteJunctionTree.h>
-#include <gtsam/discrete/DiscreteKey.h>
-#include <gtsam/discrete/DiscreteValues.h>
-#include <gtsam/hybrid/HybridConditional.h>
-#include <gtsam/hybrid/HybridEliminationTree.h>
-#include <gtsam/hybrid/HybridFactor.h>
-#include <gtsam/hybrid/HybridGaussianConditional.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/hybrid/HybridJunctionTree.h>
-#include <gtsam/inference/EliminateableFactorGraph-inst.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/GaussianEliminationTree.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/GaussianJunctionTree.h>
-#include <gtsam/linear/HessianFactor.h>
-#include <gtsam/linear/JacobianFactor.h>
+#include "gtsam/base/utilities.h"
+#include "gtsam/discrete/Assignment.h"
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/DiscreteEliminationTree.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/discrete/DiscreteJunctionTree.h"
+#include "gtsam/discrete/DiscreteKey.h"
+#include "gtsam/discrete/DiscreteValues.h"
+#include "gtsam/hybrid/HybridConditional.h"
+#include "gtsam/hybrid/HybridEliminationTree.h"
+#include "gtsam/hybrid/HybridFactor.h"
+#include "gtsam/hybrid/HybridGaussianConditional.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/hybrid/HybridJunctionTree.h"
+#include "gtsam/inference/EliminateableFactorGraph-inst.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/GaussianEliminationTree.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/GaussianJunctionTree.h"
+#include "gtsam/linear/HessianFactor.h"
+#include "gtsam/linear/JacobianFactor.h"
 
 #include <cstddef>
 #include <iostream>

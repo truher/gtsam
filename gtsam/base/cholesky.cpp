@@ -17,8 +17,8 @@
  * @date    Nov 5, 2010
  */
 
-#include <gtsam/base/cholesky.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/base/cholesky.h"
+#include "gtsam/base/timing.h"
 
 #include <cmath>
 

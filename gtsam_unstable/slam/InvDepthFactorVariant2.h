@@ -11,12 +11,12 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/base/numericalDerivative.h"
 
 namespace gtsam {
 

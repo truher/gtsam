@@ -16,7 +16,7 @@
  * @author: Akshay Krishnan
  */
 
-#include <gtsam/inference/EdgeKey.h>
+#include "gtsam/inference/EdgeKey.h"
 
 namespace gtsam {
 

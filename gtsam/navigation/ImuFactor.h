@@ -22,10 +22,10 @@
 #pragma once
 
 /* GTSAM includes */
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/navigation/ManifoldPreintegration.h>
-#include <gtsam/navigation/TangentPreintegration.h>
-#include <gtsam/base/debug.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/navigation/ManifoldPreintegration.h"
+#include "gtsam/navigation/TangentPreintegration.h"
+#include "gtsam/base/debug.h"
 
 namespace gtsam {
 

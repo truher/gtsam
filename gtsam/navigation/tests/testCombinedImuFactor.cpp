@@ -20,15 +20,15 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/navigation/CombinedImuFactor.h>
-#include <gtsam/navigation/ImuBias.h>
-#include <gtsam/navigation/ImuFactor.h>
-#include <gtsam/navigation/ScenarioRunner.h>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/navigation/CombinedImuFactor.h"
+#include "gtsam/navigation/ImuBias.h"
+#include "gtsam/navigation/ImuFactor.h"
+#include "gtsam/navigation/ScenarioRunner.h"
+#include "gtsam/nonlinear/Values.h"
 
 #include <list>
 

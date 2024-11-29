@@ -16,29 +16,29 @@
  */
 
 #include <tests/smallExample.h>
-#include <gtsam/sam/BearingRangeFactor.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/GaussianFactor.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/GaussianEliminationTree.h>
-#include <gtsam/linear/GaussianJunctionTree.h>
-#include <gtsam/linear/HessianFactor.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/symbolic/SymbolicEliminationTree.h>
-#include <gtsam/inference/BayesTree.h>
-#include <gtsam/inference/ClusterTree.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/sam/BearingRangeFactor.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/GaussianFactor.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/GaussianEliminationTree.h"
+#include "gtsam/linear/GaussianJunctionTree.h"
+#include "gtsam/linear/HessianFactor.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/symbolic/SymbolicEliminationTree.h"
+#include "gtsam/inference/BayesTree.h"
+#include "gtsam/inference/ClusterTree.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/Testable.h"
 
 #include <CppUnitLite/TestHarness.h>
 

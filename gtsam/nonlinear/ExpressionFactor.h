@@ -20,10 +20,10 @@
 #pragma once
 
 #include <array>
-#include <gtsam/config.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/nonlinear/Expression.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/config.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/nonlinear/Expression.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 #include <numeric>
 #include <utility>

@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/inference/Key.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/inference/Key.h"
 
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION
 #include <boost/serialization/nvp.hpp>

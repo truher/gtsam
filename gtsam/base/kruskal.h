@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/base/FastMap.h>
-#include <gtsam/inference/FactorGraph.h>
+#include "gtsam/base/FastMap.h"
+#include "gtsam/inference/FactorGraph.h"
 
 #include <vector>
 
@@ -38,4 +38,4 @@ std::vector<size_t> kruskal(const FactorGraph<FACTOR> &fg,
                             const std::vector<double> &weights);
 }  // namespace gtsam::utils
 
-#include <gtsam/base/kruskal-inl.h>
+#include "gtsam/base/kruskal-inl.h"

@@ -9,11 +9,11 @@
 
 #pragma once
 
-#include <gtsam/inference/ClusterTree.h>
-#include <gtsam/inference/BayesTree.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/base/timing.h>
-#include <gtsam/base/treeTraversal-inst.h>
+#include "gtsam/inference/ClusterTree.h"
+#include "gtsam/inference/BayesTree.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/base/timing.h"
+#include "gtsam/base/treeTraversal-inst.h"
 
 #ifdef GTSAM_USE_TBB
 #include <mutex>

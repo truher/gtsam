@@ -18,16 +18,16 @@
  * @date   Mar 12, 2022
  */
 
-#include <gtsam/base/utilities.h>
-#include <gtsam/discrete/DiscreteValues.h>
-#include <gtsam/hybrid/HybridGaussianConditional.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/inference/Conditional-inst.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/JacobianFactor.h>
+#include "gtsam/base/utilities.h"
+#include "gtsam/discrete/DiscreteValues.h"
+#include "gtsam/hybrid/HybridGaussianConditional.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/inference/Conditional-inst.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/JacobianFactor.h"
 
 #include <cstddef>
 #include <memory>

@@ -20,7 +20,7 @@
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION
 #pragma once
 
-#include <gtsam/base/Vector.h>
+#include "gtsam/base/Vector.h"
 
 #include <boost/serialization/array.hpp>
 #include <boost/serialization/nvp.hpp>

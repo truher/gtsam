@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <gtsam/discrete/DecisionTree.h>
+#include "gtsam/discrete/DecisionTree.h"
 
 #include <algorithm>
 #include <cassert>

@@ -16,9 +16,9 @@
  * @date    June 2015
  */
 
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/Scatter.h>
-#include <gtsam/inference/Ordering.h>
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/Scatter.h"
+#include "gtsam/inference/Ordering.h"
 
 #include <algorithm>
 

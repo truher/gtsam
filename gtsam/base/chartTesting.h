@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/Manifold.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/Manifold.h"
+#include "gtsam/base/Testable.h"
 #include <CppUnitLite/TestResult.h>
 #include <CppUnitLite/Test.h>
 #include <CppUnitLite/Failure.h>

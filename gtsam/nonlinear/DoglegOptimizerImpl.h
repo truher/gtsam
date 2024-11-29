@@ -18,8 +18,8 @@
 
 #include <iomanip>
 
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/inference/Ordering.h>
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/inference/Ordering.h"
 
 namespace gtsam {
 

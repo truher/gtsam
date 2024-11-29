@@ -17,13 +17,13 @@
 
 #pragma once
 
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam/global_includes.h>
-#include <gtsam/hybrid/HybridConditional.h>
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/inference/BayesNet.h>
-#include <gtsam/linear/GaussianBayesNet.h>
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam/global_includes.h"
+#include "gtsam/hybrid/HybridConditional.h"
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/inference/BayesNet.h"
+#include "gtsam/linear/GaussianBayesNet.h"
 
 namespace gtsam {
 

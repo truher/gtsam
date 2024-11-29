@@ -590,7 +590,7 @@
 /* === Include files ======================================================== */
 /* ========================================================================== */
 
-#include "ccolamd.h"
+#include "gtsam/3rdparty/CCOLAMD/Include/ccolamd.h"
 
 #include <stdlib.h>
 #include <math.h>

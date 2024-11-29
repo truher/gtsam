@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/linear/ConjugateGradientSolver.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/linear/ConjugateGradientSolver.h"
 
 namespace gtsam {
 
@@ -145,5 +145,5 @@ namespace gtsam {
 
 } // namespace gtsam
 
-#include <gtsam/linear/iterative-inl.h>
+#include "gtsam/linear/iterative-inl.h"
 

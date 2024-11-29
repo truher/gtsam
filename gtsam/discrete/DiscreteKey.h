@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/global_includes.h>
-#include <gtsam/inference/Key.h>
+#include "gtsam/global_includes.h"
+#include "gtsam/inference/Key.h"
 
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION
 #include <boost/serialization/vector.hpp>

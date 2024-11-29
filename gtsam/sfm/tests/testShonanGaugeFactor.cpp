@@ -16,7 +16,7 @@
  * @brief  Unit tests for ShonanGaugeFactor class
  */
 
-#include <gtsam/sfm/ShonanGaugeFactor.h>
+#include "gtsam/sfm/ShonanGaugeFactor.h"
 
 #include <CppUnitLite/TestHarness.h>
 

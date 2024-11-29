@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <gtsam_unstable/slam/SmartStereoProjectionFactor.h>
+#include "gtsam_unstable/slam/SmartStereoProjectionFactor.h"
 
 namespace gtsam {
 /**

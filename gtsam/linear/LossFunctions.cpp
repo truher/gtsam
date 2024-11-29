@@ -16,7 +16,7 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/linear/LossFunctions.h>
+#include "gtsam/linear/LossFunctions.h"
 
 #include <iostream>
 #include <utility>

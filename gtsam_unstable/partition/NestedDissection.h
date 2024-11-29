@@ -10,7 +10,7 @@
 
 #include <vector>
 #include <memory>
-#include <gtsam/nonlinear/Ordering.h>
+#include "gtsam/nonlinear/Ordering.h"
 
 namespace gtsam { namespace partition {
 

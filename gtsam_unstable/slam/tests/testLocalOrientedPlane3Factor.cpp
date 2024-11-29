@@ -16,11 +16,11 @@
  * @brief Tests the LocalOrientedPlane3Factor class
  */
 
-#include <gtsam_unstable/slam/LocalOrientedPlane3Factor.h>
+#include "gtsam_unstable/slam/LocalOrientedPlane3Factor.h"
 
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/ISAM2.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/ISAM2.h"
 
 #include <CppUnitLite/TestHarness.h>
 #include "gtsam/base/Vector.h"

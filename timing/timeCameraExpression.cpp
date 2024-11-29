@@ -16,12 +16,12 @@
  * @date    October 3, 2014
  */
 
-#include <gtsam/slam/expressions.h>
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam/slam/ProjectionFactor.h>
-#include <gtsam/slam/GeneralSFMFactor.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Cal3_S2.h>
+#include "gtsam/slam/expressions.h"
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam/slam/ProjectionFactor.h"
+#include "gtsam/slam/GeneralSFMFactor.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Cal3_S2.h"
 #include "timeLinearize.h"
 
 using namespace std;

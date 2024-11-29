@@ -17,7 +17,7 @@
  *  @date   Nov 6, 2014
  */
 
-#include <gtsam/linear/ConjugateGradientSolver.h>
+#include "gtsam/linear/ConjugateGradientSolver.h"
 #include <iostream>
 
 using namespace std;

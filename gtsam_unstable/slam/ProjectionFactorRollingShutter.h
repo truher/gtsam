@@ -17,11 +17,11 @@
 
 #pragma once
 
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/CalibratedCamera.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam_unstable/dllexport.h>
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/CalibratedCamera.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam_unstable/dllexport.h"
 
 
 namespace gtsam {

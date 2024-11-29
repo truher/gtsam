@@ -1,7 +1,7 @@
 #include <gtwrap/matlab.h>
 #include <map>
 
-#include <gtsam/geometry/Cal3Bundler.h>
+#include "gtsam/geometry/Cal3Bundler.h"
 
 typedef gtsam::PinholeCamera<gtsam::Cal3Bundler> PinholeCameraCal3Bundler;
 typedef gtsam::GeneralSFMFactor<gtsam::PinholeCamera<gtsam::Cal3Bundler>, gtsam::Point3> GeneralSFMFactorCal3Bundler;

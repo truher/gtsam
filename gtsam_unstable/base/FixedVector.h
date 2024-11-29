@@ -18,7 +18,7 @@
 #pragma once
 
 #include <stdarg.h>
-#include <gtsam/base/Vector.h>
+#include "gtsam/base/Vector.h"
 
 namespace gtsam {
 

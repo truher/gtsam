@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/global_includes.h>
-#include <gtsam_unstable/dllexport.h>
+#include "gtsam/global_includes.h"
+#include "gtsam_unstable/dllexport.h"
 #include <string>
 
 namespace gtsam {

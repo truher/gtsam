@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/inference/Symbol.h"
 
 #include <iostream>
 

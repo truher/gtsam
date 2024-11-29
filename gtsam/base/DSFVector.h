@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/dllexport.h>
-#include <gtsam/global_includes.h>
+#include "gtsam/dllexport.h"
+#include "gtsam/global_includes.h"
 
 #include <memory>
 

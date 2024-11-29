@@ -25,9 +25,9 @@
 #pragma once
 
 #include <utility>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/nonlinear/Values.h"
 
-#include <gtsam/nonlinear/Values.h> // Only so Eclipse finds class definition
+#include "gtsam/nonlinear/Values.h" // Only so Eclipse finds class definition
 
 namespace gtsam {
 

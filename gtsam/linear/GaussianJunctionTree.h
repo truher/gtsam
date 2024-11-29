@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/inference/JunctionTree.h>
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/inference/JunctionTree.h"
 
 namespace gtsam {
 

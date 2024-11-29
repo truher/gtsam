@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <gtsam/linear/PowerMethod.h>
+#include "gtsam/linear/PowerMethod.h"
 
 namespace gtsam {
 

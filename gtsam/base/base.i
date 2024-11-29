@@ -4,28 +4,28 @@
 
 namespace gtsam {
 
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/Cal3DS2.h>
-#include <gtsam/geometry/Cal3Fisheye.h>
-#include <gtsam/geometry/Cal3Unified.h>
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/CalibratedCamera.h>
-#include <gtsam/geometry/EssentialMatrix.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Rot2.h>
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/geometry/StereoPoint2.h>
-#include <gtsam/navigation/ImuBias.h>
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/Cal3DS2.h"
+#include "gtsam/geometry/Cal3Fisheye.h"
+#include "gtsam/geometry/Cal3Unified.h"
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/CalibratedCamera.h"
+#include "gtsam/geometry/EssentialMatrix.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Rot2.h"
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/geometry/StereoPoint2.h"
+#include "gtsam/navigation/ImuBias.h"
 
 // #####
 
-#include <gtsam/base/debug.h>
+#include "gtsam/base/debug.h"
 bool isDebugVersion();
 
-#include <gtsam/base/DSFMap.h>
+#include "gtsam/base/DSFMap.h"
 class IndexPair {
   IndexPair();
   IndexPair(size_t i, size_t j);
@@ -84,11 +84,11 @@ class IndexPairSetMap {
   gtsam::IndexPairSet at(gtsam::IndexPair& key);
 };
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/MatrixSerialization.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/MatrixSerialization.h"
 bool linear_independent(gtsam::Matrix A, gtsam::Matrix B, double tol);
 
-#include <gtsam/base/Value.h>
+#include "gtsam/base/Value.h"
 virtual class Value {
   // No constructors because this is an abstract class
 
@@ -99,7 +99,7 @@ virtual class Value {
   size_t dim() const;
 };
 
-#include <gtsam/base/GenericValue.h>
+#include "gtsam/base/GenericValue.h"
 template <T = {gtsam::Vector, gtsam::Matrix, gtsam::Point2, gtsam::Point3, gtsam::Rot2,
                gtsam::Rot3, gtsam::Pose2, gtsam::Pose3, gtsam::StereoPoint2,
                gtsam::Cal3_S2, gtsam::Cal3DS2, gtsam::Cal3Bundler,

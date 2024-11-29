@@ -17,15 +17,15 @@
 
 #include <tests/smallExample.h>
 
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianEliminationTree.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/SubgraphPreconditioner.h>
-#include <gtsam/linear/iterative.h>
-#include <gtsam/slam/dataset.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianEliminationTree.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/SubgraphPreconditioner.h"
+#include "gtsam/linear/iterative.h"
+#include "gtsam/slam/dataset.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
 
 #include <CppUnitLite/TestHarness.h>
 

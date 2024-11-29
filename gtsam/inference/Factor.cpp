@@ -21,7 +21,7 @@
 
 #include <iostream>
 
-#include <gtsam/inference/Factor.h>
+#include "gtsam/inference/Factor.h"
 
 namespace gtsam {
 

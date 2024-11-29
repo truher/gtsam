@@ -17,12 +17,12 @@
  */
 
 // For an explanation of headers below, please see Pose2SLAMExample.cpp
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
 
 // In contrast to that example, however, we will use a PCG solver here
-#include <gtsam/linear/SubgraphSolver.h>
+#include "gtsam/linear/SubgraphSolver.h"
 
 using namespace std;
 using namespace gtsam;

@@ -5,8 +5,8 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam/inference/Symbol.h>
-#include <gtsam_unstable/dynamics/VelocityConstraint3.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam_unstable/dynamics/VelocityConstraint3.h"
 
 using namespace gtsam;
 using namespace gtsam::symbol_shorthand;

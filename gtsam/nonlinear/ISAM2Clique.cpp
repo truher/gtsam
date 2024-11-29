@@ -15,10 +15,10 @@
  * @author  Michael Kaess, Richard Roberts, Frank Dellaert
  */
 
-#include <gtsam/inference/BayesTreeCliqueBase-inst.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/linear/linearAlgorithms-inst.h>
-#include <gtsam/nonlinear/ISAM2Clique.h>
+#include "gtsam/inference/BayesTreeCliqueBase-inst.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/linear/linearAlgorithms-inst.h"
+#include "gtsam/nonlinear/ISAM2Clique.h"
 
 #include <stack>
 #include <utility>

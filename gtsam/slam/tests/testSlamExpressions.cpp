@@ -15,9 +15,9 @@
  * @brief test expressions for SLAM
  */
 
-#include <gtsam/slam/expressions.h>
-#include <gtsam/nonlinear/expressionTesting.h>
-#include <gtsam/geometry/CalibratedCamera.h>
+#include "gtsam/slam/expressions.h"
+#include "gtsam/nonlinear/expressionTesting.h"
+#include "gtsam/geometry/CalibratedCamera.h"
 
 #include <CppUnitLite/TestHarness.h>
 

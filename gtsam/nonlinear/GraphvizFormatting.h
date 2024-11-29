@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <gtsam/inference/DotWriter.h>
+#include "gtsam/inference/DotWriter.h"
 
 namespace gtsam {
 

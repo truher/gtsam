@@ -18,8 +18,8 @@
  * @date    December 2014
  */
 
-#include <gtsam/base/concepts.h>
-#include <gtsam/geometry/SO3.h>
+#include "gtsam/base/concepts.h"
+#include "gtsam/geometry/SO3.h"
 
 #include <Eigen/SVD>
 

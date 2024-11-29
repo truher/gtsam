@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
 
 namespace test_pose_adjoint_map
 {

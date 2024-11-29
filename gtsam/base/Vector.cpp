@@ -17,7 +17,7 @@
  * @author  Varun Agrawal
  */
 
-#include <gtsam/base/Vector.h>
+#include "gtsam/base/Vector.h"
 #include <stdexcept>
 #include <cstdarg>
 #include <limits>

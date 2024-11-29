@@ -17,13 +17,13 @@
  * @author Yong Dian Jian
  */
 
-#include <gtsam/linear/SubgraphSolver.h>
+#include "gtsam/linear/SubgraphSolver.h"
 
-#include <gtsam/linear/SubgraphBuilder.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/iterative-inl.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/SubgraphPreconditioner.h>
+#include "gtsam/linear/SubgraphBuilder.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/iterative-inl.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/SubgraphPreconditioner.h"
 
 using namespace std;
 

@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gtsam/hybrid/HybridGaussianISAM.h>
-#include <gtsam/hybrid/HybridNonlinearFactorGraph.h>
+#include "gtsam/hybrid/HybridGaussianISAM.h"
+#include "gtsam/hybrid/HybridNonlinearFactorGraph.h"
 
 #include <optional>
 

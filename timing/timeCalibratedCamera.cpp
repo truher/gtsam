@@ -15,8 +15,8 @@
  * @author  Frank Dellaert
  */
 
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/CalibratedCamera.h>
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/CalibratedCamera.h"
 #include <ctime>
 #include <iostream>
 

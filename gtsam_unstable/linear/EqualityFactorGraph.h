@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/inference/FactorGraph.h>
-#include <gtsam_unstable/linear/LinearEquality.h>
+#include "gtsam/inference/FactorGraph.h"
+#include "gtsam_unstable/linear/LinearEquality.h"
 
 namespace gtsam {
 

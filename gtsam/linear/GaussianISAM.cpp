@@ -16,8 +16,8 @@
  * @author Richard Roberts
  */
 
-#include <gtsam/linear/GaussianISAM.h>
-#include <gtsam/inference/ISAM-inst.h>
+#include "gtsam/linear/GaussianISAM.h"
+#include "gtsam/inference/ISAM-inst.h"
 
 namespace gtsam {
 

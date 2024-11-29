@@ -16,7 +16,7 @@
  * @date    Apr 25, 2013
  */
 
-#include <gtsam/inference/inferenceExceptions.h>
+#include "gtsam/inference/inferenceExceptions.h"
 
 #include <sstream>
 

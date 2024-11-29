@@ -15,16 +15,16 @@
  *  @author Shangjie Xue
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/discrete/Assignment.h>
-#include <gtsam/discrete/DiscreteKey.h>
-#include <gtsam/discrete/DiscreteValues.h>
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/discrete/Assignment.h"
+#include "gtsam/discrete/DiscreteKey.h"
+#include "gtsam/discrete/DiscreteValues.h"
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/nonlinear/Values.h"
 
 // Include for test suite
 #include <CppUnitLite/TestHarness.h>

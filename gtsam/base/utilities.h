@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 
-#include <gtsam/dllexport.h>
+#include "gtsam/dllexport.h"
 
 namespace gtsam {
 /**

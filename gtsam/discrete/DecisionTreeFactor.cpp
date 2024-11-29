@@ -17,10 +17,10 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/base/FastSet.h>
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/DiscreteConditional.h>
+#include "gtsam/base/FastSet.h"
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/DiscreteConditional.h"
 
 #include <utility>
 

@@ -17,9 +17,9 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/discrete/DiscreteFactor.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/discrete/DiscreteFactor.h"
 
 using namespace std;
 using namespace gtsam;

@@ -17,31 +17,31 @@
  */
 
 // Both relative poses and recovered trajectory poses will be stored as Pose2 objects
-#include <gtsam/geometry/Pose2.h>
+#include "gtsam/geometry/Pose2.h"
 
 // Each variable in the system (poses and landmarks) must be identified with a unique key.
 // We can either use simple integer keys (1, 2, 3, ...) or symbols (X1, X2, L1).
 // Here we will use Symbols
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/inference/Symbol.h"
 
 // We want to use iSAM2 to solve the range-SLAM problem incrementally
-#include <gtsam/nonlinear/ISAM2.h>
+#include "gtsam/nonlinear/ISAM2.h"
 
 // iSAM2 requires as input a set set of new factors to be added stored in a factor graph,
 // and initial guesses for any new variables used in the added factors
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
 
 // We will use a non-liear solver to batch-inituialize from the first 150 frames
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
 
 // In GTSAM, measurement functions are represented as 'factors'. Several common factors
 // have been provided with the library for solving robotics SLAM problems.
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/sam/RangeFactor.h>
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/sam/RangeFactor.h"
 
 // To find data files, we can use `findExampleDataFile`, declared here:
-#include <gtsam/slam/dataset.h>
+#include "gtsam/slam/dataset.h"
 
 // Standard headers, added last, so we know headers above work on their own
 #include <fstream>

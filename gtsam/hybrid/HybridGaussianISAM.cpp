@@ -17,12 +17,12 @@
  * @author Varun Agrawal
  */
 
-#include <gtsam/base/treeTraversal-inst.h>
-#include <gtsam/hybrid/HybridBayesTree.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/hybrid/HybridGaussianISAM.h>
-#include <gtsam/inference/ISAM-inst.h>
-#include <gtsam/inference/Key.h>
+#include "gtsam/base/treeTraversal-inst.h"
+#include "gtsam/hybrid/HybridBayesTree.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/hybrid/HybridGaussianISAM.h"
+#include "gtsam/inference/ISAM-inst.h"
+#include "gtsam/inference/Key.h"
 
 #include <iterator>
 

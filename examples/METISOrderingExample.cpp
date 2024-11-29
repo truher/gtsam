@@ -22,12 +22,12 @@
  * - For more details on the full optimization pipeline, see OdometryExample.cpp
  */
 
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/Marginals.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/slam/BetweenFactor.h>
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/Marginals.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/slam/BetweenFactor.h"
 
 using namespace std;
 using namespace gtsam;

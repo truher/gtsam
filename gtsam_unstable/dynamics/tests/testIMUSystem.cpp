@@ -7,18 +7,18 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/sam/RangeFactor.h>
-#include <gtsam_unstable/slam/PartialPriorFactor.h>
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/sam/RangeFactor.h"
+#include "gtsam_unstable/slam/PartialPriorFactor.h"
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
 
-#include <gtsam_unstable/dynamics/IMUFactor.h>
-#include <gtsam_unstable/dynamics/FullIMUFactor.h>
-#include <gtsam_unstable/dynamics/VelocityConstraint.h>
-#include <gtsam_unstable/dynamics/DynamicsPriors.h>
+#include "gtsam_unstable/dynamics/IMUFactor.h"
+#include "gtsam_unstable/dynamics/FullIMUFactor.h"
+#include "gtsam_unstable/dynamics/VelocityConstraint.h"
+#include "gtsam_unstable/dynamics/DynamicsPriors.h"
 
 using namespace std;
 using namespace gtsam;

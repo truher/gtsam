@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/global_includes.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/global_includes.h"
 
 #include <functional>
 #include <optional>

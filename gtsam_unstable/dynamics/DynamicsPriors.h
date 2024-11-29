@@ -9,8 +9,8 @@
 
 #pragma once
 
-#include <gtsam_unstable/dynamics/PoseRTV.h>
-#include <gtsam_unstable/slam/PartialPriorFactor.h>
+#include "gtsam_unstable/dynamics/PoseRTV.h"
+#include "gtsam_unstable/slam/PartialPriorFactor.h"
 
 namespace gtsam {
 

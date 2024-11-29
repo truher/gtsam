@@ -17,7 +17,7 @@
  *  @date   July 2014
  **/
 
-#include <gtsam/navigation/AHRSFactor.h>
+#include "gtsam/navigation/AHRSFactor.h"
 #include <iostream>
 
 using namespace std;

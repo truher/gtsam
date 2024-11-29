@@ -16,9 +16,9 @@
  * @author Richard Roberts
  */
 
-#include <gtsam/inference/JunctionTree-inst.h>
-#include <gtsam/linear/GaussianJunctionTree.h>
-#include <gtsam/linear/GaussianEliminationTree.h>
+#include "gtsam/inference/JunctionTree-inst.h"
+#include "gtsam/linear/GaussianJunctionTree.h"
+#include "gtsam/linear/GaussianEliminationTree.h"
 
 namespace gtsam {
 

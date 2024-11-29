@@ -18,4 +18,4 @@
 #endif
 
 
-#include <gtsam/sam/BearingFactor.h>
+#include "gtsam/sam/BearingFactor.h"

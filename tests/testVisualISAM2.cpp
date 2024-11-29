@@ -19,12 +19,12 @@
 #include <CppUnitLite/TestHarness.h>
 
 #include <examples/SFMdata.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/ISAM2.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/slam/ProjectionFactor.h>
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/ISAM2.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/slam/ProjectionFactor.h"
 
 #include <vector>
 

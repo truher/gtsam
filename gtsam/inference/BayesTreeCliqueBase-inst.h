@@ -16,9 +16,9 @@
 
 #pragma once
 
-#include <gtsam/inference/BayesTreeCliqueBase.h>
-#include <gtsam/inference/FactorGraph-inst.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/inference/BayesTreeCliqueBase.h"
+#include "gtsam/inference/FactorGraph-inst.h"
+#include "gtsam/base/timing.h"
 
 namespace gtsam {
 

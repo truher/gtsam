@@ -5,7 +5,7 @@
  * @author Alex Cunningham
  */
 
-#include <gtsam_unstable/slam/DummyFactor.h>
+#include "gtsam_unstable/slam/DummyFactor.h"
 
 namespace gtsam {
 

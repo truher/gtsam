@@ -19,10 +19,10 @@
 
 #pragma once
 
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/inference/BayesTree.h>
-#include <gtsam/inference/BayesTreeCliqueBase.h>
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/inference/BayesTree.h"
+#include "gtsam/inference/BayesTreeCliqueBase.h"
 
 namespace gtsam {
 

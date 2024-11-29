@@ -4,9 +4,9 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/base/TestableAssertions.h"
 
-#include <gtsam_unstable/geometry/SimWall2D.h>
+#include "gtsam_unstable/geometry/SimWall2D.h"
 
 using namespace gtsam;
 

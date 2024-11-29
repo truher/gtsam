@@ -14,9 +14,9 @@
  * @author Alex Cunningham
  */
 
-#include <gtsam/inference/LabeledSymbol.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/inference/LabeledSymbol.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/TestableAssertions.h"
 
 #include <CppUnitLite/TestHarness.h>
 

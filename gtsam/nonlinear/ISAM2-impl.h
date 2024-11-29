@@ -18,15 +18,15 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/ISAM2.h>
-#include <gtsam/nonlinear/ISAM2Result.h>
+#include "gtsam/nonlinear/ISAM2.h"
+#include "gtsam/nonlinear/ISAM2Result.h"
 
-#include <gtsam/base/debug.h>
-#include <gtsam/inference/JunctionTree-inst.h>  // We need the inst file because we'll make a special JT templated on ISAM2
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/inference/VariableIndex.h>
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/linear/GaussianEliminationTree.h>
+#include "gtsam/base/debug.h"
+#include "gtsam/inference/JunctionTree-inst.h"  // We need the inst file because we'll make a special JT templated on ISAM2
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/inference/VariableIndex.h"
+#include "gtsam/linear/GaussianBayesTree.h"
+#include "gtsam/linear/GaussianEliminationTree.h"
 
 #include <algorithm>
 #include <limits>

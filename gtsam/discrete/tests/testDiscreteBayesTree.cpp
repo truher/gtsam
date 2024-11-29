@@ -15,12 +15,12 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/base/Vector.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/inference/BayesNet.h>
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam/discrete/DiscreteBayesTree.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
+#include "gtsam/base/Vector.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/inference/BayesNet.h"
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam/discrete/DiscreteBayesTree.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
 
 #include <CppUnitLite/TestHarness.h>
 

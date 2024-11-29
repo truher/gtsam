@@ -16,10 +16,10 @@
  * @date   Sep 12, 2024
  */
 
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/hybrid/HybridNonlinearFactor.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/hybrid/HybridNonlinearFactor.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 #include <memory>
 

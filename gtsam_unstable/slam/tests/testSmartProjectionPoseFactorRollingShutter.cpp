@@ -17,13 +17,13 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/slam/PoseTranslationPrior.h>
-#include <gtsam/slam/ProjectionFactor.h>
-#include <gtsam_unstable/slam/ProjectionFactorRollingShutter.h>
-#include <gtsam_unstable/slam/SmartProjectionPoseFactorRollingShutter.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/slam/PoseTranslationPrior.h"
+#include "gtsam/slam/ProjectionFactor.h"
+#include "gtsam_unstable/slam/ProjectionFactorRollingShutter.h"
+#include "gtsam_unstable/slam/SmartProjectionPoseFactorRollingShutter.h"
 
 #include <iostream>
 
@@ -1313,7 +1313,7 @@ TEST(SmartProjectionPoseFactorRollingShutter,
 }
 
 #ifndef DISABLE_TIMING
-#include <gtsam/base/timing.h>
+#include "gtsam/base/timing.h"
 //-Total: 0 CPU (0 times, 0 wall, 0.21 children, min: 0 max: 0)
 //|   -SF RS LINEARIZE: 0.14 CPU
 //(10000 times, 0.131202 wall, 0.14 children, min: 0 max: 0)
@@ -1382,7 +1382,7 @@ TEST(SmartProjectionPoseFactorRollingShutter, timing) {
 }
 #endif
 
-#include <gtsam/geometry/SphericalCamera.h>
+#include "gtsam/geometry/SphericalCamera.h"
 /* ************************************************************************* */
 // spherical Camera with rolling shutter effect
 namespace sphericalCameraRS {

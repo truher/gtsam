@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gtsam/base/Lie.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/base/Lie.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 

@@ -20,14 +20,14 @@
 
 // #define ENABLE_TIMING // uncomment for timing results
 
-#include <gtsam/navigation/ImuFactor.h>
-#include <gtsam/navigation/ScenarioRunner.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/nonlinear/factorTesting.h>
-#include <gtsam/linear/Sampler.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/navigation/ImuFactor.h"
+#include "gtsam/navigation/ScenarioRunner.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/nonlinear/factorTesting.h"
+#include "gtsam/linear/Sampler.h"
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/base/numericalDerivative.h"
 
 #include <CppUnitLite/TestHarness.h>
 #include <list>
@@ -717,10 +717,10 @@ TEST(ImuFactor, bodyPSensorNoBias) {
 }
 
 /* ************************************************************************* */
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/Marginals.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/Marginals.h"
 
 TEST(ImuFactor, bodyPSensorWithBias) {
   gttic(bodyPSensorWithBias);

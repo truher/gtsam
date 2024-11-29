@@ -17,9 +17,9 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/geometry/SphericalCamera.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/geometry/SphericalCamera.h"
 
 #include <cmath>
 #include <iostream>

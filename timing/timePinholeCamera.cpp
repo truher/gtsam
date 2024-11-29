@@ -18,8 +18,8 @@
 #include <time.h>
 #include <iostream>
 
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Cal3Bundler.h>
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Cal3Bundler.h"
 
 using namespace std;
 using namespace gtsam;

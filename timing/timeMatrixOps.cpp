@@ -16,8 +16,8 @@
  * @date    Sep 18, 2010
  */
 
-#include <gtsam/base/timing.h>
-#include <gtsam/base/Matrix.h>
+#include "gtsam/base/timing.h"
+#include "gtsam/base/Matrix.h"
 
 #include <iostream>
 #include <random>

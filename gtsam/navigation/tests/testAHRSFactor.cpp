@@ -19,17 +19,17 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/debug.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/navigation/AHRSFactor.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/Marginals.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/factorTesting.h>
-#include <gtsam/slam/BetweenFactor.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/base/debug.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/navigation/AHRSFactor.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/Marginals.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/factorTesting.h"
+#include "gtsam/slam/BetweenFactor.h"
 
 #include <cmath>
 #include <list>

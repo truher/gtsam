@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/Vector.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/Vector.h"
 
 #include <Eigen/Core>
 #include <Eigen/Sparse>

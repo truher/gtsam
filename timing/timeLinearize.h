@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
 
 #include <time.h>
 #include <iostream>

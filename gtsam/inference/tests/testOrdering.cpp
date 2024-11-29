@@ -15,11 +15,11 @@
  * @author Andrew Melim
  */
 
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/inference/MetisIndex.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/inference/MetisIndex.h"
+#include "gtsam/base/TestableAssertions.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

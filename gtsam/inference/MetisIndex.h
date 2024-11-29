@@ -17,10 +17,10 @@
 #pragma once
 
 
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/FactorGraph.h>
-#include <gtsam/base/types.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/FactorGraph.h"
+#include "gtsam/base/types.h"
+#include "gtsam/base/timing.h"
 
 #include <vector>
 #include <map>
@@ -101,4 +101,4 @@ public:
 
 } // \ namesace gtsam
 
-#include <gtsam/inference/MetisIndex-inl.h>
+#include "gtsam/inference/MetisIndex-inl.h"

@@ -15,9 +15,9 @@
  * @date    Sep 16, 2010
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/inference/Symbol.h"
 
 #include <CppUnitLite/TestHarness.h>
 

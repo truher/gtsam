@@ -19,16 +19,16 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/Cal3DS2.h>
-#include <gtsam/geometry/CameraSet.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/SphericalCamera.h>
-#include <gtsam/geometry/StereoCamera.h>
-#include <gtsam/geometry/triangulation.h>
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/slam/StereoFactor.h>
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/Cal3DS2.h"
+#include "gtsam/geometry/CameraSet.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/SphericalCamera.h"
+#include "gtsam/geometry/StereoCamera.h"
+#include "gtsam/geometry/triangulation.h"
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/slam/StereoFactor.h"
 
 using namespace std;
 using namespace gtsam;

@@ -4,7 +4,7 @@
 
 namespace gtsam {
 
-#include <gtsam/geometry/Point2.h>
+#include "gtsam/geometry/Point2.h"
 class Point2 {
   // Standard Constructors
   Point2();
@@ -64,7 +64,7 @@ class Point2Vector {
   void pop_back();
 };
 
-#include <gtsam/geometry/StereoPoint2.h>
+#include "gtsam/geometry/StereoPoint2.h"
 class StereoPoint2 {
   // Standard Constructors
   StereoPoint2();
@@ -106,7 +106,7 @@ class StereoPoint2 {
   void serialize() const;
 };
 
-#include <gtsam/geometry/Point3.h>
+#include "gtsam/geometry/Point3.h"
 class Point3 {
   // Standard Constructors
   Point3();
@@ -143,7 +143,7 @@ class Point3Pairs {
   void push_back(const gtsam::Point3Pair& point_pair);
 };
 
-#include <gtsam/geometry/Rot2.h>
+#include "gtsam/geometry/Rot2.h"
 class Rot2 {
   // Standard Constructors and Named Constructors
   Rot2();
@@ -194,7 +194,7 @@ class Rot2 {
   void serialize() const;
 };
 
-#include <gtsam/geometry/SO3.h>
+#include "gtsam/geometry/SO3.h"
 class SO3 {
   // Standard Constructors
   SO3();
@@ -226,7 +226,7 @@ class SO3 {
   gtsam::Matrix matrix() const;
 };
 
-#include <gtsam/geometry/SO4.h>
+#include "gtsam/geometry/SO4.h"
 class SO4 {
   // Standard Constructors
   SO4();
@@ -256,7 +256,7 @@ class SO4 {
   gtsam::Matrix matrix() const;
 };
 
-#include <gtsam/geometry/SOn.h>
+#include "gtsam/geometry/SOn.h"
 class SOn {
   // Standard Constructors
   SOn(size_t n);
@@ -289,7 +289,7 @@ class SOn {
   void serialize() const;
 };
 
-#include <gtsam/geometry/Quaternion.h>
+#include "gtsam/geometry/Quaternion.h"
 class Quaternion {
   double w() const;
   double x() const;
@@ -298,7 +298,7 @@ class Quaternion {
   gtsam::Vector coeffs() const;
 };
 
-#include <gtsam/geometry/Rot3.h>
+#include "gtsam/geometry/Rot3.h"
 class Rot3 {
   // Standard Constructors and Named Constructors
   Rot3();
@@ -379,7 +379,7 @@ class Rot3 {
   void serialize() const;
 };
 
-#include <gtsam/geometry/Pose2.h>
+#include "gtsam/geometry/Pose2.h"
 class Pose2 {
   // Standard Constructor
   Pose2();
@@ -451,7 +451,7 @@ class Pose2 {
   void serialize() const;
 };
   
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/geometry/Pose3.h"
 class Pose3 {
   // Standard Constructors
   Pose3();
@@ -573,7 +573,7 @@ class Pose3Vector {
   void push_back(const gtsam::Pose3& pose);
 };
 
-#include <gtsam/geometry/Unit3.h>
+#include "gtsam/geometry/Unit3.h"
 class Unit3 {
   // Standard Constructors
   Unit3();
@@ -616,7 +616,7 @@ class Unit3 {
   bool equals(const gtsam::Unit3& expected, double tol) const;
 };
 
-#include <gtsam/geometry/EssentialMatrix.h>
+#include "gtsam/geometry/EssentialMatrix.h"
 class EssentialMatrix {
   // Standard Constructors
   EssentialMatrix(const gtsam::Rot3& aRb, const gtsam::Unit3& aTb);
@@ -644,7 +644,7 @@ class EssentialMatrix {
   double error(gtsam::Vector vA, gtsam::Vector vB);
 };
 
-#include <gtsam/geometry/Cal3.h>
+#include "gtsam/geometry/Cal3.h"
 virtual class Cal3 {
   // Standard Constructors
   Cal3();
@@ -672,7 +672,7 @@ virtual class Cal3 {
   size_t dim() const;
 };
 
-#include <gtsam/geometry/Cal3_S2.h>
+#include "gtsam/geometry/Cal3_S2.h"
 virtual class Cal3_S2 : gtsam::Cal3 {
   // Standard Constructors
   Cal3_S2();
@@ -704,7 +704,7 @@ virtual class Cal3_S2 : gtsam::Cal3 {
   void serialize() const;
 };
 
-#include <gtsam/geometry/Cal3DS2_Base.h>
+#include "gtsam/geometry/Cal3DS2_Base.h"
 virtual class Cal3DS2_Base : gtsam::Cal3 {
   // Standard Constructors
   Cal3DS2_Base();
@@ -730,7 +730,7 @@ virtual class Cal3DS2_Base : gtsam::Cal3 {
   void serialize() const;
 };
 
-#include <gtsam/geometry/Cal3DS2.h>
+#include "gtsam/geometry/Cal3DS2.h"
 virtual class Cal3DS2 : gtsam::Cal3DS2_Base {
   // Standard Constructors
   Cal3DS2();
@@ -753,7 +753,7 @@ virtual class Cal3DS2 : gtsam::Cal3DS2_Base {
   void serialize() const;
 };
 
-#include <gtsam/geometry/Cal3Unified.h>
+#include "gtsam/geometry/Cal3Unified.h"
 virtual class Cal3Unified : gtsam::Cal3DS2_Base {
   // Standard Constructors
   Cal3Unified();
@@ -793,7 +793,7 @@ virtual class Cal3Unified : gtsam::Cal3DS2_Base {
   void serialize() const;
 };
 
-#include <gtsam/geometry/Cal3Fisheye.h>
+#include "gtsam/geometry/Cal3Fisheye.h"
 virtual class Cal3Fisheye : gtsam::Cal3 {
   // Standard Constructors
   Cal3Fisheye();
@@ -829,7 +829,7 @@ virtual class Cal3Fisheye : gtsam::Cal3 {
   void serialize() const;
 };
 
-#include <gtsam/geometry/Cal3_S2Stereo.h>
+#include "gtsam/geometry/Cal3_S2Stereo.h"
 virtual class Cal3_S2Stereo   : gtsam::Cal3{
   // Standard Constructors
   Cal3_S2Stereo();
@@ -849,7 +849,7 @@ virtual class Cal3_S2Stereo   : gtsam::Cal3{
   gtsam::Vector6 vector() const;
 };
 
-#include <gtsam/geometry/Cal3Bundler.h>
+#include "gtsam/geometry/Cal3Bundler.h"
 virtual class Cal3f : gtsam::Cal3 {
   // Standard Constructors
   Cal3f();
@@ -881,7 +881,7 @@ virtual class Cal3f : gtsam::Cal3 {
 };
 
 
-#include <gtsam/geometry/Cal3Bundler.h>
+#include "gtsam/geometry/Cal3Bundler.h"
 virtual class Cal3Bundler : gtsam::Cal3f {
   // Standard Constructors
   Cal3Bundler();
@@ -905,7 +905,7 @@ virtual class Cal3Bundler : gtsam::Cal3f {
   void serialize() const;
 };
 
-#include <gtsam/geometry/FundamentalMatrix.h>
+#include "gtsam/geometry/FundamentalMatrix.h"
 
 // FundamentalMatrix class
 class FundamentalMatrix {
@@ -958,7 +958,7 @@ class SimpleFundamentalMatrix {
 gtsam::Point2 EpipolarTransfer(const gtsam::Matrix3& Fca, const gtsam::Point2& pa,
                                const gtsam::Matrix3& Fcb, const gtsam::Point2& pb);
 
-#include <gtsam/geometry/CalibratedCamera.h>
+#include "gtsam/geometry/CalibratedCamera.h"
 class CalibratedCamera {
   // Standard Constructors and Named Constructors
   CalibratedCamera();
@@ -1004,7 +1004,7 @@ class CalibratedCamera {
   void serialize() const;
 };
 
-#include <gtsam/geometry/PinholeCamera.h>
+#include "gtsam/geometry/PinholeCamera.h"
 template <CALIBRATION>
 class PinholeCamera {
   // Standard Constructors and Named Constructors
@@ -1064,7 +1064,7 @@ class PinholeCamera {
 };
 
 // Forward declaration of PinholeCameraCalX is defined here.
-#include <gtsam/geometry/SimpleCamera.h>
+#include "gtsam/geometry/SimpleCamera.h"
 // Some typedefs for common camera types
 // PinholeCameraCal3_S2 is the same as SimpleCamera above
 typedef gtsam::PinholeCamera<gtsam::Cal3_S2> PinholeCameraCal3_S2;
@@ -1074,7 +1074,7 @@ typedef gtsam::PinholeCamera<gtsam::Cal3Bundler> PinholeCameraCal3Bundler;
 typedef gtsam::PinholeCamera<gtsam::Cal3f> PinholeCameraCal3f;
 typedef gtsam::PinholeCamera<gtsam::Cal3Fisheye> PinholeCameraCal3Fisheye;
 
-#include <gtsam/geometry/PinholePose.h>
+#include "gtsam/geometry/PinholePose.h"
 template <CALIBRATION>
 class PinholePose {
   // Standard Constructors and Named Constructors
@@ -1131,7 +1131,7 @@ typedef gtsam::PinholePose<gtsam::Cal3Unified> PinholePoseCal3Unified;
 typedef gtsam::PinholePose<gtsam::Cal3Bundler> PinholePoseCal3Bundler;
 typedef gtsam::PinholePose<gtsam::Cal3Fisheye> PinholePoseCal3Fisheye;
 
-#include <gtsam/geometry/Similarity2.h>
+#include "gtsam/geometry/Similarity2.h"
 class Similarity2 {
   // Standard Constructors
   Similarity2();
@@ -1155,7 +1155,7 @@ class Similarity2 {
   double scale() const;
 };
 
-#include <gtsam/geometry/Similarity3.h>
+#include "gtsam/geometry/Similarity3.h"
 class Similarity3 {
   // Standard Constructors
   Similarity3();
@@ -1188,7 +1188,7 @@ class CameraSet {
   void push_back(const T& cam);
 };
 
-#include <gtsam/geometry/StereoCamera.h>
+#include "gtsam/geometry/StereoCamera.h"
 class StereoCamera {
   // Standard Constructors and Named Constructors
   StereoCamera();
@@ -1226,7 +1226,7 @@ class StereoCamera {
   void serialize() const;
 };
 
-#include <gtsam/geometry/triangulation.h>
+#include "gtsam/geometry/triangulation.h"
 class TriangulationResult {
   enum Status { VALID, DEGENERATE, BEHIND_CAMERA, OUTLIER, FAR_POINT };
   gtsam::TriangulationResult::Status status;
@@ -1378,7 +1378,7 @@ gtsam::TriangulationResult triangulateSafe(
 
 
 
-#include <gtsam/geometry/BearingRange.h>
+#include "gtsam/geometry/BearingRange.h"
 template <POSE, POINT, BEARING, RANGE>
 class BearingRange {
   BearingRange(const BEARING& b, const RANGE& r);

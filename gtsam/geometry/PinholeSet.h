@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gtsam/geometry/CameraSet.h>
-#include <gtsam/geometry/triangulation.h>
+#include "gtsam/geometry/CameraSet.h"
+#include "gtsam/geometry/triangulation.h"
 
 namespace gtsam {
 

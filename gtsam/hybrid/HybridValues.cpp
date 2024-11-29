@@ -15,11 +15,11 @@
  * @date    August 2024
  */
 
-#include <gtsam/discrete/DiscreteValues.h>
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/discrete/DiscreteValues.h"
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/nonlinear/Values.h"
 
 namespace gtsam {
 

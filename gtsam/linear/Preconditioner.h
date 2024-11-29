@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <gtsam/base/Vector.h>
+#include "gtsam/base/Vector.h"
 #include <memory>
 #include <iosfwd>
 #include <map>

@@ -7,7 +7,7 @@ namespace gtsam {
 // TODO(gerry): add all the Functors to the Basis interfaces, e.g.
 // `EvaluationFunctor`
 
-#include <gtsam/basis/Fourier.h>
+#include "gtsam/basis/Fourier.h"
 
 class FourierBasis {
   static gtsam::Vector CalculateWeights(size_t N, double x);
@@ -17,7 +17,7 @@ class FourierBasis {
   static gtsam::Vector DerivativeWeights(size_t N, double x);
 };
 
-#include <gtsam/basis/Chebyshev.h>
+#include "gtsam/basis/Chebyshev.h"
 
 class Chebyshev1Basis {
   static gtsam::Matrix CalculateWeights(size_t N, double x);
@@ -29,7 +29,7 @@ class Chebyshev2Basis {
   static gtsam::Matrix WeightMatrix(size_t N, gtsam::Vector x);
 };
 
-#include <gtsam/basis/Chebyshev2.h>
+#include "gtsam/basis/Chebyshev2.h"
 class Chebyshev2 {
   static double Point(size_t N, int j);
   static double Point(size_t N, int j, double a, double b);
@@ -46,7 +46,7 @@ class Chebyshev2 {
   static gtsam::Matrix DifferentiationMatrix(size_t N, double a, double b);
 };
 
-#include <gtsam/basis/BasisFactors.h>
+#include "gtsam/basis/BasisFactors.h"
 
 template <BASIS = {gtsam::Chebyshev2, gtsam::Chebyshev1Basis,
                    gtsam::Chebyshev2Basis, gtsam::FourierBasis}>
@@ -84,8 +84,8 @@ virtual class VectorComponentFactor : gtsam::NoiseModelFactor {
                         const size_t N, size_t i, double x, double a, double b);
 };
 
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
 
 template <BASIS = {gtsam::FourierBasis, gtsam::Chebyshev1Basis,
                    gtsam::Chebyshev2Basis, gtsam::Chebyshev2},
@@ -137,7 +137,7 @@ virtual class ComponentDerivativeFactor : gtsam::NoiseModelFactor {
                             double a, double b);
 };
 
-#include <gtsam/basis/FitBasis.h>
+#include "gtsam/basis/FitBasis.h"
 template <BASIS = {gtsam::FourierBasis, gtsam::Chebyshev1Basis,
                    gtsam::Chebyshev2Basis, gtsam::Chebyshev2}>
 class FitBasis {

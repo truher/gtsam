@@ -16,11 +16,11 @@
  * @date    August 2022
  */
 
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/hybrid/HybridBayesTree.h>
-#include <gtsam/hybrid/HybridGaussianISAM.h>
-#include <gtsam/inference/DotWriter.h>
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/hybrid/HybridBayesTree.h"
+#include "gtsam/hybrid/HybridGaussianISAM.h"
+#include "gtsam/inference/DotWriter.h"
 
 #include <numeric>
 

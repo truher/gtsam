@@ -15,9 +15,9 @@
  * @author Viorela Ila and Richard Roberts
  */
 
-#include <gtsam/nonlinear/NonlinearISAM.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/inference/Ordering.h>
+#include "gtsam/nonlinear/NonlinearISAM.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/inference/Ordering.h"
 
 #include <iostream>
 

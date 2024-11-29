@@ -17,9 +17,9 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/sfm/SfmData.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/sfm/SfmData.h"
 
 using namespace std;
 using namespace gtsam;

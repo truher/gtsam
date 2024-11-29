@@ -15,7 +15,7 @@
  *  @author Frank Dellaert
  */
 
-#include <gtsam/discrete/DiscreteDistribution.h>
+#include "gtsam/discrete/DiscreteDistribution.h"
 
 #include <vector>
 

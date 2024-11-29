@@ -5,7 +5,7 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam_unstable/dynamics/VelocityConstraint.h>
+#include "gtsam_unstable/dynamics/VelocityConstraint.h"
 
 using namespace gtsam;
 

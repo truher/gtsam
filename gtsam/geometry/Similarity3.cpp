@@ -16,11 +16,11 @@
  * @author John Lambert
  */
 
-#include <gtsam/geometry/Similarity3.h>
+#include "gtsam/geometry/Similarity3.h"
 
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/base/Manifold.h>
-#include <gtsam/slam/KarcherMeanFactor-inl.h>
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/base/Manifold.h"
+#include "gtsam/slam/KarcherMeanFactor-inl.h"
 
 namespace gtsam {
 

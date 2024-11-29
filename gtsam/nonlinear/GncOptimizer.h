@@ -26,9 +26,9 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/GncParams.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/internal/ChiSquaredInverse.h>
+#include "gtsam/nonlinear/GncParams.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/internal/ChiSquaredInverse.h"
 
 namespace gtsam {
 /*

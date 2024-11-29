@@ -4,8 +4,8 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam_unstable/dynamics/Pendulum.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam_unstable/dynamics/Pendulum.h"
 
 /* ************************************************************************* */
 using namespace gtsam;

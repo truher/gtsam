@@ -5,10 +5,10 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam_unstable/discrete/CSP.h>
-#include <gtsam_unstable/discrete/Domain.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam_unstable/discrete/CSP.h"
+#include "gtsam_unstable/discrete/Domain.h"
 
 using namespace std;
 

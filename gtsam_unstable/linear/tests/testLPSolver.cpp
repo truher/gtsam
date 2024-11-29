@@ -16,17 +16,17 @@
  * @author Duy-Nguyen Ta
  */
 
-#include <gtsam_unstable/linear/LPInitSolver.h>
-#include <gtsam_unstable/linear/LPSolver.h>
+#include "gtsam_unstable/linear/LPInitSolver.h"
+#include "gtsam_unstable/linear/LPSolver.h"
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/inference/FactorGraph-inst.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam_unstable/linear/EqualityFactorGraph.h>
-#include <gtsam_unstable/linear/InequalityFactorGraph.h>
-#include <gtsam_unstable/linear/InfeasibleInitialValues.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/inference/FactorGraph-inst.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam_unstable/linear/EqualityFactorGraph.h"
+#include "gtsam_unstable/linear/InequalityFactorGraph.h"
+#include "gtsam_unstable/linear/InfeasibleInitialValues.h"
 
 #include <CppUnitLite/TestHarness.h>
 

@@ -14,7 +14,7 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/inference/Symbol.h"
 
 #include <CppUnitLite/TestHarness.h>
 

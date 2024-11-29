@@ -16,8 +16,8 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/linear/Errors.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/linear/Errors.h"
 
 using namespace std;
 using namespace gtsam;

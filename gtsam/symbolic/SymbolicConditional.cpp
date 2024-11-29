@@ -15,7 +15,7 @@
  * @date    Oct 17, 2010
  */
 
-#include <gtsam/symbolic/SymbolicConditional.h>
+#include "gtsam/symbolic/SymbolicConditional.h"
 
 namespace gtsam {
 

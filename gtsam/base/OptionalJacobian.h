@@ -20,7 +20,7 @@
 #pragma once
 #include <cstddef>
 #include <functional>
-#include <gtsam/config.h>      // Configuration from CMake
+#include "gtsam/config.h"      // Configuration from CMake
 #include <Eigen/Dense>
 #include <optional>
 #include <stdexcept>

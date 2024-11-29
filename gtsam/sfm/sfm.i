@@ -4,7 +4,7 @@
 
 namespace gtsam {
 
-#include <gtsam/sfm/SfmTrack.h>
+#include "gtsam/sfm/SfmTrack.h"
 class SfmTrack2d {
   std::vector<gtsam::SfmMeasurement> measurements;
 
@@ -37,9 +37,9 @@ virtual class SfmTrack : gtsam::SfmTrack2d {
   bool equals(const gtsam::SfmTrack& expected, double tol) const;
 };
 
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/sfm/SfmData.h>
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/sfm/SfmData.h"
 class SfmData {
   SfmData();
   static gtsam::SfmData FromBundlerFile(string filename);
@@ -75,8 +75,8 @@ bool writeBAL(string filename, gtsam::SfmData& data);
 gtsam::Values initialCamerasEstimate(const gtsam::SfmData& db);
 gtsam::Values initialCamerasAndPointsEstimate(const gtsam::SfmData& db);
 
-#include <gtsam/sfm/TransferFactor.h>
-#include <gtsam/geometry/FundamentalMatrix.h>
+#include "gtsam/sfm/TransferFactor.h"
+#include "gtsam/geometry/FundamentalMatrix.h"
 template <F = {gtsam::SimpleFundamentalMatrix, gtsam::FundamentalMatrix}>
 virtual class TransferFactor : gtsam::NoiseModelFactor {
   TransferFactor(gtsam::EdgeKey edge1, gtsam::EdgeKey edge2,
@@ -84,9 +84,9 @@ virtual class TransferFactor : gtsam::NoiseModelFactor {
                  const gtsam::noiseModel::Base* model = nullptr);
 };
 
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/Cal3f.h>
-#include <gtsam/geometry/Cal3Bundler.h>
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/Cal3f.h"
+#include "gtsam/geometry/Cal3Bundler.h"
 template <K = {gtsam::Cal3_S2, gtsam::Cal3f, gtsam::Cal3Bundler}>
 virtual class EssentialTransferFactor : gtsam::NoiseModelFactor {
   EssentialTransferFactor(gtsam::EdgeKey edge1, gtsam::EdgeKey edge2,
@@ -105,7 +105,7 @@ virtual class EssentialTransferFactorK : gtsam::NoiseModelFactor {
                            const gtsam::noiseModel::Base* model = nullptr);
 };
 
-#include <gtsam/sfm/ShonanFactor.h>
+#include "gtsam/sfm/ShonanFactor.h"
 
 virtual class ShonanFactor3 : gtsam::NoiseModelFactor {
   ShonanFactor3(size_t key1, size_t key2, const gtsam::Rot3& R12, size_t p);
@@ -114,7 +114,7 @@ virtual class ShonanFactor3 : gtsam::NoiseModelFactor {
   gtsam::Vector evaluateError(const gtsam::SOn& Q1, const gtsam::SOn& Q2);
 };
 
-#include <gtsam/sfm/BinaryMeasurement.h>
+#include "gtsam/sfm/BinaryMeasurement.h"
 template <T>
 class BinaryMeasurement {
   BinaryMeasurement(size_t key1, size_t key2, const T& measured,
@@ -153,8 +153,8 @@ class BinaryMeasurementsRot3 {
   void push_back(const gtsam::BinaryMeasurement<gtsam::Rot3>& measurement);
 };
 
-#include <gtsam/slam/dataset.h>
-#include <gtsam/sfm/ShonanAveraging.h>
+#include "gtsam/slam/dataset.h"
+#include "gtsam/sfm/ShonanAveraging.h"
 
 template <d={2, 3}>
 class ShonanAveragingParameters {
@@ -274,7 +274,7 @@ class ShonanAveraging3 {
                                   size_t max_p) const;
 };
 
-#include <gtsam/sfm/MFAS.h>
+#include "gtsam/sfm/MFAS.h"
 
 // Used in Matlab wrapper
 class KeyPairDoubleMap {
@@ -295,7 +295,7 @@ class MFAS {
   gtsam::KeyVector computeOrdering() const;
 };
 
-#include <gtsam/sfm/TranslationRecovery.h>
+#include "gtsam/sfm/TranslationRecovery.h"
 
 class TranslationRecovery {
   TranslationRecovery(const gtsam::LevenbergMarquardtParams& lmParams,
@@ -329,7 +329,7 @@ class TranslationRecovery {
 
 namespace gtsfm {
 
-#include <gtsam/sfm/DsfTrackGenerator.h>
+#include "gtsam/sfm/DsfTrackGenerator.h"
 
 class MatchIndicesMap {
   MatchIndicesMap();

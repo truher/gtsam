@@ -16,14 +16,14 @@
  *  @author Frank Dellaert
  */
 
-#include <gtsam/discrete/DiscreteBayesTree.h>
-#include <gtsam/discrete/DiscreteConditional.h>
-#include <gtsam/discrete/DiscreteEliminationTree.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/discrete/DiscreteJunctionTree.h>
-#include <gtsam/discrete/DiscreteLookupDAG.h>
-#include <gtsam/inference/EliminateableFactorGraph-inst.h>
-#include <gtsam/inference/FactorGraph-inst.h>
+#include "gtsam/discrete/DiscreteBayesTree.h"
+#include "gtsam/discrete/DiscreteConditional.h"
+#include "gtsam/discrete/DiscreteEliminationTree.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/discrete/DiscreteJunctionTree.h"
+#include "gtsam/discrete/DiscreteLookupDAG.h"
+#include "gtsam/inference/EliminateableFactorGraph-inst.h"
+#include "gtsam/inference/FactorGraph-inst.h"
 
 using std::vector;
 using std::string;

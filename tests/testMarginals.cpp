@@ -19,20 +19,20 @@
 #include <CppUnitLite/TestHarness.h>
 
 // for all nonlinear keys
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/inference/Symbol.h"
 
 // for points and poses
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/Pose2.h>
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/Pose2.h"
 
 // for modeling measurement uncertainty - all models included here
-#include <gtsam/linear/NoiseModel.h>
+#include "gtsam/linear/NoiseModel.h"
 
 // add in headers for specific factors
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/sam/BearingRangeFactor.h>
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/sam/BearingRangeFactor.h"
 
-#include <gtsam/nonlinear/Marginals.h>
+#include "gtsam/nonlinear/Marginals.h"
 
 using namespace std;
 using namespace gtsam;

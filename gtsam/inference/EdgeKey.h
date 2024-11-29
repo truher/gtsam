@@ -18,8 +18,8 @@
  * @author: Akshay Krishnan
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/inference/Key.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/inference/Key.h"
 
 namespace gtsam {
 class GTSAM_EXPORT EdgeKey {

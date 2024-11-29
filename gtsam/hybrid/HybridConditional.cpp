@@ -16,11 +16,11 @@
  *  @author Varun Agrawal
  */
 
-#include <gtsam/hybrid/HybridConditional.h>
-#include <gtsam/hybrid/HybridFactor.h>
-#include <gtsam/hybrid/HybridValues.h>
-#include <gtsam/inference/Conditional-inst.h>
-#include <gtsam/inference/Key.h>
+#include "gtsam/hybrid/HybridConditional.h"
+#include "gtsam/hybrid/HybridFactor.h"
+#include "gtsam/hybrid/HybridValues.h"
+#include "gtsam/inference/Conditional-inst.h"
+#include "gtsam/inference/Key.h"
 
 namespace gtsam {
 

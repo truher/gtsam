@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam_unstable/geometry/Event.h>
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam_unstable/geometry/Event.h"
 
 namespace gtsam {
 

@@ -17,8 +17,8 @@
  * @date   January, 2023
  */
 
-#include <gtsam/hybrid/HybridFactorGraph.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/hybrid/HybridFactorGraph.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 namespace gtsam {
 

@@ -14,13 +14,13 @@
  * @author Frank Dellaert
  */
 
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/geometry/SO4.h>
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/slam/KarcherMeanFactor-inl.h>
-#include <gtsam/slam/KarcherMeanFactor.h>
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/geometry/SO4.h"
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/slam/KarcherMeanFactor-inl.h"
+#include "gtsam/slam/KarcherMeanFactor.h"
 
 #include <CppUnitLite/TestHarness.h>
 

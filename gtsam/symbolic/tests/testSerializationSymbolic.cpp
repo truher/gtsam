@@ -16,9 +16,9 @@
  * @date Feb 7, 2012
  */
 
-#include <gtsam/symbolic/tests/symbolicExampleGraphs.h>
+#include "gtsam/symbolic/tests/symbolicExampleGraphs.h"
 
-#include <gtsam/base/serializationTestHelpers.h>
+#include "gtsam/base/serializationTestHelpers.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

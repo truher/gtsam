@@ -6,8 +6,8 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam_unstable/discrete/CSP.h>
+#include "gtsam/inference/Symbol.h"
+#include "gtsam_unstable/discrete/CSP.h"
 
 #include <stdarg.h>
 

@@ -17,8 +17,8 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/discrete/DiscreteDistribution.h>
-#include <gtsam/discrete/Signature.h>
+#include "gtsam/discrete/DiscreteDistribution.h"
+#include "gtsam/discrete/Signature.h"
 
 using namespace gtsam;
 

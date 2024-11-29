@@ -16,7 +16,7 @@
  * @date June 20, 2023
  */
 
-#include <gtsam/basis/Basis.h>
+#include "gtsam/basis/Basis.h"
 
 namespace gtsam {
 

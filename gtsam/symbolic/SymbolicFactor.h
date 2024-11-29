@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <gtsam/inference/Factor.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/inference/Factor.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/base/Testable.h"
 
 #include <memory>
 

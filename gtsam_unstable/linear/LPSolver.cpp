@@ -17,7 +17,7 @@
  * @date     1/26/16
  */
 
-#include <gtsam_unstable/linear/LPSolver.h>
+#include "gtsam_unstable/linear/LPSolver.h"
 
 namespace gtsam {
 constexpr double LPPolicy::maxAlpha;

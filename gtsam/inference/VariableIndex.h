@@ -17,11 +17,11 @@
 
 #pragma once
 
-#include <gtsam/inference/Factor.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/base/FastMap.h>
-#include <gtsam/base/FastVector.h>
-#include <gtsam/dllexport.h>
+#include "gtsam/inference/Factor.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/base/FastMap.h"
+#include "gtsam/base/FastVector.h"
+#include "gtsam/dllexport.h"
 
 #include <cassert>
 #include <stdexcept>
@@ -211,4 +211,4 @@ struct traits<VariableIndex> : public Testable<VariableIndex> {
 
 } //\ namespace gtsam
 
-#include <gtsam/inference/VariableIndex-inl.h>
+#include "gtsam/inference/VariableIndex-inl.h"

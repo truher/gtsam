@@ -15,11 +15,11 @@
  * @author  Richard Roberts
  */
 
-#include <gtsam/config.h> // Get GTSAM_USE_QUATERNIONS macro
+#include "gtsam/config.h" // Get GTSAM_USE_QUATERNIONS macro
 
 #ifdef GTSAM_USE_QUATERNIONS
 
-#include <gtsam/geometry/Rot3.h>
+#include "gtsam/geometry/Rot3.h"
 #include <cmath>
 
 using namespace std;

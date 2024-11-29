@@ -15,11 +15,11 @@
  * @author Christian Potthast, Frank Dellaert
  */
 
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/Sampler.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/linear/linearExceptions.h>
-#include <gtsam/hybrid/HybridValues.h>
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/Sampler.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/linear/linearExceptions.h"
+#include "gtsam/hybrid/HybridValues.h"
 
 #ifdef __GNUC__
 #pragma GCC diagnostic push

@@ -15,8 +15,8 @@
  * @author Fan Jiang
  */
 
-#include <gtsam/hybrid/HybridEliminationTree.h>
-#include <gtsam/inference/EliminationTree-inst.h>
+#include "gtsam/hybrid/HybridEliminationTree.h"
+#include "gtsam/inference/EliminationTree-inst.h"
 
 namespace gtsam {
 

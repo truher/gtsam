@@ -15,12 +15,12 @@
 
 #pragma once
 
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/geometry/EssentialMatrix.h>
-#include <gtsam/geometry/FundamentalMatrix.h>
-#include <gtsam/inference/EdgeKey.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/geometry/EssentialMatrix.h"
+#include "gtsam/geometry/FundamentalMatrix.h"
+#include "gtsam/inference/EdgeKey.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
 
 #include <cstdint>
 

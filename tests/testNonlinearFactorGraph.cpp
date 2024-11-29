@@ -18,17 +18,17 @@
  * @author  Frank Dellaert
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/Matrix.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/Matrix.h"
 #include <tests/smallExample.h>
-#include <gtsam/inference/FactorGraph.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/sam/RangeFactor.h>
-#include <gtsam/slam/BetweenFactor.h>
+#include "gtsam/inference/FactorGraph.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/sam/RangeFactor.h"
+#include "gtsam/slam/BetweenFactor.h"
 
 #include <CppUnitLite/TestHarness.h>
 

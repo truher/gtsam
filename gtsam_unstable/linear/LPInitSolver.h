@@ -19,9 +19,9 @@
 
 #pragma once
 
-#include <gtsam_unstable/dllexport.h>
-#include <gtsam_unstable/linear/LP.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam_unstable/dllexport.h"
+#include "gtsam_unstable/linear/LP.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
 
 namespace gtsam {
 /**

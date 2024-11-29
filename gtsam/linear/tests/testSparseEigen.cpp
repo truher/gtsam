@@ -18,10 +18,10 @@
  * @date    Jan, 2021
  */
 
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/SparseEigen.h>
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/SparseEigen.h"
 
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/base/TestableAssertions.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

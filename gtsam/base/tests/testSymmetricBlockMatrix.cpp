@@ -16,7 +16,7 @@
 **/
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/SymmetricBlockMatrix.h>
+#include "gtsam/base/SymmetricBlockMatrix.h"
 
 using namespace std;
 using namespace gtsam;

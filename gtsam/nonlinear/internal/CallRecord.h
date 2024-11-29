@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/internal/JacobianMap.h>
+#include "gtsam/nonlinear/internal/JacobianMap.h"
 
 namespace gtsam {
 namespace internal {

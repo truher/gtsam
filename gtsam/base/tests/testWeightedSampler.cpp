@@ -16,7 +16,7 @@
  * @date    MAy 2019
  **/
 
-#include <gtsam/base/WeightedSampler.h>
+#include "gtsam/base/WeightedSampler.h"
 
 #include <CppUnitLite/TestHarness.h>
 

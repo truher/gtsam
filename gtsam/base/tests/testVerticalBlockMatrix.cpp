@@ -17,7 +17,7 @@
  **/
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/VerticalBlockMatrix.h>
+#include "gtsam/base/VerticalBlockMatrix.h"
 
 #include<list>
 #include<vector>

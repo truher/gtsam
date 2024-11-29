@@ -25,7 +25,7 @@
 #define MKL_BLAS MKL_DOMAIN_BLAS
 #endif
 
-#include <gtsam/global_includes.h>
+#include "gtsam/global_includes.h"
 #include <Eigen/Core>
 #include <iosfwd>
 #include <list>

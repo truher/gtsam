@@ -4,8 +4,8 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/discrete/SignatureParser.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/discrete/SignatureParser.h"
 
 using namespace gtsam;
 

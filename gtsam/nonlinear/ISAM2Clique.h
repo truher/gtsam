@@ -19,11 +19,11 @@
 
 #pragma once
 
-#include <gtsam/inference/BayesTreeCliqueBase.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam/inference/BayesTreeCliqueBase.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
 #include <string>
 
 namespace gtsam {

@@ -17,12 +17,12 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/Vector.h>
-#include <gtsam/base/debug.h>
-#include <gtsam/discrete/DiscreteBayesNet.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/discrete/DiscreteMarginals.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/Vector.h"
+#include "gtsam/base/debug.h"
+#include "gtsam/discrete/DiscreteBayesNet.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/discrete/DiscreteMarginals.h"
 
 #include <iostream>
 #include <string>

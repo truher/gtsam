@@ -16,10 +16,10 @@
  * @date December, 2021
  */
 
-#include <gtsam/inference/DotWriter.h>
+#include "gtsam/inference/DotWriter.h"
 
-#include <gtsam/base/Vector.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/base/Vector.h"
+#include "gtsam/inference/Symbol.h"
 
 #include <ostream>
 

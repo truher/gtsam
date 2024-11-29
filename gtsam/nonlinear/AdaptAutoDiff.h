@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/base/VectorSpace.h>
-#include <gtsam/base/OptionalJacobian.h>
-#include <gtsam/3rdparty/ceres/autodiff.h>
+#include "gtsam/base/VectorSpace.h"
+#include "gtsam/base/OptionalJacobian.h"
+#include "gtsam/3rdparty/ceres/autodiff.h"
 
 namespace gtsam {
 

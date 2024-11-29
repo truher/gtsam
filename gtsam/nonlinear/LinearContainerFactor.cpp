@@ -5,11 +5,11 @@
  * @author Alex Cunningham
  */
 
-#include <gtsam/nonlinear/LinearContainerFactor.h>
-#include <gtsam/linear/HessianFactor.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam/nonlinear/LinearContainerFactor.h"
+#include "gtsam/linear/HessianFactor.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
 
 namespace gtsam {
 

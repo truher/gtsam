@@ -18,13 +18,13 @@
  *
  * @date 2022-07-10
  */
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/geometry/triangulation.h>
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/geometry/triangulation.h"
 
 #include <chrono>
 #include <iostream>

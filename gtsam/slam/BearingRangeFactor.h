@@ -18,4 +18,4 @@
 #warning "BearingRangeFactor is now an ExpressionFactor in SAM directory"
 #endif
 
-#include <gtsam/sam/BearingRangeFactor.h>
+#include "gtsam/sam/BearingRangeFactor.h"

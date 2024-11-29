@@ -16,14 +16,14 @@
  * @date    October 2024
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/hybrid/HybridGaussianProductFactor.h>
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/JacobianFactor.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/hybrid/HybridGaussianProductFactor.h"
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/JacobianFactor.h"
 
 // Include for test suite
 #include <CppUnitLite/TestHarness.h>

@@ -20,10 +20,10 @@
 
 #pragma once
 
-#include <gtsam/inference/JunctionTree.h>
-#include <gtsam/inference/ClusterTree-inst.h>
-#include <gtsam/symbolic/SymbolicConditional.h>
-#include <gtsam/symbolic/SymbolicFactor-inst.h>
+#include "gtsam/inference/JunctionTree.h"
+#include "gtsam/inference/ClusterTree-inst.h"
+#include "gtsam/symbolic/SymbolicConditional.h"
+#include "gtsam/symbolic/SymbolicFactor-inst.h"
 
 namespace gtsam {
 

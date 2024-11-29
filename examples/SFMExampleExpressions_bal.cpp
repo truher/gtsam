@@ -22,14 +22,14 @@
  */
 
 // The two new headers that allow using our Automatic Differentiation Expression framework
-#include <gtsam/slam/expressions.h>
-#include <gtsam/nonlinear/ExpressionFactorGraph.h>
+#include "gtsam/slam/expressions.h"
+#include "gtsam/nonlinear/ExpressionFactorGraph.h"
 
 // Header order is close to far
-#include <gtsam/sfm/SfmData.h>  // for loading BAL datasets !
-#include <gtsam/slam/dataset.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/sfm/SfmData.h"  // for loading BAL datasets !
+#include "gtsam/slam/dataset.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/inference/Symbol.h"
 
 #include <vector>
 

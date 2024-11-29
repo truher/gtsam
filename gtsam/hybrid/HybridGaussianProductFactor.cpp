@@ -16,11 +16,11 @@
  *  @author Varun Agrawal
  */
 
-#include <gtsam/base/types.h>
-#include <gtsam/discrete/DecisionTree.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/hybrid/HybridGaussianProductFactor.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam/base/types.h"
+#include "gtsam/discrete/DecisionTree.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/hybrid/HybridGaussianProductFactor.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
 
 #include <string>
 

@@ -18,7 +18,7 @@
  * @author  Richard Roberts
  */
 
-#include <gtsam/inference/BayesTree.h>
+#include "gtsam/inference/BayesTree.h"
 
 #include <iostream>
 

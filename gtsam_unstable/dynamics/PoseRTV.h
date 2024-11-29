@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include <gtsam_unstable/dllexport.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/base/ProductLieGroup.h>
+#include "gtsam_unstable/dllexport.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/base/ProductLieGroup.h"
 
 namespace gtsam {
 

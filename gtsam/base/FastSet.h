@@ -26,8 +26,8 @@
 #include <boost/serialization/nvp.hpp>
 #include <boost/serialization/set.hpp>
 #endif
-#include <gtsam/base/FastDefaultAllocator.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/base/FastDefaultAllocator.h"
+#include "gtsam/base/Testable.h"
 
 #include <functional>
 #include <set>

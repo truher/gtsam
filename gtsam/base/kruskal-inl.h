@@ -19,10 +19,10 @@
 
 #pragma once
 
-#include <gtsam/base/DSFMap.h>
-#include <gtsam/base/FastMap.h>
-#include <gtsam/base/types.h>
-#include <gtsam/inference/VariableIndex.h>
+#include "gtsam/base/DSFMap.h"
+#include "gtsam/base/FastMap.h"
+#include "gtsam/base/types.h"
+#include "gtsam/inference/VariableIndex.h"
 
 #include <algorithm>
 #include <numeric>

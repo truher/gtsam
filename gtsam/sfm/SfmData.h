@@ -18,11 +18,11 @@
 
 #pragma once
 
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/sfm/SfmTrack.h>
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/sfm/SfmTrack.h"
 
 #include <string>
 #include <vector>

@@ -60,7 +60,7 @@ Note the Jacobian for this specific error function vanishes 180 degrees away fro
 Include the `AttitudeFactor.h` header in your code:
 
 ```cpp
-#include <gtsam/navigation/AttitudeFactor.h>
+#include "gtsam/navigation/AttitudeFactor.h"
 ```
 
 ### Creating an Attitude Factor

@@ -1,7 +1,7 @@
 #include <gtwrap/matlab.h>
 #include <map>
 
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/nonlinear/Values.h"
 #include <path/to/ns1.h>
 #include <path/to/ns1/ClassB.h>
 #include <path/to/ns2.h>

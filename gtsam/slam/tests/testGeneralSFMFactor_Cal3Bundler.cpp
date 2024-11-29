@@ -16,17 +16,17 @@
  * @brief unit tests for GeneralSFMFactor
  */
 
-#include <gtsam/slam/GeneralSFMFactor.h>
-#include <gtsam/sam/RangeFactor.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/NonlinearEquality.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/base/Testable.h>
+#include "gtsam/slam/GeneralSFMFactor.h"
+#include "gtsam/sam/RangeFactor.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/NonlinearEquality.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/base/Testable.h"
 
 #include <memory>
 #include <CppUnitLite/TestHarness.h>

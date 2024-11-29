@@ -21,11 +21,11 @@
 
 #pragma once
 
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/nonlinear/GraphvizFormatting.h>
-#include <gtsam/inference/FactorGraph.h>
-#include <gtsam/nonlinear/PriorFactor.h>
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/nonlinear/GraphvizFormatting.h"
+#include "gtsam/inference/FactorGraph.h"
+#include "gtsam/nonlinear/PriorFactor.h"
 
 #include <memory>
 #include <functional>

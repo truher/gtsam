@@ -15,11 +15,11 @@
  * @author Fan Jiang
  */
 
-#include <gtsam/hybrid/HybridEliminationTree.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/hybrid/HybridJunctionTree.h>
-#include <gtsam/inference/JunctionTree-inst.h>
-#include <gtsam/inference/Key.h>
+#include "gtsam/hybrid/HybridEliminationTree.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/hybrid/HybridJunctionTree.h"
+#include "gtsam/inference/JunctionTree-inst.h"
+#include "gtsam/inference/Key.h"
 
 #include <unordered_map>
 

@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/Signature.h>
-#include <gtsam/inference/Conditional-inst.h>
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/Signature.h"
+#include "gtsam/inference/Conditional-inst.h"
 
 #include <memory>
 #include <string>

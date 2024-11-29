@@ -20,11 +20,11 @@
 // #define DT_DEBUG_MEMORY
 #define DISABLE_DOT
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/discrete/DecisionTree-inl.h>
-#include <gtsam/discrete/Signature.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/discrete/DecisionTree-inl.h"
+#include "gtsam/discrete/Signature.h"
+#include "gtsam/inference/Symbol.h"
 
 #include <iomanip>
 

@@ -20,7 +20,7 @@
 #include <string>
 #include <vector>
 #include <optional>
-#include <gtsam/discrete/DiscreteKey.h>
+#include "gtsam/discrete/DiscreteKey.h"
 
 namespace gtsam {
 

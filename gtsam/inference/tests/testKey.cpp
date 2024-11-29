@@ -14,10 +14,10 @@
  * @author Alex Cunningham
  */
 
-#include <gtsam/inference/Key.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/inference/Key.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/TestableAssertions.h"
 
 #include <CppUnitLite/TestHarness.h>
 

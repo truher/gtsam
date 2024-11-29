@@ -16,11 +16,11 @@
  * @date Dec 28, 2009
  */
 
-#include <gtsam/linear/iterative-inl.h>
-#include <gtsam/base/Vector.h>
-#include <gtsam/base/Matrix.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/IterativeSolver.h>
+#include "gtsam/linear/iterative-inl.h"
+#include "gtsam/base/Vector.h"
+#include "gtsam/base/Matrix.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/IterativeSolver.h"
 
 #include <iostream>
 

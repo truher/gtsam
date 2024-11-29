@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include <gtsam_unstable/linear/LinearCost.h>
-#include <gtsam_unstable/linear/EqualityFactorGraph.h>
-#include <gtsam_unstable/linear/InequalityFactorGraph.h>
+#include "gtsam_unstable/linear/LinearCost.h"
+#include "gtsam_unstable/linear/EqualityFactorGraph.h"
+#include "gtsam_unstable/linear/InequalityFactorGraph.h"
 
 #include <string>
 

@@ -16,7 +16,7 @@
 #include <optional>
 #include <boost/shared_array.hpp>
 
-#include <gtsam/base/timing.h>
+#include "gtsam/base/timing.h"
 
 #include "FindSeparator.h"
 

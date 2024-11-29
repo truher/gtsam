@@ -15,7 +15,7 @@
  * @author Chris Beall
  */
 
-#include <gtsam/geometry/Cal3_S2Stereo.h>
+#include "gtsam/geometry/Cal3_S2Stereo.h"
 
 #include <iostream>
 

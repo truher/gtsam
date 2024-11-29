@@ -16,7 +16,7 @@
  * @author: Richard Roberts
  */
 
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/inference/Symbol.h"
 
 #include <limits.h>
 #include <list>

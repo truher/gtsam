@@ -20,18 +20,18 @@
 
 #pragma once
 
-#include <gtsam/sfm/BinaryMeasurement.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/sfm/SfmData.h>
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/types.h>
+#include "gtsam/sfm/BinaryMeasurement.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/sfm/SfmData.h"
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/types.h"
 
 #include <string>
 #include <utility> // for pair

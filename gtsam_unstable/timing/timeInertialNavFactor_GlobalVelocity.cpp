@@ -16,12 +16,12 @@
  */
 
 #include <iostream>
-#include <gtsam/navigation/ImuBias.h>
-#include <gtsam_unstable/slam/InertialNavFactor_GlobalVelocity.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/inference/Key.h>
+#include "gtsam/navigation/ImuBias.h"
+#include "gtsam_unstable/slam/InertialNavFactor_GlobalVelocity.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/inference/Key.h"
 
 using namespace std;
 using namespace gtsam;
@@ -43,7 +43,7 @@ gtsam::Vector3 predictionErrorVel(const Pose3& p1, const Vector3& v1, const imuB
   return factor.evaluateError(p1, v1, b1, p2, v2).tail(3);
 }
 
-#include <gtsam/linear/GaussianFactorGraph.h>
+#include "gtsam/linear/GaussianFactorGraph.h"
 /* ************************************************************************* */
 int main() {
   gtsam::Key PoseKey1(11);

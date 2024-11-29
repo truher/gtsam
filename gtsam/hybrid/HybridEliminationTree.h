@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <gtsam/hybrid/HybridBayesNet.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/inference/EliminationTree.h>
+#include "gtsam/hybrid/HybridBayesNet.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/inference/EliminationTree.h"
 
 namespace gtsam {
 

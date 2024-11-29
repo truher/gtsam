@@ -16,7 +16,7 @@
  * @date    Dec 9, 2013
  */
 
-#include <gtsam/linear/NoiseModel.h>
+#include "gtsam/linear/NoiseModel.h"
 
 namespace gtsam {
 
@@ -61,9 +61,9 @@ public:
 
 }// namespace gtsam
 
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/linear/KalmanFilter.h>
-#include <gtsam/geometry/Pose2.h>
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/linear/KalmanFilter.h"
+#include "gtsam/geometry/Pose2.h"
 #include <CppUnitLite/TestHarness.h>
 
 using namespace std;

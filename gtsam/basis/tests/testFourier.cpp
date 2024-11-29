@@ -17,10 +17,10 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/basis/FitBasis.h>
-#include <gtsam/basis/Fourier.h>
-#include <gtsam/nonlinear/factorTesting.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/basis/FitBasis.h"
+#include "gtsam/basis/Fourier.h"
+#include "gtsam/nonlinear/factorTesting.h"
 
 using namespace std;
 using namespace gtsam;

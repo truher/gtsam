@@ -5,7 +5,7 @@
 namespace gtsam {
 
 namespace imuBias {
-#include <gtsam/navigation/ImuBias.h>
+#include "gtsam/navigation/ImuBias.h"
 
 class ConstantBias {
   // Constructors
@@ -37,7 +37,7 @@ class ConstantBias {
 
 }///\namespace imuBias
 
-#include <gtsam/navigation/NavState.h>
+#include "gtsam/navigation/NavState.h"
 class NavState {
   // Constructors
   NavState();
@@ -61,7 +61,7 @@ class NavState {
   void serialize() const;
 };
 
-#include <gtsam/navigation/PreintegratedRotation.h>
+#include "gtsam/navigation/PreintegratedRotation.h"
 virtual class PreintegratedRotationParams {
   PreintegratedRotationParams();
 
@@ -79,7 +79,7 @@ virtual class PreintegratedRotationParams {
   std::optional<gtsam::Pose3> getBodyPSensor() const;
 };
 
-#include <gtsam/navigation/PreintegrationParams.h>
+#include "gtsam/navigation/PreintegrationParams.h"
 virtual class PreintegrationParams : gtsam::PreintegratedRotationParams {
   PreintegrationParams(gtsam::Vector n_gravity);
 
@@ -106,7 +106,7 @@ virtual class PreintegrationParams : gtsam::PreintegratedRotationParams {
   void serialize() const;
 };
 
-#include <gtsam/navigation/ImuFactor.h>
+#include "gtsam/navigation/ImuFactor.h"
 class PreintegratedImuMeasurements {
   // Constructors
   PreintegratedImuMeasurements(const gtsam::PreintegrationParams* params);
@@ -150,7 +150,7 @@ virtual class ImuFactor: gtsam::NonlinearFactor {
       const gtsam::imuBias::ConstantBias& bias);
 };
 
-#include <gtsam/navigation/CombinedImuFactor.h>
+#include "gtsam/navigation/CombinedImuFactor.h"
 virtual class PreintegrationCombinedParams : gtsam::PreintegrationParams {
   PreintegrationCombinedParams(gtsam::Vector n_gravity);
 
@@ -213,7 +213,7 @@ virtual class CombinedImuFactor: gtsam::NoiseModelFactor {
       const gtsam::imuBias::ConstantBias& bias_j);
 };
 
-#include <gtsam/navigation/AHRSFactor.h>
+#include "gtsam/navigation/AHRSFactor.h"
 class PreintegratedAhrsMeasurements {
   // Standard Constructor
   PreintegratedAhrsMeasurements(const gtsam::PreintegrationParams* params,
@@ -255,7 +255,7 @@ virtual class AHRSFactor : gtsam::NonlinearFactor {
       gtsam::Vector omegaCoriolis) const;
 };
 
-#include <gtsam/navigation/AttitudeFactor.h>
+#include "gtsam/navigation/AttitudeFactor.h"
 virtual class Rot3AttitudeFactor : gtsam::NoiseModelFactor {
   Rot3AttitudeFactor(size_t key, const gtsam::Unit3& nRef, const gtsam::noiseModel::Diagonal* model,
       const gtsam::Unit3& bMeasured);
@@ -282,7 +282,7 @@ virtual class Pose3AttitudeFactor : gtsam::NoiseModelFactor {
   gtsam::Unit3 bMeasured() const;
 };
 
-#include <gtsam/navigation/GPSFactor.h>
+#include "gtsam/navigation/GPSFactor.h"
 virtual class GPSFactor : gtsam::NonlinearFactor{
   GPSFactor(size_t key, const gtsam::Point3& gpsIn,
             const gtsam::noiseModel::Base* model);
@@ -309,7 +309,7 @@ virtual class GPSFactor2 : gtsam::NonlinearFactor {
   gtsam::Point3 measurementIn() const;
 };
 
-#include <gtsam/navigation/BarometricFactor.h>
+#include "gtsam/navigation/BarometricFactor.h"
 virtual class BarometricFactor : gtsam::NonlinearFactor {
   BarometricFactor();
   BarometricFactor(size_t key, size_t baroKey, const double& baroIn,
@@ -326,7 +326,7 @@ virtual class BarometricFactor : gtsam::NonlinearFactor {
   double baroOut(const double& meters) const;
 };
 
-#include <gtsam/navigation/Scenario.h>
+#include "gtsam/navigation/Scenario.h"
 virtual class Scenario {
   gtsam::Pose3 pose(double t) const;
   gtsam::Vector omega_b(double t) const;
@@ -350,7 +350,7 @@ virtual class AcceleratingScenario : gtsam::Scenario {
                        gtsam::Vector omega_b);
 };
 
-#include <gtsam/navigation/ScenarioRunner.h>
+#include "gtsam/navigation/ScenarioRunner.h"
 class ScenarioRunner {
   ScenarioRunner(const gtsam::Scenario& scenario,
                  const gtsam::PreintegrationParams* p,

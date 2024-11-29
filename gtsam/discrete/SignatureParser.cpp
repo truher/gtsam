@@ -1,4 +1,4 @@
-#include <gtsam/discrete/SignatureParser.h>
+#include "gtsam/discrete/SignatureParser.h"
 
 #include <algorithm>
 #include <iterator>

@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <gtsam/hybrid/HybridFactorGraph.h>
+#include "gtsam/hybrid/HybridFactorGraph.h"
 
 namespace gtsam {
 

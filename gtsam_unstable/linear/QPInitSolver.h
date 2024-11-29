@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <gtsam_unstable/linear/LPInitSolver.h>
+#include "gtsam_unstable/linear/LPInitSolver.h"
 
 namespace gtsam {
 

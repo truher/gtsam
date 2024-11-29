@@ -16,11 +16,11 @@
  * @date   Jun 11, 2012
  */
 
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/VectorValues.h>
-#include <gtsam/nonlinear/NonlinearConjugateGradientOptimizer.h>
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/nonlinear/internal/NonlinearOptimizerState.h>
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/VectorValues.h"
+#include "gtsam/nonlinear/NonlinearConjugateGradientOptimizer.h"
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/nonlinear/internal/NonlinearOptimizerState.h"
 
 #include <cmath>
 

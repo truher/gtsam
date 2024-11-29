@@ -17,7 +17,7 @@
  * @brief unit tests for Block Automatic Differentiation
  */
 
-#include <gtsam_unstable/nonlinear/expressionTesting.h>
+#include "gtsam_unstable/nonlinear/expressionTesting.h"
 #include <CppUnitLite/TestHarness.h>
 #include <type_traits>
 

@@ -17,9 +17,9 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/navigation/BarometricFactor.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/navigation/BarometricFactor.h"
 
 using namespace std::placeholders;
 using namespace std;

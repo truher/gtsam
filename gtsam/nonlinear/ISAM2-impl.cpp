@@ -17,10 +17,10 @@
  * @author  Richard Roberts
  */
 
-#include <gtsam/base/debug.h>
-#include <gtsam/config.h>            // for GTSAM_USE_TBB
-#include <gtsam/inference/Symbol.h>  // for selective linearization thresholds
-#include <gtsam/nonlinear/ISAM2-impl.h>
+#include "gtsam/base/debug.h"
+#include "gtsam/config.h"            // for GTSAM_USE_TBB
+#include "gtsam/inference/Symbol.h"  // for selective linearization thresholds
+#include "gtsam/nonlinear/ISAM2-impl.h"
 
 #include <functional>
 #include <limits>

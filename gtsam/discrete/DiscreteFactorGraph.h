@@ -18,12 +18,12 @@
 
 #pragma once
 
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/DiscreteLookupDAG.h>
-#include <gtsam/inference/EliminateableFactorGraph.h>
-#include <gtsam/inference/FactorGraph.h>
-#include <gtsam/inference/Ordering.h>
-#include <gtsam/base/FastSet.h>
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/DiscreteLookupDAG.h"
+#include "gtsam/inference/EliminateableFactorGraph.h"
+#include "gtsam/inference/FactorGraph.h"
+#include "gtsam/inference/Ordering.h"
+#include "gtsam/base/FastSet.h"
 
 #include <string>
 #include <utility>

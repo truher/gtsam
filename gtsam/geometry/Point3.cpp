@@ -14,7 +14,7 @@
  * @brief 3D Point
  */
 
-#include <gtsam/geometry/Point3.h>
+#include "gtsam/geometry/Point3.h"
 #include <cmath>
 #include <iostream>
 #include <vector>

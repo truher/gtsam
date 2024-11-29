@@ -21,8 +21,8 @@
 
 #include <utility>
 
-#include <gtsam/base/treeTraversal-inst.h>
-#include <gtsam/base/FastVector.h>
+#include "gtsam/base/treeTraversal-inst.h"
+#include "gtsam/base/FastVector.h"
 
 namespace gtsam {
   namespace inference {

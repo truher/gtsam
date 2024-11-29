@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include <gtsam/inference/VariableIndex.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/inference/VariableIndex.h"
+#include "gtsam/base/timing.h"
 
 namespace gtsam {
 

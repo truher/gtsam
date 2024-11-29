@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam_unstable/discrete/AllDiff.h>
-#include <gtsam_unstable/discrete/SingleValue.h>
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam_unstable/discrete/AllDiff.h"
+#include "gtsam_unstable/discrete/SingleValue.h"
 
 namespace gtsam {
 

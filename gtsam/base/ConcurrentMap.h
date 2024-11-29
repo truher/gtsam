@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <gtsam/global_includes.h>
+#include "gtsam/global_includes.h"
 
 // Change class depending on whether we are using TBB
 #ifdef GTSAM_USE_TBB
@@ -42,7 +42,7 @@ using ConcurrentMapBase = tbb::concurrent_unordered_map<
 #else
 
 // If we're not using TBB, use a FastMap for ConcurrentMap
-#include <gtsam/base/FastMap.h>
+#include "gtsam/base/FastMap.h"
 template <typename KEY, typename VALUE>
 using ConcurrentMapBase = gtsam::FastMap<KEY, VALUE>;
 
@@ -53,7 +53,7 @@ using ConcurrentMapBase = gtsam::FastMap<KEY, VALUE>;
 #include <boost/serialization/split_member.hpp>
 #endif
 
-#include <gtsam/base/FastVector.h>
+#include "gtsam/base/FastVector.h"
 
 namespace gtsam {
 

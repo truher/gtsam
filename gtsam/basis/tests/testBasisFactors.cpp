@@ -18,17 +18,17 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/Vector.h>
-#include <gtsam/basis/Basis.h>
-#include <gtsam/basis/BasisFactors.h>
-#include <gtsam/basis/Chebyshev2.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/FunctorizedFactor.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
-#include <gtsam/nonlinear/factorTesting.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/base/Vector.h"
+#include "gtsam/basis/Basis.h"
+#include "gtsam/basis/BasisFactors.h"
+#include "gtsam/basis/Chebyshev2.h"
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/FunctorizedFactor.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
+#include "gtsam/nonlinear/factorTesting.h"
 
 using gtsam::Chebyshev2;
 using gtsam::LevenbergMarquardtOptimizer;

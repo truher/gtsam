@@ -18,10 +18,10 @@
 
 #pragma once
 
-#include <gtsam/symbolic/SymbolicFactor.h>
-#include <gtsam/inference/FactorGraph.h>
-#include <gtsam/inference/EliminateableFactorGraph.h>
-#include <gtsam/base/types.h>
+#include "gtsam/symbolic/SymbolicFactor.h"
+#include "gtsam/inference/FactorGraph.h"
+#include "gtsam/inference/EliminateableFactorGraph.h"
+#include "gtsam/base/types.h"
 
 namespace gtsam {
 

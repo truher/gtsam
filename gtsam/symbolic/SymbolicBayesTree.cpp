@@ -16,12 +16,12 @@
  * @author Richard Roberts
  */
 
-#include <gtsam/symbolic/SymbolicBayesTree.h>
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
-#include <gtsam/symbolic/SymbolicBayesNet.h>
-#include <gtsam/symbolic/SymbolicConditional.h>
-#include <gtsam/inference/BayesTree-inst.h>
-#include <gtsam/inference/BayesTreeCliqueBase-inst.h>
+#include "gtsam/symbolic/SymbolicBayesTree.h"
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
+#include "gtsam/symbolic/SymbolicBayesNet.h"
+#include "gtsam/symbolic/SymbolicConditional.h"
+#include "gtsam/inference/BayesTree-inst.h"
+#include "gtsam/inference/BayesTreeCliqueBase-inst.h"
 
 namespace gtsam {
 

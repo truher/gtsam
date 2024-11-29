@@ -20,8 +20,8 @@
 // \callgraph
 #pragma once
 
-#include <gtsam/nonlinear/FixedLagSmoother.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include "gtsam/nonlinear/FixedLagSmoother.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
 #include <queue>
 
 namespace gtsam {

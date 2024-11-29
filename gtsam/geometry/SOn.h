@@ -18,10 +18,10 @@
 
 #pragma once
 
-#include <gtsam/base/Lie.h>
-#include <gtsam/base/Manifold.h>
-#include <gtsam/base/make_shared.h>
-#include <gtsam/dllexport.h>
+#include "gtsam/base/Lie.h"
+#include "gtsam/base/Manifold.h"
+#include "gtsam/base/make_shared.h"
+#include "gtsam/dllexport.h"
 #include <Eigen/Core>
 
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION

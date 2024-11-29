@@ -16,7 +16,7 @@
  * @author Alex Cunningham
  */
 
-#include <gtsam/linear/Sampler.h>
+#include "gtsam/linear/Sampler.h"
 namespace gtsam {
 
 /* ************************************************************************* */

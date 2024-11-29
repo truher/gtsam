@@ -17,8 +17,8 @@
 
 #include <iostream>
 
-#include <gtsam/base/timing.h>
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/base/timing.h"
+#include "gtsam/geometry/Pose3.h"
 
 using namespace std;
 using namespace gtsam;

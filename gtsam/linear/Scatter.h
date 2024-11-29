@@ -19,9 +19,9 @@
 
 #pragma once
 
-#include <gtsam/inference/Key.h>
-#include <gtsam/base/FastMap.h>
-#include <gtsam/dllexport.h>
+#include "gtsam/inference/Key.h"
+#include "gtsam/base/FastMap.h"
+#include "gtsam/dllexport.h"
 
 namespace gtsam {
 

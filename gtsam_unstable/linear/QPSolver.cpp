@@ -16,7 +16,7 @@
  * @author  Duy-Nguyen Ta
  */
 
-#include <gtsam_unstable/linear/QPSolver.h>
+#include "gtsam_unstable/linear/QPSolver.h"
 
 namespace gtsam {
 constexpr double QPPolicy::maxAlpha;

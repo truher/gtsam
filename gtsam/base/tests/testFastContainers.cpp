@@ -7,9 +7,9 @@
  * @author Alex Cunningham
  */
 
-#include <gtsam/inference/Key.h>
-#include <gtsam/base/FastSet.h>
-#include <gtsam/base/FastVector.h>
+#include "gtsam/inference/Key.h"
+#include "gtsam/base/FastSet.h"
+#include "gtsam/base/FastVector.h"
 
 #include <CppUnitLite/TestHarness.h>
 

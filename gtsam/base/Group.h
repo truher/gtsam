@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <gtsam/base/Testable.h>
+#include "gtsam/base/Testable.h"
 
 #include <utility>
 

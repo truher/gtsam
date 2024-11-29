@@ -1,7 +1,7 @@
 // Check for templated class as template argument for method!
 namespace gtsam {
 
-#include <gtsam/geometry/Cal3Bundler.h>
+#include "gtsam/geometry/Cal3Bundler.h"
 
 class Cal3Bundler;
 

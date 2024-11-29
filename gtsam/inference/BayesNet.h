@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <gtsam/inference/FactorGraph.h>
+#include "gtsam/inference/FactorGraph.h"
 
 #include <memory>
 #include <string>
@@ -104,4 +104,4 @@ class BayesNet : public FactorGraph<CONDITIONAL> {
 
 }  // namespace gtsam
 
-#include <gtsam/inference/BayesNet-inst.h>
+#include "gtsam/inference/BayesNet-inst.h"

@@ -16,21 +16,21 @@
  *  @author Fan Jiang
  */
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/DiscreteDistribution.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/hybrid/HybridGaussianFactorGraph.h>
-#include <gtsam/hybrid/HybridNonlinearFactor.h>
-#include <gtsam/hybrid/HybridNonlinearFactorGraph.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianFactor.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/nonlinear/PriorFactor.h>
-#include <gtsam/slam/BetweenFactor.h>
+#include "gtsam/base/Matrix.h"
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/DiscreteDistribution.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/hybrid/HybridGaussianFactorGraph.h"
+#include "gtsam/hybrid/HybridNonlinearFactor.h"
+#include "gtsam/hybrid/HybridNonlinearFactorGraph.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/linear/GaussianFactor.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/nonlinear/PriorFactor.h"
+#include "gtsam/slam/BetweenFactor.h"
 
 #include <vector>
 

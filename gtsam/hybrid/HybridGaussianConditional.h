@@ -20,14 +20,14 @@
 
 #pragma once
 
-#include <gtsam/discrete/DecisionTree-inl.h>
-#include <gtsam/discrete/DecisionTree.h>
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/DiscreteKey.h>
-#include <gtsam/hybrid/HybridFactor.h>
-#include <gtsam/hybrid/HybridGaussianFactor.h>
-#include <gtsam/inference/Conditional.h>
-#include <gtsam/linear/GaussianConditional.h>
+#include "gtsam/discrete/DecisionTree-inl.h"
+#include "gtsam/discrete/DecisionTree.h"
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/DiscreteKey.h"
+#include "gtsam/hybrid/HybridFactor.h"
+#include "gtsam/hybrid/HybridGaussianFactor.h"
+#include "gtsam/inference/Conditional.h"
+#include "gtsam/linear/GaussianConditional.h"
 
 namespace gtsam {
 

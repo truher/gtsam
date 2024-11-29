@@ -10,10 +10,10 @@
 
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam_unstable/slam/DummyFactor.h>
+#include "gtsam_unstable/slam/DummyFactor.h"
 
-#include <gtsam/geometry/Point3.h>
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/geometry/Point3.h"
+#include "gtsam/base/TestableAssertions.h"
 
 using namespace gtsam;
 

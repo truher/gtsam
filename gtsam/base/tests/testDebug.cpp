@@ -20,7 +20,7 @@
 #undef NDEBUG
 #define NDEBUG
 #undef GTSAM_ENABLE_DEBUG
-#include <gtsam/base/debug.h>
+#include "gtsam/base/debug.h"
 
 /* ************************************************************************* */
 TEST(Debug, debug_disabled) {
@@ -33,7 +33,7 @@ TEST(Debug, debug_disabled) {
 }
 
 #define GTSAM_ENABLE_DEBUG
-#include <gtsam/base/debug.h>
+#include "gtsam/base/debug.h"
 
 /* ************************************************************************* */
 TEST(Debug, debug_enabled) {

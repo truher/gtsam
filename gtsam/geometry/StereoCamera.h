@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <gtsam/geometry/Cal3_S2Stereo.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/StereoPoint2.h>
+#include "gtsam/geometry/Cal3_S2Stereo.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/StereoPoint2.h"
 
 namespace gtsam {
 

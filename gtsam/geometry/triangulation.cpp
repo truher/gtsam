@@ -17,10 +17,10 @@
  * @author Akshay Krishnan
  */
 
-#include <gtsam/geometry/triangulation.h>
+#include "gtsam/geometry/triangulation.h"
 
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/nonlinear/LevenbergMarquardtOptimizer.h"
 
 namespace gtsam {
 

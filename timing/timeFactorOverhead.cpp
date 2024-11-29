@@ -16,11 +16,11 @@
  * @date    Aug 20, 2010
  */
 
-#include <gtsam/base/timing.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/base/timing.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/linear/VectorValues.h"
 
 #include <random>
 #include <vector>

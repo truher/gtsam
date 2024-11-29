@@ -15,10 +15,10 @@
  * @author  Asa Hammond
  */
 
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/navigation/ConstantVelocityFactor.h>
+#include "gtsam/base/TestableAssertions.h"
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/navigation/ConstantVelocityFactor.h"
 
 #include <CppUnitLite/TestHarness.h>
 #include <list>

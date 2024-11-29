@@ -19,12 +19,12 @@
 
 #pragma once
 
-#include <gtsam/slam/SmartFactorBase.h>
-#include <gtsam/slam/SmartFactorParams.h>
+#include "gtsam/slam/SmartFactorBase.h"
+#include "gtsam/slam/SmartFactorParams.h"
 
-#include <gtsam/geometry/triangulation.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/slam/dataset.h>
+#include "gtsam/geometry/triangulation.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/slam/dataset.h"
 
 #include <optional>
 #include <vector>

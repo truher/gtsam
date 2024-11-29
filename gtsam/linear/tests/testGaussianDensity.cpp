@@ -16,8 +16,8 @@
  *  @date   Jan 21, 2012
  **/
 
-#include <gtsam/linear/GaussianDensity.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/linear/GaussianDensity.h"
+#include "gtsam/inference/Symbol.h"
 
 #include <CppUnitLite/TestHarness.h>
 

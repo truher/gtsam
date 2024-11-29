@@ -3,7 +3,7 @@
 //*************************************************************************
 namespace gtsam {
 
-#include <gtsam/symbolic/SymbolicFactor.h>
+#include "gtsam/symbolic/SymbolicFactor.h"
 virtual class SymbolicFactor : gtsam::Factor {
   // Standard Constructors and Named Constructors
   SymbolicFactor(const gtsam::SymbolicFactor& f);
@@ -24,7 +24,7 @@ virtual class SymbolicFactor : gtsam::Factor {
   bool equals(const gtsam::SymbolicFactor& other, double tol) const;
 };
 
-#include <gtsam/symbolic/SymbolicFactorGraph.h>
+#include "gtsam/symbolic/SymbolicFactorGraph.h"
 virtual class SymbolicFactorGraph {
   SymbolicFactorGraph();
   SymbolicFactorGraph(const gtsam::SymbolicBayesNet& bayesNet);
@@ -85,7 +85,7 @@ virtual class SymbolicFactorGraph {
       const gtsam::DotWriter& writer = gtsam::DotWriter()) const;
 };
 
-#include <gtsam/symbolic/SymbolicConditional.h>
+#include "gtsam/symbolic/SymbolicConditional.h"
 virtual class SymbolicConditional : gtsam::SymbolicFactor {
   // Standard Constructors and Named Constructors
   SymbolicConditional();
@@ -109,7 +109,7 @@ virtual class SymbolicConditional : gtsam::SymbolicFactor {
   size_t nrParents() const;
 };
 
-#include <gtsam/symbolic/SymbolicBayesNet.h>
+#include "gtsam/symbolic/SymbolicBayesNet.h"
 class SymbolicBayesNet {
   SymbolicBayesNet();
   SymbolicBayesNet(const gtsam::SymbolicBayesNet& other);
@@ -137,7 +137,7 @@ class SymbolicBayesNet {
       const gtsam::DotWriter& writer = gtsam::DotWriter()) const;
 };
 
-#include <gtsam/symbolic/SymbolicEliminationTree.h>
+#include "gtsam/symbolic/SymbolicEliminationTree.h"
 
 class SymbolicEliminationTree {
   SymbolicEliminationTree(const gtsam::SymbolicFactorGraph& factorGraph,
@@ -154,7 +154,7 @@ class SymbolicEliminationTree {
               double tol = 1e-9) const;
 };
 
-#include <gtsam/symbolic/SymbolicJunctionTree.h>
+#include "gtsam/symbolic/SymbolicJunctionTree.h"
 
 class SymbolicCluster {
   gtsam::Ordering orderedFrontalKeys;
@@ -174,7 +174,7 @@ class SymbolicJunctionTree {
   const gtsam::SymbolicCluster& operator[](size_t i) const;
 };
 
-#include <gtsam/symbolic/SymbolicBayesTree.h>
+#include "gtsam/symbolic/SymbolicBayesTree.h"
 
 class SymbolicBayesTreeClique {
   SymbolicBayesTreeClique();

@@ -18,11 +18,11 @@
  *  @date   August, 2014
  */
 
-#include <gtsam/slam/InitializePose3.h>
-#include <gtsam/slam/dataset.h>
-#include <gtsam/slam/BetweenFactor.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/slam/InitializePose3.h"
+#include "gtsam/slam/dataset.h"
+#include "gtsam/slam/BetweenFactor.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/geometry/Pose3.h"
 #include <CppUnitLite/TestHarness.h>
 
 #include <cmath>

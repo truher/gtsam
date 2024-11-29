@@ -20,9 +20,9 @@
 
 #pragma once
 
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/discrete/DiscreteBayesTree.h>
-#include <gtsam/base/Vector.h>
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/discrete/DiscreteBayesTree.h"
+#include "gtsam/base/Vector.h"
 
 namespace gtsam {
 

@@ -18,16 +18,16 @@
  * @brief  Check evaluateError for various Frobenius norm
  */
 
-#include <gtsam/base/lieProxies.h>
-#include <gtsam/base/testLie.h>
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/geometry/SO3.h>
-#include <gtsam/geometry/SO4.h>
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/factorTesting.h>
-#include <gtsam/sfm/ShonanFactor.h>
-#include <gtsam/slam/FrobeniusFactor.h>
+#include "gtsam/base/lieProxies.h"
+#include "gtsam/base/testLie.h"
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/geometry/SO3.h"
+#include "gtsam/geometry/SO4.h"
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/nonlinear/factorTesting.h"
+#include "gtsam/sfm/ShonanFactor.h"
+#include "gtsam/slam/FrobeniusFactor.h"
 
 #include <CppUnitLite/TestHarness.h>
 

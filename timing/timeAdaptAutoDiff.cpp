@@ -17,13 +17,13 @@
  */
 
 #include "timeLinearize.h"
-#include <gtsam/3rdparty/ceres/example.h>
-#include <gtsam/nonlinear/AdaptAutoDiff.h>
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam/slam/GeneralSFMFactor.h>
-#include <gtsam/geometry/PinholeCamera.h>
-#include <gtsam/geometry/Cal3Bundler.h>
-#include <gtsam/geometry/Point3.h>
+#include "gtsam/3rdparty/ceres/example.h"
+#include "gtsam/nonlinear/AdaptAutoDiff.h"
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam/slam/GeneralSFMFactor.h"
+#include "gtsam/geometry/PinholeCamera.h"
+#include "gtsam/geometry/Cal3Bundler.h"
+#include "gtsam/geometry/Point3.h"
 
 using namespace std;
 using namespace gtsam;

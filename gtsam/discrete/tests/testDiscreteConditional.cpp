@@ -18,12 +18,12 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/discrete/DecisionTreeFactor.h>
-#include <gtsam/discrete/DiscreteConditional.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/discrete/DiscreteFactorGraph.h>
-#include <gtsam/discrete/DiscreteBayesNet.h>
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/discrete/DecisionTreeFactor.h"
+#include "gtsam/discrete/DiscreteConditional.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/discrete/DiscreteFactorGraph.h"
+#include "gtsam/discrete/DiscreteBayesNet.h"
 
 
 using namespace std;

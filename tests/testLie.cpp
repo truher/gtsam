@@ -16,11 +16,11 @@
  * @brief unit tests for Lie group type machinery
  */
 
-#include <gtsam/base/ProductLieGroup.h>
+#include "gtsam/base/ProductLieGroup.h"
 
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Point2.h>
-#include <gtsam/base/testLie.h>
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Point2.h"
+#include "gtsam/base/testLie.h"
 
 #include <CppUnitLite/TestHarness.h>
 

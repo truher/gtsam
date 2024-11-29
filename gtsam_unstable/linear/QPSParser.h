@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam_unstable/dllexport.h>
-#include <gtsam_unstable/linear/QP.h>
+#include "gtsam_unstable/dllexport.h"
+#include "gtsam_unstable/linear/QP.h"
 #include <fstream>
 
 namespace gtsam {

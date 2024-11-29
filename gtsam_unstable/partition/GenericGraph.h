@@ -14,7 +14,7 @@
 #include <stdexcept>
 #include <string>
 #include <memory>
-#include <gtsam_unstable/dllexport.h>
+#include "gtsam_unstable/dllexport.h"
 
 #include "PartitionWorkSpace.h"
 

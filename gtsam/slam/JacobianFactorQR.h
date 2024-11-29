@@ -6,9 +6,9 @@
  */
 
 #pragma once
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/RegularJacobianFactor.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/RegularJacobianFactor.h"
+#include "gtsam/inference/Symbol.h"
 
 namespace gtsam {
 

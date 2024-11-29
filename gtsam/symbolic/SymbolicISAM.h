@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include <gtsam/symbolic/SymbolicBayesTree.h>
-#include <gtsam/inference/ISAM.h>
+#include "gtsam/symbolic/SymbolicBayesTree.h"
+#include "gtsam/inference/ISAM.h"
 
 namespace gtsam {
 

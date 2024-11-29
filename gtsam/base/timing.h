@@ -17,9 +17,9 @@
  */
 #pragma once
 
-#include <gtsam/base/FastMap.h>
-#include <gtsam/dllexport.h>
-#include <gtsam/config.h> // for GTSAM_USE_TBB
+#include "gtsam/base/FastMap.h"
+#include "gtsam/dllexport.h"
+#include "gtsam/config.h" // for GTSAM_USE_TBB
 
 #ifdef GTSAM_USE_BOOST_FEATURES
 #include <boost/version.hpp>

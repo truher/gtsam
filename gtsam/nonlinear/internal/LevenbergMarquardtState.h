@@ -20,12 +20,12 @@
 
 #include "NonlinearOptimizerState.h"
 
-#include <gtsam/nonlinear/Values.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/linear/NoiseModel.h>
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/Vector.h>
+#include "gtsam/nonlinear/Values.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/linear/NoiseModel.h"
+#include "gtsam/base/Matrix.h"
+#include "gtsam/base/Vector.h"
 
 #include <algorithm>
 #include <cmath>

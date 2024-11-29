@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam/base/numericalDerivative.h>
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam/base/numericalDerivative.h"
 #include <string>
 #include <vector>
 

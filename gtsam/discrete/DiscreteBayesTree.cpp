@@ -17,11 +17,11 @@
  * @author  Richard Roberts
  */
 
-#include <gtsam/base/treeTraversal-inst.h>
-#include <gtsam/inference/BayesTree-inst.h>
-#include <gtsam/inference/BayesTreeCliqueBase-inst.h>
-#include <gtsam/discrete/DiscreteBayesTree.h>
-#include <gtsam/discrete/DiscreteBayesNet.h>
+#include "gtsam/base/treeTraversal-inst.h"
+#include "gtsam/inference/BayesTree-inst.h"
+#include "gtsam/inference/BayesTreeCliqueBase-inst.h"
+#include "gtsam/discrete/DiscreteBayesTree.h"
+#include "gtsam/discrete/DiscreteBayesNet.h"
 
 namespace gtsam {
 

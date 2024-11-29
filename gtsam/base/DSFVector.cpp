@@ -16,7 +16,7 @@
  * @brief a faster implementation for DSF, which uses vector rather than btree.
  */
 
-#include <gtsam/base/DSFVector.h>
+#include "gtsam/base/DSFVector.h"
 #include <algorithm>
 #include <cassert>
 

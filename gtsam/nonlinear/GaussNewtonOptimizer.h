@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/NonlinearOptimizer.h>
+#include "gtsam/nonlinear/NonlinearOptimizer.h"
 
 namespace gtsam {
 

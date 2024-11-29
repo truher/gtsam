@@ -14,9 +14,9 @@
 
 #pragma once
 
-#include <gtsam/geometry/Cal3_S2.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
-#include <gtsam_unstable/geometry/InvDepthCamera3.h>
+#include "gtsam/geometry/Cal3_S2.h"
+#include "gtsam/nonlinear/NonlinearFactor.h"
+#include "gtsam_unstable/geometry/InvDepthCamera3.h"
 
 namespace gtsam {
 

@@ -15,14 +15,14 @@
  * @author Frank Dellaert, Yong-Dian Jian
  */
 
-#include <gtsam/linear/SubgraphPreconditioner.h>
+#include "gtsam/linear/SubgraphPreconditioner.h"
 
-#include <gtsam/linear/SubgraphBuilder.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/GaussianBayesNet.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/base/types.h>
-#include <gtsam/base/Vector.h>
+#include "gtsam/linear/SubgraphBuilder.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/GaussianBayesNet.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/base/types.h"
+#include "gtsam/base/Vector.h"
 
 #include <stdexcept>
 

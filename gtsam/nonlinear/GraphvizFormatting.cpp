@@ -16,12 +16,12 @@
  * @date December, 2021
  */
 
-#include <gtsam/nonlinear/GraphvizFormatting.h>
-#include <gtsam/nonlinear/Values.h>
+#include "gtsam/nonlinear/GraphvizFormatting.h"
+#include "gtsam/nonlinear/Values.h"
 
 // TODO(frank): nonlinear should not depend on geometry:
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/geometry/Pose3.h>
+#include "gtsam/geometry/Pose2.h"
+#include "gtsam/geometry/Pose3.h"
 
 #include <limits>
 

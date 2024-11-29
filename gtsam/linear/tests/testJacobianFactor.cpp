@@ -16,14 +16,14 @@
  *  @author Frank Dellaert
  **/
 
-#include <gtsam/base/TestableAssertions.h>
+#include "gtsam/base/TestableAssertions.h"
 #include <CppUnitLite/TestHarness.h>
 
-#include <gtsam/inference/VariableSlots.h>
-#include <gtsam/linear/JacobianFactor.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/GaussianConditional.h>
-#include <gtsam/linear/VectorValues.h>
+#include "gtsam/inference/VariableSlots.h"
+#include "gtsam/linear/JacobianFactor.h"
+#include "gtsam/linear/GaussianFactorGraph.h"
+#include "gtsam/linear/GaussianConditional.h"
+#include "gtsam/linear/VectorValues.h"
 
 using namespace std;
 using namespace gtsam;

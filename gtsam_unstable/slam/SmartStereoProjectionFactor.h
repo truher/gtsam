@@ -20,15 +20,15 @@
 
 #pragma once
 
-#include <gtsam/geometry/Pose3.h>
-#include <gtsam/geometry/StereoCamera.h>
-#include <gtsam/geometry/triangulation.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/slam/SmartFactorBase.h>
-#include <gtsam/slam/SmartFactorParams.h>
-#include <gtsam/slam/StereoFactor.h>
-#include <gtsam/slam/dataset.h>
-#include <gtsam_unstable/dllexport.h>
+#include "gtsam/geometry/Pose3.h"
+#include "gtsam/geometry/StereoCamera.h"
+#include "gtsam/geometry/triangulation.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/slam/SmartFactorBase.h"
+#include "gtsam/slam/SmartFactorParams.h"
+#include "gtsam/slam/StereoFactor.h"
+#include "gtsam/slam/dataset.h"
+#include "gtsam_unstable/dllexport.h"
 
 #ifdef GTSAM_ENABLE_BOOST_SERIALIZATION
 #include <boost/serialization/optional.hpp>

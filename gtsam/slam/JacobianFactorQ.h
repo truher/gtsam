@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include <gtsam/linear/RegularJacobianFactor.h>
+#include "gtsam/linear/RegularJacobianFactor.h"
 
 namespace gtsam {
 /**

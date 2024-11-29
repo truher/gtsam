@@ -16,8 +16,8 @@
  * @date     Oct 5, 2010
  */
 
-#include <gtsam/base/debug.h>
-#include <gtsam/base/timing.h>
+#include "gtsam/base/debug.h"
+#include "gtsam/base/timing.h"
 
 #include <algorithm>
 #include <cassert>

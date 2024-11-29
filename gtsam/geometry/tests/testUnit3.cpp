@@ -18,15 +18,15 @@
  * @brief Tests the Unit3 class
  */
 
-#include <gtsam/base/Testable.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/base/serializationTestHelpers.h>
-#include <gtsam/geometry/Unit3.h>
-#include <gtsam/geometry/Rot3.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
+#include "gtsam/base/Testable.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/base/serializationTestHelpers.h"
+#include "gtsam/geometry/Unit3.h"
+#include "gtsam/geometry/Rot3.h"
+#include "gtsam/inference/Symbol.h"
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
 
 
 #include <CppUnitLite/TestHarness.h>

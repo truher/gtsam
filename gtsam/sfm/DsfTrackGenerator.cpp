@@ -16,7 +16,7 @@
  * @brief Identifies connected components in the keypoint matches graph.
  */
 
-#include <gtsam/sfm/DsfTrackGenerator.h>
+#include "gtsam/sfm/DsfTrackGenerator.h"
 
 #include <algorithm>
 #include <iostream>

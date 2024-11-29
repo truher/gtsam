@@ -18,6 +18,6 @@
 
 #pragma once
 
-#include <gtsam/config.h>      // Configuration from CMake
-#include <gtsam/base/types.h>  // Basic types, constants, and compatibility functions
+#include "gtsam/config.h"      // Configuration from CMake
+#include "gtsam/base/types.h"  // Basic types, constants, and compatibility functions
 // types.h includes dllexport.h, which contains macros for dllspec tags for Windows DLLs

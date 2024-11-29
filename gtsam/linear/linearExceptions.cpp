@@ -16,8 +16,8 @@
  * @date    Aug 17, 2012
  */
 
-#include <gtsam/linear/linearExceptions.h>
-#include <gtsam/inference/Symbol.h>
+#include "gtsam/linear/linearExceptions.h"
+#include "gtsam/inference/Symbol.h"
 
 namespace gtsam {
 

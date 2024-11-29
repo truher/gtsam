@@ -17,9 +17,9 @@
 
 #pragma once
 
-#include <gtsam/nonlinear/GaussNewtonOptimizer.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/slam/KarcherMeanFactor.h>
+#include "gtsam/nonlinear/GaussNewtonOptimizer.h"
+#include "gtsam/nonlinear/NonlinearFactorGraph.h"
+#include "gtsam/slam/KarcherMeanFactor.h"
 #include <optional>
 
 using namespace std;

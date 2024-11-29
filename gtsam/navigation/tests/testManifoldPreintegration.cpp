@@ -15,11 +15,11 @@
  * @author  Luca Carlone
  */
 
-#include <gtsam/navigation/ManifoldPreintegration.h>
-#include <gtsam/base/numericalDerivative.h>
-#include <gtsam/nonlinear/expressions.h>
-#include <gtsam/nonlinear/ExpressionFactor.h>
-#include <gtsam/nonlinear/expressionTesting.h>
+#include "gtsam/navigation/ManifoldPreintegration.h"
+#include "gtsam/base/numericalDerivative.h"
+#include "gtsam/nonlinear/expressions.h"
+#include "gtsam/nonlinear/ExpressionFactor.h"
+#include "gtsam/nonlinear/expressionTesting.h"
 
 #include <CppUnitLite/TestHarness.h>
 
