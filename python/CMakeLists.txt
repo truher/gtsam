@@ -7,11 +7,15 @@ endif()
 
 # Generate setup.py.
 file(READ "${PROJECT_SOURCE_DIR}/README.md" README_CONTENTS)
-# configure_file(${PROJECT_PYTHON_SOURCE_DIR}/setup.py.in
-#                ${GTSAM_PYTHON_BUILD_DIRECTORY}/setup.py)
 
-configure_file(${PROJECT_PYTHON_SOURCE_DIR}/pyproject.toml.in
-               ${GTSAM_PYTHON_BUILD_DIRECTORY}/pyproject.toml)
+if (DEFINED ENV{NIGHTLY})
+  # TODO: move all the builds to pyproject.toml
+  configure_file(${PROJECT_PYTHON_SOURCE_DIR}/pyproject.toml.in
+                 ${GTSAM_PYTHON_BUILD_DIRECTORY}/pyproject.toml)
+else()
+  configure_file(${PROJECT_PYTHON_SOURCE_DIR}/setup.py.in
+                 ${GTSAM_PYTHON_BUILD_DIRECTORY}/setup.py)
+endif()
 
 
 # Supply MANIFEST.in for older versions of Python

@@ -25,7 +25,6 @@ setup(
     name='${SETUP_NAME}',
     description='Georgia Tech Smoothing And Mapping library',
     url='https://gtsam.org/',
-    # This is set in the top-level CMakeLists.txt.
     version='${GTSAM_VERSION_STRING}',  # https://www.python.org/dev/peps/pep-0440/
     author='Frank Dellaert et. al.',
     author_email='frank.dellaert@gtsam.org',
@@ -43,7 +42,7 @@ setup(
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX',
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python :: ${GTSAM_PYTHON_VERSION}',
+        'Programming Language :: Python :: 3',
     ],
     packages=packages,
     include_package_data=True,
