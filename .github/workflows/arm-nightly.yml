@@ -58,7 +58,7 @@ jobs:
             echo "=== INSTALL 3 ==="
             sudo apt-get -y install g++ patchelf
             echo "=== DEPEND ==="
-            bash .github/scripts/python.sh -d
+            bash .github/scripts/nightly.sh -d
             echo "=== REQ ==="
             python3 -m pip install --break-system-packages -r python/dev_requirements.txt
             echo "=== PWD ==="
@@ -66,9 +66,9 @@ jobs:
             echo "=== ls ==="
             ls -R
             echo "=== BUILD ==="
-            bash .github/scripts/python.sh -b
+            bash .github/scripts/nightly.sh -b
             echo "=== TEST ==="
-            bash .github/scripts/python.sh -t
+            bash .github/scripts/nightly.sh -t
             echo "=== INSTALL AUDITWHEEL ==="
             python3 -m pip install --break-system-packages --upgrade pip auditwheel
             echo "=== BUILD WHEEL ==="
