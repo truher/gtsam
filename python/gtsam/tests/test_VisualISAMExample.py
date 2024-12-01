@@ -61,30 +61,30 @@ class TestVisualISAMExample(GtsamTestCase):
             point_j = result.atPoint3(symbol('l', j))
             self.gtsamAssertEquals(point_j, expected_point, 1e-5)
 
-    # def test_isam2_error(self):
-    #     """Test for isam2 error() method."""
-    #     # Initialize iSAM with the first pose and points
-    #     isam, result, nextPose = visual_isam.initialize(
-    #         self.data, self.truth, self.isamOptions)
+    def test_isam2_error(self):
+        """Test for isam2 error() method."""
+        # Initialize iSAM with the first pose and points
+        isam, result, nextPose = visual_isam.initialize(
+            self.data, self.truth, self.isamOptions)
 
-    #     # Main loop for iSAM: stepping through all poses
-    #     for currentPose in range(nextPose, self.options.nrCameras):
-    #         isam, result = visual_isam.step(self.data, isam, result,
-    #                                         self.truth, currentPose)
+        # Main loop for iSAM: stepping through all poses
+        for currentPose in range(nextPose, self.options.nrCameras):
+            isam, result = visual_isam.step(self.data, isam, result,
+                                            self.truth, currentPose)
 
-    #     values = gtsam.VectorValues()
+        values = gtsam.VectorValues()
 
-    #     estimate = isam.calculateBestEstimate()
+        estimate = isam.calculateBestEstimate()
 
-    #     for key in estimate.keys():
-    #         try:
-    #             v = gtsam.Pose3.Logmap(estimate.atPose3(key))
-    #         except RuntimeError:
-    #             v = estimate.atPoint3(key)
+        for key in estimate.keys():
+            try:
+                v = gtsam.Pose3.Logmap(estimate.atPose3(key))
+            except RuntimeError:
+                v = estimate.atPoint3(key)
 
-    #         values.insert(key, v)
+            values.insert(key, v)
 
-    #     self.assertAlmostEqual(isam.error(values), 34212421.14732)
+        self.assertAlmostEqual(isam.error(values), 34212421.14732)
 
     def test_isam2_update(self):
         """
