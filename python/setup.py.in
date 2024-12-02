@@ -21,7 +21,8 @@ package_data = {
 readme_contents = open("${GTSAM_SOURCE_DIR}/README.md").read()
 
 setup(
-    name='gtsam',
+    # This is set in the top-level CMakeLists.txt.
+    name='${SETUP_NAME}',
     description='Georgia Tech Smoothing And Mapping library',
     url='https://gtsam.org/',
     version='${GTSAM_VERSION_STRING}',  # https://www.python.org/dev/peps/pep-0440/

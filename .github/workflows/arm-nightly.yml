@@ -1,14 +1,115 @@
-# this works around this issue
-# https://github.com/orgs/community/discussions/25746
-# which i consider a bug
-# so i can run my workflow in a feature branch
-name: dummy
+# Nightly build for Raspberry Pi
+# Uploads to test.pypi.org.
 
-on: [workflow_dispatch]
+name: ARM Nightly
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+env:
+  IMG: raspios_lite_arm64:latest
+  BIND: true
+  CPU: cortex-a76
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build
+    runs-on: ubuntu-24.04
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     python_version: ['3.9', '3.10', '3.11', '3.12']
+
+
+    env:
+      # quote the number because yaml thinks 3.10 and 3.1 are the same, like it's a number, man.
+      # https://yaml.org/spec/1.2.2/ the yaml spec is 50 pages
+      PYTHON_VERSION: '3.11'
+      # PYTHON_VERSION: ${{matrix.python_version}}
+
     steps:
-      - name: do nothing
-        run: echo nothing!
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: env
+        run: |
+            echo "=== SET VARS ==="            
+            echo "CC=gcc" >> $GITHUB_ENV
+            echo "CXX=g++" >> $GITHUB_ENV
+            echo "NIGHTLY=1" >> $GITHUB_ENV
+
+      - name: Run on ARM
+        uses: pguyot/arm-runner-action@v2
+        with:
+          base_image: $IMG
+          bind_mount_repository: $BIND
+          copy_repository_path: /home/runner/work/gtsam/gtsam
+          cpu: $CPU
+          debug: true
+          image_additional_mb: 20000
+          commands: |
+            echo "=== CPU INFO ==="
+            cat /proc/cpuinfo
+            echo "=== UPDATE ==="
+            sudo apt-get -y update
+            echo "=== INSTALL 1 ==="
+            sudo apt-get -y install python3 cmake build-essential pkg-config python3-numpy
+            echo "=== INSTALL 2 ==="
+            sudo apt-get -y install libboost-all-dev ninja-build 
+            echo "=== INSTALL 3 ==="
+            sudo apt-get -y install g++ patchelf
+            echo "=== DEPEND ==="
+            bash .github/scripts/nightly.sh -d
+            echo "=== REQ ==="
+            python3 -m pip install --break-system-packages -r python/dev_requirements.txt
+            echo "=== PWD ==="
+            pwd
+            echo "=== ls ==="
+            ls -R
+            echo "=== BUILD ==="
+            bash .github/scripts/nightly.sh -b
+            echo "=== TEST ==="
+            bash .github/scripts/nightly.sh -t
+            echo "=== INSTALL AUDITWHEEL ==="
+            python3 -m pip install --break-system-packages --upgrade pip auditwheel
+            echo "=== BUILD WHEEL ==="
+            python3 -m pip wheel build/python -w build/python/dist
+            echo "=== CHECK LDD VERSION ==="
+            ldd --version
+            echo "=== AUDITWHEEL ==="
+            python3 -m auditwheel repair --plat manylinux_2_35_aarch64 -w build/python/repaired/ build/python/dist/truher_gtsam_nightly*
+
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          # TODO: define the name as ENV, use it in CMakeLists.txt 
+          name: artifact311
+          # name: artifact${{matrix.python_version}}
+          path: build/python/repaired/truher_gtsam_nightly*
+      
+
+  upload_all:
+    # Waits for all the builds to finish
+    # Downloads all their wheels
+    # Uploads them all at once.
+    name: Upload All
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist/
+          merge-multiple: true
+
+      - name: Publish
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
+          repository-url: https://test.pypi.org/legacy/

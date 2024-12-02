@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "${SETUP_NAME}"
+version = "${GTSAM_VERSION_STRING}"
+description = "Georgia Tech Smoothing And Mapping library"
+readme = "README.md"
+license = {text = "Simplified BSD license"}
+authors = [
+    { name = "Frank Dellaert et. al.", email = "frank.dellaert@gtsam.org" },
+]
+keywords = [
+    "localization",
+    "mapping",
+    "optimization",
+    "robotics",
+    "sam",
+    "slam",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "numpy>=1.11.0,<2",
+]
+
+[project.urls]
+Homepage = "https://gtsam.org/"
+
+[tool.setuptools]
+ext-modules = [
+  {name = "gtsam", sources = []},
+  {name = "gtsam_unstable", sources = []}
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ['build', 'build.*', 'CMakeFiles', 'CMakeFiles.*',
+           'gtsam.notebooks', '*.preamble', '*.specializations', 'dist']
+
+[tool.setuptools.package-data]
+"*" = ["./*.so",
+        "./*.dll",
+        "./*.pyd",
+        "*.pyi", "**/*.pyi"]

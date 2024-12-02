@@ -25,10 +25,19 @@ set (GTSAM_VERSION_PATCH 0)
 set (GTSAM_PRERELEASE_VERSION "a0")
 math (EXPR GTSAM_VERSION_NUMERIC "10000 * ${GTSAM_VERSION_MAJOR} + 100 * ${GTSAM_VERSION_MINOR} + ${GTSAM_VERSION_PATCH}")
 
-if ("${GTSAM_PRERELEASE_VERSION}" STREQUAL "")
+# Use the current timestamp as the version string, if the "NIGHTLY" flag is set.
+if (DEFINED ENV{NIGHTLY})
+    string(TIMESTAMP NOW "%Y.%m.%d.%H.%M")
+    message(NOTICE "NIGHTLY BUILD ${NOW}")
+    set (GTSAM_VERSION_STRING "${NOW}")
+    # TODO: use the correct pypi nightly name
+    set (SETUP_NAME "truher-gtsam-nightly")
+elseif ("${GTSAM_PRERELEASE_VERSION}" STREQUAL "")
     set (GTSAM_VERSION_STRING "${GTSAM_VERSION_MAJOR}.${GTSAM_VERSION_MINOR}.${GTSAM_VERSION_PATCH}")
+    set (SETUP_NAME "gtsam")
 else()
     set (GTSAM_VERSION_STRING "${GTSAM_VERSION_MAJOR}.${GTSAM_VERSION_MINOR}${GTSAM_PRERELEASE_VERSION}")
+    set (SETUP_NAME "gtsam")
 endif()
 
 project(GTSAM
@@ -70,6 +79,7 @@ include(GtsamPrinting)
 
 ############### Decide on BOOST ######################################
 # Enable or disable serialization with GTSAM_ENABLE_BOOST_SERIALIZATION
+# (Serialization tests fail when this is off.)
 option(GTSAM_ENABLE_BOOST_SERIALIZATION "Enable Boost serialization" ON)
 if(GTSAM_ENABLE_BOOST_SERIALIZATION)
   add_definitions(-DGTSAM_ENABLE_BOOST_SERIALIZATION)

@@ -89,7 +89,13 @@ set(CEPHES_SOURCES
     cephes/zetac.c)
 
 # Add library source files
-add_library(cephes-gtsam SHARED ${CEPHES_SOURCES})
+if (DEFINED ENV{NIGHTLY})
+  # Needs to be static for the nightly build to work.
+  add_definitions(-fPIC)
+  add_library(cephes-gtsam STATIC ${CEPHES_SOURCES})
+else()
+  add_library(cephes-gtsam SHARED ${CEPHES_SOURCES})
+endif()
 
 # Add include directory (aka headers)
 target_include_directories(
