@@ -3,7 +3,11 @@
 
 name: Linux Nightly
 
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
 
 jobs:
   build:

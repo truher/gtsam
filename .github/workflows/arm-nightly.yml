@@ -3,7 +3,11 @@
 
 name: ARM Nightly
 
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
 
 env:
   IMG: raspios_lite_arm64:latest
