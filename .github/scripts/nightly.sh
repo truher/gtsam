@@ -41,6 +41,12 @@ function install_dependencies()
   fi
 }
 
+# Chirality exception is thrown by the camera projection when the solver
+# randomly places the camera such that the landmarks are behind it.
+# This breaks the dependent python custom factor with numeric derivatives.
+
+# Build needs to be static to be included in the wheel at the end.
+
 function build()
 {
   export CMAKE_GENERATOR=Ninja
@@ -49,12 +55,16 @@ function build()
       -B build \
       -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
       -DGTSAM_BUILD_TESTS=OFF \
+      -DGTSAM_FORCE_SHARED_LIB=OFF \
       -DGTSAM_BUILD_UNSTABLE=${GTSAM_BUILD_UNSTABLE:-ON} \
+      -DGTSAM_THROW_CHEIRALITY_EXCEPTION=OFF \
       -DGTSAM_USE_QUATERNIONS=OFF \
       -DGTSAM_WITH_TBB=${GTSAM_WITH_TBB:-OFF} \
       -DGTSAM_BUILD_EXAMPLES_ALWAYS=OFF \
       -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF \
       -DGTSAM_BUILD_PYTHON=${BUILD_PYBIND} \
+      -DBUILD_SHARED_LIBS=OFF \
+      -DBUILD_STATIC_METIS=ON \
       -DGTSAM_UNSTABLE_BUILD_PYTHON=${GTSAM_BUILD_UNSTABLE:-ON} \
       -DGTSAM_PYTHON_VERSION=$PYTHON_VERSION \
       -DPYTHON_EXECUTABLE:FILEPATH=$(which $PYTHON) \

@@ -44,7 +44,7 @@ jobs:
           swap-size-gb: 6
 
       - name: Install System Dependencies
-        run: bash .github/scripts/python.sh -d
+        run: bash .github/scripts/nightly.sh -d
 
       - name: Install Python Dependencies
         shell: bash
@@ -56,7 +56,7 @@ jobs:
       - name: Build
         # Builds the cmake "python-install" target which is a local install.
         shell: bash
-        run: bash .github/scripts/python.sh -b
+        run: bash .github/scripts/nightly.sh -b
 
       - name: Test
         # Uses the local install for python3 -m unittest.

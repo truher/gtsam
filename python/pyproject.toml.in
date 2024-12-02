@@ -39,7 +39,8 @@ Homepage = "https://gtsam.org/"
 
 [tool.setuptools]
 ext-modules = [
-  {name = "gtsam", sources = []}
+  {name = "gtsam", sources = []},
+  {name = "gtsam_unstable", sources = []}
 ]
 
 [tool.setuptools.packages.find]
