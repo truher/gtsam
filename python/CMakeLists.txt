@@ -308,11 +308,20 @@ endif()
 # Note below we make sure to install with --user iff not in a virtualenv
 set(GTSAM_PYTHON_INSTALL_TARGET python-install)
 
-add_custom_target(${GTSAM_PYTHON_INSTALL_TARGET}
+if (DEFINED ENV{NIGHTLY})
+    # nightly requires breaking?  TODO: figure this out
+    add_custom_target(${GTSAM_PYTHON_INSTALL_TARGET}
         COMMAND ${PYTHON_EXECUTABLE} -c "import sys, subprocess; cmd = [sys.executable, '-m', 'pip', 'install', '--break-system-packages']; has_venv = hasattr(sys, 'real_prefix') or (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix); cmd.append('--user' if not has_venv else ''); cmd.append('.'); subprocess.check_call([c for c in cmd if c])"
         DEPENDS ${GTSAM_PYTHON_DEPENDENCIES} ${GTSAM_PYTHON_INSTALL_EXTRA}
         WORKING_DIRECTORY ${GTSAM_PYTHON_BUILD_DIRECTORY}
         VERBATIM)
+else()
+    add_custom_target(${GTSAM_PYTHON_INSTALL_TARGET}
+        COMMAND ${PYTHON_EXECUTABLE} -c "import sys, subprocess; cmd = [sys.executable, '-m', 'pip', 'install']; has_venv = hasattr(sys, 'real_prefix') or (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix); cmd.append('--user' if not has_venv else ''); cmd.append('.'); subprocess.check_call([c for c in cmd if c])"
+        DEPENDS ${GTSAM_PYTHON_DEPENDENCIES} ${GTSAM_PYTHON_INSTALL_EXTRA}
+        WORKING_DIRECTORY ${GTSAM_PYTHON_BUILD_DIRECTORY}
+        VERBATIM)
+endif()
 
 # Custom make command to run all GTSAM Python tests
 add_custom_target(
