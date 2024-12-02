@@ -65,10 +65,6 @@ jobs:
             bash .github/scripts/nightly.sh -d
             echo "=== REQ ==="
             python3 -m pip install --break-system-packages -r python/dev_requirements.txt
-            echo "=== PWD ==="
-            pwd
-            echo "=== ls ==="
-            ls -R
             echo "=== BUILD ==="
             bash .github/scripts/nightly.sh -b
             echo "=== TEST ==="
