@@ -13,6 +13,10 @@
  */
 #pragma once
 #include <gtsam/nonlinear/NonlinearFactor.h>
+#include <gtsam/geometry/Pose3.h>
+#include <gtsam/geometry/Rot3.h>
+#include <gtsam/geometry/Point3.h>
+
 namespace gtsam {
     class PlanarProjectionFactor : public NoiseModelFactor {
     public:
