@@ -21,6 +21,7 @@
  */
 #pragma once
 
+#include <gtsam/geometry/Cal3DS2.h>
 #include <gtsam/geometry/PinholeCamera.h>
 #include <gtsam/geometry/Point3.h>
 #include <gtsam/geometry/Pose3.h>
@@ -28,10 +29,20 @@
 #include <gtsam/nonlinear/NonlinearFactor.h>
 
 namespace gtsam {
+    // camera "zero" is facing +z; this turns it to face +x
+    const Pose3 PlanarSFMFactor::CAM_COORD = Pose3(
+        Rot3(0, 0, 1,//
+            -1, 0, 0, //
+            0, -1, 0),
+        Vector3(0, 0, 0)
+    );
+
     class PlanarSFMFactor : public NoiseModelFactorN<Pose2, Pose3, Cal3DS2> {
-    static const int pose2dim = FixedDimension<Pose2>::value;
-    static const int pose3dim = FixedDimension<Pose3>::value;
-    static const int calDim = FixedDimension<Cal3DS2>::value;
+        static const int pose2dim = FixedDimension<Pose2>::value;
+        static const int pose3dim = FixedDimension<Pose3>::value;
+        static const int calDim = FixedDimension<Cal3DS2>::value;
+        static const Pose3 CAM_COORD;
+
 
     protected:
 
@@ -55,7 +66,7 @@ namespace gtsam {
             Key offsetKey,
             Key calibKey)
             : NoiseModelFactorN(model, poseKey, offsetKey, calibKey),
-             landmarks_(landmarks), measured_(measured)
+            landmarks_(landmarks), measured_(measured)
         {
         }
 
@@ -70,6 +81,12 @@ namespace gtsam {
             OptionalMatrixType H3
         ) const override {
             try {
+                // this is x-forward z-up
+                Pose3 offset_pose = Pose3(pose).compose(offset);
+                // this is z-forward y-down
+                Pose3 camera_pose = offset_pose.compose(CAM_COORD);
+                PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(camera_pose, calib);
+                camera.project2(point, H1, H2) - measured_;
 
             }
             catch (CheiralityException& e) {
