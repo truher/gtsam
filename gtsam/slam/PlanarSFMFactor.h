@@ -11,6 +11,10 @@
  * a sort of "autocalibrate" mode.  Once a satisfactory solution is
  * found, the PlanarProjectionFactor should be used for localization.
  *
+ * The python version of this factor uses batches, to save on calls
+ * across the C++/python boundary, but here the only extra cost
+ * is instantiating the camera, so there's no batch.
+ *
  * @see https://www.firstinspires.org/
  * @see PlanarProjectionFactor.h
  *
@@ -27,50 +31,59 @@
 #include <gtsam/geometry/Pose3.h>
 #include <gtsam/geometry/Rot3.h>
 #include <gtsam/nonlinear/NonlinearFactor.h>
+#include <gtsam/base/numericalDerivative.h>
+
 
 namespace gtsam {
-    // camera "zero" is facing +z; this turns it to face +x
-    const Pose3 PlanarSFMFactor::CAM_COORD = Pose3(
-        Rot3(0, 0, 1,//
-            -1, 0, 0, //
-            0, -1, 0),
-        Vector3(0, 0, 0)
-    );
-
+    /**
+     * @class PlanarSFMFactor
+     * @brief Camera calibration for robot on the floor.
+     */
     class PlanarSFMFactor : public NoiseModelFactorN<Pose2, Pose3, Cal3DS2> {
         static const int pose2dim = FixedDimension<Pose2>::value;
         static const int pose3dim = FixedDimension<Pose3>::value;
         static const int calDim = FixedDimension<Cal3DS2>::value;
         static const Pose3 CAM_COORD;
 
-
     protected:
 
-        std::list<Point3> landmarks_; // batch of landmarks
-        std::list<Point2> measured_; // batch of pixel measurements
+        Point3 landmark_; // landmark
+        Point2 measured_; // pixel measurement
 
     public:
         /**
-         * @param landmarks points in the world
-         * @param measured corresponding points in the camera frame
+         * @param landmarks point in the world
+         * @param measured corresponding point in the camera frame
          * @param model stddev of the measurements, ~one pixel?
          * @param poseKey index of the robot pose2 in the z=0 plane
          * @param offsetKey index of the 3d camera offset from the robot pose
          * @param calibKey index of the camera calibration
          */
         PlanarSFMFactor(
-            const std::list<Point3>& landmarks,
-            const std::list<Point2>& measured,
+            const Point3& landmark,
+            const Point2& measured,
             const SharedNoiseModel& model,
             Key poseKey,
             Key offsetKey,
             Key calibKey)
             : NoiseModelFactorN(model, poseKey, offsetKey, calibKey),
-            landmarks_(landmarks), measured_(measured)
+            landmark_(landmark), measured_(measured)
         {
+            assert(2 == model->dim());
         }
 
         ~PlanarSFMFactor() override {}
+
+        Point2 h(const Pose2& pose,
+            const Pose3& offset,
+            const Cal3DS2& calib) const {
+            // this is x-forward z-up
+            Pose3 offset_pose = Pose3(pose).compose(offset);
+            // this is z-forward y-down
+            Pose3 camera_pose = offset_pose.compose(CAM_COORD);
+            PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(camera_pose, calib);
+            camera.project2(landmark_) - measured_;
+        }
 
         Vector evaluateError(
             const Pose2& pose,
@@ -81,13 +94,16 @@ namespace gtsam {
             OptionalMatrixType H3
         ) const override {
             try {
-                // this is x-forward z-up
-                Pose3 offset_pose = Pose3(pose).compose(offset);
-                // this is z-forward y-down
-                Pose3 camera_pose = offset_pose.compose(CAM_COORD);
-                PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(camera_pose, calib);
-                camera.project2(point, H1, H2) - measured_;
-
+                Point2 result = h(pose, offset, calib) - measured_;
+                if (H1) *H1 = numericalDerivative31<Point2, Pose2, Pose3, Cal3DS2>(
+                    [&](const Pose2& p, const Pose3& o, const Cal3DS2& c) {return h(p, o, c);},
+                    pose, offset, calib);
+                if (H2) *H2 = numericalDerivative32<Point2, Pose2, Pose3, Cal3DS2>(
+                    [&](const Pose2& p, const Pose3& o, const Cal3DS2& c) {return h(p, o, c);},
+                    pose, offset, calib);
+                if (H3) *H3 = numericalDerivative33<Point2, Pose2, Pose3, Cal3DS2>(
+                    [&](const Pose2& p, const Pose3& o, const Cal3DS2& c) {return h(p, o, c);},
+                    pose, offset, calib);
             }
             catch (CheiralityException& e) {
                 // TODO: what should these sizes be?
@@ -100,4 +116,13 @@ namespace gtsam {
             }
         }
     };
+
+    // camera "zero" is facing +z; this turns it to face +x
+    const Pose3 PlanarSFMFactor::CAM_COORD = Pose3(
+        Rot3(0, 0, 1,//
+            -1, 0, 0, //
+            0, -1, 0),
+        Vector3(0, 0, 0)
+    );
+
 } // namespace gtsam

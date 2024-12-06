@@ -24,7 +24,10 @@ using symbol_shorthand::C;
 using symbol_shorthand::K;
 
 TEST(PlanarSFMFactor, error) {
-    PlanarSFMFactor factor();
+    Point3 landmark(1,0,0);
+    Point2 measured(0,0);
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1,1));
+    PlanarSFMFactor factor(landmark, measured, model, X(0), C(0), K(0));
     Values values;
     Pose2 p0(0.05, 0, 0);
     Pose3 offset(Rot3(), Point3());
