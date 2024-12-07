@@ -28,6 +28,7 @@
 #include <gtsam/geometry/Cal3DS2.h>
 #include <gtsam/geometry/PinholeCamera.h>
 #include <gtsam/geometry/Point3.h>
+#include <gtsam/geometry/Pose2.h>
 #include <gtsam/geometry/Pose3.h>
 #include <gtsam/geometry/Rot3.h>
 #include <gtsam/nonlinear/NonlinearFactor.h>
@@ -40,9 +41,6 @@ namespace gtsam {
      * @brief Camera calibration for robot on the floor.
      */
     class PlanarSFMFactor : public NoiseModelFactorN<Pose2, Pose3, Cal3DS2> {
-        static const int pose2dim = FixedDimension<Pose2>::value;
-        static const int pose3dim = FixedDimension<Pose3>::value;
-        static const int calDim = FixedDimension<Cal3DS2>::value;
         static const Pose3 CAM_COORD;
 
     protected:
@@ -89,9 +87,9 @@ namespace gtsam {
             const Pose2& pose,
             const Pose3& offset,
             const Cal3DS2& calib,
-            OptionalMatrixType H1,
-            OptionalMatrixType H2,
-            OptionalMatrixType H3
+            OptionalMatrixType H1 = OptionalNone,
+            OptionalMatrixType H2 = OptionalNone,
+            OptionalMatrixType H3 = OptionalNone
         ) const override {
             try {
                 Point2 result = h(pose, offset, calib) - measured_;
@@ -107,12 +105,12 @@ namespace gtsam {
             }
             catch (CheiralityException& e) {
                 // TODO: what should these sizes be?
-                if (H1) *H1 = Matrix::Zero(2 * measured_.size(), pose2dim);
-                if (H2) *H2 = Matrix::Zero(2 * measured_.size(), pose3dim);
-                if (H3) *H3 = Matrix::Zero(2 * measured_.size(), calDim);
+                if (H1) *H1 = Matrix::Zero(2, 3);
+                if (H2) *H2 = Matrix::Zero(2, 6);
+                if (H3) *H3 = Matrix::Zero(2, 9);
                 // we don't know what to return here so return zero.
                 // TODO: maybe return a big number instead?
-                return Matrix::Zero(2 * measured_.size(), 1);
+                return Matrix::Zero(2, 1);
             }
         }
     };

@@ -28,6 +28,7 @@
 #include <gtsam/geometry/Cal3DS2.h>
 #include <gtsam/geometry/PinholeCamera.h>
 #include <gtsam/geometry/Point3.h>
+#include <gtsam/geometry/Pose2.h>
 #include <gtsam/geometry/Pose3.h>
 #include <gtsam/geometry/Rot3.h>
 #include <gtsam/nonlinear/NonlinearFactor.h>
@@ -40,7 +41,6 @@ namespace gtsam {
      * @brief Camera projection for robot on the floor.
     */
     class PlanarProjectionFactor : public NoiseModelFactorN<Pose2> {
-        static const int pose2dim = FixedDimension<Pose2>::value;
         static const Pose3 CAM_COORD;
 
     protected:
@@ -88,7 +88,7 @@ namespace gtsam {
 
         Vector evaluateError(
             const Pose2& pose,
-            OptionalMatrixType H1) const override {
+            OptionalMatrixType H1 = OptionalNone) const override {
             try {
                 Point2 result = h(pose) - measured_;
                 if (H1) *H1 = numericalDerivative11<Point2, Pose2>(
@@ -97,9 +97,9 @@ namespace gtsam {
             }
             catch (CheiralityException& e) {
                 // TODO: check the size here
-                if (H1) *H1 = Matrix::Zero(2 * measured_.size(), pose2dim);
+                if (H1) *H1 = Matrix::Zero(2, 3);
                 // return a large error
-                return Matrix::Constant(2 * measured_.size(), 1, 2.0 * calib_.fx());
+                return Matrix::Constant(2, 1, 2.0 * calib_.fx());
             }
         }
     };

@@ -24,7 +24,7 @@ function install_tbb()
 function configure()
 {
   # delete old build
-  rm -rf build
+  #rm -rf build
 
   if [ "${GTSAM_WITH_TBB:-OFF}" == "ON" ]; then
     install_tbb
