@@ -22,7 +22,7 @@ from .function import GlobalFunction
 from .namespace import Namespace
 from .template import TypedefTemplateInstantiation
 from .variable import Variable
-
+import pyparsing as pp
 
 class Module:
     """
@@ -53,4 +53,8 @@ class Module:
     @staticmethod
     def parseString(s: str) -> ParseResults:
         """Parse the source string and apply the rules."""
+        pp.enable_all_warnings()
+        print("================================")
+        print(s)
+        print("================================")
         return Module.rule.parseString(s)[0]

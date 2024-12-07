@@ -25,6 +25,9 @@
  */
 #pragma once
 
+#include <gtsam/base/Testable.h>
+#include <gtsam/base/Lie.h>
+
 #include <gtsam/geometry/Cal3DS2.h>
 #include <gtsam/geometry/PinholeCamera.h>
 #include <gtsam/geometry/Point3.h>
@@ -51,6 +54,8 @@ namespace gtsam {
         Cal3DS2 calib_; // camera calibration
 
     public:
+        PlanarProjectionFactor(){}
+
         /**
          * @param landmarks point in the world
          * @param measured corresponding point in the camera frame
@@ -76,6 +81,12 @@ namespace gtsam {
         }
 
         ~PlanarProjectionFactor() override {}
+
+        /// @return a deep copy of this factor
+        gtsam::NonlinearFactor::shared_ptr clone() const override {
+            return std::static_pointer_cast<gtsam::NonlinearFactor>(
+                gtsam::NonlinearFactor::shared_ptr(new PlanarProjectionFactor(*this))); }
+
 
         Point2 h(const Pose2& pose) const {
             // this is x-forward z-up
@@ -111,4 +122,9 @@ namespace gtsam {
             0, -1, 0),
         Vector3(0, 0, 0)
     );
+
+    struct traits<PlanarProjectionFactor> :
+        public Testable<PlanarProjectionFactor > {
+    };
+
 } // namespace gtsam

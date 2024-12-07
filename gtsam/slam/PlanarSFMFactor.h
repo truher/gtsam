@@ -25,6 +25,9 @@
  */
 #pragma once
 
+#include <gtsam/base/Testable.h>
+#include <gtsam/base/Lie.h>
+
 #include <gtsam/geometry/Cal3DS2.h>
 #include <gtsam/geometry/PinholeCamera.h>
 #include <gtsam/geometry/Point3.h>
@@ -49,6 +52,7 @@ namespace gtsam {
         Point2 measured_; // pixel measurement
 
     public:
+        PlanarSFMFactor() {}
         /**
          * @param landmarks point in the world
          * @param measured corresponding point in the camera frame
@@ -71,6 +75,12 @@ namespace gtsam {
         }
 
         ~PlanarSFMFactor() override {}
+
+            /// @return a deep copy of this factor
+        gtsam::NonlinearFactor::shared_ptr clone() const override {
+            return std::static_pointer_cast<gtsam::NonlinearFactor>(
+                gtsam::NonlinearFactor::shared_ptr(new PlanarSFMFactor(*this))); }
+
 
         Point2 h(const Pose2& pose,
             const Pose3& offset,
@@ -122,5 +132,9 @@ namespace gtsam {
             0, -1, 0),
         Vector3(0, 0, 0)
     );
+
+    struct traits<PlanarSFMFactor> :
+        public Testable<PlanarSFMFactor > {
+    };
 
 } // namespace gtsam

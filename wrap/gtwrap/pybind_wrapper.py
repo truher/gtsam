@@ -16,6 +16,8 @@ import re
 from pathlib import Path
 from typing import List
 
+import pyparsing as pp
+
 import gtwrap.interface_parser as parser
 import gtwrap.template_instantiator as instantiator
 
@@ -31,6 +33,7 @@ class PybindWrapper:
                  use_boost_serialization=False,
                  ignore_classes=(),
                  module_template=""):
+        pp.enable_all_warnings()
         self.module_name = module_name
         self.top_module_namespaces = top_module_namespaces
         self.use_boost_serialization = use_boost_serialization
