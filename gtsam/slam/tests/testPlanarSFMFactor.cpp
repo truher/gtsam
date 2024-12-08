@@ -59,17 +59,25 @@ TEST(PlanarSFMFactor, error1) {
     CHECK_EQUAL(2, H3Actual.rows());
     CHECK_EQUAL(9, H3Actual.cols());
 
+    // du/dx etc for the pose2d
     Matrix23 H1Expected = (Matrix23() <<//
         0, 200, 200,//
         0, 0, 0).finished();
-    Matrix26 H2Expected = (Matrix26() <<//
-        0, 0, 0, 0, 0, 0,//
-        0, 0, 0, 0, 0, 0).finished();
-    Matrix29 H3Expected = (Matrix29() <<//
-        0, 0, 0, 0, 0, 0, 0, 0, 0,//
-        0, 0, 0, 0, 0, 0, 0, 0, 0).finished();
     CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
+
+    // du/dx for the pose3d offset
+    // note this is (roll, pitch, yaw, x, y, z)
+    Matrix26 H2Expected = (Matrix26() <<//
+        0, 0, 200, 0, 200, 0,//
+        0, -200, 0, 0, 0, 200).finished();
     CHECK(assert_equal(H2Expected, H2Actual, 1e-6));
+
+    // du wrt calibration
+    // on-bore, f doesn't matter
+    // but c does
+    Matrix29 H3Expected = (Matrix29() <<//
+        0, 0, 0, 1, 0, 0, 0, 0, 0,//
+        0, 0, 0, 0, 1, 0, 0, 0, 0).finished();
     CHECK(assert_equal(H3Expected, H3Actual, 1e-6));
 }
 
@@ -109,17 +117,75 @@ TEST(PlanarSFMFactor, error2) {
     CHECK_EQUAL(9, H3Actual.cols());
 
     Matrix23 H1Expected = (Matrix23() <<//
-        0, 200, 200,//
-        0, 0, 0).finished();
-    Matrix26 H2Expected = (Matrix26() <<//
-        0, 0, 0, 0, 0, 0,//
-        0, 0, 0, 0, 0, 0).finished();
-    Matrix29 H3Expected = (Matrix29() <<//
-        0, 0, 0, 0, 0, 0, 0, 0, 0,//
-        0, 0, 0, 0, 0, 0, 0, 0, 0).finished();
-
+        -200, 200, 400,//
+        -200, 0, 200).finished();
     CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
+
+    // du/dx for the pose3d offset
+    // note this is (roll, pitch, yaw, x, y, z)
+    Matrix26 H2Expected = (Matrix26() <<//
+        -200, -200, 400, -200, 200, 0,//
+        200, -400, 200, -200, 0, 200).finished();
     CHECK(assert_equal(H2Expected, H2Actual, 1e-6));
+
+    Matrix29 H3Expected = (Matrix29() <<//
+        -1, 0, -1, 1, 0, -400, -800, 400, 800,//
+        0, -1, 0, 0, 1, -400, -800, 800, 400).finished();
+
+    CHECK(assert_equal(H3Expected, H3Actual, 1e-6));
+}
+
+TEST(PlanarSFMFactor, error3) {
+    Point3 landmark(1, 1, 1);
+    Point2 measured(0, 0);
+    Pose3 offset;
+    Cal3DS2 calib(200, 200, 0, 200, 200, -0.2, 0.1);
+
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
+    PlanarSFMFactor factor(landmark, measured, model, X(0), C(0), K(0));
+    Values values;
+    Pose2 pose(0, 0, 0);
+
+    values.insert(X(0), pose);
+    values.insert(C(0), offset);
+    values.insert(K(0), calib);
+
+
+    CHECK_EQUAL(2, model->dim());
+    CHECK_EQUAL(2, factor.dim());
+    CHECK(factor.active(values));
+    std::vector<Matrix> actualHs(3);
+    gtsam::Vector actual = factor.unwhitenedError(values, actualHs);
+
+    CHECK(assert_equal(Vector2(0, 0), actual));
+
+    const Matrix& H1Actual = actualHs.at(0);
+    const Matrix& H2Actual = actualHs.at(1);
+    const Matrix& H3Actual = actualHs.at(2);
+
+    CHECK_EQUAL(2, H1Actual.rows());
+    CHECK_EQUAL(3, H1Actual.cols());
+    CHECK_EQUAL(2, H2Actual.rows());
+    CHECK_EQUAL(6, H2Actual.cols());
+    CHECK_EQUAL(2, H3Actual.rows());
+    CHECK_EQUAL(9, H3Actual.cols());
+
+    Matrix23 H1Expected = (Matrix23() <<//
+        -360, 280, 640,//
+        -360, 80, 440).finished();
+    CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
+
+    // du/dx for the pose3d offset
+    // note this is (roll, pitch, yaw, x, y, z)
+    Matrix26 H2Expected = (Matrix26() <<//
+        -200, -440, 640, -360, 280, 80,//
+        200, -640, 440, -360, 80, 280).finished();
+    CHECK(assert_equal(H2Expected, H2Actual, 1e-6));
+
+    Matrix29 H3Expected = (Matrix29() <<//
+        -1, 0, -1, 1, 0, -400, -800, 400, 800,//
+        0, -1, 0, 0, 1, -400, -800, 800, 400).finished();
+
     CHECK(assert_equal(H3Expected, H3Actual, 1e-6));
 }
 
