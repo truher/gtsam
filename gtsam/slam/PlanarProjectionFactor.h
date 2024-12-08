@@ -105,6 +105,7 @@ namespace gtsam {
                 if (H1) *H1 = numericalDerivative11<Point2, Pose2>(
                     [&](const Pose2& p) {return h(p);},
                     pose);
+                return result;
             }
             catch (CheiralityException& e) {
                 // TODO: check the size here
@@ -123,6 +124,7 @@ namespace gtsam {
         Vector3(0, 0, 0)
     );
 
+    template<>
     struct traits<PlanarProjectionFactor> :
         public Testable<PlanarProjectionFactor > {
     };

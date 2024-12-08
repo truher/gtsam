@@ -128,8 +128,9 @@ protected:
   { if (!assert_equal(expected,actual)) \
     result_.addFailure(Failure(name_, __FILE__, __LINE__, #expected, #actual)); }
 
+// note this used to "return" in case of equality, which is super-wrong.
 #define CHECK_EQUAL(expected,actual)\
-{ if ((expected) == (actual)) return; result_.addFailure(Failure(name_, __FILE__, __LINE__, std::to_string(expected), std::to_string(actual))); }
+{ if (!((expected) == (actual))) { result_.addFailure(Failure(name_, __FILE__, __LINE__, std::to_string(expected), std::to_string(actual))); } }
 
 #define LONGS_EQUAL(expected,actual)\
 { long actualTemp = actual; \

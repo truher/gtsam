@@ -112,6 +112,7 @@ namespace gtsam {
                 if (H3) *H3 = numericalDerivative33<Point2, Pose2, Pose3, Cal3DS2>(
                     [&](const Pose2& p, const Pose3& o, const Cal3DS2& c) {return h(p, o, c);},
                     pose, offset, calib);
+                return result;
             }
             catch (CheiralityException& e) {
                 // TODO: what should these sizes be?
@@ -133,6 +134,7 @@ namespace gtsam {
         Vector3(0, 0, 0)
     );
 
+    template<>
     struct traits<PlanarSFMFactor> :
         public Testable<PlanarSFMFactor > {
     };

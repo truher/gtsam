@@ -25,7 +25,7 @@ virtual class BetweenFactor : gtsam::NoiseModelFactor {
 };
 
 #include <gtsam/slam/PlanarProjectionFactor.h>
-virtual class PlanarProjectionFactor : gtsam:NoiseModelFactor {
+virtual class PlanarProjectionFactor : gtsam::NoiseModelFactor {
   PlanarProjectionFactor(
             const gtsam::Point3& landmark,
             const gtsam::Point2& measured,
@@ -82,7 +82,7 @@ typedef gtsam::GenericProjectionFactor<gtsam::Pose3, gtsam::Point3,
     GenericProjectionFactorCal3Unified;
 
 #include <gtsam/slam/PlanarSFMFactor.h>
-virtual class PlanarSFMFactor  : gtsam:NoiseModelFactor {
+virtual class PlanarSFMFactor  : gtsam::NoiseModelFactor {
   PlanarSFMFactor(
             const gtsam::Point3& landmark,
             const gtsam::Point2& measured,
