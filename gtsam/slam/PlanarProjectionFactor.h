@@ -54,7 +54,7 @@ namespace gtsam {
         Cal3DS2 calib_; // camera calibration
 
     public:
-        PlanarProjectionFactor(){}
+        PlanarProjectionFactor() {}
 
         /**
          * @param landmarks point in the world
@@ -85,7 +85,8 @@ namespace gtsam {
         /// @return a deep copy of this factor
         gtsam::NonlinearFactor::shared_ptr clone() const override {
             return std::static_pointer_cast<gtsam::NonlinearFactor>(
-                gtsam::NonlinearFactor::shared_ptr(new PlanarProjectionFactor(*this))); }
+                gtsam::NonlinearFactor::shared_ptr(new PlanarProjectionFactor(*this)));
+        }
 
 
         Point2 h(const Pose2& pose) const {
@@ -108,6 +109,11 @@ namespace gtsam {
                 return result;
             }
             catch (CheiralityException& e) {
+                std::cout << "****** CHIRALITY EXCEPTION ******\n";
+                std::cout << "landmark " << landmark_ << "\n";
+                std::cout << "pose " << pose << "\n";
+                std::cout << "offset " << offset_ << "\n";
+                std::cout << "calib " << calib_ << "\n";
                 // TODO: check the size here
                 if (H1) *H1 = Matrix::Zero(2, 3);
                 // return a large error

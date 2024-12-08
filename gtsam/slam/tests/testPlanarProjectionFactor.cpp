@@ -24,36 +24,46 @@ using symbol_shorthand::X;
 
 
 TEST(PlanarProjectionFactor, error1) {
+    // landmark is on the camera bore (which faces +x)
     Point3 landmark(1, 0, 0);
-    Point2 measured(0, 0);
+    // so pixel measurement is (cx, cy)
+    Point2 measured(200, 200);
     Pose3 offset;
     Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
     SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
-    PlanarProjectionFactor factor(landmark, measured, offset, calib, model, X(0));
     Values values;
-    Pose2 pose(0.05, 0, 0);
-
+    Pose2 pose(0, 0, 0);
     values.insert(X(0), pose);
+
+    PlanarProjectionFactor factor(landmark, measured, offset, calib, model, X(0));
 
     CHECK_EQUAL(2, factor.dim());
     CHECK(factor.active(values));
     std::vector<Matrix> actualHs(1);
     gtsam::Vector actual = factor.unwhitenedError(values, actualHs);
-    EQUALITY(Vector2(0, 0), actual);
+
+    CHECK(assert_equal(Vector2(0, 0), actual));
+
     const Matrix& H1Actual = actualHs.at(0);
-    Matrix23 H1Expected = (Matrix23() << 0, 0, 0, 0, 0, 0).finished();
-    CHECK(assert_equal(H1Expected, H1Actual, 1e-9));
+    CHECK_EQUAL(2, H1Actual.rows());
+    CHECK_EQUAL(3, H1Actual.cols());
+    const Matrix23 H1Expected = (Matrix23() << //
+        0, 200, 200,//
+        0, 0, 0).finished();
+    CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
 }
 
 TEST(PlanarProjectionFactor, error2) {
+    // landmark is in the upper left corner
     Point3 landmark(1, 1, 1);
+    // upper left corner in pixels
     Point2 measured(0, 0);
     Pose3 offset;
     Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
     SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
     PlanarProjectionFactor factor(landmark, measured, offset, calib, model, X(0));
     Values values;
-    Pose2 pose(0.05, 0, 0);
+    Pose2 pose(0, 0, 0);
 
     values.insert(X(0), pose);
 
@@ -61,10 +71,47 @@ TEST(PlanarProjectionFactor, error2) {
     CHECK(factor.active(values));
     std::vector<Matrix> actualHs(1);
     gtsam::Vector actual = factor.unwhitenedError(values, actualHs);
-    EQUALITY(Vector2(0, 0), actual);
+
+    CHECK(assert_equal(Vector2(0, 0), actual));
+
     const Matrix& H1Actual = actualHs.at(0);
-    Matrix23 H1Expected = (Matrix23() << 0, 0, 0, 0, 0, 0).finished();
-    CHECK(assert_equal(H1Expected, H1Actual, 1e-9));
+    CHECK_EQUAL(2, H1Actual.rows());
+    CHECK_EQUAL(3, H1Actual.cols());
+    Matrix23 H1Expected = (Matrix23() << //
+        -200, 200, 400, //
+        -200, 0, 200).finished();
+    CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
+}
+
+TEST(PlanarProjectionFactor, error3) {
+    // landmark is in the upper left corner
+    Point3 landmark(1, 1, 1);
+    // upper left corner in pixels
+    Point2 measured(0, 0);
+    Pose3 offset;
+    // distortion
+    Cal3DS2 calib(200, 200, 0, 200, 200, -0.2, 0.1);
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
+    PlanarProjectionFactor factor(landmark, measured, offset, calib, model, X(0));
+    Values values;
+    Pose2 pose(0, 0, 0);
+
+    values.insert(X(0), pose);
+
+    CHECK_EQUAL(2, factor.dim());
+    CHECK(factor.active(values));
+    std::vector<Matrix> actualHs(1);
+    gtsam::Vector actual = factor.unwhitenedError(values, actualHs);
+
+    CHECK(assert_equal(Vector2(0, 0), actual));
+
+    const Matrix& H1Actual = actualHs.at(0);
+    CHECK_EQUAL(2, H1Actual.rows());
+    CHECK_EQUAL(3, H1Actual.cols());
+    Matrix23 H1Expected = (Matrix23() << //
+        -360, 280, 640, //
+        -360, 80, 440).finished();
+    CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
 }
 
 /* ************************************************************************* */
