@@ -88,6 +88,36 @@ namespace gtsam {
                 gtsam::NonlinearFactor::shared_ptr(new PlanarProjectionFactor(*this)));
         }
 
+        Point2 h2(const Pose2& pose, OptionalMatrixType H1) const {
+            // this is x-forward z-up
+            gtsam::Matrix H0;
+            Pose3 offset_pose = Pose3(pose).compose(offset_, H0);
+            std::cout << "\nH0\n" << H0 << "\n";
+            // this is z-forward y-down
+            gtsam::Matrix H00;
+            Pose3 camera_pose = offset_pose.compose(CAM_COORD, H00);
+            std::cout << "\nH00\n" << H00 << "\n";
+            PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(camera_pose, calib_);
+            if (H1) {
+                // Dpose is 2x6 (R,t)
+                // H1 is 2x3 (x, y, theta)
+                gtsam::Matrix Dpose;
+                Point2 result = camera.project(landmark_, Dpose);
+                std::cout << "\nDpose 1\n" << Dpose << "\n";
+                Dpose = Dpose * H00 * H0;
+                // std::cout << "\nDpose 2\n" << Dpose << "\n";
+                *H1 = Matrix::Zero(2,3);
+                (*H1)(0,0) = Dpose(0,3); // du/dx
+                (*H1)(1,0) = Dpose(1,3); // dv/dx
+                (*H1)(0,1) = Dpose(0,4); // du/dy
+                (*H1)(1,1) = Dpose(1,4); // dv/dy
+                (*H1)(0,2) = Dpose(0,2); // du/dyaw
+                (*H1)(1,2) = Dpose(1,2); // dv/dyaw
+                return result;
+            } else {
+                return camera.project2(landmark_);
+            }
+        }
 
         Point2 h(const Pose2& pose) const {
             // this is x-forward z-up
@@ -102,11 +132,13 @@ namespace gtsam {
             const Pose2& pose,
             OptionalMatrixType H1 = OptionalNone) const override {
             try {
-                Point2 result = h(pose) - measured_;
-                if (H1) *H1 = numericalDerivative11<Point2, Pose2>(
-                    [&](const Pose2& p) {return h(p);},
-                    pose);
-                return result;
+                return h2(pose, H1) - measured_;
+                
+                // Point2 result = h(pose) - measured_;
+                // if (H1) *H1 = numericalDerivative11<Point2, Pose2>(
+                //     [&](const Pose2& p) {return h(p);},
+                //     pose);
+                // return result;
             }
             catch (CheiralityException& e) {
                 std::cout << "****** CHIRALITY EXCEPTION ******\n";

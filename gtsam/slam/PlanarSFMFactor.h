@@ -82,6 +82,45 @@ namespace gtsam {
                 gtsam::NonlinearFactor::shared_ptr(new PlanarSFMFactor(*this)));
         }
 
+        Point2 h2(const Pose2& pose,
+            const Pose3& offset,
+            const Cal3DS2& calib,
+            OptionalMatrixType H1,
+            OptionalMatrixType H2,
+            OptionalMatrixType H3
+            ) const {
+            // std::cout << "POSE: " << pose << "\n";
+            // std::cout << "OFFSET: " << offset << "\n";
+            // std::cout << "CALIB: " << calib << "\n";
+            // this is x-forward z-up
+            gtsam::Matrix H0;
+            Pose3 offset_pose = Pose3(pose).compose(offset, H0);
+            // this is z-forward y-down
+            gtsam::Matrix H00;
+            Pose3 camera_pose = offset_pose.compose(CAM_COORD, H00);
+            PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(camera_pose, calib);
+            if (H1) {
+                gtsam::Matrix Dpose;
+                Point2 result = camera.project(landmark_, Dpose, {}, H3);
+
+                Dpose = Dpose * H00;
+                *H2 = Dpose; // a deep copy
+
+                Dpose = Dpose * H0;
+                *H1 = Matrix::Zero(2,3);
+                (*H1)(0,0) = Dpose(0,3); // du/dx
+                (*H1)(1,0) = Dpose(1,3); // dv/dx
+                (*H1)(0,1) = Dpose(0,4); // du/dy
+                (*H1)(1,1) = Dpose(1,4); // dv/dy
+                (*H1)(0,2) = Dpose(0,2); // du/dyaw
+                (*H1)(1,2) = Dpose(1,2); // dv/dyaw
+
+                return result;
+
+            } else {
+                return camera.project2(landmark_);
+            }    
+        }
 
         Point2 h(const Pose2& pose,
             const Pose3& offset,
@@ -106,17 +145,21 @@ namespace gtsam {
             OptionalMatrixType H3 = OptionalNone
         ) const override {
             try {
-                Point2 result = h(pose, offset, calib) - measured_;
-                if (H1) *H1 = numericalDerivative31<Point2, Pose2, Pose3, Cal3DS2>(
-                    [&](const Pose2& p, const Pose3& o, const Cal3DS2& c) {return h(p, o, c);},
-                    pose, offset, calib);
-                if (H2) *H2 = numericalDerivative32<Point2, Pose2, Pose3, Cal3DS2>(
-                    [&](const Pose2& p, const Pose3& o, const Cal3DS2& c) {return h(p, o, c);},
-                    pose, offset, calib);
-                if (H3) *H3 = numericalDerivative33<Point2, Pose2, Pose3, Cal3DS2>(
-                    [&](const Pose2& p, const Pose3& o, const Cal3DS2& c) {return h(p, o, c);},
-                    pose, offset, calib);
-                return result;
+
+                return h2(pose,offset,calib,H1,H2,H3) - measured_;
+
+
+                // Point2 result = h(pose, offset, calib) - measured_;
+                // if (H1) *H1 = numericalDerivative31<Point2, Pose2, Pose3, Cal3DS2>(
+                //     [&](const Pose2& p, const Pose3& o, const Cal3DS2& c) {return h(p, o, c);},
+                //     pose, offset, calib);
+                // if (H2) *H2 = numericalDerivative32<Point2, Pose2, Pose3, Cal3DS2>(
+                //     [&](const Pose2& p, const Pose3& o, const Cal3DS2& c) {return h(p, o, c);},
+                //     pose, offset, calib);
+                // if (H3) *H3 = numericalDerivative33<Point2, Pose2, Pose3, Cal3DS2>(
+                //     [&](const Pose2& p, const Pose3& o, const Cal3DS2& c) {return h(p, o, c);},
+                //     pose, offset, calib);
+                // return result;
             }
             catch (CheiralityException& e) {
                 std::cout << "****** CHIRALITY EXCEPTION ******\n";
