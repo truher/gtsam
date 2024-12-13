@@ -41,8 +41,8 @@ jobs:
           sudo apt-get -y install cmake build-essential pkg-config python3-numpy libboost-all-dev ninja-build
 
           sudo apt-get install -y g++-11 g++-11-multilib
-          echo "CC=gcc" >> $GITHUB_ENV
-          echo "CXX=g++" >> $GITHUB_ENV
+          echo "CC=gcc-11" >> $GITHUB_ENV
+          echo "CXX=g++-11" >> $GITHUB_ENV
 
       - name: Set Swap Space (Linux)
         uses: pierotofy/set-swap-space@master
