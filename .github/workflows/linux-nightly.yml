@@ -12,7 +12,8 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    # try to avoid the bug mentioned below
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
