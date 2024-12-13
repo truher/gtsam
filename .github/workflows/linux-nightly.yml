@@ -34,11 +34,13 @@ jobs:
           python-version: ${{matrix.python_version}}
 
       - name: Install (Linux)
+        # note explicit g++-11, this is to avoid https://github.com/borglab/gtsam/issues/1738
+        # which is caused by g++-13, the default in github actions on ubuntu-latest.
         run: |
           sudo apt-get -y update
           sudo apt-get -y install cmake build-essential pkg-config python3-numpy libboost-all-dev ninja-build
 
-          sudo apt-get install -y g++ g++-multilib
+          sudo apt-get install -y g++-11 g++-11-multilib
           echo "CC=gcc" >> $GITHUB_ENV
           echo "CXX=g++" >> $GITHUB_ENV
 
