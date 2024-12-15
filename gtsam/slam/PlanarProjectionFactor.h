@@ -44,6 +44,7 @@ namespace gtsam {
      * @brief Camera projection for robot on the floor.
     */
     class PlanarProjectionFactor : public NoiseModelFactorN<Pose2> {
+        typedef NoiseModelFactorN<Pose2> Base;   
         static const Pose3 CAM_COORD;
 
     protected:
@@ -54,6 +55,9 @@ namespace gtsam {
         Cal3DS2 calib_; // camera calibration
 
     public:
+        // Provide access to the Matrix& version of evaluateError:
+        using Base::evaluateError;
+
         PlanarProjectionFactor() {}
 
         /**
@@ -115,7 +119,7 @@ namespace gtsam {
                 (*H1)(1,2) = Dpose(1,2); // dv/dyaw
                 return result;
             } else {
-                return camera.project2(landmark_);
+                return camera.project(landmark_, {}, {}, {});
             }
         }
 

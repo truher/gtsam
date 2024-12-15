@@ -5,16 +5,19 @@
  * @brief unit tests for PlanarSFMFactor
  */
 
-#include <gtsam/slam/PlanarSFMFactor.h>
+#include <random>
+
+#include <gtsam/base/Testable.h>
+#include <gtsam/base/numericalDerivative.h>
 #include <gtsam/geometry/Cal3DS2.h>
-#include <gtsam/geometry/Rot2.h>
+#include <gtsam/geometry/Point3.h>
 #include <gtsam/geometry/Pose2.h>
 #include <gtsam/geometry/Pose3.h>
+#include <gtsam/geometry/Rot2.h>
 #include <gtsam/geometry/Rot3.h>
-#include <gtsam/geometry/Point3.h>
 #include <gtsam/inference/Symbol.h>
 #include <gtsam/nonlinear/Values.h>
-#include <gtsam/base/Testable.h>
+#include <gtsam/slam/PlanarSFMFactor.h>
 
 #include <CppUnitLite/TestHarness.h>
 
@@ -187,6 +190,47 @@ TEST(PlanarSFMFactor, error3) {
         0, -1, 0, 0, 1, -400, -800, 800, 400).finished();
 
     CHECK(assert_equal(H3Expected, H3Actual, 1e-6));
+}
+
+
+
+TEST(PlanarSFMFactor, jacobian) {
+    // test many jacobians with many randoms
+
+    std::default_random_engine g;
+    std::uniform_real_distribution<double> s(-0.3, 0.3);    
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
+
+    for (int i = 0; i < 1000; ++i) {
+        Point3 landmark(2 + s(g), s(g), s(g));
+        Point2 measured(200 + 100*s(g), 200 + 100*s(g));
+        Pose3 offset(Rot3::Ypr(s(g),s(g),s(g)), Point3(s(g),s(g),s(g)));
+        Cal3DS2 calib(200, 200, 0, 200, 200, -0.2, 0.1);
+
+        PlanarSFMFactor factor(landmark, measured, model, X(0), C(0), K(0));
+
+        Pose2 pose(s(g), s(g), s(g));
+
+        // actual H
+        Matrix H1, H2, H3;
+        factor.evaluateError(pose, offset, calib, H1, H2, H3);
+
+        Matrix expectedH1 = numericalDerivative31<Vector, Pose2, Pose3, Cal3DS2>(
+            [&factor](const Pose2& p, const Pose3& o, const Cal3DS2& c) {
+                return factor.evaluateError(p, o, c);},
+                pose, offset, calib);
+        Matrix expectedH2 = numericalDerivative32<Vector, Pose2, Pose3, Cal3DS2>(
+            [&factor](const Pose2& p, const Pose3& o, const Cal3DS2& c) {
+                return factor.evaluateError(p, o, c);},
+                pose, offset, calib);
+        Matrix expectedH3 = numericalDerivative33<Vector, Pose2, Pose3, Cal3DS2>(
+            [&factor](const Pose2& p, const Pose3& o, const Cal3DS2& c) {
+                return factor.evaluateError(p, o, c);},
+                pose, offset, calib);
+        CHECK(assert_equal(expectedH1, H1, 1e-6));
+        CHECK(assert_equal(expectedH2, H2, 1e-6));
+        CHECK(assert_equal(expectedH3, H3, 1e-6));
+    }
 }
 
 

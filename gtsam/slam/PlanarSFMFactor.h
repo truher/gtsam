@@ -44,6 +44,8 @@ namespace gtsam {
      * @brief Camera calibration for robot on the floor.
      */
     class PlanarSFMFactor : public NoiseModelFactorN<Pose2, Pose3, Cal3DS2> {
+    private:
+        typedef NoiseModelFactorN<Pose2, Pose3, Cal3DS2> Base;   
         static const Pose3 CAM_COORD;
 
     protected:
@@ -52,6 +54,9 @@ namespace gtsam {
         Point2 measured_; // pixel measurement
 
     public:
+        // Provide access to the Matrix& version of evaluateError:
+        using Base::evaluateError;
+
         PlanarSFMFactor() {}
         /**
          * @param landmarks point in the world
@@ -99,26 +104,25 @@ namespace gtsam {
             gtsam::Matrix H00;
             Pose3 camera_pose = offset_pose.compose(CAM_COORD, H00);
             PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(camera_pose, calib);
-            if (H1) {
+            if (H1 || H2) {
                 gtsam::Matrix Dpose;
                 Point2 result = camera.project(landmark_, Dpose, {}, H3);
-
-                Dpose = Dpose * H00;
-                *H2 = Dpose; // a deep copy
-
-                Dpose = Dpose * H0;
-                *H1 = Matrix::Zero(2,3);
-                (*H1)(0,0) = Dpose(0,3); // du/dx
-                (*H1)(1,0) = Dpose(1,3); // dv/dx
-                (*H1)(0,1) = Dpose(0,4); // du/dy
-                (*H1)(1,1) = Dpose(1,4); // dv/dy
-                (*H1)(0,2) = Dpose(0,2); // du/dyaw
-                (*H1)(1,2) = Dpose(1,2); // dv/dyaw
-
+                gtsam::Matrix DposeOffset = Dpose * H00;
+                if (H2)
+                    *H2 = DposeOffset; // a deep copy
+                if (H1) {
+                    gtsam::Matrix DposeOffsetFwd = DposeOffset * H0;
+                    *H1 = Matrix::Zero(2,3);
+                    (*H1)(0,0) = DposeOffsetFwd(0,3); // du/dx
+                    (*H1)(1,0) = DposeOffsetFwd(1,3); // dv/dx
+                    (*H1)(0,1) = DposeOffsetFwd(0,4); // du/dy
+                    (*H1)(1,1) = DposeOffsetFwd(1,4); // dv/dy
+                    (*H1)(0,2) = DposeOffsetFwd(0,2); // du/dyaw
+                    (*H1)(1,2) = DposeOffsetFwd(1,2); // dv/dyaw
+                }
                 return result;
-
             } else {
-                return camera.project2(landmark_);
+                return camera.project(landmark_, {}, {}, {});
             }    
         }
 
@@ -145,9 +149,7 @@ namespace gtsam {
             OptionalMatrixType H3 = OptionalNone
         ) const override {
             try {
-
                 return h2(pose,offset,calib,H1,H2,H3) - measured_;
-
 
                 // Point2 result = h(pose, offset, calib) - measured_;
                 // if (H1) *H1 = numericalDerivative31<Point2, Pose2, Pose3, Cal3DS2>(
@@ -171,9 +173,8 @@ namespace gtsam {
                 if (H1) *H1 = Matrix::Zero(2, 3);
                 if (H2) *H2 = Matrix::Zero(2, 6);
                 if (H3) *H3 = Matrix::Zero(2, 9);
-                // we don't know what to return here so return zero.
-                // TODO: maybe return a big number instead?
-                return Matrix::Zero(2, 1);
+                // return a large error
+                return Matrix::Constant(2, 1, 2.0 * calib.fx());
             }
         }
     };
