@@ -38,69 +38,74 @@ namespace gtsam {
         PlanarProjectionFactorBase() {}
 
         /**
-         * @param measured corresponding point in the camera frame
-         * @param poseKey index of the robot pose in the z=0 plane
+         * @param measured pixels in the camera frame
          */
         PlanarProjectionFactorBase(const Point2& measured) : measured_(measured) {}
 
         /**
+         * Predict the projection of the landmark in camera pixels.
+         * 
          * @param landmark point3
-         * @param pose
-         * @param offset oriented parallel to pose2 zero i.e. +x
-         * @param calib
-         * @param H1 landmark jacobian
-         * @param H2 pose jacobian
-         * @param H3 offset jacobian
-         * @param H4 calib jacobian
+         * @param wTb planar pose of vehicle body frame in world frame
+         * @param bTc camera pose in body frame, oriented parallel to pose2 zero i.e. +x
+         * @param calib camera calibration with distortion
+         * @param Hlandmark jacobian
+         * @param HwTb jacobian
+         * @param HbTc jacobian
+         * @param Hcalib jacobian
          */
-        Point2 h(
+        Point2 predict(
             const Point3& landmark,
-            const Pose2& pose,
-            const Pose3& offset,
+            const Pose2& wTb,
+            const Pose3& bTc,
             const Cal3DS2& calib,
-            OptionalMatrixType H1, // 2x3 (x, y, z)
-            OptionalMatrixType H2, // 2x3 (x, y, theta)
-            OptionalMatrixType H3, // 2x6 (rx, ry, rz, x, y, theta)
-            OptionalMatrixType H4  // 2x9
+            OptionalMatrixType Hlandmark = OptionalNone, // 2x3 (x, y, z)
+            OptionalMatrixType HwTb = OptionalNone, // 2x3 (x, y, theta)
+            OptionalMatrixType HbTc = OptionalNone, // 2x6 (rx, ry, rz, x, y, theta)
+            OptionalMatrixType Hcalib = OptionalNone // 2x9
         ) const {
+#ifndef GTSAM_THROW_CHEIRALITY_EXCEPTION
             try {
+#endif
                 // this is x-forward z-up
                 gtsam::Matrix H0; // 6x6
-                Pose3 offset_pose = Pose3(pose).compose(offset, H0);
+                Pose3 wTc = Pose3(wTb).compose(bTc, H0);
                 // this is z-forward y-down
                 gtsam::Matrix H00; // 6x6
-                Pose3 camera_pose = offset_pose.compose(CAM_COORD, H00);
+                Pose3 camera_pose = wTc.compose(CAM_COORD, H00);
                 PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(camera_pose, calib);
-                if (H2 || H3) {
+                if (HwTb || HbTc) {
                     // Dpose is for pose3, 2x6 (R,t)
                     gtsam::Matrix Dpose;
-                    Point2 result = camera.project(landmark, Dpose, H1, H4);
+                    Point2 result = camera.project(landmark, Dpose, Hlandmark, Hcalib);
                     gtsam::Matrix DposeOffset = Dpose * H00; // 2x6
-                    if (H3)
-                        *H3 = DposeOffset; // with Eigen this is a deep copy (!)
-                    if (H2) {
+                    if (HbTc)
+                        *HbTc = DposeOffset; // with Eigen this is a deep copy (!)
+                    if (HwTb) {
                         gtsam::Matrix DposeOffsetFwd = DposeOffset * H0;
-                        *H2 = Matrix::Zero(2, 3);
-                        (*H2)(0, 0) = DposeOffsetFwd(0, 3); // du/dx
-                        (*H2)(1, 0) = DposeOffsetFwd(1, 3); // dv/dx
-                        (*H2)(0, 1) = DposeOffsetFwd(0, 4); // du/dy
-                        (*H2)(1, 1) = DposeOffsetFwd(1, 4); // dv/dy
-                        (*H2)(0, 2) = DposeOffsetFwd(0, 2); // du/dyaw
-                        (*H2)(1, 2) = DposeOffsetFwd(1, 2); // dv/dyaw
+                        *HwTb = Matrix::Zero(2, 3);
+                        (*HwTb)(0, 0) = DposeOffsetFwd(0, 3); // du/dx
+                        (*HwTb)(1, 0) = DposeOffsetFwd(1, 3); // dv/dx
+                        (*HwTb)(0, 1) = DposeOffsetFwd(0, 4); // du/dy
+                        (*HwTb)(1, 1) = DposeOffsetFwd(1, 4); // dv/dy
+                        (*HwTb)(0, 2) = DposeOffsetFwd(0, 2); // du/dyaw
+                        (*HwTb)(1, 2) = DposeOffsetFwd(1, 2); // dv/dyaw
                     }
                     return result;
                 } else {
                     return camera.project(landmark, {}, {}, {});
                 }
+#ifndef GTSAM_THROW_CHEIRALITY_EXCEPTION
             } catch (CheiralityException& e) {
                 std::cout << "****** CHIRALITY EXCEPTION ******\n";
-                if (H1) *H1 = Matrix::Zero(2, 3);
-                if (H2) *H2 = Matrix::Zero(2, 3);
-                if (H3) *H3 = Matrix::Zero(2, 6);
-                if (H4) *H4 = Matrix::Zero(2, 9);
+                if (Hlandmark) *Hlandmark = Matrix::Zero(2, 3);
+                if (HwTb) *HwTb = Matrix::Zero(2, 3);
+                if (HbTc) *HbTc = Matrix::Zero(2, 6);
+                if (Hcalib) *Hcalib = Matrix::Zero(2, 9);
                 // return a large error
                 return Matrix::Constant(2, 1, 2.0 * calib.fx());
             }
+#endif
         }
 
         Point2 measured_; // pixel measurement
@@ -169,7 +174,7 @@ namespace gtsam {
         Vector evaluateError(
             const Pose2& pose,
             OptionalMatrixType H1 = OptionalNone) const override {
-            return h(landmark_, pose, offset_, calib_, {}, H1, {}, {}) - measured_;
+            return predict(landmark_, pose, offset_, calib_, {}, H1, {}, {}) - measured_;
         }
 
     private:
@@ -236,7 +241,7 @@ namespace gtsam {
             const Pose2& pose,
             OptionalMatrixType H1 = OptionalNone,
             OptionalMatrixType H2 = OptionalNone) const override {
-            return h(landmark, pose, offset_, calib_, H1, H2, {}, {}) - measured_;
+            return predict(landmark, pose, offset_, calib_, H1, H2, {}, {}) - measured_;
         }
 
     private:
@@ -304,7 +309,7 @@ namespace gtsam {
             OptionalMatrixType H1 = OptionalNone,
             OptionalMatrixType H2 = OptionalNone,
             OptionalMatrixType H3 = OptionalNone) const override {
-            return h(landmark_, pose, offset, calib, {}, H1, H2, H3) - measured_;
+            return predict(landmark_, pose, offset, calib, {}, H1, H2, H3) - measured_;
         }
 
     private:
