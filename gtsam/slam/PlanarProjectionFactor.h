@@ -53,7 +53,7 @@ namespace gtsam {
          * @param H3 offset jacobian
          * @param H4 calib jacobian
          */
-        Point2 h2(
+        Point2 h(
             const Point3& landmark,
             const Pose2& pose,
             const Pose3& offset,
@@ -169,7 +169,7 @@ namespace gtsam {
         Vector evaluateError(
             const Pose2& pose,
             OptionalMatrixType H1 = OptionalNone) const override {
-            return h2(landmark_, pose, offset_, calib_, {}, H1, {}, {}) - measured_;
+            return h(landmark_, pose, offset_, calib_, {}, H1, {}, {}) - measured_;
         }
 
     private:
@@ -236,7 +236,7 @@ namespace gtsam {
             const Pose2& pose,
             OptionalMatrixType H1 = OptionalNone,
             OptionalMatrixType H2 = OptionalNone) const override {
-            return h2(landmark, pose, offset_, calib_, H1, H2, {}, {}) - measured_;
+            return h(landmark, pose, offset_, calib_, H1, H2, {}, {}) - measured_;
         }
 
     private:
@@ -304,7 +304,7 @@ namespace gtsam {
             OptionalMatrixType H1 = OptionalNone,
             OptionalMatrixType H2 = OptionalNone,
             OptionalMatrixType H3 = OptionalNone) const override {
-            return h2(landmark_, pose, offset, calib, {}, H1, H2, H3) - measured_;
+            return h(landmark_, pose, offset, calib, {}, H1, H2, H3) - measured_;
         }
 
     private:
