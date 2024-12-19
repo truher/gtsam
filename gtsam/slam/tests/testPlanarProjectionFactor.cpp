@@ -16,8 +16,13 @@
 #include <gtsam/geometry/Rot2.h>
 #include <gtsam/geometry/Rot3.h>
 #include <gtsam/inference/Symbol.h>
+#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+#include <gtsam/nonlinear/Marginals.h>
+#include <gtsam/nonlinear/NonlinearFactorGraph.h>
+#include <gtsam/nonlinear/PriorFactor.h>
 #include <gtsam/nonlinear/Values.h>
 #include <gtsam/slam/PlanarProjectionFactor.h>
+
 
 #include <CppUnitLite/TestHarness.h>
 
@@ -104,7 +109,7 @@ TEST(PlanarProjectionFactorBase, camera2) {
     PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(
         CAM_COORD,
         Cal3DS2(200, 200, 0, 200, 200, 0, 0));
-    
+
     // the camera z is parallel to world x, so it sees this:
     CHECK(assert_equal(Point3(0, 0, 1),
         camera.pose().transformTo(Point3(1, 0, 0))));
@@ -276,7 +281,70 @@ TEST(PlanarProjectionFactor1, jacobian) {
 }
 
 TEST(PlanarProjectionFactor1, solve) {
-    // solve something, verify the sigmas
+    // localization with covariance
+    // constant landmark, offset, and calibration
+    // two off-bore landmarks are enough.
+
+    // offset here is identity, measured x-fwd
+    Pose3 offset;
+    Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
+    // the noise here is large in order to see the covariance
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(10, 10));
+
+
+    // there's just one variable in our model, X(0).
+    NonlinearFactorGraph graph;
+
+    // these points are rather close together in order
+    // to produce an observable covariance.
+    // upper-left
+    graph.add(PlanarProjectionFactor1(
+        X(0),
+        Point3(1, 0.1, 1),
+        Point2(180, 0),
+        offset.compose(CAM_COORD),
+        calib,
+        model));
+    // upper-right
+    graph.add(PlanarProjectionFactor1(
+        X(0),
+        Point3(1, -0.1, 1),
+        Point2(220, 0),
+        offset.compose(CAM_COORD),
+        calib,
+        model));
+    // prior is a little bit wrong but also very soft
+    graph.add(PriorFactor<Pose2>(
+        X(0),
+        Pose2(0.1, 0.1, 0.1),
+        noiseModel::Diagonal::Sigmas(Vector3(1, 1, 1))));
+    // initial estimate is a little bit wrong
+    Values initialEstimate;
+    initialEstimate.insert(X(0), Pose2(0.1, 0.1, 0.1));
+
+    // run the optimizer
+    LevenbergMarquardtOptimizer optimizer(graph, initialEstimate);
+    Values result = optimizer.optimize();
+
+    // verify that the optimizer found the right pose.
+    // note the somewhat high tolerance.
+    Pose2 x0 = result.at<Pose2>(X(0));
+    CHECK(assert_equal(Pose2(0, 0, 0), x0, 2e-3));
+
+    // make sure the covariance is oriented correctly.
+    // the "x" component variance is quite low because the landmarks
+    // are far off-center vertically.
+    // the "y" and "theta" components are much higher, and negatively
+    // correlated: drift a bit to the left (+x) and you need to
+    // rotate to the right (-theta) to stay on target.
+    // note the somewhat high tolerance
+    Marginals marginals(graph, result);
+    Matrix cov = marginals.marginalCovariance(X(0));
+    CHECK(assert_equal((Matrix33() << //
+        0.001, 0, 0,//
+        0, 0.1, -0.1,//
+        0, -0.1, 0.1).finished(), cov, 3e-3));
+
 }
 
 
