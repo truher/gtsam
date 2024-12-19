@@ -344,7 +344,6 @@ TEST(PlanarProjectionFactor1, solve) {
         0.001, 0, 0,//
         0, 0.1, -0.1,//
         0, -0.1, 0.1).finished(), cov, 3e-3));
-
 }
 
 
@@ -537,6 +536,104 @@ TEST(PlanarProjectionFactor3, jacobian) {
         CHECK(assert_equal(expectedH2, H2, 1e-6));
         CHECK(assert_equal(expectedH3, H3, 1e-6));
     }
+}
+
+TEST(PlanarProjectionFactor3, solveOffset) {
+    // localization with covariance
+    // constant landmark, variable offset, and calibration
+    // tight priors for everything but offset.
+
+
+    // the noise here is large in order to see the covariance
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(10, 10));
+
+
+    // there's just one variable in our model, X(0).
+    NonlinearFactorGraph graph;
+
+    // these points are rather close together in order
+    // to produce an observable covariance.
+    // upper-left
+    graph.add(PlanarProjectionFactor3(
+        X(0),
+        C(0),
+        K(0),
+        Point3(1, 0.1, 1),
+        Point2(180, 0),
+        model));
+    // upper-right
+    graph.add(PlanarProjectionFactor3(
+        X(0),
+        C(0),
+        K(0),
+        Point3(1, -0.1, 1),
+        Point2(220, 0),
+        model));
+    // pose2 prior is very firm
+    graph.add(PriorFactor<Pose2>(
+        X(0),
+        Pose2(0, 0, 0),
+        noiseModel::Diagonal::Sigmas(Vector3(1, 1, 1))));
+    // camera offset prior is very soft; this is what we're
+    // really trying to solve.
+    // offset here is identity, measured x-fwd
+    Pose3 offset;
+    graph.add(PriorFactor<Pose3>(
+        C(0),
+        offset.compose(CAM_COORD), // transform to z-fwd
+        noiseModel::Diagonal::Sigmas(
+            Vector6(1, 1, 1, 1, 1, 1))));
+    // cal prior is very firm
+    Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
+    graph.add(PriorFactor<Cal3DS2>(
+        K(0),
+        calib,
+        noiseModel::Diagonal::Sigmas(
+            Vector9(0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001))));
+
+    Values initialEstimate;
+    initialEstimate.insert(X(0), Pose2(0, 0, 0));
+    initialEstimate.insert(C(0), offset.compose(CAM_COORD));
+    initialEstimate.insert(K(0), calib);
+
+    // run the optimizer
+    LevenbergMarquardtOptimizer optimizer(graph, initialEstimate);
+    Values result = optimizer.optimize();
+
+    // verify that the optimizer found the right pose.
+    // note the somewhat high tolerance.
+    Pose2 x0 = result.at<Pose2>(X(0));
+    CHECK(assert_equal(Pose2(0, 0, 0), x0, 2e-3));
+    Pose3 c0 = result.at<Pose3>(C(0));
+    // to get to the x-forward offset we expect, invert the transform
+    c0 = c0.compose(CAM_COORD.inverse());
+    CHECK(assert_equal(Pose3(), c0, 2e-3));
+    Cal3DS2 k0 = result.at<Cal3DS2>(K(0));
+    CHECK(assert_equal(Cal3DS2(200, 200, 0, 200, 200, 0, 0), k0, 2e-3));
+
+    // make sure the covariance is oriented correctly.
+    // the "x" component variance is quite low because the landmarks
+    // are far off-center vertically.
+    // the "y" and "theta" components are much higher, and negatively
+    // correlated: drift a bit to the left (+x) and you need to
+    // rotate to the right (-theta) to stay on target.
+    // note the somewhat high tolerance
+    Marginals marginals(graph, result);
+    Matrix x0cov = marginals.marginalCovariance(X(0));
+    CHECK(assert_equal((Matrix33() << //
+        0.001, 0, 0,//
+        0, 0.1, -0.1,//
+        0, -0.1, 0.1).finished(), x0cov, 3e-3));
+    Matrix c0cov = marginals.marginalCovariance(C(0));
+    CHECK(assert_equal((Matrix33() << //
+        0.001, 0, 0,//
+        0, 0.1, -0.1,//
+        0, -0.1, 0.1).finished(), c0cov, 3e-3));
+    Matrix k0cov = marginals.marginalCovariance(K(0));
+    CHECK(assert_equal((Matrix33() << //
+        0.001, 0, 0,//
+        0, 0.1, -0.1,//
+        0, -0.1, 0.1).finished(), k0cov, 3e-3));
 }
 
 /* ************************************************************************* */
