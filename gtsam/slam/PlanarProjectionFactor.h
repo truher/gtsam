@@ -70,15 +70,17 @@ namespace gtsam {
                 Matrix63 Hp; // 6x3
                 Matrix66 H0; // 6x6
                 Pose3 wTc = Pose3::FromPose2(wTb, HwTb ? &Hp : nullptr).compose(bTc, HwTb ? &H0 : nullptr);
+                // std::cout << "wTc\n" << wTc << "\n";
                 PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(wTc, calib);
                 if (HwTb || HbTc) {
                     // Dpose is for pose3, 2x6 (R,t)
                     Matrix26 Dpose;
                     Point2 result = camera.project(landmark, Dpose, Hlandmark, Hcalib);
                     if (HbTc)
-                        *HbTc = Dpose; // with Eigen this is a deep copy (!)
+                        *HbTc = Dpose;
                     if (HwTb)
                         *HwTb = Dpose * H0 * Hp;
+                    // std::cout << "result\n" << result << "\n";
                     return result;
                 } else {
                     return camera.project(landmark, {}, {}, {});
@@ -274,8 +276,8 @@ namespace gtsam {
          * @param bTc "body to camera": pose3 offset from pose2 +x
          * @param calib calibration
          * @param HwTb pose jacobian
-         * @param H2 offset jacobian
-         * @param H3 calibration jacobian
+         * @param HbTc offset jacobian
+         * @param Hcalib calibration jacobian
          */
         Vector evaluateError(
             const Pose2& wTb,
@@ -284,7 +286,9 @@ namespace gtsam {
             OptionalMatrixType HwTb,
             OptionalMatrixType HbTc,
             OptionalMatrixType Hcalib) const override {
-            return predict(landmark_, wTb, bTc, calib, {}, HwTb, HbTc, Hcalib) - measured_;
+            Vector err = predict(landmark_, wTb, bTc, calib, {}, HwTb, HbTc, Hcalib) - measured_;
+            // std::cout << "err " << err.norm() << "\n";
+            return err;
         }
 
     private:
