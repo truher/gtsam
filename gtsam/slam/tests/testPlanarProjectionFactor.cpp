@@ -556,61 +556,64 @@ TEST(PlanarProjectionFactor3, jacobian) {
 }
 
 TEST(PlanarProjectionFactor3, solveOffset) {
-    // localization with covariance
-    // constant landmark, variable offset, and calibration
-    // tight priors for everything but offset.
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(
+        Vector2(1, 1));
 
-    // the noise here is large in order to see the covariance
-    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(10, 10));
-
-    // there's just one variable in our model, X(0).
-    NonlinearFactorGraph graph;
-
-    // upper-left
+    Point3 l0(1, 0, 0);
     PlanarProjectionFactor3 factor1(
         X(0),
         C(0),
         K(0),
-        Point3(1, 0.3, 1),
-        Point2(140, 0),
+        l0,
+        Point2(200, 200),
         model);
-    graph.add(factor1);
-    // upper-right
+    Point3 l1(1, 0, -1);
     PlanarProjectionFactor3 factor2(
         X(0),
         C(0),
         K(0),
-        Point3(1, -0.3, 1),
-        Point2(260, 0),
+        l1,
+        Point2(200, 400),
         model);
-    graph.add(factor2);
-    // center
+    Point3 l2(1, -1, 0);
     PlanarProjectionFactor3 factor3(
         X(0),
         C(0),
         K(0),
-        Point3(1, 0, 0),
-        Point2(200, 200),
+        l2,
+        Point2(400, 200),
         model);
-    graph.add(factor3);
+    Point3 l3(2, 2, 0);
+    PlanarProjectionFactor3 factor4(
+        X(0),
+        C(0),
+        K(0),
+        l3,
+        Point2(0, 200),
+        model);
+    Pose2 x0(0, 0, 0);
+    Pose3 c0(
+        Rot3(0, 0, 1, //
+            -1, 0, 0, //
+            0, -1, 0), //
+        Vector3(0, 0, 0));
+    Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
 
-    // pose2 prior is very firm, since we're focused on
-    // calibration
+    NonlinearFactorGraph graph;
+    graph.add(factor1);
+    graph.add(factor2);
+    graph.add(factor3);
+    graph.add(factor4);
     graph.add(PriorFactor<Pose2>(
         X(0),
-        Pose2(0, 0, 0),
+        x0,
         noiseModel::Diagonal::Sigmas(Vector3(0.01, 0.01, 0.01))));
-    // camera offset prior is very soft; this is what we're
-    // really trying to solve.
-    // offset here is identity, measured x-fwd
-    Pose3 offset;
+    // very loose prior for the offset
     graph.add(PriorFactor<Pose3>(
         C(0),
-        offset.compose(CAM_COORD),
+        c0,
         noiseModel::Diagonal::Sigmas(
-            Vector6(1, 1, 1, 1, 1, 1))));
-    // cal prior is very firm
-    Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
+            Vector6(10, 10, 10, 10, 10, 10))));
     graph.add(PriorFactor<Cal3DS2>(
         K(0),
         calib,
@@ -618,19 +621,16 @@ TEST(PlanarProjectionFactor3, solveOffset) {
             Vector9(0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001))));
 
     Values initialEstimate;
-    initialEstimate.insert(X(0), Pose2(0, 0, 0));
-    initialEstimate.insert(C(0), offset.compose(CAM_COORD));
+    initialEstimate.insert(X(0), x0);
+    initialEstimate.insert(C(0), c0);
     initialEstimate.insert(K(0), calib);
 
     // verify the error2 and jacobians
     std::vector<Matrix> actualHs(3);
-    gtsam::Vector actual3 = factor3.unwhitenedError(initialEstimate, actualHs);
-    CHECK(assert_equal(Vector2(0, 0), actual3));
+    gtsam::Vector actual1 = factor1.unwhitenedError(initialEstimate, actualHs);
+    CHECK(assert_equal(Vector2(0, 0), actual1));
 
     const Matrix& H1Actual = actualHs.at(0);
-    // NOTE! composition of jacobian.
-    // const Matrix& H2Actual = actualHs.at(1) * H00;
-    // this is the important one
     const Matrix& H2Actual = actualHs.at(1);
     const Matrix& H3Actual = actualHs.at(2);
 
@@ -640,28 +640,6 @@ TEST(PlanarProjectionFactor3, solveOffset) {
         0, 0, 0).finished();
     CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
 
-    // this is the important one
-    // du/dx for the pose3d offset
-    // note this is (roll, pitch, yaw, x, y, z)
-    // roll doesn't matter
-    // +pitch (down) is -v
-    // +yaw (left) is +u
-    // x doesn't matter
-    // +y (left) is +u
-    // +z (up) is +v
-    // Matrix26 H2Expected = (Matrix26() << //
-    //     000, 000., 200, 000, 200, 000, //
-    //     000, -200, 000, 000, 000, 200).finished();
-    // hm
-    // this is without the transform jacobian
-    // this is in the camera frame.
-    // +rx (tilt up) means +v
-    // +ry (yaw right) means -u
-    // rz does nothing
-    // +x (right) means -u
-    // +y (down) means -v
-    // z does nothing
-    // so this jacobian is in the camera frame.
     Matrix26 H2Expected = (Matrix26() << //
         000, -200, 000, -200, 000., 000, //
         200, 000., 000, 000., -200, 000).finished();
@@ -674,27 +652,25 @@ TEST(PlanarProjectionFactor3, solveOffset) {
         0, 0, 0, 0, 1, 0, 0, 0, 0).finished();
     CHECK(assert_equal(H3Expected, H3Actual, 1e-6));
 
-
-
     // run the optimizer
     LevenbergMarquardtOptimizer optimizer(graph, initialEstimate);
     Values result = optimizer.optimize();
 
     // verify that the optimizer found the right pose.
     // note the somewhat high tolerance.
-    Pose2 x0 = result.at<Pose2>(X(0));
-    CHECK(assert_equal(Pose2(0, 0, 0), x0, 2e-3));
+    Pose2 xx0 = result.at<Pose2>(X(0));
+    CHECK(assert_equal(Pose2(0, 0, 0), xx0, 2e-3));
 
     // verify the camera is pointing at +x
-    Pose3 c0 = result.at<Pose3>(C(0));
+    Pose3 cc0 = result.at<Pose3>(C(0));
     CHECK(assert_equal(Pose3(
         Rot3(0, 0, 1,//
             -1, 0, 0, //
             0, -1, 0),
-        Vector3(0, 0, 0)), c0, 5e-3));
+        Vector3(0, 0, 0)), cc0, 5e-3));
 
     // to get to the x-forward offset we expect, invert the transform
-    Pose3 c0Xfwd = c0.compose(CAM_COORD.inverse());
+    Pose3 c0Xfwd = cc0.compose(CAM_COORD.inverse());
     CHECK(assert_equal(Pose3(), c0Xfwd, 2e-3));
 
     // verify the calibration
@@ -703,73 +679,49 @@ TEST(PlanarProjectionFactor3, solveOffset) {
 
     Marginals marginals(graph, result);
 
-    // the prior is very tight so the marginals are too.
     Matrix x0cov = marginals.marginalCovariance(X(0));
     CHECK(assert_equal((Matrix33() << //
         0, 0, 0,//
         0, 0, 0,//
         0, 0, 0).finished(), x0cov, 1e-4));
 
-    // offset is what we're intersted in.
-    // the offset covariance cols (and rows) are Rx Ry Rz Tx Ty Tz
-    // the camera noise is very high, so these variances are too.
-
-
-    // this is the covariance
-    // this is saying that *x* rotation is independent
-    // and *x* translation is independent
-    // which are true in the camera frame ("x" is left-right)
-
-
-
-
     Matrix c0cov = marginals.marginalCovariance(C(0));
     CHECK(assert_equal((Matrix66() << //
-        0.33, 0.00, 0.00, 0.00, 0.33, 0.33, //
-        0.00, 0.01, 0.00, -.02, 0.00, 0.00, //
-        0.00, 0.00, 0.00, 0.00, 0.00, 0.00, //
-        0.00, -.02, 0.00, 0.02, 0.00, 0.00, //
-        0.33, 0.00, 0.00, 0.00, 0.33, 0.33, //
-        0.33, 0.00, 0.00, 0.00, 0.33, 0.33).finished(),
-        c0cov, 0.01));
+        8.30128e-05, 9.10201e-06, -2.36966e-05, -2.63024e-05, 0.000105938, -2.87623e-05,
+        9.10201e-06, 0.000116649, -5.37453e-06, -2.48266e-05, 1.17142e-05, -4.42248e-06,
+        -2.36966e-05, -5.37453e-06, 1.69549e-05, 1.48553e-05, -3.19123e-05, 9.13905e-06,
+        -2.63024e-05, -2.48266e-05, 1.48553e-05, 0.00015081, -3.35284e-05, 1.45632e-05,
+        0.000105938, 1.17142e-05, -3.19123e-05, -3.35284e-05, 0.000145587, -3.32703e-05,
+        -2.87623e-05, -4.42248e-06, 9.13905e-06, 1.45632e-05, -3.32703e-05, 0.000127789).finished(),
+        c0cov, 1e-4));
 
-    // what does the adjoint map look like?
-    // it's just the rotation
-    Matrix66 amap = CAM_COORD.AdjointMap();
-    CHECK(assert_equal((Matrix66() << //
-        0., 0., 1., 0., 0., 0., //
-        -1, 0., 0., 0., 0., 0., //
-        0., -1, 0., 0., 0., 0., //
-        0., 0., 0., 0., 0., 1., //
-        0., 0., 0., -1, 0., 0., //
-        0., 0., 0., 0., -1, 0.).finished(),
-        amap, 0.1));
+    // inverse adjoint of the camera offset
+    Matrix66 ccH00 = cc0.inverse().AdjointMap();
 
-    // apply that to a simple pose.  this is +x in the camera
-    // which is really +u which is world -y at the camera pose.
-    // so amap transforms from camera to world.
-    Vector6 p = amap * Pose3::Logmap(Pose3(Rot3(), Point3(1, 0, 0)));
+    // invert the camera offset: covariance in body coordinates
+    Matrix c0cov2 = ccH00.inverse() * c0cov * ccH00.inverse().transpose();
+
+    // these are the **camera-frame** std deviations
+    Vector6 c0sigma = c0cov.diagonal().cwiseSqrt();
     CHECK(assert_equal((Vector6() << //
-        0, 0, 0, 0, -1, 0).finished(),
-        p, 0.1));
+        0.00911113,
+        0.0108004,
+        0.00411764,
+        0.0122805,
+        0.0120659,
+        0.0113044
+        ).finished(), c0sigma, 1e-6));
 
-    // transform to world?
-    // here "y" is independent, which is correct in the world frame.
-    // the coupling of x and z is inverse, which is wrong.
-    // the coupling of +x-roll with +y-truck seems right
-    // coupling +y-pitch with +z-pedestal seems right
-    // also +y-pitch and -x-dolly is right
-
-    Matrix c0covXfwd = amap * c0cov * amap.transpose();
-    CHECK(assert_equal((Matrix66() << //
-        0.00, 0.00, 0.00, 0.00, 0.00, 0.00, //
-        0.00, 0.33, 0.00, -.33, 0.00, 0.33, //
-        0.00, 0.00, 0.01, 0.00, -.01, 0.00, //
-        0.00, -.33, 0.00, 0.33, 0.00, -.33, //
-        0.00, 0.00, -.01, 0.00, 0.02, 0.00, //
-        0.00, 0.33, 0.00, -.33, 0.00, 0.33).finished(),
-        c0covXfwd, 0.1));
-
+    // this is **body frame**
+    Vector6 bTcSigma = c0cov2.diagonal().cwiseSqrt();
+    CHECK(assert_equal((Vector6() << //
+        0.00411764,
+        0.00911113,
+        0.0108004,
+        0.0113044,
+        0.0122805,
+        0.0120659
+        ).finished(), bTcSigma, 1e-6));
 
     // calibration prior means this is roughly zero
     Matrix k0cov = marginals.marginalCovariance(K(0));
@@ -786,55 +738,52 @@ TEST(PlanarProjectionFactor3, solveOffset) {
 }
 
 TEST(PlanarProjectionFactor3, solveWithoutOffset) {
-    // the whole thing above without the offset (target above)
     SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(10, 10));
     NonlinearFactorGraph graph;
 
-    // x ~ u
-    // y ~ v
-    // z-forward
-    //
-    // upper-left
+    Point3 l0(0, 0, 1);
     PlanarProjectionFactor3 factor1(
         X(0),
         C(0),
         K(0),
-        Point3(0.3, 1, 1),
-        Point2(260, 400),
+        l0,
+        Point2(200, 200),
         model);
     graph.add(factor1);
-    // upper-right
+    Point3 l1(0, 1, 1);
     PlanarProjectionFactor3 factor2(
         X(0),
         C(0),
         K(0),
-        Point3(-0.3, 1, 1),
-        Point2(140, 400),
+        l1,
+        Point2(200, 400),
         model);
     graph.add(factor2);
-    // center
-    // PlanarProjectionFactor3 factor3(
-    //     X(0),
-    //     C(0),
-    //     K(0),
-    //     Point3(0, 0, 1),
-    //     Point2(200, 200),
-    //     model);
-    // graph.add(factor3);
+    Point3 l2(1, 0, 1);
+    PlanarProjectionFactor3 factor3(
+        X(0),
+        C(0),
+        K(0),
+        l2,
+        Point2(400, 200),
+        model);
+    graph.add(factor3);
 
-
+    Pose2 x0(0, 0, 0);
     graph.add(PriorFactor<Pose2>(
         X(0),
-        Pose2(0, 0, 0),
+        x0,
         noiseModel::Diagonal::Sigmas(Vector3(0.01, 0.01, 0.01))));
-
-    Pose3 offset;
+    Pose3 c0(
+        Rot3(1, 0, 0, //
+            0, 1, 0, //
+            0, 0, 1), //
+        Vector3(0, 0, 0));
     graph.add(PriorFactor<Pose3>(
         C(0),
-        offset,
+        c0,
         noiseModel::Diagonal::Sigmas(
-            Vector6(1, 1, 1, 1, 1, 1))));
-
+            Vector6(100, 100, 100, 100, 100, 100))));
     Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
     graph.add(PriorFactor<Cal3DS2>(
         K(0),
@@ -842,18 +791,12 @@ TEST(PlanarProjectionFactor3, solveWithoutOffset) {
         noiseModel::Diagonal::Sigmas(
             Vector9(0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001))));
 
-    PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(Pose3(), calib);
-    // where does this point go?
-    Point2 p = camera.project(Point3(0.3, 1, 1));
-    CHECK(assert_equal(Point2(260, 400), p, 1e-3));
-    p = camera.project(Point3(-0.3, 1, 1));
-    CHECK(assert_equal(Point2(140, 400), p, 1e-3));
-    p = camera.project(Point3(0, 0, 1));
-    CHECK(assert_equal(Point2(200, 200), p, 1e-3));
-
     Values initialEstimate;
-    initialEstimate.insert(X(0), Pose2(0, 0, 0));
-    initialEstimate.insert(C(0), offset);
+    initialEstimate.insert(X(0), x0);
+    initialEstimate.insert(C(0), c0);
+    initialEstimate.insert(L(0), l0);
+    initialEstimate.insert(L(1), l1);
+    initialEstimate.insert(L(2), l2);
     initialEstimate.insert(K(0), calib);
 
     std::vector<Matrix> actualHs(3);
@@ -865,33 +808,33 @@ TEST(PlanarProjectionFactor3, solveWithoutOffset) {
     const Matrix& H3Actual = actualHs.at(2);
 
     Matrix23 H1Expected = (Matrix23() <<//
-        -200, 0, 200,//
-        0, -200, -60).finished();
+        -200, 0, 0,//
+        0, -200, 0).finished();
     CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
 
     Matrix26 H2Expected = (Matrix26() << //
-        60, -218, 200, -200, 0, 60,//
-        400, -60, -60, 0, -200, 200).finished();
+        0, -200, 0, -200, 0, 0,//
+        200, 0, 0, 0, -200, 0).finished();
     CHECK(assert_equal(H2Expected, H2Actual, 1e-6));
 
     Matrix29 H3Expected = (Matrix29() <<//
-        0.3, 0, 1, 1, 0, 65.4, 71.286, 120, 254, //
-        0, 1, 0, 0, 1, 218, 237.62, 618, 120).finished();
+        0, 0, 0, 1, 0, 0, 0, 0, 0, //
+        0, 0, 0, 0, 1, 0, 0, 0, 0).finished();
     CHECK(assert_equal(H3Expected, H3Actual, 1e-6));
 
     LevenbergMarquardtOptimizer optimizer(graph, initialEstimate);
     Values result = optimizer.optimize();
 
-    Pose2 x0 = result.at<Pose2>(X(0));
-    CHECK(assert_equal(Pose2(0, 0, 0), x0, 2e-3));
+    Pose2 xx0 = result.at<Pose2>(X(0));
+    CHECK(assert_equal(Pose2(0, 0, 0), xx0, 2e-3));
 
     // offset should be identity
-    Pose3 c0 = result.at<Pose3>(C(0));
+    Pose3 cc0 = result.at<Pose3>(C(0));
     CHECK(assert_equal(Pose3(
         Rot3(1, 0, 0,//
             0, 1, 0, //
             0, 0, 1),
-        Vector3(0, 0, 0)), c0, 5e-6));
+        Vector3(0, 0, 0)), cc0, 5e-6));
 
     // calib should be the initial value
     Cal3DS2 k0 = result.at<Cal3DS2>(K(0));
@@ -906,16 +849,19 @@ TEST(PlanarProjectionFactor3, solveWithoutOffset) {
         0, 0, 0,//
         0, 0, 0).finished(), x0cov, 1e-4));
 
-    // 
+    // this is the covariance in the camera frame, i.e.
+    // z-forward, y-down.  note the very low roll variance,
+    // and the high variance for everything else, caused
+    // by the prior.
     Matrix c0cov = marginals.marginalCovariance(C(0));
     CHECK(assert_equal((Matrix66() << //
-        0.33, 0.00, 0.00, 0.00, 0.33, -0.33,//
-        0.00, 0.16, -0.15, -0.33, 0.00, 0.00,//
-        0.00, -0.15, 0.16, 0.33, 0.00, 0.00,//
-        0.00, -0.33, 0.33, 0.69, 0.00, 0.00,//
-        0.33, 0.00, 0.00, 0.00, 0.35, -0.32,//
-        -0.33, 0.00, 0.00, 0.00, -0.32, 0.35).finished(),
-        c0cov, 0.01));
+        2000, -2000, 0, 2000, 2000, -2000,//
+        -2000, 2000, 0, -2000, -2000, 2000,//
+        0, 0, 0, 0, 0, 0,//
+        2000, -2000, 0, 2000, 2000, -2000,//
+        2000, -2000, 0, 2000, 2000, -2000,//
+        -2000, 2000, 0, -2000, -2000, 2000).finished(),
+        c0cov, 2));
 
     // tight prior => low cov
     Matrix k0cov = marginals.marginalCovariance(K(0));
@@ -1101,9 +1047,9 @@ TEST(PlanarProjectionFactor3, compareToGeneric) {
 
 TEST(PlanarProjectionFactor3, compareToGeneric2) {
     // normal projection with camera in correct orientation
-    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(10, 10));
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
     Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
-    auto K = std::make_shared<Cal3DS2>(200, 200, 0, 200, 200, 0, 0);
+    shared_ptr<Cal3DS2> K = std::make_shared<Cal3DS2>(200, 200, 0, 200, 200, 0, 0);
 
 
     GenericProjectionFactor<Pose3, Point3, Cal3DS2> factor1(
@@ -1124,6 +1070,12 @@ TEST(PlanarProjectionFactor3, compareToGeneric2) {
         C(0),
         L(2),
         K);
+    GenericProjectionFactor<Pose3, Point3, Cal3DS2> factor4(
+        Point2(0, 200),
+        model,
+        C(0),
+        L(3),
+        K);
 
     Values initialEstimate;
     Pose3 c0(
@@ -1138,9 +1090,11 @@ TEST(PlanarProjectionFactor3, compareToGeneric2) {
     initialEstimate.insert(L(1), l1);
     Point3 l2(1, -1, 0);
     initialEstimate.insert(L(2), l2);
+    // this improves accuracy a lot
+    Point3 l3(2, 2, 0);
+    initialEstimate.insert(L(3), l3);
 
     // the errors are all zero at the initial pose
-
     Matrix H1;
     Matrix H2;
     Vector e0 = factor1.evaluateError(c0, l0, &H1, &H2);
@@ -1170,15 +1124,6 @@ TEST(PlanarProjectionFactor3, compareToGeneric2) {
         -200, -200, 0,//
         0, 0, -200).finished(), H2, 1e-6));
 
-    // hm, it seems wrong but it's what the numeric thing says
-    Matrix nH1 = numericalDerivative21<Vector, Pose3, Point3>(
-        [&factor3](const Pose3& c, const Point3& l) {
-            return factor3.evaluateError(c, l, {}, {});},
-            c0, l2);
-    CHECK(assert_equal((Matrix26() << //
-        0, -400, 0, -200, 0, 200,
-        200, 0, -200, 0, -200, 0).finished(), nH1, 1e-6));
-
     std::vector<Matrix> actualHs(2);
     gtsam::Vector actual1 = factor1.unwhitenedError(initialEstimate, actualHs);
     CHECK(assert_equal(Vector2(0, 0), actual1, 1e-6));
@@ -1206,12 +1151,16 @@ TEST(PlanarProjectionFactor3, compareToGeneric2) {
     graph.add(factor1);
     graph.add(factor2);
     graph.add(factor3);
+    graph.add(factor4);
+
     // *very* soft prior, so that the solver finds the right answer.
     // a better estimate also works.
     graph.add(PriorFactor<Pose3>(
         C(0),
-        Pose3(),
-        noiseModel::Diagonal::Sigmas(Vector6(100, 100, 100, 100, 100, 100))));
+        c0,
+        noiseModel::Diagonal::Sigmas(Vector6(10, 10, 10, 10, 10, 10))));
+
+    // landmark priors are very tight
     graph.add(PriorFactor<Point3>(
         L(0),
         l0,
@@ -1224,52 +1173,68 @@ TEST(PlanarProjectionFactor3, compareToGeneric2) {
         L(2),
         l2,
         noiseModel::Diagonal::Sigmas(Vector3(0.01, 0.01, 0.01))));
+    graph.add(PriorFactor<Point3>(
+        L(3),
+        l3,
+        noiseModel::Diagonal::Sigmas(Vector3(0.01, 0.01, 0.01))));
 
     LevenbergMarquardtOptimizer optimizer(graph, initialEstimate);
     Values result = optimizer.optimize();
 
-    // why doesn't it end up here?
-
     Pose3 cc0 = result.at<Pose3>(C(0));
-    CHECK(assert_equal(Pose3(
-        Rot3(0, 0, 1,//
-            -1, 0, 0, //
-            0, -1, 0),
-        Vector3(0, 0, 0)), cc0, 1e-2));
-
+    CHECK(assert_equal(c0, cc0, 0.05));
     Point3 ll0 = result.at<Point3>(L(0));
-    CHECK(assert_equal(l0, ll0, 5e-6));
+    CHECK(assert_equal(l0, ll0, 1e-4));
     Point3 ll1 = result.at<Point3>(L(1));
-    CHECK(assert_equal(l1, ll1, 5e-6));
+    CHECK(assert_equal(l1, ll1, 1e-4));
     Point3 ll2 = result.at<Point3>(L(2));
-    CHECK(assert_equal(l2, ll2, 5e-6));
-
+    CHECK(assert_equal(l2, ll2, 1e-4));
+    Point3 ll3 = result.at<Point3>(L(3));
+    CHECK(assert_equal(l3, ll3, 1e-4));
     //
     // check covariance
     //
 
     Marginals marginals(graph, result);
 
-    // really sure of rz
     Matrix c0cov = marginals.marginalCovariance(C(0));
-    // CHECK(assert_equal((Matrix66() << //
-    //     0.20, -.20, 0.00, 0.20, 0.20, -.20,
-    //     -.20, 0.20, 0.00, -.20, -.20, 0.20,
-    //     -.00, -.00, 0.002, 0.00, 0.00, 0.00,
-    //     0.20, -.20, 0.00, 0.21, 0.19, -.20,
-    //     0.20, -.20, 0.00, 0.20, 0.21, -.20,
-    //     -.20, 0.20, 0.00, -.20, -.20, 0.20).finished(),
-    //     c0cov, 0.01));
-    // the really big prior makes a really large covariance
-    // except for rz
     CHECK(assert_equal((Matrix66() << //
-        100, -100, 0, 100, 100, -100,
-        -100, 100, 0, -100, -100, 100,
-        0, 0, 0, 0, 0, 0,
-        100, -100, 0, 100, 100, -100,
-        100, -100, 0, 100, 100, -100,
-        -100, 100, 0, -100, -100, 100).finished(),
-        c0cov, 20));
+        0.000467927, 6.60775e-05, -0.000143849, -0.000162094, 0.00060235, -0.000160038,
+        6.60775e-05, 5.59977e-05, -2.77214e-05, -0.000101612, 7.99381e-05, -4.85882e-05,
+        -0.000143849, -2.77214e-05, 7.56042e-05, 7.25797e-05, -0.00018165, 5.52411e-05,
+        -0.000162094, -0.000101612, 7.25797e-05, 0.000234676, -0.000198384, 0.000104031,
+        0.00060235, 7.99381e-05, -0.00018165, -0.000198384, 0.000818174, -0.000187658,
+        -0.000160038, -4.85882e-05, 5.52411e-05, 0.000104031, -0.000187658, 0.000157096).finished(),
+        c0cov, 1e-4));
+
+    // inverse adjoint of the camera offset
+    Matrix66 ccH00 = cc0.inverse().AdjointMap();
+
+    // invert the camera offset: covariance in body coordinates
+    Matrix c0cov2 = ccH00.inverse() * c0cov * ccH00.inverse().transpose();
+
+    // these are the **camera-frame** std deviations
+    Vector6 c0sigma = c0cov.diagonal().cwiseSqrt();
+    CHECK(assert_equal((Vector6() << //
+        0.0216316, // pitch
+        0.00748316, // yaw
+        0.00869506, // roll
+        0.0153191, // camera x is world y
+        0.0286037, // camera y is world z
+        0.0125338 // camera z is world x
+        ).finished(), c0sigma, 1e-6));
+
+    // this is **body frame**
+    Vector6 bTcSigma = c0cov2.diagonal().cwiseSqrt();
+    CHECK(assert_equal((Vector6() << //
+        0.00869506,
+        0.0216316,
+        0.00748316,
+        0.0125338,
+        0.0153191,
+        0.0286037
+        ).finished(), bTcSigma, 1e-6));
+
 
     Matrix l0cov = marginals.marginalCovariance(L(0));
     CHECK(assert_equal((Matrix33() << //
@@ -1277,52 +1242,20 @@ TEST(PlanarProjectionFactor3, compareToGeneric2) {
         0, 0, 0,
         0, 0, 0).finished(),
         l0cov, 0.01));
-
     Matrix l1cov = marginals.marginalCovariance(L(1));
     CHECK(assert_equal((Matrix33() << //
         0, 0, 0,
         0, 0, 0,
         0, 0, 0).finished(),
         l1cov, 0.01));
-}
+    Matrix l2cov = marginals.marginalCovariance(L(2));
+    CHECK(assert_equal((Matrix33() << //
+        0, 0, 0,
+        0, 0, 0,
+        0, 0, 0).finished(),
+        l2cov, 0.01));
 
-// TEST(PlanarProjectionFactor3, wtfCamera) {
-//     Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
-//     // center
-//     for (double r = -1.0; r <= 1.0; r += 0.2) {
-//         PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(
-//             Pose3(Rot3::Rx(r), Point3(0, 0, 0)),
-//             calib);
-//         Point2 p2 = camera.project(Point3(0, 0, 1));
-//         std::cout << "(0, 0) r " << r << " p (" << p2(0) << ", " << p2(1) << ")\n";
-//     }
-//     // offset in one dim
-//     for (double r = -1.0; r <= 1.0; r += 0.2) {
-//         PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(
-//             Pose3(Rot3::Rx(r), Point3(0, 0, 0)),
-//             calib);
-//         Point2 p2 = camera.project(Point3(0, 0.5, 1));
-//         std::cout << "(0, 0.5) r " << r << " p (" << p2(0) << ", " << p2(1) << ")\n";
-//     }
-//     // offset in the other dim
-//     // ok this "grows" in the not-moving axis because the point is
-//     // closer.
-//     for (double r = -1.0; r <= 1.0; r += 0.2) {
-//         PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(
-//             Pose3(Rot3::Rx(r), Point3(0, 0, 0)),
-//             calib);
-//         Point2 p2 = camera.project(Point3(0.5, 0, 1));
-//         std::cout << "(0.5, 0) r " << r << " p (" << p2(0) << ", " << p2(1) << ")\n";
-//     }
-//     // offset in diagonally
-//     for (double r = -1.0; r <= 1.0; r += 0.2) {
-//         PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(
-//             Pose3(Rot3::Rx(r), Point3(0, 0, 0)),
-//             calib);
-//         Point2 p2 = camera.project(Point3(0.5, 0.5, 1));
-//         std::cout << "(0.5, 0.5) r " << r << " p (" << p2(0) << ", " << p2(1) << ")\n";
-//     }
-// }
+}
 
 /* ************************************************************************* */
 int main() {
