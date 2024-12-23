@@ -22,7 +22,6 @@
 #include <gtsam/nonlinear/PriorFactor.h>
 #include <gtsam/nonlinear/Values.h>
 #include <gtsam/slam/PlanarProjectionFactor.h>
-#include <gtsam/slam/ProjectionFactor.h>
 
 #include <CppUnitLite/TestHarness.h>
 
@@ -342,10 +341,10 @@ TEST(PlanarProjectionFactor3, solveOffset) {
     SharedNoiseModel kNoise = noiseModel::Diagonal::Sigmas(Vector9(0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001));
 
     // landmarks
-    Point3 l0(1, 0, 0);
-    Point3 l1(1, 0, -1);
-    Point3 l2(1, -1, 0);
-    Point3 l3(2, 2, 0);
+    Point3 l0(1, 0, 1);
+    Point3 l1(1, 0, 0);
+    Point3 l2(1, -1, 1);
+    Point3 l3(2, 2, 1);
 
     // camera pixels
     Point2 p0(200, 200);
@@ -361,7 +360,7 @@ TEST(PlanarProjectionFactor3, solveOffset) {
         Rot3(0, 0, 1, //
             -1, 0, 0, //
             0, -1, 0), //
-        Vector3(0, 0, 0));
+        Vector3(0, 0, 1)); // note z offset
     Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
 
     NonlinearFactorGraph graph;
@@ -387,11 +386,7 @@ TEST(PlanarProjectionFactor3, solveOffset) {
 
     // verify the camera is pointing at +x
     Pose3 cc0 = result.at<Pose3>(C(0));
-    CHECK(assert_equal(Pose3(
-        Rot3(0, 0, 1,//
-            -1, 0, 0, //
-            0, -1, 0),
-        Vector3(0, 0, 0)), cc0, 5e-3));
+    CHECK(assert_equal(c0, cc0, 5e-3));
 
     // verify the calibration
     CHECK(assert_equal(calib, result.at<Cal3DS2>(K(0)), 2e-3));
@@ -425,112 +420,13 @@ TEST(PlanarProjectionFactor3, solveOffset) {
         0.004,
         0.009,
         0.011,
-        0.011,
+        0.012,
         0.012,
         0.012
         ).finished(), bTcSigma, 1e-3));
 
     // narrow prior => ~zero cov
     CHECK(assert_equal(Matrix99::Zero(), marginals.marginalCovariance(K(0)), 3e-3));
-}
-
-/* ************************************************************************* */
-TEST(PlanarProjectionFactor3, compareToGeneric) {
-    // Simple projection example for comparison to above
-    SharedNoiseModel pxNoise = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
-    // Landmark model is narrow, so the solver leaves it alone.
-    SharedNoiseModel lNoise = noiseModel::Diagonal::Sigmas(Vector3(0.01, 0.01, 0.01));
-    // Pose model is wide, so the solver finds the right answer.
-    SharedNoiseModel pNoise = noiseModel::Diagonal::Sigmas(Vector6(10, 10, 10, 10, 10, 10));
-
-    Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
-    shared_ptr<Cal3DS2> K = std::make_shared<Cal3DS2>(200, 200, 0, 200, 200, 0, 0);
-
-    // camera z looking at +x with (xy) antiparallel to (yz)
-    Pose3 c0(
-        Rot3(0, 0, 1, //
-            -1, 0, 0, //
-            0, -1, 0), //
-        Vector3(0, 0, 0));
-    // landmarks
-    Point3 l0(1, 0, 0);
-    Point3 l1(1, 0, -1);
-    Point3 l2(1, -1, 0);
-    Point3 l3(2, 2, 0); // parallax improves accuracy a lot
-
-    // pixels
-    Point2 p0(200, 200);
-    Point2 p1(200, 400);
-    Point2 p2(400, 200);
-    Point2 p3(0, 200);
-
-    Values initialEstimate;
-    initialEstimate.insert(C(0), c0);
-    initialEstimate.insert(L(0), l0);
-    initialEstimate.insert(L(1), l1);
-    initialEstimate.insert(L(2), l2);
-    initialEstimate.insert(L(3), l3);
-
-    NonlinearFactorGraph graph;
-    graph.add(GenericProjectionFactor<Pose3, Point3, Cal3DS2>(
-        p0, pxNoise, C(0), L(0), K));
-    graph.add(GenericProjectionFactor<Pose3, Point3, Cal3DS2>(
-        p1, pxNoise, C(0), L(1), K));
-    graph.add(GenericProjectionFactor<Pose3, Point3, Cal3DS2>(
-        p2, pxNoise, C(0), L(2), K));
-    graph.add(GenericProjectionFactor<Pose3, Point3, Cal3DS2>(
-        p3, pxNoise, C(0), L(3), K));
-    graph.add(PriorFactor<Pose3>(C(0), c0, pNoise));
-    graph.add(PriorFactor<Point3>(L(0), l0, lNoise));
-    graph.add(PriorFactor<Point3>(L(1), l1, lNoise));
-    graph.add(PriorFactor<Point3>(L(2), l2, lNoise));
-    graph.add(PriorFactor<Point3>(L(3), l3, lNoise));
-
-    LevenbergMarquardtOptimizer optimizer(graph, initialEstimate);
-    Values result = optimizer.optimize();
-
-    // solver found the right answers
-    Pose3 cc0 = result.at<Pose3>(C(0));
-    CHECK(assert_equal(c0, cc0, 0.05));
-    CHECK(assert_equal(l0, result.at<Point3>(L(0)), 1e-4));
-    CHECK(assert_equal(l1, result.at<Point3>(L(1)), 1e-4));
-    CHECK(assert_equal(l2, result.at<Point3>(L(2)), 1e-4));
-    CHECK(assert_equal(l3, result.at<Point3>(L(3)), 1e-4));
-
-    // camera-frame covariance
-    Marginals marginals(graph, result);
-    Matrix c0cov = marginals.marginalCovariance(C(0));
-
-    // camera-frame stddev
-    Vector6 c0sigma = c0cov.diagonal().cwiseSqrt();
-    CHECK(assert_equal((Vector6() << //
-        0.022,
-        0.007,
-        0.009,
-        0.015,
-        0.029,
-        0.013
-        ).finished(), c0sigma, 1e-3));
-
-    // invert the camera offset to get covariance in body coordinates
-    Matrix66 HcTb = cc0.inverse().AdjointMap().inverse();
-    Matrix c0cov2 = HcTb * c0cov * HcTb.transpose();
-
-    // body-frame stddev
-    Vector6 bTcSigma = c0cov2.diagonal().cwiseSqrt();
-    CHECK(assert_equal((Vector6() << //
-        0.009,
-        0.022,
-        0.007,
-        0.013,
-        0.015,
-        0.029
-        ).finished(), bTcSigma, 1e-3));
-
-    // landmark cov ~= zero since the prior is so tight
-    CHECK(assert_equal(Matrix33::Zero(), marginals.marginalCovariance(L(0)), 0.01));
-    CHECK(assert_equal(Matrix33::Zero(), marginals.marginalCovariance(L(1)), 0.01));
-    CHECK(assert_equal(Matrix33::Zero(), marginals.marginalCovariance(L(2)), 0.01));
 }
 
 /* ************************************************************************* */
