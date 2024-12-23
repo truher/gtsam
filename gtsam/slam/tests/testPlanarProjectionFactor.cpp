@@ -35,9 +35,8 @@ using symbol_shorthand::L;
 
 /* ************************************************************************* */
 TEST(PlanarProjectionFactor1, error1) {
-    // landmark is on the camera bore (which faces +x)
+    // Example: center projection and Jacobian
     Point3 landmark(1, 0, 0);
-    // so pixel measurement is (cx, cy)
     Point2 measured(200, 200);
     Pose3 offset(
         Rot3(0, 0, 1,//
@@ -47,31 +46,19 @@ TEST(PlanarProjectionFactor1, error1) {
     );
     Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
     SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
-    Values values;
-    Pose2 pose(0, 0, 0);
-    values.insert(X(0), pose);
-
     PlanarProjectionFactor1 factor(X(0), landmark, measured, offset, calib, model);
-
-    CHECK_EQUAL(2, factor.dim());
-    CHECK(factor.active(values));
-    std::vector<Matrix> actualHs(1);
-    gtsam::Vector actual = factor.unwhitenedError(values, actualHs);
-
-    CHECK(assert_equal(Vector2(0, 0), actual));
-
-    const Matrix& H1Actual = actualHs.at(0);
-    const Matrix23 H1Expected = (Matrix23() << //
-        0, 200, 200,//
-        0, 0, 0).finished();
-    CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
+    Pose2 pose(0, 0, 0);
+    Matrix H;
+    CHECK(assert_equal(Vector2(0, 0), factor.evaluateError(pose, H), 1e-6));
+    CHECK(assert_equal((Matrix23() << //
+        0, 200, 200, //
+        0, 0, 0).finished(), H, 1e-6));
 }
 
 /* ************************************************************************* */
 TEST(PlanarProjectionFactor1, error2) {
-    // landmark is in the upper left corner
+    // Example: upper left corner projection and Jacobian
     Point3 landmark(1, 1, 1);
-    // upper left corner in pixels
     Point2 measured(0, 0);
     Pose3 offset(
         Rot3(0, 0, 1,//
@@ -81,65 +68,40 @@ TEST(PlanarProjectionFactor1, error2) {
     );
     Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
     SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
-    PlanarProjectionFactor1 factor(
-        X(0), landmark, measured, offset, calib, model);
-    Values values;
+    PlanarProjectionFactor1 factor(X(0), landmark, measured, offset, calib, model);
     Pose2 pose(0, 0, 0);
-
-    values.insert(X(0), pose);
-
-    CHECK_EQUAL(2, factor.dim());
-    CHECK(factor.active(values));
-    std::vector<Matrix> actualHs(1);
-    gtsam::Vector actual = factor.unwhitenedError(values, actualHs);
-
-    CHECK(assert_equal(Vector2(0, 0), actual));
-
-    const Matrix& H1Actual = actualHs.at(0);
-    Matrix23 H1Expected = (Matrix23() << //
+    Matrix H;
+    CHECK(assert_equal(Vector2(0, 0), factor.evaluateError(pose, H), 1e-6));
+    CHECK(assert_equal((Matrix23() << //
         -200, 200, 400, //
-        -200, 0, 200).finished();
-    CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
+        -200, 0, 200).finished(), H, 1e-6));
 }
 
 /* ************************************************************************* */
 TEST(PlanarProjectionFactor1, error3) {
-    // landmark is in the upper left corner
+    // Example: upper left corner projection and Jacobian with distortion
     Point3 landmark(1, 1, 1);
-    // upper left corner in pixels
     Point2 measured(0, 0);
     Pose3 offset(
         Rot3(0, 0, 1,//
             -1, 0, 0, //
             0, -1, 0),
         Vector3(0, 0, 0)
-    );    // distortion
-    Cal3DS2 calib(200, 200, 0, 200, 200, -0.2, 0.1);
+    );
+    Cal3DS2 calib(200, 200, 0, 200, 200, -0.2, 0.1); // note distortion
     SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
     PlanarProjectionFactor1 factor(X(0), landmark, measured, offset, calib, model);
-    Values values;
     Pose2 pose(0, 0, 0);
-
-    values.insert(X(0), pose);
-
-    CHECK_EQUAL(2, factor.dim());
-    CHECK(factor.active(values));
-    std::vector<Matrix> actualHs(1);
-    gtsam::Vector actual = factor.unwhitenedError(values, actualHs);
-
-    CHECK(assert_equal(Vector2(0, 0), actual));
-
-    const Matrix& H1Actual = actualHs.at(0);
-    Matrix23 H1Expected = (Matrix23() << //
+    Matrix H;
+    CHECK(assert_equal(Vector2(0, 0), factor.evaluateError(pose, H), 1e-6));
+    CHECK(assert_equal((Matrix23() << //
         -360, 280, 640, //
-        -360, 80, 440).finished();
-    CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
+        -360, 80, 440).finished(), H, 1e-6));
 }
 
 /* ************************************************************************* */
 TEST(PlanarProjectionFactor1, jacobian) {
     // Verify Jacobians with numeric derivative
-
     std::default_random_engine rng(42);
     std::uniform_real_distribution<double> dist(-0.3, 0.3);
     SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
@@ -159,15 +121,10 @@ TEST(PlanarProjectionFactor1, jacobian) {
                 Rot3::Ypr(dist(rng), dist(rng), dist(rng)),
                 Point3(dist(rng), dist(rng), dist(rng))));
         Cal3DS2 calib(200, 200, 0, 200, 200, -0.2, 0.1);
-
         PlanarProjectionFactor1 factor(X(0), landmark, measured, offset, calib, model);
-
         Pose2 pose(dist(rng), dist(rng), dist(rng));
-
-        // actual H
         Matrix H1;
         factor.evaluateError(pose, H1);
-
         auto expectedH1 = numericalDerivative11<Vector, Pose2>(
             [&factor](const Pose2& p) {
                 return factor.evaluateError(p, {});},
@@ -238,11 +195,12 @@ TEST(PlanarProjectionFactor1, solve) {
 
 /* ************************************************************************* */
 TEST(PlanarProjectionFactor3, error1) {
-    // landmark is on the camera bore (facing +x)
+    // Example: center projection and Jacobian
     Point3 landmark(1, 0, 0);
-    // so px is (cx, cy)
     Point2 measured(200, 200);
-
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
+    PlanarProjectionFactor3 factor(X(0), C(0), K(0), landmark, measured, model);
+    Pose2 pose(0, 0, 0);
     Pose3 offset(
         Rot3(0, 0, 1,//
             -1, 0, 0, //
@@ -250,54 +208,28 @@ TEST(PlanarProjectionFactor3, error1) {
         Vector3(0, 0, 0)
     );
     Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
-    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
-    Values values;
-    Pose2 pose(0, 0, 0);
-    values.insert(X(0), pose);
-    values.insert(C(0), offset);
-    values.insert(K(0), calib);
-
-    PlanarProjectionFactor3 factor(
-        X(0), C(0), K(0), landmark, measured, model);
-
-    CHECK_EQUAL(2, factor.dim());
-    CHECK(factor.active(values));
-    std::vector<Matrix> actualHs(3);
-
-    gtsam::Vector actual = factor.unwhitenedError(values, actualHs);
-    CHECK(assert_equal(Vector2(0, 0), actual));
-
-    const Matrix& H1Actual = actualHs.at(0);
-    const Matrix& H2Actual = actualHs.at(1);
-    const Matrix& H3Actual = actualHs.at(2);
-
-    // du/dx etc for the pose2d
-    Matrix23 H1Expected = (Matrix23() <<//
+    Matrix H1;
+    Matrix H2;
+    Matrix H3;
+    CHECK(assert_equal(Vector2(0, 0), factor.evaluateError(pose, offset, calib, H1, H2, H3), 1e-6));
+    CHECK(assert_equal((Matrix23() <<//
         0, 200, 200,//
-        0, 0, 0).finished();
-    CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
-
-    // du/dx for the pose3d offset
-    // note this is (roll, pitch, yaw, x, y, z)
-    Matrix26 H2Expected = (Matrix26() <<//
+        0, 0, 0).finished(), H1, 1e-6));
+    CHECK(assert_equal((Matrix26() <<//
         0, -200, 0, -200, 0, 0,//
-        200, -0, 0, 0, -200, 0).finished();
-
-    CHECK(assert_equal(H2Expected, H2Actual, 1e-6));
-
-    // du wrt calibration
-    // on-bore, f doesn't matter
-    // but c does
-    Matrix29 H3Expected = (Matrix29() <<//
+        200, -0, 0, 0, -200, 0).finished(), H2, 1e-6));
+    CHECK(assert_equal((Matrix29() <<//
         0, 0, 0, 1, 0, 0, 0, 0, 0,//
-        0, 0, 0, 0, 1, 0, 0, 0, 0).finished();
-    CHECK(assert_equal(H3Expected, H3Actual, 1e-6));
+        0, 0, 0, 0, 1, 0, 0, 0, 0).finished(), H3, 1e-6));
 }
 
 /* ************************************************************************* */
 TEST(PlanarProjectionFactor3, error2) {
     Point3 landmark(1, 1, 1);
     Point2 measured(0, 0);
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
+    PlanarProjectionFactor3 factor(X(0), C(0), K(0), landmark, measured, model);
+    Pose2 pose(0, 0, 0);
     Pose3 offset(
         Rot3(0, 0, 1,//
             -1, 0, 0, //
@@ -305,53 +237,29 @@ TEST(PlanarProjectionFactor3, error2) {
         Vector3(0, 0, 0)
     );
     Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
-
-    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
-    PlanarProjectionFactor3 factor(
-        X(0), C(0), K(0), landmark, measured, model);
-    Values values;
-    Pose2 pose(0, 0, 0);
-
-    values.insert(X(0), pose);
-    values.insert(C(0), offset);
-    values.insert(K(0), calib);
-
-
-    CHECK_EQUAL(2, model->dim());
-    CHECK_EQUAL(2, factor.dim());
-    CHECK(factor.active(values));
-    std::vector<Matrix> actualHs(3);
-    gtsam::Vector actual = factor.unwhitenedError(values, actualHs);
-
+    Matrix H1;
+    Matrix H2;
+    Matrix H3;
+    gtsam::Vector actual = factor.evaluateError(pose, offset, calib, H1, H2, H3);
     CHECK(assert_equal(Vector2(0, 0), actual));
-
-    const Matrix& H1Actual = actualHs.at(0);
-    const Matrix& H2Actual = actualHs.at(1);
-    const Matrix& H3Actual = actualHs.at(2);
-
-    Matrix23 H1Expected = (Matrix23() <<//
+    CHECK(assert_equal((Matrix23() <<//
         -200, 200, 400,//
-        -200, 0, 200).finished();
-    CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
-
-    // du/dx for the pose3d offset
-    // note this is (roll, pitch, yaw, x, y, z)
-    Matrix26 H2Expected = (Matrix26() <<//
+        -200, 0, 200).finished(), H1, 1e-6));
+    CHECK(assert_equal((Matrix26() <<//
         200, -400, -200, -200, 0, -200,//
-        400, -200, 200, 0, -200, -200).finished();
-    CHECK(assert_equal(H2Expected, H2Actual, 1e-6));
-
-    Matrix29 H3Expected = (Matrix29() <<//
+        400, -200, 200, 0, -200, -200).finished(), H2, 1e-6));
+    CHECK(assert_equal((Matrix29() <<//
         -1, 0, -1, 1, 0, -400, -800, 400, 800,//
-        0, -1, 0, 0, 1, -400, -800, 800, 400).finished();
-
-    CHECK(assert_equal(H3Expected, H3Actual, 1e-6));
+        0, -1, 0, 0, 1, -400, -800, 800, 400).finished(), H3, 1e-6));
 }
 
 /* ************************************************************************* */
 TEST(PlanarProjectionFactor3, error3) {
     Point3 landmark(1, 1, 1);
     Point2 measured(0, 0);
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
+    PlanarProjectionFactor3 factor(X(0), C(0), K(0), landmark, measured, model);
+    Pose2 pose(0, 0, 0);
     Pose3 offset(
         Rot3(0, 0, 1,//
             -1, 0, 0, //
@@ -359,47 +267,19 @@ TEST(PlanarProjectionFactor3, error3) {
         Vector3(0, 0, 0)
     );
     Cal3DS2 calib(200, 200, 0, 200, 200, -0.2, 0.1);
-
-    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
-    PlanarProjectionFactor3 factor(
-        X(0), C(0), K(0), landmark, measured, model);
-    Values values;
-    Pose2 pose(0, 0, 0);
-
-    values.insert(X(0), pose);
-    values.insert(C(0), offset);
-    values.insert(K(0), calib);
-
-
-    CHECK_EQUAL(2, model->dim());
-    CHECK_EQUAL(2, factor.dim());
-    CHECK(factor.active(values));
-    std::vector<Matrix> actualHs(3);
-    gtsam::Vector actual = factor.unwhitenedError(values, actualHs);
-
-    CHECK(assert_equal(Vector2(0, 0), actual));
-
-    const Matrix& H1Actual = actualHs.at(0);
-    const Matrix& H2Actual = actualHs.at(1);
-    const Matrix& H3Actual = actualHs.at(2);
-
-    Matrix23 H1Expected = (Matrix23() <<//
+    Matrix H1;
+    Matrix H2;
+    Matrix H3;
+    CHECK(assert_equal(Vector2(0, 0), factor.evaluateError(pose, offset, calib, H1, H2, H3), 1e-6));
+    CHECK(assert_equal((Matrix23() <<//
         -360, 280, 640,//
-        -360, 80, 440).finished();
-    CHECK(assert_equal(H1Expected, H1Actual, 1e-6));
-
-    // du/dx for the pose3d offset
-    // note this is (roll, pitch, yaw, x, y, z)
-    Matrix26 H2Expected = (Matrix26() <<//
+        -360, 80, 440).finished(), H1, 1e-6));
+    CHECK(assert_equal((Matrix26() <<//
         440, -640, -200, -280, -80, -360,//
-        640, -440, 200, -80, -280, -360).finished();
-    CHECK(assert_equal(H2Expected, H2Actual, 1e-6));
-
-    Matrix29 H3Expected = (Matrix29() <<//
+        640, -440, 200, -80, -280, -360).finished(), H2, 1e-6));
+    CHECK(assert_equal((Matrix29() <<//
         -1, 0, -1, 1, 0, -400, -800, 400, 800,//
-        0, -1, 0, 0, 1, -400, -800, 800, 400).finished();
-
-    CHECK(assert_equal(H3Expected, H3Actual, 1e-6));
+        0, -1, 0, 0, 1, -400, -800, 800, 400).finished(), H3, 1e-6));
 }
 
 /* ************************************************************************* */
