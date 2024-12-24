@@ -89,8 +89,5 @@ jobs:
         run: |
           sudo apt-get -y install libboost-all-dev
 
-      - name: Build
-        run: bash .github/scripts/unix.sh -b
-
-      - name: Test
+      - name: Build and Test
         run: bash .github/scripts/unix.sh -t
