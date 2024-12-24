@@ -70,17 +70,15 @@ namespace gtsam {
                 Matrix63 Hp; // 6x3
                 Matrix66 H0; // 6x6
                 Pose3 wTc = Pose3::FromPose2(wTb, HwTb ? &Hp : nullptr).compose(bTc, HwTb ? &H0 : nullptr);
-                // std::cout << "wTc\n" << wTc << "\n";
                 PinholeCamera<Cal3DS2> camera = PinholeCamera<Cal3DS2>(wTc, calib);
                 if (HwTb || HbTc) {
-                    // Dpose is for pose3, 2x6 (R,t)
+                    // Dpose is for pose3 (R,t)
                     Matrix26 Dpose;
                     Point2 result = camera.project(landmark, Dpose, Hlandmark, Hcalib);
                     if (HbTc)
                         *HbTc = Dpose;
                     if (HwTb)
                         *HwTb = Dpose * H0 * Hp;
-                    // std::cout << "result\n" << result << "\n";
                     return result;
                 } else {
                     return camera.project(landmark, {}, {}, {});
@@ -286,9 +284,7 @@ namespace gtsam {
             OptionalMatrixType HwTb,
             OptionalMatrixType HbTc,
             OptionalMatrixType Hcalib) const override {
-            Vector err = predict(landmark_, wTb, bTc, calib, {}, HwTb, HbTc, Hcalib) - measured_;
-            // std::cout << "err " << err.norm() << "\n";
-            return err;
+            return predict(landmark_, wTb, bTc, calib, {}, HwTb, HbTc, Hcalib) - measured_;
         }
 
     private:

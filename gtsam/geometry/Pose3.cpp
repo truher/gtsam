@@ -43,7 +43,7 @@ Pose3 Pose3::Create(const Rot3& R, const Point3& t, OptionalJacobian<6, 3> HR,
 }
 
 // Pose2 constructor Jacobian is always the same.
-static const Matrix63 Hpose2 = (gtsam::Matrix(6, 3) << //
+static const Matrix63 Hpose2 = (Matrix63() << //
     0., 0., 0., //
     0., 0., 0.,//
     0., 0., 1.,//
