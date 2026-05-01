@@ -1,6 +1,10 @@
 /**
- * Like AHRSFactor, but using Rot2 instead of Rot3, and without
- * the preintegrator: measurements are preintegrated by the gyro hardware.
+ * Like AHRSFactor, except:
+ * 
+ * * using Rot2 instead of Rot3
+ * * without the preintegrator: measurements are preintegrated by the gyro hardware
+ * * without coriolis correction: rotating reference frame is irrelevant
+ * * without deprecated v4 stuff
  *
  * This factor is useful for high-school robotics competitions,
  * which run robots on the floor: they really only care about yaw.
@@ -15,7 +19,7 @@
 #pragma once
 
 /* GTSAM includes */
-#include <gtsam/geometry/Pose3.h>
+#include <gtsam/geometry/Pose2.h>
 #include <gtsam/navigation/PreintegratedPlanarRotation.h>
 #include <gtsam/nonlinear/NoiseModelFactorN.h>
 #include <gtsam/nonlinear/NonlinearFactor.h>
@@ -58,8 +62,9 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    *  @param preint_meas_cov: Pre-integration covariance
    */
   PreintegratedPlanarAhrsMeasurements(const std::shared_ptr<Params>& p,
-                                const Vector3& bias_hat, double deltaTij,
-                                const Rot3& deltaRij,
+                                const Vector3& bias_hat,
+                                double deltaTij,
+                                const Rot2& deltaRij,
                                 const Matrix3& delRdelBiasOmega,
                                 const Matrix3& preint_meas_cov)
       : PreintegratedPlanarRotation(p, deltaTij, deltaRij, delRdelBiasOmega),
@@ -99,7 +104,7 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    * @param H2 optional 3x3 Jacobian wrt bias
    * @return predicted orientation at time j
    */
-  Rot3 predict(const Rot3& Ri, const Vector3& bias,
+  Rot2 predict(const Rot2& Ri, const Vector3& bias,
                gtsam::OptionalJacobian<3, 3> H1 = {},
                gtsam::OptionalJacobian<3, 3> H2 = {}) const;
 
@@ -113,7 +118,7 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    * @param H3 Optional Jacobian of the error with respect to bias
    * @return A 3D vector containing the rotation error.
    */
-  Vector3 computeError(const Rot3& Ri, const Rot3& Rj, const Vector3& bias,
+  Vector3 computeError(const Rot2& Ri, const Rot2& Rj, const Vector3& bias,
                        gtsam::OptionalJacobian<3, 3> H1 = {},
                        gtsam::OptionalJacobian<3, 3> H2 = {},
                        gtsam::OptionalJacobian<3, 3> H3 = {}) const;
@@ -142,9 +147,9 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
 /**
  * See AHRSFactor.
  */
-class GTSAM_EXPORT PlanarAHRSFactor : public NoiseModelFactorN<Rot3, Rot3, Vector3> {
+class GTSAM_EXPORT PlanarAHRSFactor : public NoiseModelFactorN<Rot2, Rot2, Vector3> {
   typedef PlanarAHRSFactor This;
-  typedef NoiseModelFactorN<Rot3, Rot3, Vector3> Base;
+  typedef NoiseModelFactorN<Rot2, Rot2, Vector3> Base;
 
   PreintegratedPlanarAhrsMeasurements _PIM_;
 
@@ -192,21 +197,19 @@ class GTSAM_EXPORT PlanarAHRSFactor : public NoiseModelFactorN<Rot3, Rot3, Vecto
   /** implement functions needed to derive from Factor */
 
   /// vector of errors
-  Vector evaluateError(const Rot3& Ri, const Rot3& Rj, const Vector3& bias,
+  Vector evaluateError(const Rot2& Ri, const Rot2& Rj, const Vector3& bias,
                        OptionalMatrixType H1, OptionalMatrixType H2,
                        OptionalMatrixType H3) const override;
 
   /// @deprecated constructor, but used in tests.
   PlanarAHRSFactor(Key rot_i, Key rot_j, Key bias,
              const PreintegratedPlanarAhrsMeasurements& pim,
-             const Vector3& omegaCoriolis,
-             const std::optional<Pose3>& body_P_sensor = {});
+             const std::optional<Pose2>& body_P_sensor = {});
 
   /// @deprecated static function, but used in tests.
-  static Rot3 predict(const Rot3& Ri, const Vector3& bias,
+  static Rot2 predict(const Rot2& Ri, const Vector3& bias,
                       const PreintegratedPlanarAhrsMeasurements& pim,
-                      const Vector3& omegaCoriolis,
-                      const std::optional<Pose3>& body_P_sensor = {});
+                      const std::optional<Pose2>& body_P_sensor = {});
 
  private:
 #if GTSAM_ENABLE_BOOST_SERIALIZATION

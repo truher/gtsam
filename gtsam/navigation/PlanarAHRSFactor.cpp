@@ -4,7 +4,7 @@
  * @date May 1, 2026
  */
 
- #include <gtsam/navigation/PlanarAHRSFactor.h>
+#include <gtsam/navigation/PlanarAHRSFactor.h>
 
 #include <iostream>
 
@@ -42,7 +42,7 @@ void PreintegratedPlanarAhrsMeasurements::integrateMeasurement(
   // one.
   Matrix3 Fr;
   PreintegratedPlanarRotation::integrateGyroMeasurement(measuredOmega, biasHat_,
-                                                  deltaT, &Fr);
+                                                        deltaT, &Fr);
 
   // 2. Calculate noise in the body frame
   Matrix3 SigmaBody = p().gyroscopeCovariance;
@@ -60,62 +60,25 @@ void PreintegratedPlanarAhrsMeasurements::integrateMeasurement(
 }
 
 //------------------------------------------------------------------------------
-Rot3 PreintegratedPlanarAhrsMeasurements::predict(
-    const Rot3& Ri, const Vector3& bias, gtsam::OptionalJacobian<3, 3> H1,
-    gtsam::OptionalJacobian<3, 3> H2) const {
+Rot2 PreintegratedPlanarAhrsMeasurements::predict(
+    const Rot2& Ri, const Vector1& bias, gtsam::OptionalJacobian<1, 1> H1,
+    gtsam::OptionalJacobian<1, 1> H2) const {
   // Use H2 as an in/out parameter to hold the Jacobian of the bias-corrected
   // rotation w.r.t. the bias increment. This is an efficient C++ pattern.
   const Vector3 biasOmegaIncr = bias - biasHat_;
-  const Rot3 biascorrected = this->biascorrectedDeltaRij(biasOmegaIncr, H2);
+  const Rot2 biascorrected = this->biascorrectedDeltaRij(biasOmegaIncr, H2);
 
-  // We handle the common case of no Coriolis correction first.
-  if (!p().omegaCoriolis) {
-    // ---- FAST PATH ----
-    // In this path, the Jacobian of compose wrt its second argument is
-    // identity, so H2 already holds the final Jacobian wrt bias.
-    return Ri.compose(biascorrected, H1);
-
-  } else {
-    // ---- SLOW PATH ----
-    // Calculate Coriolis effects and its derivative w.r.t. Ri.
-    Matrix3 D_coriolis_Ri;
-    const Vector3 coriolis =
-        integrateCoriolis(Ri, H1 ? &D_coriolis_Ri : nullptr);
-
-    // Compose bias and Coriolis corrections.
-    Matrix3 D_finalDelta_biasDelta, D_finalDelta_coriolis;
-    const Rot3 finalDeltaRij =
-        biascorrected.expmap(-coriolis, H2 ? &D_finalDelta_biasDelta : nullptr,
-                             H1 ? &D_finalDelta_coriolis : nullptr);
-
-    // Predict final orientation, getting the direct Jacobian wrt Ri.
-    const Rot3 predicted_Rj = Ri.compose(finalDeltaRij, H1);
-
-    // Augment Jacobians with the indirect paths.
-    if (H1) {
-      // Add in indirect path: Ri -> coriolis -> finalDeltaRij
-      // H1 is now D_predicted_Rj_wrt_Ri
-      *H1 -= D_finalDelta_coriolis * D_coriolis_Ri;
-    }
-
-    if (H2) {
-      // Apply the chain rule for the bias Jacobian, updating H2 in-place.
-      // H2 was D_biascorrected_wrt_bias, now it is D_predicted_Rj_wrt_bias
-      *H2 = D_finalDelta_biasDelta * (*H2);
-    }
-
-    return predicted_Rj;
-  }
+  return Ri.compose(biascorrected, H1);
 }
 
 //------------------------------------------------------------------------------
 Vector3 PreintegratedPlanarAhrsMeasurements::computeError(
-    const Rot3& Ri, const Rot3& Rj, const Vector3& bias,
-    gtsam::OptionalJacobian<3, 3> H1, gtsam::OptionalJacobian<3, 3> H2,
-    gtsam::OptionalJacobian<3, 3> H3) const {
+    const Rot2& Ri, const Rot2& Rj, const Vector1& bias,
+    gtsam::OptionalJacobian<1, 1> H1, gtsam::OptionalJacobian<1, 1> H2,
+    gtsam::OptionalJacobian<1, 1> H3) const {
   // Predict orientation at time j
   Matrix3 D_predict_Ri, D_predict_bias;
-  Rot3 predicted_Rj = predict(Ri, bias, H1 ? &D_predict_Ri : nullptr,
+  Rot2 predicted_Rj = predict(Ri, bias, H1 ? &D_predict_Ri : nullptr,
                               H3 ? &D_predict_bias : nullptr);
 
   // Compute the error vector: log(Rj.inverse() * predicted_Rj)
@@ -134,8 +97,9 @@ Vector3 PreintegratedPlanarAhrsMeasurements::computeError(
 //------------------------------------------------------------------------------
 // AHRSFactor methods
 //------------------------------------------------------------------------------
-PlanarAHRSFactor::PlanarAHRSFactor(Key rot_i, Key rot_j, Key bias,
-                       const PreintegratedPlanarAhrsMeasurements& pim)
+PlanarAHRSFactor::PlanarAHRSFactor(
+    Key rot_i, Key rot_j, Key bias,
+    const PreintegratedPlanarAhrsMeasurements& pim)
     : Base(noiseModel::Gaussian::Covariance(pim.preintMeasCov_), rot_i, rot_j,
            bias),
       _PIM_(pim) {}
@@ -148,7 +112,7 @@ gtsam::NonlinearFactor::shared_ptr PlanarAHRSFactor::clone() const {
 
 //------------------------------------------------------------------------------
 void PlanarAHRSFactor::print(const string& s,
-                       const KeyFormatter& keyFormatter) const {
+                             const KeyFormatter& keyFormatter) const {
   cout << s << "PlanarAHRSFactor(" << keyFormatter(this->key<1>()) << ","
        << keyFormatter(this->key<2>()) << "," << keyFormatter(this->key<3>())
        << ",";
@@ -163,33 +127,34 @@ bool PlanarAHRSFactor::equals(const NonlinearFactor& other, double tol) const {
 }
 
 //------------------------------------------------------------------------------
-Vector PlanarAHRSFactor::evaluateError(const Rot3& Ri, const Rot3& Rj,
-                                 const Vector3& bias, OptionalMatrixType H1,
-                                 OptionalMatrixType H2,
-                                 OptionalMatrixType H3) const {
+Vector PlanarAHRSFactor::evaluateError(const Rot2& Ri, const Rot2& Rj,
+                                       const Vector3& bias,
+                                       OptionalMatrixType H1,
+                                       OptionalMatrixType H2,
+                                       OptionalMatrixType H3) const {
   return _PIM_.computeError(Ri, Rj, bias, H1, H2, H3);
 }
 
 //------------------------------------------------------------------------------
-PlanarAHRSFactor::PlanarAHRSFactor(Key rot_i, Key rot_j, Key bias,
-                       const PreintegratedPlanarAhrsMeasurements& pim,
-                       const Vector3& omegaCoriolis,
-                       const std::optional<Pose3>& body_P_sensor)
+PlanarAHRSFactor::PlanarAHRSFactor(
+    Key rot_i, Key rot_j, Key bias,
+    const PreintegratedPlanarAhrsMeasurements& pim,
+    const std::optional<Pose2>& body_P_sensor)
     : Base(noiseModel::Gaussian::Covariance(pim.preintMeasCov_), rot_i, rot_j,
            bias),
       _PIM_(pim) {
-  auto p = std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>(pim.p());
+  auto p =
+      std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>(pim.p());
   p->body_P_sensor = body_P_sensor;
   _PIM_.p_ = p;
 }
 
 //------------------------------------------------------------------------------
-Rot3 PlanarAHRSFactor::predict(const Rot3& Ri, const Vector3& bias,
-                         const PreintegratedPlanarAhrsMeasurements& pim,
-                         const Vector3& omegaCoriolis,
-                         const std::optional<Pose3>& body_P_sensor) {
-  auto p = std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>(pim.p());
-  p->omegaCoriolis = omegaCoriolis;
+Rot2 PlanarAHRSFactor::predict(const Rot2& Ri, const Vector3& bias,
+                               const PreintegratedPlanarAhrsMeasurements& pim,
+                               const std::optional<Pose2>& body_P_sensor) {
+  auto p =
+      std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>(pim.p());
   p->body_P_sensor = body_P_sensor;
   PreintegratedPlanarAhrsMeasurements newPim = pim;
   newPim.p_ = p;
