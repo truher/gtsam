@@ -5,6 +5,7 @@
  * * without the preintegrator: measurements are preintegrated by the gyro hardware
  * * without coriolis correction: rotating reference frame is irrelevant
  * * without deprecated v4 stuff
+ * * without the body transform: translation doesn't matter, rotation is always identity.
  *
  * This factor is useful for high-school robotics competitions,
  * which run robots on the floor: they really only care about yaw.
@@ -31,8 +32,8 @@ namespace gtsam {
 class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
     : public PreintegratedPlanarRotation {
  protected:
-  Vector3 biasHat_;  ///< Angular rate bias values used during preintegration.
-  Matrix3 preintMeasCov_;  ///< Covariance matrix of the preintegrated
+  Vector1 biasHat_;  ///< Angular rate bias values used during preintegration.
+  Matrix1 preintMeasCov_;  ///< Covariance matrix of the preintegrated
                            ///< measurements (first-order propagation from
                            ///< *measurementCovariance*)
 
@@ -47,7 +48,7 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    *  @param bias Current estimate of rotation rate biases
    */
   PreintegratedPlanarAhrsMeasurements(const std::shared_ptr<Params>& p,
-                                const Vector3& biasHat)
+                                      const Vector1& biasHat)
       : PreintegratedPlanarRotation(p), biasHat_(biasHat) {
     resetIntegration();
   }
@@ -58,22 +59,22 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    *  @param bias_hat: Current estimate of rotation rate biases
    *  @param deltaTij: Delta time in pre-integration
    *  @param deltaRij: Delta rotation in pre-integration
-   *  @param delRdelBiasOmega: Jacobian of rotation wrt. to gyro bias
+   *  @param delRdelBiasOmega: Jacobian of rotation wrt gyro bias
    *  @param preint_meas_cov: Pre-integration covariance
    */
   PreintegratedPlanarAhrsMeasurements(const std::shared_ptr<Params>& p,
-                                const Vector3& bias_hat,
-                                double deltaTij,
-                                const Rot2& deltaRij,
-                                const Matrix3& delRdelBiasOmega,
-                                const Matrix3& preint_meas_cov)
+                                      const Vector1& bias_hat,
+                                      double deltaTij,
+                                      const Rot2& deltaRij,
+                                      const Matrix1& delRdelBiasOmega,
+                                      const Matrix1& preint_meas_cov)
       : PreintegratedPlanarRotation(p, deltaTij, deltaRij, delRdelBiasOmega),
         biasHat_(bias_hat),
         preintMeasCov_(preint_meas_cov) {}
 
   Params& p() const { return *std::static_pointer_cast<Params>(p_); }
-  const Vector3& biasHat() const { return biasHat_; }
-  const Matrix3& preintMeasCov() const { return preintMeasCov_; }
+  const Vector1& biasHat() const { return biasHat_; }
+  const Matrix1& preintMeasCov() const { return preintMeasCov_; }
 
   /// print
   void print(const std::string& s = "Preintegrated Measurements: ") const;
@@ -87,24 +88,22 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
 
   /**
    * Add a single gyroscope measurement to the preintegration.
-   * Measurements are taken to be in the sensor
-   * frame and conversion to the body frame is handled by `body_P_sensor` in
-   * `PreintegratedRotationParams` (if provided).
    *
    * @param measuredOmega Measured angular velocity (as given by the sensor)
    * @param deltaT Time step
    */
-  void integrateMeasurement(const Vector3& measuredOmega, double deltaT);
+  void integrateMeasurement(const Vector1& measuredOmega, double deltaT);
 
   /**
    * Predict the orientation at time j, given orientation and bias at time i.
    * @param Ri orientation at time i
    * @param bias gyroscope bias
-   * @param H1 optional 3x3 Jacobian wrt Ri
-   * @param H2 optional 3x3 Jacobian wrt bias
+   * @param H1 optional Jacobian wrt Ri
+   * @param H2 optional Jacobian wrt bias
    * @return predicted orientation at time j
    */
-  Rot2 predict(const Rot2& Ri, const Vector3& bias,
+  Rot2 predict(const Rot2& Ri,
+               const Vector1& bias,
                gtsam::OptionalJacobian<3, 3> H1 = {},
                gtsam::OptionalJacobian<3, 3> H2 = {}) const;
 
@@ -118,14 +117,16 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    * @param H3 Optional Jacobian of the error with respect to bias
    * @return A 3D vector containing the rotation error.
    */
-  Vector3 computeError(const Rot2& Ri, const Rot2& Rj, const Vector3& bias,
+  Vector1 computeError(const Rot2& Ri,
+                       const Rot2& Rj,
+                       const Vector1& bias,
                        gtsam::OptionalJacobian<3, 3> H1 = {},
                        gtsam::OptionalJacobian<3, 3> H2 = {},
                        gtsam::OptionalJacobian<3, 3> H3 = {}) const;
 
   /// @deprecated constructor, but used in tests.
-  PreintegratedPlanarAhrsMeasurements(const Vector3& biasHat,
-                                const Matrix3& measuredOmegaCovariance)
+  PreintegratedPlanarAhrsMeasurements(const Vector1& biasHat,
+                                      const Matrix1& measuredOmegaCovariance)
       : PreintegratedPlanarRotation(std::make_shared<Params>()), biasHat_(biasHat) {
     p_->gyroscopeCovariance = measuredOmegaCovariance;
     resetIntegration();
@@ -147,9 +148,9 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
 /**
  * See AHRSFactor.
  */
-class GTSAM_EXPORT PlanarAHRSFactor : public NoiseModelFactorN<Rot2, Rot2, Vector3> {
+class GTSAM_EXPORT PlanarAHRSFactor : public NoiseModelFactorN<Rot2, Rot2, Vector1> {
   typedef PlanarAHRSFactor This;
-  typedef NoiseModelFactorN<Rot2, Rot2, Vector3> Base;
+  typedef NoiseModelFactorN<Rot2, Rot2, Vector1> Base;
 
   PreintegratedPlanarAhrsMeasurements _PIM_;
 
@@ -197,19 +198,21 @@ class GTSAM_EXPORT PlanarAHRSFactor : public NoiseModelFactorN<Rot2, Rot2, Vecto
   /** implement functions needed to derive from Factor */
 
   /// vector of errors
-  Vector evaluateError(const Rot2& Ri, const Rot2& Rj, const Vector3& bias,
-                       OptionalMatrixType H1, OptionalMatrixType H2,
+  Vector evaluateError(const Rot2& Ri,
+                       const Rot2& Rj,
+                       const Vector1& bias,
+                       OptionalMatrixType H1,
+                       OptionalMatrixType H2,
                        OptionalMatrixType H3) const override;
 
   /// @deprecated constructor, but used in tests.
   PlanarAHRSFactor(Key rot_i, Key rot_j, Key bias,
-             const PreintegratedPlanarAhrsMeasurements& pim,
-             const std::optional<Pose2>& body_P_sensor = {});
+             const PreintegratedPlanarAhrsMeasurements& pim);
 
   /// @deprecated static function, but used in tests.
-  static Rot2 predict(const Rot2& Ri, const Vector3& bias,
-                      const PreintegratedPlanarAhrsMeasurements& pim,
-                      const std::optional<Pose2>& body_P_sensor = {});
+  static Rot2 predict(const Rot2& Ri,
+                      const Vector1& bias,
+                      const PreintegratedPlanarAhrsMeasurements& pim);
 
  private:
 #if GTSAM_ENABLE_BOOST_SERIALIZATION

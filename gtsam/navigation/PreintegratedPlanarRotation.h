@@ -9,7 +9,7 @@
 
 #include <gtsam/base/Matrix.h>
 #include <gtsam/base/std_optional_serialization.h>
-#include <gtsam/geometry/Pose2.h>
+#include <gtsam/geometry/Rot2.h>
 
 #include "gtsam/dllexport.h"
 
@@ -20,12 +20,10 @@ namespace internal {
  * @brief Function object for incremental rotation.
  * @param measuredOmega The measured angular velocity (as given by the sensor)
  * @param deltaT The time interval over which the rotation is integrated.
- * @param body_P_sensor Optional transform between body and IMU.
  */
 struct GTSAM_EXPORT IncrementalPlanarRotation {
   const Vector1& measuredOmega;
   const double deltaT;
-  const std::optional<Pose2>& body_P_sensor;
 
   /**
    * @brief Integrate angular velocity, but corrected by bias.
@@ -45,16 +43,12 @@ struct GTSAM_EXPORT IncrementalPlanarRotation {
 struct GTSAM_EXPORT PreintegratedPlanarRotationParams {
   /// Continuous-time "Covariance" of gyroscope measurements
   /// The units for stddev are σ = rad/s/√Hz
-  Matrix3 gyroscopeCovariance;
-  std::optional<Pose2>
-      body_P_sensor;  ///< The pose of the sensor in the body frame
+  Matrix1 gyroscopeCovariance;
 
-  PreintegratedPlanarRotationParams() : gyroscopeCovariance(I_3x3) {}
+  PreintegratedPlanarRotationParams() : gyroscopeCovariance(I_1x1) {}
 
-  PreintegratedPlanarRotationParams(const Matrix3& gyroscope_covariance,
-                                    std::optional<Pose2> body_P_sensor = {})
-      : gyroscopeCovariance(gyroscope_covariance),
-        body_P_sensor(body_P_sensor) {}
+  PreintegratedPlanarRotationParams(const Matrix1& gyroscope_covariance)
+      : gyroscopeCovariance(gyroscope_covariance) {}
 
   virtual ~PreintegratedPlanarRotationParams() {}
 
@@ -62,11 +56,9 @@ struct GTSAM_EXPORT PreintegratedPlanarRotationParams {
   virtual bool equals(const PreintegratedPlanarRotationParams& other,
                       double tol = 1e-9) const;
 
-  void setGyroscopeCovariance(const Matrix3& cov) { gyroscopeCovariance = cov; }
-  void setBodyPSensor(const Pose2& pose) { body_P_sensor = pose; }
+  void setGyroscopeCovariance(const Matrix1& cov) { gyroscopeCovariance = cov; }
 
-  const Matrix3& getGyroscopeCovariance() const { return gyroscopeCovariance; }
-  std::optional<Pose2> getBodyPSensor() const { return body_P_sensor; }
+  const Matrix1& getGyroscopeCovariance() const { return gyroscopeCovariance; }
 
  private:
 #if GTSAM_ENABLE_BOOST_SERIALIZATION
@@ -75,15 +67,8 @@ struct GTSAM_EXPORT PreintegratedPlanarRotationParams {
   template <class ARCHIVE>
   void serialize(ARCHIVE& ar, const unsigned int /*version*/) {
     ar& BOOST_SERIALIZATION_NVP(gyroscopeCovariance);
-    ar& BOOST_SERIALIZATION_NVP(body_P_sensor);
     }
   }
-#endif
-
-#ifdef GTSAM_USE_QUATERNIONS
-  // Align if we are using Quaternions
- public:
-  GTSAM_MAKE_ALIGNED_OPERATOR_NEW
 #endif
 };
 
@@ -97,7 +82,7 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
 
   double deltaTij_;  ///< Time interval from i to j
   Rot2 deltaRij_;    ///< Preintegrated relative orientation (in frame i)
-  Matrix3 delRdelBiasOmega_;  ///< Jacobian of preintegrated rotation w.r.t.
+  Matrix1 delRdelBiasOmega_;  ///< Jacobian of preintegrated rotation w.r.t.
                               ///< angular rate bias
 
  public:
@@ -114,9 +99,10 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
   }
 
   /// Explicit initialization of all class members
-  PreintegratedPlanarRotation(const std::shared_ptr<Params>& p, double deltaTij,
+  PreintegratedPlanarRotation(const std::shared_ptr<Params>& p,
+                              double deltaTij,
                               const Rot2& deltaRij,
-                              const Matrix3& delRdelBiasOmega)
+                              const Matrix1& delRdelBiasOmega)
       : p_(p),
         deltaTij_(deltaTij),
         deltaRij_(deltaRij),
@@ -139,7 +125,7 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
   const std::shared_ptr<Params>& params() const { return p_; }
   const double& deltaTij() const { return deltaTij_; }
   const Rot2& deltaRij() const { return deltaRij_; }
-  const Matrix3& delRdelBiasOmega() const { return delRdelBiasOmega_; }
+  const Matrix1& delRdelBiasOmega() const { return delRdelBiasOmega_; }
   /// @}
 
   /// @name Testable
@@ -172,7 +158,7 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
    * @param H optional Jacobian of the correction w.r.t. the bias increment.
    * @note The *key* functionality of this class used in optimizing the bias.
    */
-  Rot2 biascorrectedDeltaRij(const Vector3& biasOmegaIncr,
+  Rot2 biascorrectedDeltaRij(const Vector1& biasOmegaIncr,
                              OptionalJacobian<1, 1> H = {}) const;
 
 
@@ -189,11 +175,6 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
   }
 #endif
 
-#ifdef GTSAM_USE_QUATERNIONS
-  // Align if we are using Quaternions
- public:
-  GTSAM_MAKE_ALIGNED_OPERATOR_NEW
-#endif
 };
 
 template <>

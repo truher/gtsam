@@ -36,20 +36,16 @@ void PreintegratedPlanarAhrsMeasurements::resetIntegration() {
 
 //------------------------------------------------------------------------------
 void PreintegratedPlanarAhrsMeasurements::integrateMeasurement(
-    const Vector3& measuredOmega, double deltaT) {
-  // 1. integrate (handles bias + body_P_sensor rotation internally)
+    const Vector1& measuredOmega, double deltaT) {
+  // 1. integrate
   // Fr is the Jacobian of the new preintegrated rotation w.r.t. the previous
   // one.
-  Matrix3 Fr;
+  Matrix1 Fr;
   PreintegratedPlanarRotation::integrateGyroMeasurement(measuredOmega, biasHat_,
                                                         deltaT, &Fr);
 
   // 2. Calculate noise in the body frame
-  Matrix3 SigmaBody = p().gyroscopeCovariance;
-  if (p().body_P_sensor) {
-    const Matrix3& bRs = p().body_P_sensor->rotation().matrix();  // body←sensor
-    SigmaBody = bRs * SigmaBody * bRs.transpose();
-  }
+  Matrix1 SigmaBody = p().gyroscopeCovariance;
 
   // First order uncertainty propagation:
   //   new_cov = Fr * old_cov * Fr.transpose() + new_noise
@@ -61,29 +57,34 @@ void PreintegratedPlanarAhrsMeasurements::integrateMeasurement(
 
 //------------------------------------------------------------------------------
 Rot2 PreintegratedPlanarAhrsMeasurements::predict(
-    const Rot2& Ri, const Vector1& bias, gtsam::OptionalJacobian<1, 1> H1,
+    const Rot2& Ri,
+    const Vector1& bias,
+    gtsam::OptionalJacobian<1, 1> H1,
     gtsam::OptionalJacobian<1, 1> H2) const {
   // Use H2 as an in/out parameter to hold the Jacobian of the bias-corrected
   // rotation w.r.t. the bias increment. This is an efficient C++ pattern.
-  const Vector3 biasOmegaIncr = bias - biasHat_;
+  const Vector1 biasOmegaIncr = bias - biasHat_;
   const Rot2 biascorrected = this->biascorrectedDeltaRij(biasOmegaIncr, H2);
 
   return Ri.compose(biascorrected, H1);
 }
 
 //------------------------------------------------------------------------------
-Vector3 PreintegratedPlanarAhrsMeasurements::computeError(
-    const Rot2& Ri, const Rot2& Rj, const Vector1& bias,
-    gtsam::OptionalJacobian<1, 1> H1, gtsam::OptionalJacobian<1, 1> H2,
+Vector1 PreintegratedPlanarAhrsMeasurements::computeError(
+    const Rot2& Ri,
+    const Rot2& Rj,
+    const Vector1& bias,
+    gtsam::OptionalJacobian<1, 1> H1,
+    gtsam::OptionalJacobian<1, 1> H2,
     gtsam::OptionalJacobian<1, 1> H3) const {
   // Predict orientation at time j
-  Matrix3 D_predict_Ri, D_predict_bias;
+  Matrix1 D_predict_Ri, D_predict_bias;
   Rot2 predicted_Rj = predict(Ri, bias, H1 ? &D_predict_Ri : nullptr,
                               H3 ? &D_predict_bias : nullptr);
 
   // Compute the error vector: log(Rj.inverse() * predicted_Rj)
-  Matrix3 D_error_Rj, D_error_predict;
-  Vector3 error = Rj.logmap(predicted_Rj, H2 ? &D_error_Rj : nullptr,
+  Matrix1 D_error_Rj, D_error_predict;
+  Vector1 error = Rj.logmap(predicted_Rj, H2 ? &D_error_Rj : nullptr,
                             H1 || H3 ? &D_error_predict : nullptr);
 
   // Jacobians using the chain rule
@@ -127,8 +128,9 @@ bool PlanarAHRSFactor::equals(const NonlinearFactor& other, double tol) const {
 }
 
 //------------------------------------------------------------------------------
-Vector PlanarAHRSFactor::evaluateError(const Rot2& Ri, const Rot2& Rj,
-                                       const Vector3& bias,
+Vector PlanarAHRSFactor::evaluateError(const Rot2& Ri,
+                                       const Rot2& Rj,
+                                       const Vector1& bias,
                                        OptionalMatrixType H1,
                                        OptionalMatrixType H2,
                                        OptionalMatrixType H3) const {
@@ -138,24 +140,20 @@ Vector PlanarAHRSFactor::evaluateError(const Rot2& Ri, const Rot2& Rj,
 //------------------------------------------------------------------------------
 PlanarAHRSFactor::PlanarAHRSFactor(
     Key rot_i, Key rot_j, Key bias,
-    const PreintegratedPlanarAhrsMeasurements& pim,
-    const std::optional<Pose2>& body_P_sensor)
+    const PreintegratedPlanarAhrsMeasurements& pim)
     : Base(noiseModel::Gaussian::Covariance(pim.preintMeasCov_), rot_i, rot_j,
            bias),
       _PIM_(pim) {
   auto p =
       std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>(pim.p());
-  p->body_P_sensor = body_P_sensor;
   _PIM_.p_ = p;
 }
 
 //------------------------------------------------------------------------------
-Rot2 PlanarAHRSFactor::predict(const Rot2& Ri, const Vector3& bias,
-                               const PreintegratedPlanarAhrsMeasurements& pim,
-                               const std::optional<Pose2>& body_P_sensor) {
+Rot2 PlanarAHRSFactor::predict(const Rot2& Ri, const Vector1& bias,
+                               const PreintegratedPlanarAhrsMeasurements& pim) {
   auto p =
       std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>(pim.p());
-  p->body_P_sensor = body_P_sensor;
   PreintegratedPlanarAhrsMeasurements newPim = pim;
   newPim.p_ = p;
   return newPim.predict(Ri, bias);
