@@ -137,17 +137,6 @@ Vector PlanarAHRSFactor::evaluateError(const Rot2& Ri,
   return _PIM_.computeError(Ri, Rj, bias, H1, H2, H3);
 }
 
-//------------------------------------------------------------------------------
-PlanarAHRSFactor::PlanarAHRSFactor(
-    Key rot_i, Key rot_j, Key bias,
-    const PreintegratedPlanarAhrsMeasurements& pim)
-    : Base(noiseModel::Gaussian::Covariance(pim.preintMeasCov_), rot_i, rot_j,
-           bias),
-      _PIM_(pim) {
-  auto p =
-      std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>(pim.p());
-  _PIM_.p_ = p;
-}
 
 //------------------------------------------------------------------------------
 Rot2 PlanarAHRSFactor::predict(const Rot2& Ri, const Vector1& bias,

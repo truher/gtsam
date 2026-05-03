@@ -70,8 +70,10 @@ void PreintegratedPlanarRotation::integrateGyroMeasurement(
   deltaRij_ = deltaRij_.compose(incrR, F);
 
   // Update Jacobian
-  const Matrix1 incrRt = incrR.transpose();
-  delRdelBiasOmega_ = incrRt * delRdelBiasOmega_ + H_bias;
+  // const Matrix1 incrRt = Matrix1(incrR.theta());//.transpose();
+  // delRdelBiasOmega_ = incrRt * delRdelBiasOmega_ + H_bias;
+  // no need to rotate the previous bias
+  delRdelBiasOmega_ = delRdelBiasOmega_ + H_bias;
 }
 
 
