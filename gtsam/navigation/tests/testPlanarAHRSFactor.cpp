@@ -453,7 +453,7 @@ TEST(PlanarAHRSFactor, PIM_predict_and_Jacobians_with_Coriolis) {
 TEST(PlanarAHRSFactor, graphTest) {
   // linearization point
   Rot2 Ri(Rot2(0));
-  Rot2 Rj(Rot2(0));
+  Rot2 Rj(Rot2(M_PI / 4));
   Vector1 bias(0);
 
   // PreIntegrator
@@ -542,6 +542,8 @@ TEST(PlanarAHRSFactor, bodyPSensorWithBias) {
   // Finally, optimize, and get bias at last time step
   LevenbergMarquardtParams params;
   // params.setVerbosityLM("SUMMARY");
+  // default is 1e-5, 1e-6 is required to pass
+  params.setAbsoluteErrorTol(1e-6);
   Values result = LevenbergMarquardtOptimizer(graph, values, params).optimize();
   const Vector1 biasActual = result.at<Vector1>(B(numRotations - 1));
 
