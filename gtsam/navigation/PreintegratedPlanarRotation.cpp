@@ -30,14 +30,14 @@ bool PreintegratedPlanarRotation::equals(
 
 namespace internal {
 Rot2 IncrementalPlanarRotation::operator()(
-    const Vector1& bias, OptionalJacobian<1, 1> H_bias) const {
+    double bias, OptionalJacobian<1, 1> H_bias) const {
   // First we compensate the measurements for the bias
-  Vector1 correctedOmega = measuredOmega - bias;
+  double correctedOmega = measuredOmega - bias;
 
   // rotation vector describing rotation increment computed from the
   // current rotation rate measurement
-  const Vector1 integratedOmega = correctedOmega * deltaT;
-  Rot2 incrR = Rot2::fromAngle(integratedOmega(0));
+  const double integratedOmega = correctedOmega * deltaT;
+  Rot2 incrR = Rot2::fromAngle(integratedOmega);
   if (H_bias) {
     *H_bias = I_1x1 * -deltaT;  // Correct so accurately reflects bias derivative
   }
@@ -46,8 +46,8 @@ Rot2 IncrementalPlanarRotation::operator()(
 }  // namespace internal
 
 void PreintegratedPlanarRotation::integrateGyroMeasurement(
-    const Vector1& measuredOmega, 
-    const Vector1& biasHat,
+    double measuredOmega, 
+    double biasHat,
     double deltaT,
     OptionalJacobian<1, 1> F) {
   Matrix1 H_bias;
@@ -67,7 +67,7 @@ void PreintegratedPlanarRotation::integrateGyroMeasurement(
 
 
 Rot2 PreintegratedPlanarRotation::biascorrectedDeltaRij(
-    const Vector1& biasOmegaIncr, OptionalJacobian<1, 1> H) const {
+    double biasOmegaIncr, OptionalJacobian<1, 1> H) const {
   const Vector1 biasInducedOmega = delRdelBiasOmega_ * biasOmegaIncr;
   const Rot2 deltaRij_biascorrected = deltaRij_.expmap(biasInducedOmega, {}, H);
   if (H) (*H) *= delRdelBiasOmega_;

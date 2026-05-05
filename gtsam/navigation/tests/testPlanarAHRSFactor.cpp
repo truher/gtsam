@@ -42,11 +42,11 @@ const double kMeasuredOmegaCovariance = gyroNoiseVar;
 //******************************************************************************
 namespace {
 PreintegratedPlanarAhrsMeasurements integrateMeasurements(
-    const Vector1& biasHat, const list<Vector1>& measuredOmegas,
+    const double biasHat, const list<double>& measuredOmegas,
     const list<double>& deltaTs) {
   PreintegratedPlanarAhrsMeasurements result(1.0, biasHat);
 
-  list<Vector1>::const_iterator itOmega = measuredOmegas.begin();
+  list<double>::const_iterator itOmega = measuredOmegas.begin();
   list<double>::const_iterator itDeltaT = deltaTs.begin();
   for (; itOmega != measuredOmegas.end(); ++itOmega, ++itDeltaT) {
     result.integrateMeasurement(*itOmega, *itDeltaT);
@@ -59,10 +59,10 @@ PreintegratedPlanarAhrsMeasurements integrateMeasurements(
 //******************************************************************************
 TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurements) {
   // Linearization point
-  Vector1 biasHat(0);  ///< Current estimate of angular rate bias
+  double biasHat = 0;  ///< Current estimate of angular rate bias
 
   // Measurements
-  Vector1 measuredOmega(M_PI / 100.0);
+  double measuredOmega = M_PI / 100.0;
   double deltaT = 0.5;
 
   // Expected preintegrated values
@@ -94,7 +94,7 @@ TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurements) {
 //******************************************************************************
 TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurementsConstructor) {
   double gyroscopeCovariance = 0.4;
-  Vector1 bias(1.0);  ///< Current estimate of angular rate bias
+  double bias = 1.0;  ///< Current estimate of angular rate bias
   Rot2 deltaRij(Rot2(M_PI / 12.0));
   double deltaTij = 0.02;
   Matrix1 delRdelBiasOmega = I_1x1 * 0.5;
@@ -114,10 +114,10 @@ TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurementsConstructor) {
 /* ************************************************************************* */
 TEST(PlanarAHRSFactor, PIMPredict) {
   // Modernized version of predictTest, calling predict on the PIM directly.
-  Vector1 bias(0);
+  double bias = 0;
 
   // Measurements
-  Vector1 measuredOmega(M_PI / 10.0);
+  double measuredOmega = M_PI / 10.0;
   double deltaT = 0.2;
   PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, bias);
   for (int i = 0; i < 1000; ++i) {
@@ -135,18 +135,18 @@ TEST(PlanarAHRSFactor, PIMPredict) {
 /* ************************************************************************* */
 TEST(PlanarAHRSFactor, PIMComputeError) {
   // Tests the modernized computeError and its Jacobians, now on the PIM.
-  Vector1 bias(0.1);
+  double bias = 0.1;
   Rot2 Ri(Rot2(M_PI / 12.0));
   Rot2 Rj(Rot2(M_PI / 12.0 + M_PI / 100.0));
 
   // Measurements
-  Vector1 measuredOmega(M_PI / 100 + 0.1);
+  double measuredOmega = M_PI / 100 + 0.1;
   double deltaT = 1.0;
-  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, Vector1(0));
+  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, 0);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Use a wrapper to call the new PIM::computeError for numerical derivatives
-  auto f = [&pim](const Rot2& r1, const Rot2& r2, const Vector1& b) -> Vector1 {
+  auto f = [&pim](const Rot2& r1, const Rot2& r2, const double& b) -> Vector1 {
     return pim.computeError(r1, r2, b);
   };
 
@@ -168,12 +168,12 @@ TEST(PlanarAHRSFactor, PIMComputeError) {
 /* ************************************************************************* */
 TEST(PlanarAHRSFactor, Error) {
   // Linearization point
-  Vector1 bias(0.);  // Bias
+  double bias = 0.0;  // Bias
   Rot2 Ri(Rot2(M_PI / 12.0));
   Rot2 Rj(Rot2(M_PI / 12.0 + M_PI / 100.0));
 
   // Measurements
-  Vector1 measuredOmega(M_PI / 100);
+  double measuredOmega = M_PI / 100;
   double deltaT = 1.0;
   PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, bias);
   pim.integrateMeasurement(measuredOmega, deltaT);
@@ -197,14 +197,14 @@ TEST(PlanarAHRSFactor, Error) {
 /* ************************************************************************* */
 TEST(PlanarAHRSFactor, ErrorWithBiases) {
   // Linearization point
-  Vector1 bias(0.3);
-  Rot2 Ri(Rot2::Expmap(Vector1(M_PI / 4.0)));
-  Rot2 Rj(Rot2::Expmap(Vector1(M_PI / 4.0 + M_PI / 10.0)));
+  double bias = 0.3;
+  Rot2 Ri(Rot2::fromAngle(M_PI / 4.0));
+  Rot2 Rj(Rot2::fromAngle(M_PI / 4.0 + M_PI / 10.0));
 
   // Measurements
-  Vector1 measuredOmega(M_PI / 10.0 + 0.3);
+  double measuredOmega = M_PI / 10.0 + 0.3;
   double deltaT = 1.0;
-  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, Vector1(0));
+  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, 0);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Create factor
@@ -226,21 +226,20 @@ TEST(PlanarAHRSFactor, ErrorWithBiases) {
 //******************************************************************************
 TEST(PlanarAHRSFactor, PartialDerivativeExpmap) {
   // Linearization point
-  Vector1 biasOmega(0);
+  double biasOmega = 0;
 
   // Measurements
-  Vector1 measuredOmega(0.1);
+  double measuredOmega = 0.1;
   double deltaT = 0.5;
 
-  auto f = [&](const Vector1& biasOmega) {
-    return Rot2::Expmap((measuredOmega - biasOmega) * deltaT);
+  auto f = [&](const double& biasOmega) {
+    return Rot2::fromAngle((measuredOmega - biasOmega) * deltaT);
   };
 
   // Compute numerical derivatives
-  Matrix expectedH = numericalDerivative11<Rot2, Vector1>(f, biasOmega);
+  Matrix expectedH = numericalDerivative11<Rot2, double>(f, biasOmega);
 
-  const Matrix1 Jr =
-      Rot2::ExpmapDerivative((measuredOmega - biasOmega) * deltaT);
+  const Matrix1 Jr = I_1x1;
 
   Matrix1 actualH = -Jr * deltaT;  // the delta bias appears with the minus sign
 
@@ -277,30 +276,27 @@ TEST(PlanarAHRSFactor, PartialDerivativeLogmap) {
 //******************************************************************************
 TEST(PlanarAHRSFactor, fistOrderExponential) {
   // Linearization point
-  Vector1 biasOmega(0);
+  double biasOmega = 0;
 
   // Measurements
-  Vector1 measuredOmega(0.1);
+  double measuredOmega = 0.1;
   double deltaT = 1.0;
 
   // change w.r.t. linearization point
   double alpha = 0.0;
-  Vector1 deltaBiasOmega(alpha);
+  double deltaBiasOmega = alpha;
 
-  const Matrix1 Jr =
-      Rot2::ExpmapDerivative((measuredOmega - biasOmega) * deltaT);
-
-  Matrix1 delRdelBiasOmega =
-      -Jr * deltaT;  // the delta bias appears with the minus sign
+  double delRdelBiasOmega =
+      -1.0 * deltaT;  // the delta bias appears with the minus sign
 
   const Matrix expectedRot =
-      Rot2::Expmap((measuredOmega - biasOmega - deltaBiasOmega) * deltaT)
+      Rot2::fromAngle((measuredOmega - biasOmega - deltaBiasOmega) * deltaT)
           .matrix();
 
   const Matrix2 hatRot =
-      Rot2::Expmap((measuredOmega - biasOmega) * deltaT).matrix();
+      Rot2::fromAngle((measuredOmega - biasOmega) * deltaT).matrix();
   const Matrix2 actualRot =
-      hatRot * Rot2::Expmap(delRdelBiasOmega * deltaBiasOmega).matrix();
+      hatRot * Rot2::fromAngle(delRdelBiasOmega * deltaBiasOmega).matrix();
 
   // Compare Jacobians
   EXPECT(assert_equal(expectedRot, actualRot));
@@ -309,18 +305,17 @@ TEST(PlanarAHRSFactor, fistOrderExponential) {
 //******************************************************************************
 TEST(PlanarAHRSFactor, FirstOrderPreIntegratedPlanarMeasurements) {
   // Linearization point
-  Vector1 bias = Vector1::Zero();  ///< Current estimate of rotation rate bias
+  double bias = 0.0;  ///< Current estimate of rotation rate bias
 
   // Measurements
-  list<Vector1> measuredOmegas;
+  list<double> measuredOmegas;
   list<double> deltaTs;
-  measuredOmegas.push_back(Vector1(M_PI / 100.0));
+  measuredOmegas.push_back(M_PI / 100.0);
   deltaTs.push_back(0.01);
-  measuredOmegas.push_back(Vector1(M_PI / 100.0));
+  measuredOmegas.push_back(M_PI / 100.0);
   deltaTs.push_back(0.01);
   for (int i = 1; i < 100; i++) {
-    measuredOmegas.push_back(
-        Vector1(M_PI / 100.0));
+    measuredOmegas.push_back(M_PI / 100.0);
     deltaTs.push_back(0.01);
   }
 
@@ -328,12 +323,12 @@ TEST(PlanarAHRSFactor, FirstOrderPreIntegratedPlanarMeasurements) {
   PreintegratedPlanarAhrsMeasurements preintegrated =
       integrateMeasurements(bias, measuredOmegas, deltaTs);
 
-  auto f = [&](const Vector1& bias) {
+  auto f = [&](const double& bias) {
     return integrateMeasurements(bias, measuredOmegas, deltaTs).deltaRij();
   };
 
   // Compute numerical derivatives
-  Matrix expectedDelRdelBias = numericalDerivative11<Rot2, Vector1>(f, bias);
+  Matrix expectedDelRdelBias = numericalDerivative11<Rot2, double>(f, bias);
   Matrix expectedDelRdelBiasOmega = expectedDelRdelBias;
 
   // should be around -1, so expected is correct, actual is wrong.
@@ -345,16 +340,16 @@ TEST(PlanarAHRSFactor, FirstOrderPreIntegratedPlanarMeasurements) {
 
 //******************************************************************************
 TEST(PlanarAHRSFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
-  Vector1 bias(0.3);
-  Rot2 Ri(Rot2::Expmap(Vector1(M_PI / 4.0)));
-  Rot2 Rj(Rot2::Expmap(Vector1(M_PI / 4.0 + M_PI / 10.0)));
+  double bias = 0.3;
+  Rot2 Ri(Rot2::fromAngle(M_PI / 4.0));
+  Rot2 Rj(Rot2::fromAngle(M_PI / 4.0 + M_PI / 10.0));
 
   // Measurements
-  Vector1 measuredOmega(M_PI / 10.0 + 0.3);
+  double measuredOmega = M_PI / 10.0 + 0.3;
   double deltaT = 1.0;
 
   PreintegratedPlanarAhrsMeasurements pim(
-    kMeasuredOmegaCovariance, Vector1::Zero());
+    kMeasuredOmegaCovariance, 0.0);
 
   pim.integrateMeasurement(measuredOmega, deltaT);
 
@@ -375,13 +370,13 @@ TEST(PlanarAHRSFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
 //******************************************************************************
 TEST(PlanarAHRSFactor, PIM_predict_and_Jacobians) {
   // --- Setup ---
-  Vector1 bias(0.1);
+  double bias = 0.1;
   Rot2 Ri = Rot2(M_PI / 4.0);
 
-  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, Vector1::Zero());
+  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, 0.0);
 
   // Integrate a few measurements
-  Vector1 measuredOmega(M_PI / 10.0);
+  double measuredOmega = M_PI / 10.0;
   double deltaT = 0.5;
   pim.integrateMeasurement(measuredOmega, deltaT);
   pim.integrateMeasurement(measuredOmega, deltaT);
@@ -391,14 +386,14 @@ TEST(PlanarAHRSFactor, PIM_predict_and_Jacobians) {
   Rot2 predictedRot = pim.predict(Ri, bias, {}, {});
 
   // Calculate expected value manually for verification
-  Vector1 biasOmegaIncr = bias - pim.biasHat();
+  double biasOmegaIncr = bias - pim.biasHat();
   Rot2 expected_biascorrected_delta = pim.biascorrectedDeltaRij(biasOmegaIncr);
   Rot2 expectedRot = Ri.compose(expected_biascorrected_delta);
   EXPECT(assert_equal(expectedRot, predictedRot, 1e-6));
 
   // --- Test Jacobians ---
   // Define a wrapper for numerical derivatives
-  auto f = [&pim](const Rot2& r, const Vector1& b) { return pim.predict(r, b); };
+  auto f = [&pim](const Rot2& r, const double& b) { return pim.predict(r, b); };
 
   // Get analytical Jacobians from the predict call
   Matrix1 H1_actual, H2_actual;
@@ -417,20 +412,20 @@ TEST(PlanarAHRSFactor, PIM_predict_and_Jacobians) {
 // Test predict with Coriolis enabled
 TEST(PlanarAHRSFactor, PIM_predict_and_Jacobians_with_Coriolis) {
   // --- Setup ---
-  Vector1 bias(0.1);
+  double bias = 0.1;
   Rot2 Ri = Rot2(M_PI / 4.0);
 
   PreintegratedPlanarAhrsMeasurements pim(
-    kMeasuredOmegaCovariance, Vector1::Zero());
+    kMeasuredOmegaCovariance, 0.0);
 
   // Integrate a few measurements
-  Vector1 measuredOmega(0.1);
+  double measuredOmega = 0.1;
   double deltaT = 0.5;
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // --- Test Jacobians ---
   // Define a wrapper for numerical derivatives
-  auto f = [&pim](const Rot2& r, const Vector1& b) { return pim.predict(r, b); };
+  auto f = [&pim](const Rot2& r, const double& b) { return pim.predict(r, b); };
 
   // Get analytical Jacobians from the predict call
   Matrix1 H1_actual, H2_actual;
@@ -449,14 +444,14 @@ TEST(PlanarAHRSFactor, graphTest) {
   // linearization point
   Rot2 Ri(Rot2(0));
   Rot2 Rj(Rot2(M_PI / 4));
-  Vector1 bias(0);
+  double bias = 0;
 
   // PreIntegrator
-  Vector1 biasHat(0);
+  double biasHat = 0;
   PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, biasHat);
 
   // Pre-integrate measurements
-  Vector1 measuredOmega(M_PI / 20);
+  double measuredOmega = M_PI / 20;
   double deltaT = 1;
 
   // Create Factor
@@ -490,9 +485,9 @@ TEST(PlanarAHRSFactor, bodyPSensorWithBias) {
 
   // Measurements in the sensor frame:
   const double omega = 0.1;
-  const Vector1 realOmega(omega);
-  const Vector1 realBias(1);  // large !
-  const Vector1 measuredOmega = realOmega + realBias;
+  const double realOmega = omega;
+  const double realBias = 1;  // large !
+  const double measuredOmega = realOmega + realBias;
 
   double deltaT = 0.005;
 
@@ -517,7 +512,7 @@ TEST(PlanarAHRSFactor, bodyPSensorWithBias) {
   values.insert(B(0), realBias);
 
   // Now add IMU factors and bias noise models
-  const Vector1 zeroBias(0);
+  const double zeroBias = 0;
   for (int i = 1; i < numRotations; i++) {
     PreintegratedPlanarAhrsMeasurements pim(1e-8, realBias);
     for (int j = 0; j < 200; ++j)
@@ -525,7 +520,7 @@ TEST(PlanarAHRSFactor, bodyPSensorWithBias) {
 
     // Create factors
     graph.emplace_shared<PlanarAHRSFactor>(R(i - 1), R(i), B(i - 1), pim);
-    graph.emplace_shared<BetweenFactor<Vector1> >(B(i - 1), B(i), zeroBias,
+    graph.emplace_shared<BetweenFactor<double> >(B(i - 1), B(i), zeroBias,
                                                   biasNoiseModel);
 
     values.insert(R(i), Rot2());
@@ -538,7 +533,7 @@ TEST(PlanarAHRSFactor, bodyPSensorWithBias) {
   // default is 1e-5, 1e-6 is required to pass
   params.setAbsoluteErrorTol(1e-6);
   Values result = LevenbergMarquardtOptimizer(graph, values, params).optimize();
-  const Vector1 biasActual = result.at<Vector1>(B(numRotations - 1));
+  const double biasActual = result.at<double>(B(numRotations - 1));
 
   // Bias should be a self-fulfilling prophesy:
   EXPECT(assert_equal(realBias, biasActual, 1e-3));

@@ -17,7 +17,7 @@ namespace gtsam {
 //------------------------------------------------------------------------------
 void PreintegratedPlanarAhrsMeasurements::print(const string& s) const {
   PreintegratedPlanarRotation::print(s);
-  cout << "biasHat [" << biasHat_.transpose() << "]" << endl;
+  cout << "biasHat [" << biasHat_ << "]" << endl;
   cout << " PreintMeasCov [ " << preintMeasCov_ << " ]" << endl;
 }
 
@@ -25,7 +25,7 @@ void PreintegratedPlanarAhrsMeasurements::print(const string& s) const {
 bool PreintegratedPlanarAhrsMeasurements::equals(
     const PreintegratedPlanarAhrsMeasurements& other, double tol) const {
   return PreintegratedPlanarRotation::equals(other, tol) &&
-         equal_with_abs_tol(biasHat_, other.biasHat_, tol);
+         abs(biasHat_- other.biasHat_) < tol;
 }
 
 //------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ void PreintegratedPlanarAhrsMeasurements::resetIntegration() {
 
 //------------------------------------------------------------------------------
 void PreintegratedPlanarAhrsMeasurements::integrateMeasurement(
-    const Vector1& measuredOmega, double deltaT) {
+    double measuredOmega, double deltaT) {
   // 1. integrate
   // Fr is the Jacobian of the new preintegrated rotation w.r.t. the previous
   // one.
@@ -59,12 +59,12 @@ void PreintegratedPlanarAhrsMeasurements::integrateMeasurement(
 //------------------------------------------------------------------------------
 Rot2 PreintegratedPlanarAhrsMeasurements::predict(
     const Rot2& Ri,
-    const Vector1& bias,
+    double bias,
     gtsam::OptionalJacobian<1, 1> H1,
     gtsam::OptionalJacobian<1, 1> H2) const {
   // Use H2 as an in/out parameter to hold the Jacobian of the bias-corrected
   // rotation w.r.t. the bias increment. This is an efficient C++ pattern.
-  const Vector1 biasOmegaIncr = bias - biasHat_;
+  const double biasOmegaIncr = bias - biasHat_;
   const Rot2 biascorrected = this->biascorrectedDeltaRij(biasOmegaIncr, H2);
 
   return Ri.compose(biascorrected, H1);
@@ -74,7 +74,7 @@ Rot2 PreintegratedPlanarAhrsMeasurements::predict(
 Vector1 PreintegratedPlanarAhrsMeasurements::computeError(
     const Rot2& Ri,
     const Rot2& Rj,
-    const Vector1& bias,
+    double bias,
     gtsam::OptionalJacobian<1, 1> H1,
     gtsam::OptionalJacobian<1, 1> H2,
     gtsam::OptionalJacobian<1, 1> H3) const {
@@ -131,7 +131,7 @@ bool PlanarAHRSFactor::equals(const NonlinearFactor& other, double tol) const {
 //------------------------------------------------------------------------------
 Vector PlanarAHRSFactor::evaluateError(const Rot2& Ri,
                                        const Rot2& Rj,
-                                       const Vector1& bias,
+                                       const double& bias,
                                        OptionalMatrixType H1,
                                        OptionalMatrixType H2,
                                        OptionalMatrixType H3) const {
@@ -140,8 +140,10 @@ Vector PlanarAHRSFactor::evaluateError(const Rot2& Ri,
 
 
 //------------------------------------------------------------------------------
-Rot2 PlanarAHRSFactor::predict(const Rot2& Ri, const Vector1& bias,
-                               const PreintegratedPlanarAhrsMeasurements& pim) {
+Rot2 PlanarAHRSFactor::predict(
+    const Rot2& Ri,
+    double bias,
+    const PreintegratedPlanarAhrsMeasurements& pim) {
   PreintegratedPlanarAhrsMeasurements newPim = pim;
   newPim.gyroscopeCovariance_ = pim.gyroscopeCovariance_;
   return newPim.predict(Ri, bias);

@@ -32,7 +32,7 @@ namespace gtsam {
 class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
     : public PreintegratedPlanarRotation {
  protected:
-  Vector1 biasHat_;  ///< Angular rate bias values used during preintegration.
+  double biasHat_;         ///< Angular rate bias values used during preintegration.
   Matrix1 preintMeasCov_;  ///< Covariance matrix of the preintegrated
                            ///< measurements (first-order propagation from
                            ///< *measurementCovariance*)
@@ -48,7 +48,7 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    *  @param bias Current estimate of rotation rate biases
    */
   PreintegratedPlanarAhrsMeasurements(double gyroscopeCovariance,
-                                      const Vector1& biasHat)
+                                      double biasHat)
       : PreintegratedPlanarRotation(gyroscopeCovariance), biasHat_(biasHat) {
     resetIntegration();
   }
@@ -63,7 +63,7 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    *  @param preint_meas_cov: Pre-integration covariance
    */
   PreintegratedPlanarAhrsMeasurements(double gyroscopeCovariance,
-                                      const Vector1& bias_hat,
+                                      double bias_hat,
                                       double deltaTij,
                                       const Rot2& deltaRij,
                                       const Matrix1& delRdelBiasOmega,
@@ -73,7 +73,7 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
         preintMeasCov_(preint_meas_cov) {}
 
   const double& gyroscopeCovariance() const { return gyroscopeCovariance_; }
-  const Vector1& biasHat() const { return biasHat_; }
+  const double& biasHat() const { return biasHat_; }
   const Matrix1& preintMeasCov() const { return preintMeasCov_; }
 
   /// print
@@ -92,7 +92,7 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    * @param measuredOmega Measured angular velocity (as given by the sensor)
    * @param deltaT Time step
    */
-  void integrateMeasurement(const Vector1& measuredOmega, double deltaT);
+  void integrateMeasurement(double measuredOmega, double deltaT);
 
   /**
    * Predict the orientation at time j, given orientation and bias at time i.
@@ -103,7 +103,7 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    * @return predicted orientation at time j
    */
   Rot2 predict(const Rot2& Ri,
-               const Vector1& bias,
+               double bias,
                gtsam::OptionalJacobian<1, 1> H1 = {},
                gtsam::OptionalJacobian<1, 1> H2 = {}) const;
 
@@ -119,7 +119,7 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    */
   Vector1 computeError(const Rot2& Ri,
                        const Rot2& Rj,
-                       const Vector1& bias,
+                       double bias,
                        gtsam::OptionalJacobian<1, 1> H1 = {},
                        gtsam::OptionalJacobian<1, 1> H2 = {},
                        gtsam::OptionalJacobian<1, 1> H3 = {}) const;
@@ -141,9 +141,9 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
 /**
  * See AHRSFactor.
  */
-class GTSAM_EXPORT PlanarAHRSFactor : public NoiseModelFactorN<Rot2, Rot2, Vector1> {
+class GTSAM_EXPORT PlanarAHRSFactor : public NoiseModelFactorN<Rot2, Rot2, double> {
   typedef PlanarAHRSFactor This;
-  typedef NoiseModelFactorN<Rot2, Rot2, Vector1> Base;
+  typedef NoiseModelFactorN<Rot2, Rot2, double> Base;
 
   PreintegratedPlanarAhrsMeasurements _PIM_;
 
@@ -193,14 +193,14 @@ class GTSAM_EXPORT PlanarAHRSFactor : public NoiseModelFactorN<Rot2, Rot2, Vecto
   /// vector of errors
   Vector evaluateError(const Rot2& Ri,
                        const Rot2& Rj,
-                       const Vector1& bias,
+                       const double& bias,
                        OptionalMatrixType H1,
                        OptionalMatrixType H2,
                        OptionalMatrixType H3) const override;
 
   /// @deprecated static function, but used in tests.
   static Rot2 predict(const Rot2& Ri,
-                      const Vector1& bias,
+                      double bias,
                       const PreintegratedPlanarAhrsMeasurements& pim);
 
  private:

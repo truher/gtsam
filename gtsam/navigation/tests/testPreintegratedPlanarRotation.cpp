@@ -19,9 +19,9 @@ using namespace gtsam;
 // Example where gyro measures small rotation about x-axis, with bias.
 namespace biased_x_rotation {
 const double omega = 0.1;
-const Vector1 trueOmega(omega);
-const Vector1 bias(1);
-const Vector1 measuredOmega = trueOmega + bias;
+const double trueOmega = omega;
+const double bias(1);
+const double measuredOmega = trueOmega + bias;
 const double deltaT = 0.5;
 }  // namespace biased_x_rotation
 
@@ -38,7 +38,7 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurement) {
   EXPECT(assert_equal(expected, incrR, 1e-9))
 
   // Check the derivative:
-  EXPECT(assert_equal(numericalDerivative11<Rot2, Vector1>(f, bias), H_bias))
+  EXPECT(assert_equal(numericalDerivative11<Rot2, double>(f, bias), H_bias))
 
   // Check value of deltaRij() after integration.
   Matrix1 F;
@@ -57,21 +57,21 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurement) {
   // integration time is taken into account, so we expect -deltaT*delta change.
   Matrix1 H;
   const double delta = 0.05;
-  const Vector1 biasOmegaIncr(delta);
+  const double biasOmegaIncr = delta;
   Rot2 corrected = pim.biascorrectedDeltaRij(biasOmegaIncr, H);
   EQUALITY(Vector1(-deltaT * delta), expected.logmap(corrected))
   EXPECT(assert_equal(Rot2((omega - delta) * deltaT), corrected, 1e-9))
 
   // Check the derivative matches the numerical one
-  auto g = [&](const Vector1& increment) {
+  auto g = [&](const double& increment) {
     return pim.biascorrectedDeltaRij(increment, {});
   };
-  Matrix1 expectedH = numericalDerivative11<Rot2, Vector1>(g, biasOmegaIncr);
+  Matrix1 expectedH = numericalDerivative11<Rot2, double>(g, biasOmegaIncr);
   EXPECT(assert_equal(expectedH, H));
   
   // Let's integrate a second IMU measurement and check the Jacobian update:
   pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
-  expectedH = numericalDerivative11<Rot2, Vector1>(g, biasOmegaIncr);
+  expectedH = numericalDerivative11<Rot2, double>(g, biasOmegaIncr);
   corrected = pim.biascorrectedDeltaRij(biasOmegaIncr, H);
   EXPECT(assert_equal(expectedH, H));
 }
@@ -90,7 +90,7 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithTransform) {
   EXPECT(assert_equal(expected, f(bias, H_bias), 1e-9))
 
   // Check the derivative:
-  EXPECT(assert_equal(numericalDerivative11<Rot2, Vector1>(f, bias), H_bias))
+  EXPECT(assert_equal(numericalDerivative11<Rot2, double>(f, bias), H_bias))
 
   // Check value of deltaRij() after integration.
   Matrix1 F;
@@ -107,22 +107,22 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithTransform) {
   // Check the bias correction in same way, but will now yield pitch change.
   Matrix1 H;
   const double delta = 0.05;
-  const Vector1 biasOmegaIncr(delta);
+  const double biasOmegaIncr = delta;
   Rot2 corrected = pim.biascorrectedDeltaRij(biasOmegaIncr, H);
   EQUALITY(Vector1(-deltaT * delta), expected.logmap(corrected))
   EXPECT(assert_equal(Rot2((omega - delta) * deltaT), corrected, 1e-9))
 
   // Check the derivative matches the *expectedH* one
-  auto g = [&](const Vector1& increment) {
+  auto g = [&](const double& increment) {
     return pim.biascorrectedDeltaRij(increment, {});
   };
-  Matrix1 expectedH = numericalDerivative11<Rot2, Vector1>(g, biasOmegaIncr);
+  Matrix1 expectedH = numericalDerivative11<Rot2, double>(g, biasOmegaIncr);
   EXPECT(assert_equal(expectedH, H));
 
   // Let's integrate a second IMU measurement and check the Jacobian update:
   pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
   corrected = pim.biascorrectedDeltaRij(biasOmegaIncr, H);
-  expectedH = numericalDerivative11<Rot2, Vector1>(g, biasOmegaIncr);
+  expectedH = numericalDerivative11<Rot2, double>(g, biasOmegaIncr);
   EXPECT(assert_equal(expectedH, H));
 }
 
@@ -134,7 +134,7 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithArbitraryTransform
   Matrix1 H_bias;
   const internal::IncrementalPlanarRotation f{measuredOmega, deltaT};
   f(bias, H_bias);
-  EXPECT(assert_equal(numericalDerivative11<Rot2, Vector1>(f, bias), H_bias))
+  EXPECT(assert_equal(numericalDerivative11<Rot2, double>(f, bias), H_bias))
 
   // Check derivative of deltaRij() after integration.
   Matrix1 F;
@@ -150,20 +150,20 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithArbitraryTransform
   // Check the bias correction in same way, but will now yield pitch change.
   Matrix1 H;
   const double delta = 0.05;
-  const Vector1 biasOmegaIncr(delta);
+  const double biasOmegaIncr = delta;
   Rot2 corrected = pim.biascorrectedDeltaRij(biasOmegaIncr, H);
 
   // Check the derivative matches the numerical one
-  auto g = [&](const Vector1& increment) {
+  auto g = [&](const double& increment) {
     return pim.biascorrectedDeltaRij(increment, {});
   };
-  Matrix1 expectedH = numericalDerivative11<Rot2, Vector1>(g, biasOmegaIncr);
+  Matrix1 expectedH = numericalDerivative11<Rot2, double>(g, biasOmegaIncr);
   EXPECT(assert_equal(expectedH, H));
 
   // Let's integrate a second IMU measurement and check the Jacobian update:
   pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
   corrected = pim.biascorrectedDeltaRij(biasOmegaIncr, H);
-  expectedH = numericalDerivative11<Rot2, Vector1>(g, biasOmegaIncr);
+  expectedH = numericalDerivative11<Rot2, double>(g, biasOmegaIncr);
   EXPECT(assert_equal(expectedH, H));
 }
 

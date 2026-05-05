@@ -22,7 +22,7 @@ namespace internal {
  * @param deltaT The time interval over which the rotation is integrated.
  */
 struct GTSAM_EXPORT IncrementalPlanarRotation {
-  const Vector1& measuredOmega;
+  const double measuredOmega;
   const double deltaT;
 
   /**
@@ -31,7 +31,7 @@ struct GTSAM_EXPORT IncrementalPlanarRotation {
    * @param H_bias Jacobian of the rotation w.r.t. bias.
    * @return The incremental rotation
    */
-  Rot2 operator()(const Vector1& bias,
+  Rot2 operator()(double bias,
                   OptionalJacobian<1, 1> H_bias = {}) const;
 };
 
@@ -109,8 +109,9 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
    * @param deltaT The time interval
    * @param F optional Jacobian of internal compose, used in AhrsFactor.
    */
-  void integrateGyroMeasurement(const Vector1& measuredOmega,
-                                const Vector1& biasHat, double deltaT,
+  void integrateGyroMeasurement(double measuredOmega,
+                                double biasHat,
+                                double deltaT,
                                 OptionalJacobian<1, 1> F = {});
 
   /**
@@ -119,7 +120,7 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
    * @param H optional Jacobian of the correction w.r.t. the bias increment.
    * @note The *key* functionality of this class used in optimizing the bias.
    */
-  Rot2 biascorrectedDeltaRij(const Vector1& biasOmegaIncr,
+  Rot2 biascorrectedDeltaRij(double biasOmegaIncr,
                              OptionalJacobian<1, 1> H = {}) const;
 
 
