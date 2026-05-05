@@ -37,49 +37,10 @@ struct GTSAM_EXPORT IncrementalPlanarRotation {
 
 }  // namespace internal
 
-/// Parameters for pre-integration:
-/// Usage: Create just a single Params and pass a shared pointer to the
-/// constructor
-struct GTSAM_EXPORT PreintegratedPlanarRotationParams {
-  /// Continuous-time "Covariance" of gyroscope measurements
-  /// The units for stddev are σ = rad/s/√Hz
-  Matrix1 gyroscopeCovariance;
-
-  PreintegratedPlanarRotationParams() : gyroscopeCovariance(I_1x1) {}
-
-  PreintegratedPlanarRotationParams(const Matrix1& gyroscope_covariance)
-      : gyroscopeCovariance(gyroscope_covariance) {}
-
-  virtual ~PreintegratedPlanarRotationParams() {}
-
-  virtual void print(const std::string& s) const;
-  virtual bool equals(const PreintegratedPlanarRotationParams& other,
-                      double tol = 1e-9) const;
-
-  void setGyroscopeCovariance(const Matrix1& cov) { gyroscopeCovariance = cov; }
-
-  const Matrix1& getGyroscopeCovariance() const { return gyroscopeCovariance; }
-
- private:
-#if GTSAM_ENABLE_BOOST_SERIALIZATION
-  /** Serialization function */
-  friend class boost::serialization::access;
-  template <class ARCHIVE>
-  void serialize(ARCHIVE& ar, const unsigned int /*version*/) {
-    ar& BOOST_SERIALIZATION_NVP(gyroscopeCovariance);
-    }
-  }
-#endif
-};
-
 class GTSAM_EXPORT PreintegratedPlanarRotation {
- public:
-  typedef PreintegratedPlanarRotationParams Params;
-
  protected:
   /// Parameters
-  std::shared_ptr<Params> p_;
-
+  double gyroscopeCovariance_;
   double deltaTij_;  ///< Time interval from i to j
   Rot2 deltaRij_;    ///< Preintegrated relative orientation (in frame i)
   Matrix1 delRdelBiasOmega_;  ///< Jacobian of preintegrated rotation w.r.t.
@@ -93,17 +54,17 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
   PreintegratedPlanarRotation() {}
 
   /// Default constructor, resets integration to zero
-  explicit PreintegratedPlanarRotation(const std::shared_ptr<Params>& p)
-      : p_(p) {
+  explicit PreintegratedPlanarRotation(double gyroscopeCovariance)
+      : gyroscopeCovariance_(gyroscopeCovariance) {
     resetIntegration();
   }
 
   /// Explicit initialization of all class members
-  PreintegratedPlanarRotation(const std::shared_ptr<Params>& p,
+  PreintegratedPlanarRotation(double gyroscopeCovariance,
                               double deltaTij,
                               const Rot2& deltaRij,
                               const Matrix1& delRdelBiasOmega)
-      : p_(p),
+      : gyroscopeCovariance_(gyroscopeCovariance),
         deltaTij_(deltaTij),
         deltaRij_(deltaRij),
         delRdelBiasOmega_(delRdelBiasOmega) {}
@@ -116,13 +77,13 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
   /// check parameters equality: checks whether shared pointer points to same
   /// Params object.
   bool matchesParamsWith(const PreintegratedPlanarRotation& other) const {
-    return p_ == other.p_;
+    return abs(gyroscopeCovariance_ - other.gyroscopeCovariance_ < 1e-9);
   }
   /// @}
 
   /// @name Access instance variables
   /// @{
-  const std::shared_ptr<Params>& params() const { return p_; }
+  const double& gyroscopeCovariance() const { return gyroscopeCovariance_; }
   const double& deltaTij() const { return deltaTij_; }
   const Rot2& deltaRij() const { return deltaRij_; }
   const Matrix1& delRdelBiasOmega() const { return delRdelBiasOmega_; }

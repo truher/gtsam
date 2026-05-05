@@ -37,14 +37,14 @@ using symbol_shorthand::R;
 
 // Define covariance matrices
 double gyroNoiseVar = 0.01;
-const Matrix1 kMeasuredOmegaCovariance = gyroNoiseVar * I_1x1;
+const double kMeasuredOmegaCovariance = gyroNoiseVar;
 
 //******************************************************************************
 namespace {
 PreintegratedPlanarAhrsMeasurements integrateMeasurements(
     const Vector1& biasHat, const list<Vector1>& measuredOmegas,
     const list<double>& deltaTs) {
-  PreintegratedPlanarAhrsMeasurements result(biasHat, I_1x1);
+  PreintegratedPlanarAhrsMeasurements result(1.0, biasHat);
 
   list<Vector1>::const_iterator itOmega = measuredOmegas.begin();
   list<double>::const_iterator itDeltaT = deltaTs.begin();
@@ -69,14 +69,15 @@ TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurements) {
   Rot2 expectedDeltaR1 = Rot2(0.5 * M_PI / 100.0);
 
   // Actual preintegrated values
-  PreintegratedPlanarAhrsMeasurements actual1(biasHat, kMeasuredOmegaCovariance);
+  PreintegratedPlanarAhrsMeasurements actual1(kMeasuredOmegaCovariance, biasHat);
   actual1.integrateMeasurement(measuredOmega, deltaT);
 
   EXPECT(assert_equal(expectedDeltaR1, Rot2(actual1.deltaRij()), 1e-6));
   DOUBLES_EQUAL(deltaT, actual1.deltaTij(), 1e-6);
 
   // Check the covariance
-  Matrix1 expectedMeasCov = kMeasuredOmegaCovariance * deltaT;
+  Matrix1 expectedMeasCov;
+  expectedMeasCov <<  kMeasuredOmegaCovariance * deltaT;
   EXPECT(assert_equal(expectedMeasCov, actual1.preintMeasCov(), 1e-6));
 
   // Integrate again
@@ -92,18 +93,17 @@ TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurements) {
 
 //******************************************************************************
 TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurementsConstructor) {
-  Matrix1 gyroscopeCovariance = I_1x1 * 0.4;
-  PreintegratedPlanarRotationParams params(gyroscopeCovariance);
+  double gyroscopeCovariance = 0.4;
   Vector1 bias(1.0);  ///< Current estimate of angular rate bias
   Rot2 deltaRij(Rot2(M_PI / 12.0));
   double deltaTij = 0.02;
   Matrix1 delRdelBiasOmega = I_1x1 * 0.5;
   Matrix1 preintMeasCov = I_1x1 * 0.2;
   PreintegratedPlanarAhrsMeasurements actualPim(
-      std::make_shared<PreintegratedPlanarRotationParams>(params), bias, deltaTij,
+      gyroscopeCovariance, bias, deltaTij,
       deltaRij, delRdelBiasOmega, preintMeasCov);
   EXPECT(assert_equal(gyroscopeCovariance,
-                      actualPim.p().getGyroscopeCovariance(), 1e-6));
+                      actualPim.gyroscopeCovariance(), 1e-6));
   EXPECT(assert_equal(bias, actualPim.biasHat(), 1e-6));
   DOUBLES_EQUAL(deltaTij, actualPim.deltaTij(), 1e-6);
   EXPECT(assert_equal(deltaRij, Rot2(actualPim.deltaRij()), 1e-6));
@@ -119,7 +119,7 @@ TEST(PlanarAHRSFactor, PIMPredict) {
   // Measurements
   Vector1 measuredOmega(M_PI / 10.0);
   double deltaT = 0.2;
-  PreintegratedPlanarAhrsMeasurements pim(bias, kMeasuredOmegaCovariance);
+  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, bias);
   for (int i = 0; i < 1000; ++i) {
     pim.integrateMeasurement(measuredOmega, deltaT);
   }
@@ -142,7 +142,7 @@ TEST(PlanarAHRSFactor, PIMComputeError) {
   // Measurements
   Vector1 measuredOmega(M_PI / 100 + 0.1);
   double deltaT = 1.0;
-  PreintegratedPlanarAhrsMeasurements pim(Vector1(0), kMeasuredOmegaCovariance);
+  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, Vector1(0));
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Use a wrapper to call the new PIM::computeError for numerical derivatives
@@ -175,7 +175,7 @@ TEST(PlanarAHRSFactor, Error) {
   // Measurements
   Vector1 measuredOmega(M_PI / 100);
   double deltaT = 1.0;
-  PreintegratedPlanarAhrsMeasurements pim(bias, kMeasuredOmegaCovariance);
+  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, bias);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Create factor
@@ -204,7 +204,7 @@ TEST(PlanarAHRSFactor, ErrorWithBiases) {
   // Measurements
   Vector1 measuredOmega(M_PI / 10.0 + 0.3);
   double deltaT = 1.0;
-  PreintegratedPlanarAhrsMeasurements pim(Vector1(0), kMeasuredOmegaCovariance);
+  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, Vector1(0));
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Create factor
@@ -353,14 +353,13 @@ TEST(PlanarAHRSFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
   Vector1 measuredOmega(M_PI / 10.0 + 0.3);
   double deltaT = 1.0;
 
-  auto p = std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>();
-  p->gyroscopeCovariance = kMeasuredOmegaCovariance;
-  PreintegratedPlanarAhrsMeasurements pim(p, Vector1::Zero());
+  PreintegratedPlanarAhrsMeasurements pim(
+    kMeasuredOmegaCovariance, Vector1::Zero());
 
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Check preintegrated covariance
-  EXPECT(assert_equal(kMeasuredOmegaCovariance, pim.preintMeasCov()));
+  EXPECT(assert_equal(kMeasuredOmegaCovariance, pim.preintMeasCov()(0)));
 
   // Create factor
   PlanarAHRSFactor factor(R(1), R(2), B(1), pim);
@@ -378,10 +377,8 @@ TEST(PlanarAHRSFactor, PIM_predict_and_Jacobians) {
   // --- Setup ---
   Vector1 bias(0.1);
   Rot2 Ri = Rot2(M_PI / 4.0);
-  auto p = std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>();
-  p->gyroscopeCovariance = kMeasuredOmegaCovariance;
 
-  PreintegratedPlanarAhrsMeasurements pim(p, Vector1::Zero());
+  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, Vector1::Zero());
 
   // Integrate a few measurements
   Vector1 measuredOmega(M_PI / 10.0);
@@ -423,10 +420,8 @@ TEST(PlanarAHRSFactor, PIM_predict_and_Jacobians_with_Coriolis) {
   Vector1 bias(0.1);
   Rot2 Ri = Rot2(M_PI / 4.0);
 
-  auto p = std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>();
-  p->gyroscopeCovariance = kMeasuredOmegaCovariance;
-
-  PreintegratedPlanarAhrsMeasurements pim(p, Vector1::Zero());
+  PreintegratedPlanarAhrsMeasurements pim(
+    kMeasuredOmegaCovariance, Vector1::Zero());
 
   // Integrate a few measurements
   Vector1 measuredOmega(0.1);
@@ -458,7 +453,7 @@ TEST(PlanarAHRSFactor, graphTest) {
 
   // PreIntegrator
   Vector1 biasHat(0);
-  PreintegratedPlanarAhrsMeasurements pim(biasHat, kMeasuredOmegaCovariance);
+  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, biasHat);
 
   // Pre-integrate measurements
   Vector1 measuredOmega(M_PI / 20);
@@ -499,8 +494,6 @@ TEST(PlanarAHRSFactor, bodyPSensorWithBias) {
   const Vector1 realBias(1);  // large !
   const Vector1 measuredOmega = realOmega + realBias;
 
-  auto p = std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>();
-  p->gyroscopeCovariance = 1e-8 * I_1x1;
   double deltaT = 0.005;
 
   // Specify noise values on priors
@@ -526,7 +519,7 @@ TEST(PlanarAHRSFactor, bodyPSensorWithBias) {
   // Now add IMU factors and bias noise models
   const Vector1 zeroBias(0);
   for (int i = 1; i < numRotations; i++) {
-    PreintegratedPlanarAhrsMeasurements pim(p, realBias);
+    PreintegratedPlanarAhrsMeasurements pim(1e-8, realBias);
     for (int j = 0; j < 200; ++j)
       pim.integrateMeasurement(measuredOmega, deltaT);
 

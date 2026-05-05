@@ -8,17 +8,6 @@ using namespace std;
 
 namespace gtsam {
 
-void PreintegratedPlanarRotationParams::print(const string& s) const {
-  cout << (s.empty() ? s : s + "\n") << endl;
-  cout << "gyroscopeCovariance:\n" << gyroscopeCovariance << endl;
-}
-
-bool PreintegratedPlanarRotationParams::equals(
-    const PreintegratedPlanarRotationParams& other, double tol) const {
-  return equal_with_abs_tol(gyroscopeCovariance, other.gyroscopeCovariance,
-                            tol);
-}
-
 void PreintegratedPlanarRotation::resetIntegration() {
   deltaTij_ = 0.0;
   deltaRij_ = Rot2();
@@ -48,9 +37,9 @@ Rot2 IncrementalPlanarRotation::operator()(
   // rotation vector describing rotation increment computed from the
   // current rotation rate measurement
   const Vector1 integratedOmega = correctedOmega * deltaT;
-  Rot2 incrR = Rot2::Expmap(integratedOmega, H_bias);  // expensive !!
+  Rot2 incrR = Rot2::fromAngle(integratedOmega(0));
   if (H_bias) {
-    *H_bias *= -deltaT;  // Correct so accurately reflects bias derivative
+    *H_bias = I_1x1 * -deltaT;  // Correct so accurately reflects bias derivative
   }
   return incrR;
 }

@@ -45,7 +45,8 @@ void PreintegratedPlanarAhrsMeasurements::integrateMeasurement(
                                                         deltaT, &Fr);
 
   // 2. Calculate noise in the body frame
-  Matrix1 SigmaBody = p().gyroscopeCovariance;
+  Matrix1 SigmaBody;
+  SigmaBody <<  gyroscopeCovariance_;
 
   // First order uncertainty propagation:
   //   new_cov = Fr * old_cov * Fr.transpose() + new_noise
@@ -141,10 +142,8 @@ Vector PlanarAHRSFactor::evaluateError(const Rot2& Ri,
 //------------------------------------------------------------------------------
 Rot2 PlanarAHRSFactor::predict(const Rot2& Ri, const Vector1& bias,
                                const PreintegratedPlanarAhrsMeasurements& pim) {
-  auto p =
-      std::make_shared<PreintegratedPlanarAhrsMeasurements::Params>(pim.p());
   PreintegratedPlanarAhrsMeasurements newPim = pim;
-  newPim.p_ = p;
+  newPim.gyroscopeCovariance_ = pim.gyroscopeCovariance_;
   return newPim.predict(Ri, bias);
 }
 

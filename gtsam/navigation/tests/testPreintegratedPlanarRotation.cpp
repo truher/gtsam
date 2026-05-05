@@ -29,7 +29,6 @@ const double deltaT = 0.5;
 TEST(PreintegratedPlanarRotation, integrateGyroMeasurement) {
   // Example where IMU is identical to body frame, then omega is roll
   using namespace biased_x_rotation;
-  auto p = std::make_shared<PreintegratedPlanarRotationParams>();
 
   // Check the value.
   Matrix1 H_bias;
@@ -43,7 +42,7 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurement) {
 
   // Check value of deltaRij() after integration.
   Matrix1 F;
-  PreintegratedPlanarRotation pim(p);
+  PreintegratedPlanarRotation pim(1);
   pim.integrateGyroMeasurement(measuredOmega, bias, deltaT, F);
   EXPECT(assert_equal(expected, pim.deltaRij(), 1e-9))
 
@@ -79,16 +78,10 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurement) {
 
 //******************************************************************************
 
-// Create params where x and y axes are exchanged.
-static std::shared_ptr<PreintegratedPlanarRotationParams> paramsWithTransform() {
-  auto p = std::make_shared<PreintegratedPlanarRotationParams>();
-  return p;
-}
 
 TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithTransform) {
   // Example where IMU is rotated, so measured omega indicates pitch.
   using namespace biased_x_rotation;
-  auto p = paramsWithTransform();
 
   // Check the value.
   Matrix1 H_bias;
@@ -101,7 +94,7 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithTransform) {
 
   // Check value of deltaRij() after integration.
   Matrix1 F;
-  PreintegratedPlanarRotation pim(p);
+  PreintegratedPlanarRotation pim(1);
   pim.integrateGyroMeasurement(measuredOmega, bias, deltaT, F);
   EXPECT(assert_equal(expected, pim.deltaRij(), 1e-9))
 
@@ -133,16 +126,9 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithTransform) {
   EXPECT(assert_equal(expectedH, H));
 }
 
-// Create params we have a non-axis-aligned rotation and even an offset.
-static std::shared_ptr<PreintegratedPlanarRotationParams> paramsWithArbitraryTransform() {
-  auto p = std::make_shared<PreintegratedPlanarRotationParams>();
-  return p;
-}
-
 TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithArbitraryTransform) {
   // Example with a non-axis-aligned transform and some position.
   using namespace biased_x_rotation;
-  auto p = paramsWithArbitraryTransform();
 
   // Check the derivative:
   Matrix1 H_bias;
@@ -152,7 +138,7 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithArbitraryTransform
 
   // Check derivative of deltaRij() after integration.
   Matrix1 F;
-  PreintegratedPlanarRotation pim(p);
+  PreintegratedPlanarRotation pim(1);
   pim.integrateGyroMeasurement(measuredOmega, bias, deltaT, F);
 
   // Check that system matrix F is the first derivative of compose:

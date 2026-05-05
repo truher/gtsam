@@ -47,9 +47,9 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    *  Default constructor, initialize with no measurements
    *  @param bias Current estimate of rotation rate biases
    */
-  PreintegratedPlanarAhrsMeasurements(const std::shared_ptr<Params>& p,
+  PreintegratedPlanarAhrsMeasurements(double gyroscopeCovariance,
                                       const Vector1& biasHat)
-      : PreintegratedPlanarRotation(p), biasHat_(biasHat) {
+      : PreintegratedPlanarRotation(gyroscopeCovariance), biasHat_(biasHat) {
     resetIntegration();
   }
 
@@ -62,17 +62,17 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    *  @param delRdelBiasOmega: Jacobian of rotation wrt gyro bias
    *  @param preint_meas_cov: Pre-integration covariance
    */
-  PreintegratedPlanarAhrsMeasurements(const std::shared_ptr<Params>& p,
+  PreintegratedPlanarAhrsMeasurements(double gyroscopeCovariance,
                                       const Vector1& bias_hat,
                                       double deltaTij,
                                       const Rot2& deltaRij,
                                       const Matrix1& delRdelBiasOmega,
                                       const Matrix1& preint_meas_cov)
-      : PreintegratedPlanarRotation(p, deltaTij, deltaRij, delRdelBiasOmega),
+      : PreintegratedPlanarRotation(gyroscopeCovariance, deltaTij, deltaRij, delRdelBiasOmega),
         biasHat_(bias_hat),
         preintMeasCov_(preint_meas_cov) {}
 
-  Params& p() const { return *std::static_pointer_cast<Params>(p_); }
+  const double& gyroscopeCovariance() const { return gyroscopeCovariance_; }
   const Vector1& biasHat() const { return biasHat_; }
   const Matrix1& preintMeasCov() const { return preintMeasCov_; }
 
@@ -124,13 +124,6 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
                        gtsam::OptionalJacobian<1, 1> H2 = {},
                        gtsam::OptionalJacobian<1, 1> H3 = {}) const;
 
-  /// @deprecated constructor, but used in tests.
-  PreintegratedPlanarAhrsMeasurements(const Vector1& biasHat,
-                                      const Matrix1& measuredOmegaCovariance)
-      : PreintegratedPlanarRotation(std::make_shared<Params>()), biasHat_(biasHat) {
-    p_->gyroscopeCovariance = measuredOmegaCovariance;
-    resetIntegration();
-  }
 
  private:
 #if GTSAM_ENABLE_BOOST_SERIALIZATION
