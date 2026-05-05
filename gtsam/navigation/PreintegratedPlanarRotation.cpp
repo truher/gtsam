@@ -1,7 +1,6 @@
 /**
  *  @file  PreintegratedPlanarRotation.cpp
  **/
-
 #include "PreintegratedPlanarRotation.h"
 
 using namespace std;
@@ -28,42 +27,20 @@ bool PreintegratedPlanarRotation::equals(
          equal_with_abs_tol(delRdelBiasOmega_, other.delRdelBiasOmega_, tol);
 }
 
-namespace internal {
-Rot2 IncrementalPlanarRotation::operator()(
-    double bias, OptionalJacobian<1, 1> H_bias) const {
-  // First we compensate the measurements for the bias
-  double correctedOmega = measuredOmega - bias;
+void PreintegratedPlanarRotation::integrateGyroMeasurement(double measuredOmega,
+                                                           double biasHat,
+                                                           double deltaT) {
+  const Rot2 incrR = Rot2::fromAngle((measuredOmega - biasHat) * deltaT);
 
-  // rotation vector describing rotation increment computed from the
-  // current rotation rate measurement
-  const double integratedOmega = correctedOmega * deltaT;
-  Rot2 incrR = Rot2::fromAngle(integratedOmega);
-  if (H_bias) {
-    *H_bias = I_1x1 * -deltaT;  // Correct so accurately reflects bias derivative
-  }
-  return incrR;
-}
-}  // namespace internal
-
-void PreintegratedPlanarRotation::integrateGyroMeasurement(
-    double measuredOmega, 
-    double biasHat,
-    double deltaT) {
-  Matrix1 H_bias;
-  internal::IncrementalPlanarRotation f{measuredOmega, deltaT};
-  const Rot2 incrR = f(biasHat, H_bias);
 
   // Update deltaTij and rotation
   deltaTij_ += deltaT;
   deltaRij_ = deltaRij_.compose(incrR);
 
   // Update Jacobian
-  // const Matrix1 incrRt = Matrix1(incrR.theta());//.transpose();
-  // delRdelBiasOmega_ = incrRt * delRdelBiasOmega_ + H_bias;
-  // no need to rotate the previous bias
+  Matrix1 H_bias = I_1x1 * -deltaT;
   delRdelBiasOmega_ = delRdelBiasOmega_ + H_bias;
 }
-
 
 Rot2 PreintegratedPlanarRotation::biascorrectedDeltaRij(
     double biasOmegaIncr, OptionalJacobian<1, 1> H) const {
@@ -72,5 +49,4 @@ Rot2 PreintegratedPlanarRotation::biascorrectedDeltaRij(
   if (H) (*H) *= delRdelBiasOmega_;
   return deltaRij_biascorrected;
 }
-
 }  // namespace gtsam

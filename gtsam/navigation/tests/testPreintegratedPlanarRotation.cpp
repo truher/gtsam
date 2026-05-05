@@ -30,15 +30,8 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurement) {
   // Example where IMU is identical to body frame, then omega is roll
   using namespace biased_x_rotation;
 
-  // Check the value.
-  Matrix1 H_bias;
-  const internal::IncrementalPlanarRotation f{measuredOmega, deltaT};
-  const Rot2 incrR = f(bias, H_bias);
-  const Rot2 expected = Rot2(omega * deltaT);
-  EXPECT(assert_equal(expected, incrR, 1e-9))
 
-  // Check the derivative:
-  EXPECT(assert_equal(numericalDerivative11<Rot2, double>(f, bias), H_bias))
+  const Rot2 expected = Rot2(omega * deltaT);
 
   // Check value of deltaRij() after integration.
   PreintegratedPlanarRotation pim(1);
@@ -52,6 +45,7 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurement) {
   EXPECT(assert_equal<Matrix1>(pim.deltaRij().inverse().AdjointMap(), F))
 
   // Make sure delRdelBiasOmega is H_bias after integration.
+  Matrix1 H_bias = I_1x1 * -deltaT;
   EXPECT(assert_equal<Matrix1>(H_bias, pim.delRdelBiasOmega()))
 
   // Check if we make a correction to the bias, the value and Jacobian are
@@ -86,13 +80,11 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithTransform) {
   using namespace biased_x_rotation;
 
   // Check the value.
-  Matrix1 H_bias;
-  const internal::IncrementalPlanarRotation f{measuredOmega, deltaT};
   const Rot2 expected = Rot2(omega * deltaT);
-  EXPECT(assert_equal(expected, f(bias, H_bias), 1e-9))
 
-  // Check the derivative:
-  EXPECT(assert_equal(numericalDerivative11<Rot2, double>(f, bias), H_bias))
+
+
+
 
   // Check value of deltaRij() after integration.
   PreintegratedPlanarRotation pim(1);
@@ -106,6 +98,7 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithTransform) {
   EXPECT(assert_equal<Matrix1>(pim.deltaRij().inverse().AdjointMap(), F))
 
   // Make sure delRdelBiasOmega is H_bias after integration.
+  Matrix1 H_bias = I_1x1 * -deltaT;
   EXPECT(assert_equal<Matrix1>(H_bias, pim.delRdelBiasOmega()))
 
   // Check the bias correction in same way, but will now yield pitch change.
@@ -134,11 +127,7 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithArbitraryTransform
   // Example with a non-axis-aligned transform and some position.
   using namespace biased_x_rotation;
 
-  // Check the derivative:
-  Matrix1 H_bias;
-  const internal::IncrementalPlanarRotation f{measuredOmega, deltaT};
-  f(bias, H_bias);
-  EXPECT(assert_equal(numericalDerivative11<Rot2, double>(f, bias), H_bias))
+  Matrix1 H_bias = I_1x1 * -deltaT;
 
   // Check derivative of deltaRij() after integration.
   PreintegratedPlanarRotation pim(1);

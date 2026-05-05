@@ -3,7 +3,6 @@
  * @author joel@truher.org
  * @date May 1, 2026
  */
-
 #include <gtsam/navigation/PlanarAHRSFactor.h>
 
 #include <iostream>
@@ -11,48 +10,33 @@
 using namespace std;
 
 namespace gtsam {
-
-//------------------------------------------------------------------------------
-// Inner class PreintegratedMeasurements
-//------------------------------------------------------------------------------
 void PreintegratedPlanarAhrsMeasurements::print(const string& s) const {
   PreintegratedPlanarRotation::print(s);
   cout << "biasHat [" << biasHat_ << "]" << endl;
   cout << " PreintMeasCov [ " << preintMeasCov_ << " ]" << endl;
 }
 
-//------------------------------------------------------------------------------
 bool PreintegratedPlanarAhrsMeasurements::equals(
     const PreintegratedPlanarAhrsMeasurements& other, double tol) const {
   return PreintegratedPlanarRotation::equals(other, tol) &&
          abs(biasHat_- other.biasHat_) < tol;
 }
 
-//------------------------------------------------------------------------------
 void PreintegratedPlanarAhrsMeasurements::resetIntegration() {
   PreintegratedPlanarRotation::resetIntegration();
   preintMeasCov_.setZero();
 }
 
-//------------------------------------------------------------------------------
 void PreintegratedPlanarAhrsMeasurements::integrateMeasurement(
     double measuredOmega, double deltaT) {
-  // 1. integrate
   PreintegratedPlanarRotation::integrateGyroMeasurement(
     measuredOmega, biasHat_, deltaT);
 
-  // 2. Calculate noise in the body frame
-  Matrix1 SigmaBody;
-  SigmaBody <<  gyroscopeCovariance_;
+  Matrix1 newNoise{gyroscopeCovariance_ * deltaT};
 
-  // First order uncertainty propagation:
-  //   new_cov = old_cov + new_noise
-  // The deltaT allows to pass from continuous time noise to discrete time
-  // noise.
-  preintMeasCov_ = preintMeasCov_ + SigmaBody * deltaT;
+  preintMeasCov_ += newNoise;
 }
 
-//------------------------------------------------------------------------------
 Rot2 PreintegratedPlanarAhrsMeasurements::predict(
     const Rot2& Ri,
     double bias,
@@ -66,7 +50,6 @@ Rot2 PreintegratedPlanarAhrsMeasurements::predict(
   return Ri.compose(biascorrected, H1);
 }
 
-//------------------------------------------------------------------------------
 Vector1 PreintegratedPlanarAhrsMeasurements::computeError(
     const Rot2& Ri,
     const Rot2& Rj,
@@ -92,9 +75,6 @@ Vector1 PreintegratedPlanarAhrsMeasurements::computeError(
   return error;
 }
 
-//------------------------------------------------------------------------------
-// AHRSFactor methods
-//------------------------------------------------------------------------------
 PlanarAHRSFactor::PlanarAHRSFactor(
     Key rot_i, Key rot_j, Key bias,
     const PreintegratedPlanarAhrsMeasurements& pim)
@@ -103,12 +83,10 @@ PlanarAHRSFactor::PlanarAHRSFactor(
       _PIM_(pim) {}
 
 gtsam::NonlinearFactor::shared_ptr PlanarAHRSFactor::clone() const {
-  //------------------------------------------------------------------------------
   return std::static_pointer_cast<gtsam::NonlinearFactor>(
       gtsam::NonlinearFactor::shared_ptr(new This(*this)));
 }
 
-//------------------------------------------------------------------------------
 void PlanarAHRSFactor::print(const string& s,
                              const KeyFormatter& keyFormatter) const {
   cout << s << "PlanarAHRSFactor(" << keyFormatter(this->key<1>()) << ","
@@ -118,13 +96,11 @@ void PlanarAHRSFactor::print(const string& s,
   noiseModel_->print("  noise model: ");
 }
 
-//------------------------------------------------------------------------------
 bool PlanarAHRSFactor::equals(const NonlinearFactor& other, double tol) const {
   const This* e = dynamic_cast<const This*>(&other);
   return e != nullptr && Base::equals(*e, tol) && _PIM_.equals(e->_PIM_, tol);
 }
 
-//------------------------------------------------------------------------------
 Vector PlanarAHRSFactor::evaluateError(const Rot2& Ri,
                                        const Rot2& Rj,
                                        const double& bias,
@@ -133,16 +109,4 @@ Vector PlanarAHRSFactor::evaluateError(const Rot2& Ri,
                                        OptionalMatrixType H3) const {
   return _PIM_.computeError(Ri, Rj, bias, H1, H2, H3);
 }
-
-
-//------------------------------------------------------------------------------
-Rot2 PlanarAHRSFactor::predict(
-    const Rot2& Ri,
-    double bias,
-    const PreintegratedPlanarAhrsMeasurements& pim) {
-  PreintegratedPlanarAhrsMeasurements newPim = pim;
-  newPim.gyroscopeCovariance_ = pim.gyroscopeCovariance_;
-  return newPim.predict(Ri, bias);
-}
-
 }  // namespace gtsam
