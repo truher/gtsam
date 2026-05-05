@@ -22,7 +22,7 @@ void PreintegratedPlanarRotation::print(const string& s) const {
 
 bool PreintegratedPlanarRotation::equals(
     const PreintegratedPlanarRotation& other, double tol) const {
-  return this->matchesParamsWith(other) &&
+  return std::abs(gyroscopeCovariance_ - other.gyroscopeCovariance_) < tol &&
          deltaRij_.equals(other.deltaRij_, tol) &&
          std::abs(deltaTij_ - other.deltaTij_) < tol &&
          equal_with_abs_tol(delRdelBiasOmega_, other.delRdelBiasOmega_, tol);
@@ -48,15 +48,14 @@ Rot2 IncrementalPlanarRotation::operator()(
 void PreintegratedPlanarRotation::integrateGyroMeasurement(
     double measuredOmega, 
     double biasHat,
-    double deltaT,
-    OptionalJacobian<1, 1> F) {
+    double deltaT) {
   Matrix1 H_bias;
   internal::IncrementalPlanarRotation f{measuredOmega, deltaT};
   const Rot2 incrR = f(biasHat, H_bias);
 
   // Update deltaTij and rotation
   deltaTij_ += deltaT;
-  deltaRij_ = deltaRij_.compose(incrR, F);
+  deltaRij_ = deltaRij_.compose(incrR);
 
   // Update Jacobian
   // const Matrix1 incrRt = Matrix1(incrR.theta());//.transpose();

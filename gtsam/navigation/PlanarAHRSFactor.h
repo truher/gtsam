@@ -124,24 +124,13 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
                        gtsam::OptionalJacobian<1, 1> H2 = {},
                        gtsam::OptionalJacobian<1, 1> H3 = {}) const;
 
-
- private:
-#if GTSAM_ENABLE_BOOST_SERIALIZATION
-  /** Serialization function */
-  friend class boost::serialization::access;
-  template <class ARCHIVE>
-  void serialize(ARCHIVE& ar, const unsigned int /*version*/) {
-    ar& BOOST_SERIALIZATION_BASE_OBJECT_NVP(PreintegratedPlanarRotation);
-    ar& BOOST_SERIALIZATION_NVP(p_);
-    ar& BOOST_SERIALIZATION_NVP(biasHat_);
-  }
-#endif
 };
 
 /**
  * See AHRSFactor.
  */
-class GTSAM_EXPORT PlanarAHRSFactor : public NoiseModelFactorN<Rot2, Rot2, double> {
+class GTSAM_EXPORT PlanarAHRSFactor
+    : public NoiseModelFactorN<Rot2, Rot2, double> {
   typedef PlanarAHRSFactor This;
   typedef NoiseModelFactorN<Rot2, Rot2, double> Base;
 
@@ -202,19 +191,6 @@ class GTSAM_EXPORT PlanarAHRSFactor : public NoiseModelFactorN<Rot2, Rot2, doubl
   static Rot2 predict(const Rot2& Ri,
                       double bias,
                       const PreintegratedPlanarAhrsMeasurements& pim);
-
- private:
-#if GTSAM_ENABLE_BOOST_SERIALIZATION
-  /** Serialization function */
-  friend class boost::serialization::access;
-  template <class ARCHIVE>
-  void serialize(ARCHIVE& ar, const unsigned int /*version*/) {
-    // NoiseModelFactor3 instead of NoiseModelFactorN for backward compatibility
-    ar& boost::serialization::make_nvp(
-        "NoiseModelFactor3", boost::serialization::base_object<Base>(*this));
-    ar& BOOST_SERIALIZATION_NVP(_PIM_);
-  }
-#endif
 };
 // PlanarAHRSFactor
 

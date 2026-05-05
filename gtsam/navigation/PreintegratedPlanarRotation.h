@@ -71,16 +71,6 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
 
   /// @}
 
-  /// @name Basic utilities
-  /// @{
-
-  /// check parameters equality: checks whether shared pointer points to same
-  /// Params object.
-  bool matchesParamsWith(const PreintegratedPlanarRotation& other) const {
-    return abs(gyroscopeCovariance_ - other.gyroscopeCovariance_ < 1e-9);
-  }
-  /// @}
-
   /// @name Access instance variables
   /// @{
   const double& gyroscopeCovariance() const { return gyroscopeCovariance_; }
@@ -111,8 +101,7 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
    */
   void integrateGyroMeasurement(double measuredOmega,
                                 double biasHat,
-                                double deltaT,
-                                OptionalJacobian<1, 1> F = {});
+                                double deltaT);
 
   /**
    * @brief Return a bias corrected version of the integrated rotation.
@@ -122,20 +111,6 @@ class GTSAM_EXPORT PreintegratedPlanarRotation {
    */
   Rot2 biascorrectedDeltaRij(double biasOmegaIncr,
                              OptionalJacobian<1, 1> H = {}) const;
-
-
- private:
-#if GTSAM_ENABLE_BOOST_SERIALIZATION
-  /** Serialization function */
-  friend class boost::serialization::access;
-  template <class ARCHIVE>
-  void serialize(ARCHIVE& ar, const unsigned int /*version*/) {  // NOLINT
-    ar& BOOST_SERIALIZATION_NVP(p_);
-    ar& BOOST_SERIALIZATION_NVP(deltaTij_);
-    ar& BOOST_SERIALIZATION_NVP(deltaRij_);
-    ar& BOOST_SERIALIZATION_NVP(delRdelBiasOmega_);
-  }
-#endif
 
 };
 

@@ -38,22 +38,18 @@ void PreintegratedPlanarAhrsMeasurements::resetIntegration() {
 void PreintegratedPlanarAhrsMeasurements::integrateMeasurement(
     double measuredOmega, double deltaT) {
   // 1. integrate
-  // Fr is the Jacobian of the new preintegrated rotation w.r.t. the previous
-  // one.
-  Matrix1 Fr;
-  PreintegratedPlanarRotation::integrateGyroMeasurement(measuredOmega, biasHat_,
-                                                        deltaT, &Fr);
+  PreintegratedPlanarRotation::integrateGyroMeasurement(
+    measuredOmega, biasHat_, deltaT);
 
   // 2. Calculate noise in the body frame
   Matrix1 SigmaBody;
   SigmaBody <<  gyroscopeCovariance_;
 
   // First order uncertainty propagation:
-  //   new_cov = Fr * old_cov * Fr.transpose() + new_noise
+  //   new_cov = old_cov + new_noise
   // The deltaT allows to pass from continuous time noise to discrete time
-  // noise. Comparing with the IMUFactor.cpp implementation, the latter is an
-  // approximation for C * (wCov / dt) * C.transpose(), with C \approx I * dt.
-  preintMeasCov_ = Fr * preintMeasCov_ * Fr.transpose() + SigmaBody * deltaT;
+  // noise.
+  preintMeasCov_ = preintMeasCov_ + SigmaBody * deltaT;
 }
 
 //------------------------------------------------------------------------------

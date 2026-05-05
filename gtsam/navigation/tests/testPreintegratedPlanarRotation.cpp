@@ -41,9 +41,11 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurement) {
   EXPECT(assert_equal(numericalDerivative11<Rot2, double>(f, bias), H_bias))
 
   // Check value of deltaRij() after integration.
-  Matrix1 F;
   PreintegratedPlanarRotation pim(1);
-  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT, F);
+  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  
+  Matrix1 F = I_1x1;
+
   EXPECT(assert_equal(expected, pim.deltaRij(), 1e-9))
 
   // Check that system matrix F is the first derivative of compose:
@@ -93,9 +95,11 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithTransform) {
   EXPECT(assert_equal(numericalDerivative11<Rot2, double>(f, bias), H_bias))
 
   // Check value of deltaRij() after integration.
-  Matrix1 F;
   PreintegratedPlanarRotation pim(1);
-  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT, F);
+  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+
+  Matrix1 F = I_1x1;
+
   EXPECT(assert_equal(expected, pim.deltaRij(), 1e-9))
 
   // Check that system matrix F is the first derivative of compose:
@@ -137,10 +141,11 @@ TEST(PreintegratedPlanarRotation, integrateGyroMeasurementWithArbitraryTransform
   EXPECT(assert_equal(numericalDerivative11<Rot2, double>(f, bias), H_bias))
 
   // Check derivative of deltaRij() after integration.
-  Matrix1 F;
   PreintegratedPlanarRotation pim(1);
-  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT, F);
+  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
 
+  Matrix1 F = I_1x1;
+ 
   // Check that system matrix F is the first derivative of compose:
   EXPECT(assert_equal<Matrix1>(pim.deltaRij().inverse().AdjointMap(), F))
 
