@@ -21,32 +21,45 @@
 
 #pragma once
 
-/* GTSAM includes */
+#include <gtsam/base/Matrix.h>
+#include <gtsam/base/std_optional_serialization.h>
 #include <gtsam/geometry/Pose2.h>
-#include <gtsam/navigation/PreintegratedPlanarRotation.h>
+#include <gtsam/geometry/Rot2.h>
 #include <gtsam/nonlinear/NoiseModelFactorN.h>
 #include <gtsam/nonlinear/NonlinearFactor.h>
 
 #include <optional>
 
+#include "gtsam/dllexport.h"
+
 namespace gtsam {
 
-class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
-    : public PreintegratedPlanarRotation {
+class GTSAM_EXPORT PlanarGyro {
  protected:
-  double biasHat_;  ///< Angular rate bias values used during preintegration.
-  Matrix1 preintMeasCov_;  ///< Covariance matrix of the preintegrated
-                           ///< measurements (first-order propagation from
-                           ///< *measurementCovariance*)
+  const double gyroscopeCovariance_;
+  // Time interval from i to j
+  double deltaTij_;
+  // Rotation of j relative to i
+  Rot2 deltaRij_;
+  // Jacobian of preintegrated rotation w.r.t. angular rate bias
+  Matrix1 delRdelBiasOmega_;
+  // Angular rate bias values used during preintegration.
+  double biasHat_;
+  // Covariance matrix of the preintegrated measurements
+  // (first-order propagation from *measurementCovariance*)
 
-  friend class PlanarAHRSFactor;
+  Matrix1 preintMeasCov_;
+
+  friend class PlanarGyroFactor;
 
  public:
-  PreintegratedPlanarAhrsMeasurements() {}
+  explicit PlanarGyro(double gyroscopeCovariance)
+      : gyroscopeCovariance_(gyroscopeCovariance) {
+    resetIntegration();
+  }
 
-  PreintegratedPlanarAhrsMeasurements(double gyroscopeCovariance,
-                                      double biasHat)
-      : PreintegratedPlanarRotation(gyroscopeCovariance), biasHat_(biasHat) {
+  PlanarGyro(double gyroscopeCovariance, double biasHat)
+      : gyroscopeCovariance_(gyroscopeCovariance), biasHat_(biasHat) {
     resetIntegration();
   }
 
@@ -59,27 +72,47 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
    *  @param delRdelBiasOmega: Jacobian of rotation wrt gyro bias
    *  @param preint_meas_cov: Pre-integration covariance
    */
-  PreintegratedPlanarAhrsMeasurements(double gyroscopeCovariance,
-                                      double bias_hat, double deltaTij,
-                                      const Rot2& deltaRij,
-                                      const Matrix1& delRdelBiasOmega,
-                                      const Matrix1& preint_meas_cov)
-      : PreintegratedPlanarRotation(gyroscopeCovariance, deltaTij, deltaRij,
-                                    delRdelBiasOmega),
+  PlanarGyro(double gyroscopeCovariance, double bias_hat, double deltaTij,
+             const Rot2& deltaRij, const Matrix1& delRdelBiasOmega,
+             const Matrix1& preint_meas_cov)
+      : gyroscopeCovariance_(gyroscopeCovariance),
+        deltaTij_(deltaTij),
+        deltaRij_(deltaRij),
+        delRdelBiasOmega_(delRdelBiasOmega),
         biasHat_(bias_hat),
         preintMeasCov_(preint_meas_cov) {}
 
   const double& gyroscopeCovariance() const { return gyroscopeCovariance_; }
+  const double& deltaTij() const { return deltaTij_; }
+  const Rot2& deltaRij() const { return deltaRij_; }
+  const Matrix1& delRdelBiasOmega() const { return delRdelBiasOmega_; }
   const double& biasHat() const { return biasHat_; }
   const Matrix1& preintMeasCov() const { return preintMeasCov_; }
 
   void print(const std::string& s = "Preintegrated Measurements: ") const;
 
-  bool equals(const PreintegratedPlanarAhrsMeasurements& expected,
-              double tol = 1e-9) const;
+  bool equals(const PlanarGyro& expected, double tol = 1e-9) const;
 
-  /// Reset integrated quantities to zero
   void resetIntegration();
+
+  /**
+   * @brief Calculate an incremental rotation given the gyro measurement and a
+   * time interval, and update both deltaTij_ and deltaRij_.
+   * @param measuredOmega The measured angular velocity (as given by the sensor)
+   * @param bias The biasHat estimate
+   * @param deltaT The time interval
+   */
+  void integrateGyroMeasurement(double measuredOmega, double biasHat,
+                                double deltaT);
+
+  /**
+   * @brief Return a bias corrected version of the integrated rotation.
+   * @param biasOmegaIncr An increment with respect to biasHat used above.
+   * @param H optional Jacobian of the correction w.r.t. the bias increment.
+   * @note The *key* functionality of this class used in optimizing the bias.
+   */
+  Rot2 biascorrectedDeltaRij(double biasOmegaIncr,
+                             OptionalJacobian<1, 1> H = {}) const;
 
   /**
    * Add a single gyroscope measurement to the preintegration.
@@ -117,42 +150,4 @@ class GTSAM_EXPORT PreintegratedPlanarAhrsMeasurements
                        gtsam::OptionalJacobian<1, 1> H3 = {}) const;
 };
 
-/**
- * See AHRSFactor.
- */
-class GTSAM_EXPORT PlanarAHRSFactor
-    : public NoiseModelFactorN<Rot2, Rot2, double> {
-  typedef PlanarAHRSFactor This;
-  typedef NoiseModelFactorN<Rot2, Rot2, double> Base;
-
-  PreintegratedPlanarAhrsMeasurements _PIM_;
-
- public:
-  // Provide access to the Matrix& version of evaluateError:
-  using Base::evaluateError;
-
-  /** Shorthand for a smart pointer to a factor */
-#if !defined(_MSC_VER) && __GNUC__ == 4 && __GNUC_MINOR__ > 5
-  typedef typename std::shared_ptr<PlanarAHRSFactor> shared_ptr;
-#else
-  typedef std::shared_ptr<PlanarAHRSFactor> shared_ptr;
-#endif
-  PlanarAHRSFactor() {}
-
-  PlanarAHRSFactor(Key rot_i, Key rot_j, Key bias,
-                   const PreintegratedPlanarAhrsMeasurements& pim);
-
-  ~PlanarAHRSFactor() override {}
-
-  gtsam::NonlinearFactor::shared_ptr clone() const override;
-
-  void print(const std::string& s, const KeyFormatter& keyFormatter =
-                                       DefaultKeyFormatter) const override;
-
-  bool equals(const NonlinearFactor&, double tol = 1e-9) const override;
-
-  Vector evaluateError(const Rot2& Ri, const Rot2& Rj, const double& bias,
-                       OptionalMatrixType H1, OptionalMatrixType H2,
-                       OptionalMatrixType H3) const override;
-};  // PlanarAHRSFactor
 }  // namespace gtsam

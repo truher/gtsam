@@ -1,8 +1,8 @@
 /**
- * @file testPlanarAHRSFactor.cpp
+ * @file testPlanarGyroFactor.cpp
  * @date May 1, 2026
  * @author joel@truher.org
- * @brief tests for PlanarAHRSFactor
+ * @brief tests for PlanarGyroFactor
  */
 
 
@@ -12,7 +12,7 @@
 #include <gtsam/base/numericalDerivative.h>
 #include <gtsam/inference/Symbol.h>
 #include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/navigation/PlanarAHRSFactor.h>
+#include <gtsam/navigation/PlanarGyroFactor.h>
 #include <gtsam/navigation/ScenarioRunner.h>
 #include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
 #include <gtsam/nonlinear/LevenbergMarquardtParams.h>
@@ -41,10 +41,10 @@ const double kMeasuredOmegaCovariance = gyroNoiseVar;
 
 //******************************************************************************
 namespace {
-PreintegratedPlanarAhrsMeasurements integrateMeasurements(
+PlanarGyro integrateMeasurements(
     const double biasHat, const list<double>& measuredOmegas,
     const list<double>& deltaTs) {
-  PreintegratedPlanarAhrsMeasurements result(1.0, biasHat);
+  PlanarGyro result(1.0, biasHat);
 
   list<double>::const_iterator itOmega = measuredOmegas.begin();
   list<double>::const_iterator itDeltaT = deltaTs.begin();
@@ -57,7 +57,7 @@ PreintegratedPlanarAhrsMeasurements integrateMeasurements(
 }  // namespace
 
 //******************************************************************************
-TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurements) {
+TEST(PlanarGyroFactor, PlanarGyro) {
   // Linearization point
   double biasHat = 0;  ///< Current estimate of angular rate bias
 
@@ -69,7 +69,7 @@ TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurements) {
   Rot2 expectedDeltaR1 = Rot2(0.5 * M_PI / 100.0);
 
   // Actual preintegrated values
-  PreintegratedPlanarAhrsMeasurements actual1(kMeasuredOmegaCovariance, biasHat);
+  PlanarGyro actual1(kMeasuredOmegaCovariance, biasHat);
   actual1.integrateMeasurement(measuredOmega, deltaT);
 
   EXPECT(assert_equal(expectedDeltaR1, Rot2(actual1.deltaRij()), 1e-6));
@@ -84,7 +84,7 @@ TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurements) {
   Rot2 expectedDeltaR2 = Rot2(2.0 * 0.5 * M_PI / 100.0);
 
   // Actual preintegrated values
-  PreintegratedPlanarAhrsMeasurements actual2 = actual1;
+  PlanarGyro actual2 = actual1;
   actual2.integrateMeasurement(measuredOmega, deltaT);
 
   EXPECT(assert_equal(expectedDeltaR2, Rot2(actual2.deltaRij()), 1e-6));
@@ -92,14 +92,14 @@ TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurements) {
 }
 
 //******************************************************************************
-TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurementsConstructor) {
+TEST(PlanarGyroFactor, PlanarGyroConstructor) {
   double gyroscopeCovariance = 0.4;
   double bias = 1.0;  ///< Current estimate of angular rate bias
   Rot2 deltaRij(Rot2(M_PI / 12.0));
   double deltaTij = 0.02;
   Matrix1 delRdelBiasOmega = I_1x1 * 0.5;
   Matrix1 preintMeasCov = I_1x1 * 0.2;
-  PreintegratedPlanarAhrsMeasurements actualPim(
+  PlanarGyro actualPim(
       gyroscopeCovariance, bias, deltaTij,
       deltaRij, delRdelBiasOmega, preintMeasCov);
   EXPECT(assert_equal(gyroscopeCovariance,
@@ -112,14 +112,14 @@ TEST(PlanarAHRSFactor, PreintegratedPlanarAhrsMeasurementsConstructor) {
 }
 
 /* ************************************************************************* */
-TEST(PlanarAHRSFactor, PIMPredict) {
+TEST(PlanarGyroFactor, PlanarGyroPredict) {
   // Modernized version of predictTest, calling predict on the PIM directly.
   double bias = 0;
 
   // Measurements
   double measuredOmega = M_PI / 10.0;
   double deltaT = 0.2;
-  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, bias);
+  PlanarGyro pim(kMeasuredOmegaCovariance, bias);
   for (int i = 0; i < 1000; ++i) {
     pim.integrateMeasurement(measuredOmega, deltaT);
   }
@@ -133,7 +133,7 @@ TEST(PlanarAHRSFactor, PIMPredict) {
 }
 
 /* ************************************************************************* */
-TEST(PlanarAHRSFactor, PIMComputeError) {
+TEST(PlanarGyroFactor, PlanarGyroComputeError) {
   // Tests the modernized computeError and its Jacobians, now on the PIM.
   double bias = 0.1;
   Rot2 Ri(Rot2(M_PI / 12.0));
@@ -142,7 +142,7 @@ TEST(PlanarAHRSFactor, PIMComputeError) {
   // Measurements
   double measuredOmega = M_PI / 100 + 0.1;
   double deltaT = 1.0;
-  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, 0);
+  PlanarGyro pim(kMeasuredOmegaCovariance, 0);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Use a wrapper to call the new PIM::computeError for numerical derivatives
@@ -166,7 +166,7 @@ TEST(PlanarAHRSFactor, PIMComputeError) {
 }
 
 /* ************************************************************************* */
-TEST(PlanarAHRSFactor, Error) {
+TEST(PlanarGyroFactor, Error) {
   // Linearization point
   double bias = 0.0;  // Bias
   Rot2 Ri(Rot2(M_PI / 12.0));
@@ -175,11 +175,11 @@ TEST(PlanarAHRSFactor, Error) {
   // Measurements
   double measuredOmega = M_PI / 100;
   double deltaT = 1.0;
-  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, bias);
+  PlanarGyro pim(kMeasuredOmegaCovariance, bias);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Create factor
-  PlanarAHRSFactor factor(R(1), R(2), B(1), pim);
+  PlanarGyroFactor factor(R(1), R(2), B(1), pim);
 
   // Check value
   Vector1 errorActual = factor.evaluateError(Ri, Rj, bias);
@@ -195,7 +195,7 @@ TEST(PlanarAHRSFactor, Error) {
 }
 
 /* ************************************************************************* */
-TEST(PlanarAHRSFactor, ErrorWithBiases) {
+TEST(PlanarGyroFactor, ErrorWithBiases) {
   // Linearization point
   double bias = 0.3;
   Rot2 Ri(Rot2::fromAngle(M_PI / 4.0));
@@ -204,11 +204,11 @@ TEST(PlanarAHRSFactor, ErrorWithBiases) {
   // Measurements
   double measuredOmega = M_PI / 10.0 + 0.3;
   double deltaT = 1.0;
-  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, 0);
+  PlanarGyro pim(kMeasuredOmegaCovariance, 0);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Create factor
-  PlanarAHRSFactor factor(R(1), R(2), B(1), pim);
+  PlanarGyroFactor factor(R(1), R(2), B(1), pim);
 
   // Check value
   Vector1 errorExpected(0);
@@ -224,7 +224,7 @@ TEST(PlanarAHRSFactor, ErrorWithBiases) {
 }
 
 //******************************************************************************
-TEST(PlanarAHRSFactor, PartialDerivativeExpmap) {
+TEST(PlanarGyroFactor, PartialDerivativeExpmap) {
   // Linearization point
   double biasOmega = 0;
 
@@ -249,7 +249,7 @@ TEST(PlanarAHRSFactor, PartialDerivativeExpmap) {
 }
 
 //******************************************************************************
-TEST(PlanarAHRSFactor, PartialDerivativeLogmap) {
+TEST(PlanarGyroFactor, PartialDerivativeLogmap) {
   // Linearization point
   Vector1 thetaHat(0.1);  ///< Current estimate of rotation rate bias
 
@@ -274,7 +274,7 @@ TEST(PlanarAHRSFactor, PartialDerivativeLogmap) {
 }
 
 //******************************************************************************
-TEST(PlanarAHRSFactor, fistOrderExponential) {
+TEST(PlanarGyroFactor, fistOrderExponential) {
   // Linearization point
   double biasOmega = 0;
 
@@ -303,7 +303,7 @@ TEST(PlanarAHRSFactor, fistOrderExponential) {
 }
 
 //******************************************************************************
-TEST(PlanarAHRSFactor, FirstOrderPreIntegratedPlanarMeasurements) {
+TEST(PlanarGyroFactor, FirstOrderPlanarGyro) {
   // Linearization point
   double bias = 0.0;  ///< Current estimate of rotation rate bias
 
@@ -320,7 +320,7 @@ TEST(PlanarAHRSFactor, FirstOrderPreIntegratedPlanarMeasurements) {
   }
 
   // Actual preintegrated values
-  PreintegratedPlanarAhrsMeasurements preintegrated =
+  PlanarGyro preintegrated =
       integrateMeasurements(bias, measuredOmegas, deltaTs);
 
   auto f = [&](const double& bias) {
@@ -339,7 +339,7 @@ TEST(PlanarAHRSFactor, FirstOrderPreIntegratedPlanarMeasurements) {
 }
 
 //******************************************************************************
-TEST(PlanarAHRSFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
+TEST(PlanarGyroFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
   double bias = 0.3;
   Rot2 Ri(Rot2::fromAngle(M_PI / 4.0));
   Rot2 Rj(Rot2::fromAngle(M_PI / 4.0 + M_PI / 10.0));
@@ -348,7 +348,7 @@ TEST(PlanarAHRSFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
   double measuredOmega = M_PI / 10.0 + 0.3;
   double deltaT = 1.0;
 
-  PreintegratedPlanarAhrsMeasurements pim(
+  PlanarGyro pim(
     kMeasuredOmegaCovariance, 0.0);
 
   pim.integrateMeasurement(measuredOmega, deltaT);
@@ -357,7 +357,7 @@ TEST(PlanarAHRSFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
   EXPECT(assert_equal(kMeasuredOmegaCovariance, pim.preintMeasCov()(0)));
 
   // Create factor
-  PlanarAHRSFactor factor(R(1), R(2), B(1), pim);
+  PlanarGyroFactor factor(R(1), R(2), B(1), pim);
 
   // Check Derivatives
   Values values;
@@ -368,12 +368,12 @@ TEST(PlanarAHRSFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
 }
 
 //******************************************************************************
-TEST(PlanarAHRSFactor, PIM_predict_and_Jacobians) {
+TEST(PlanarGyroFactor, PIM_predict_and_Jacobians) {
   // --- Setup ---
   double bias = 0.1;
   Rot2 Ri = Rot2(M_PI / 4.0);
 
-  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, 0.0);
+  PlanarGyro pim(kMeasuredOmegaCovariance, 0.0);
 
   // Integrate a few measurements
   double measuredOmega = M_PI / 10.0;
@@ -410,12 +410,12 @@ TEST(PlanarAHRSFactor, PIM_predict_and_Jacobians) {
 
 //******************************************************************************
 // Test predict with Coriolis enabled
-TEST(PlanarAHRSFactor, PIM_predict_and_Jacobians_with_Coriolis) {
+TEST(PlanarGyroFactor, PIM_predict_and_Jacobians_with_Coriolis) {
   // --- Setup ---
   double bias = 0.1;
   Rot2 Ri = Rot2(M_PI / 4.0);
 
-  PreintegratedPlanarAhrsMeasurements pim(
+  PlanarGyro pim(
     kMeasuredOmegaCovariance, 0.0);
 
   // Integrate a few measurements
@@ -440,7 +440,7 @@ TEST(PlanarAHRSFactor, PIM_predict_and_Jacobians_with_Coriolis) {
   EXPECT(assert_equal(H2_numerical, H2_actual, 1e-7));
 }
 //******************************************************************************
-TEST(PlanarAHRSFactor, graphTest) {
+TEST(PlanarGyroFactor, graphTest) {
   // linearization point
   Rot2 Ri(Rot2(0));
   Rot2 Rj(Rot2(M_PI / 4));
@@ -448,7 +448,7 @@ TEST(PlanarAHRSFactor, graphTest) {
 
   // PreIntegrator
   double biasHat = 0;
-  PreintegratedPlanarAhrsMeasurements pim(kMeasuredOmegaCovariance, biasHat);
+  PlanarGyro pim(kMeasuredOmegaCovariance, biasHat);
 
   // Pre-integrate measurements
   double measuredOmega = M_PI / 20;
@@ -463,8 +463,7 @@ TEST(PlanarAHRSFactor, graphTest) {
     pim.integrateMeasurement(measuredOmega, deltaT);
   }
 
-  // pim.print("Pre integrated measurements");
-  PlanarAHRSFactor factor(R(1), R(2), B(1), pim);
+  PlanarGyroFactor factor(R(1), R(2), B(1), pim);
   values.insert(R(1), Ri);
   values.insert(R(2), Rj);
   values.insert(B(1), bias);
@@ -476,7 +475,7 @@ TEST(PlanarAHRSFactor, graphTest) {
 }
 
 /* ************************************************************************* */
-TEST(PlanarAHRSFactor, bodyPSensorWithBias) {
+TEST(PlanarGyroFactor, bodyPSensorWithBias) {
   using noiseModel::Diagonal;
 
   int numRotations = 10;
@@ -514,12 +513,12 @@ TEST(PlanarAHRSFactor, bodyPSensorWithBias) {
   // Now add IMU factors and bias noise models
   const double zeroBias = 0;
   for (int i = 1; i < numRotations; i++) {
-    PreintegratedPlanarAhrsMeasurements pim(1e-8, realBias);
+    PlanarGyro pim(1e-8, realBias);
     for (int j = 0; j < 200; ++j)
       pim.integrateMeasurement(measuredOmega, deltaT);
 
     // Create factors
-    graph.emplace_shared<PlanarAHRSFactor>(R(i - 1), R(i), B(i - 1), pim);
+    graph.emplace_shared<PlanarGyroFactor>(R(i - 1), R(i), B(i - 1), pim);
     graph.emplace_shared<BetweenFactor<double> >(B(i - 1), B(i), zeroBias,
                                                   biasNoiseModel);
 
