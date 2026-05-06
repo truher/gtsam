@@ -1,12 +1,12 @@
 /**
  * @file   testPlanarGyro.cpp
- * @brief  Unit test for PlanarGyro
+ * @brief  Unit test for PlanarGyroMeasurement
  * @author joel@truher.org
  */
 
 #include <CppUnitLite/TestHarness.h>
 #include <gtsam/base/numericalDerivative.h>
-#include <gtsam/navigation/PlanarGyro.h>
+#include <gtsam/navigation/PlanarGyroMeasurement.h>
 
 #include <memory>
 
@@ -15,7 +15,6 @@
 
 using namespace gtsam;
 
-//******************************************************************************
 // Example where gyro measures small rotation, with bias.
 namespace biased_x_rotation {
 const double omega = 0.1;
@@ -25,16 +24,16 @@ const double measuredOmega = trueOmega + bias;
 const double deltaT = 0.5;
 }  // namespace biased_x_rotation
 
-//******************************************************************************
-TEST(PlanarGyro, integrateGyroMeasurement) {
+TEST(PlanarGyroMeasurement, integrateGyroMeasurement) {
   // Example where IMU is identical to body frame, then omega is roll
   using namespace biased_x_rotation;
 
   const Rot2 expected = Rot2(omega * deltaT);
 
   // Check value of deltaRij() after integration.
-  PlanarGyro pim(1);
-  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  PlanarGyroMeasurement pim(1, bias);
+  // pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  pim.integrateMeasurement(measuredOmega, deltaT);
   
   Matrix1 F = I_1x1;
 
@@ -65,16 +64,16 @@ TEST(PlanarGyro, integrateGyroMeasurement) {
   EXPECT(assert_equal(expectedH, H));
   
   // Let's integrate a second IMU measurement and check the Jacobian update:
-  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  // pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  pim.integrateMeasurement(measuredOmega, deltaT);
+
   expectedH = numericalDerivative11<Rot2, double>(g, biasOmegaIncr);
   corrected = pim.biascorrectedDeltaRij(biasOmegaIncr, H);
   EXPECT(assert_equal(expectedH, H));
 }
 
-//******************************************************************************
 
-
-TEST(PlanarGyro, integrateGyroMeasurementWithTransform) {
+TEST(PlanarGyroMeasurement, integrateGyroMeasurementWithTransform) {
   // Example where IMU is rotated, so measured omega indicates pitch.
   using namespace biased_x_rotation;
 
@@ -82,8 +81,9 @@ TEST(PlanarGyro, integrateGyroMeasurementWithTransform) {
   const Rot2 expected = Rot2(omega * deltaT);
 
   // Check value of deltaRij() after integration.
-  PlanarGyro pim(1);
-  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  PlanarGyroMeasurement pim(1, bias);
+  // pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  pim.integrateMeasurement(measuredOmega, deltaT);
 
   Matrix1 F = I_1x1;
 
@@ -112,21 +112,23 @@ TEST(PlanarGyro, integrateGyroMeasurementWithTransform) {
   EXPECT(assert_equal(expectedH, H));
 
   // Let's integrate a second IMU measurement and check the Jacobian update:
-  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  // pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  pim.integrateMeasurement(measuredOmega, deltaT);
   corrected = pim.biascorrectedDeltaRij(biasOmegaIncr, H);
   expectedH = numericalDerivative11<Rot2, double>(g, biasOmegaIncr);
   EXPECT(assert_equal(expectedH, H));
 }
 
-TEST(PlanarGyro, integrateGyroMeasurementWithArbitraryTransform) {
+TEST(PlanarGyroMeasurement, integrateGyroMeasurementWithArbitraryTransform) {
   // Example with a non-axis-aligned transform and some position.
   using namespace biased_x_rotation;
 
   Matrix1 H_bias = I_1x1 * -deltaT;
 
   // Check derivative of deltaRij() after integration.
-  PlanarGyro pim(1);
-  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  PlanarGyroMeasurement pim(1, bias);
+  // pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  pim.integrateMeasurement(measuredOmega, deltaT);
 
   Matrix1 F = I_1x1;
  
@@ -150,15 +152,15 @@ TEST(PlanarGyro, integrateGyroMeasurementWithArbitraryTransform) {
   EXPECT(assert_equal(expectedH, H));
 
   // Let's integrate a second IMU measurement and check the Jacobian update:
-  pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  // pim.integrateGyroMeasurement(measuredOmega, bias, deltaT);
+  pim.integrateMeasurement(measuredOmega, deltaT);
+
   corrected = pim.biascorrectedDeltaRij(biasOmegaIncr, H);
   expectedH = numericalDerivative11<Rot2, double>(g, biasOmegaIncr);
   EXPECT(assert_equal(expectedH, H));
 }
 
-//******************************************************************************
 int main() {
   TestResult tr;
   return TestRegistry::runAllTests(tr);
 }
-//******************************************************************************

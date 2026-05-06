@@ -5,7 +5,6 @@
  * @brief tests for PlanarGyroFactor
  */
 
-
 #include <CppUnitLite/TestHarness.h>
 #include <gtsam/base/TestableAssertions.h>
 #include <gtsam/base/debug.h>
@@ -41,10 +40,10 @@ const double kMeasuredOmegaCovariance = gyroNoiseVar;
 
 //******************************************************************************
 namespace {
-PlanarGyro integrateMeasurements(
+PlanarGyroMeasurement integrateMeasurements(
     const double biasHat, const list<double>& measuredOmegas,
     const list<double>& deltaTs) {
-  PlanarGyro result(1.0, biasHat);
+  PlanarGyroMeasurement result(1.0, biasHat);
 
   list<double>::const_iterator itOmega = measuredOmegas.begin();
   list<double>::const_iterator itDeltaT = deltaTs.begin();
@@ -57,7 +56,7 @@ PlanarGyro integrateMeasurements(
 }  // namespace
 
 //******************************************************************************
-TEST(PlanarGyroFactor, PlanarGyro) {
+TEST(PlanarGyroFactor, PlanarGyroMeasurement) {
   // Linearization point
   double biasHat = 0;  ///< Current estimate of angular rate bias
 
@@ -69,7 +68,7 @@ TEST(PlanarGyroFactor, PlanarGyro) {
   Rot2 expectedDeltaR1 = Rot2(0.5 * M_PI / 100.0);
 
   // Actual preintegrated values
-  PlanarGyro actual1(kMeasuredOmegaCovariance, biasHat);
+  PlanarGyroMeasurement actual1(kMeasuredOmegaCovariance, biasHat);
   actual1.integrateMeasurement(measuredOmega, deltaT);
 
   EXPECT(assert_equal(expectedDeltaR1, Rot2(actual1.deltaRij()), 1e-6));
@@ -84,31 +83,11 @@ TEST(PlanarGyroFactor, PlanarGyro) {
   Rot2 expectedDeltaR2 = Rot2(2.0 * 0.5 * M_PI / 100.0);
 
   // Actual preintegrated values
-  PlanarGyro actual2 = actual1;
+  PlanarGyroMeasurement actual2 = actual1;
   actual2.integrateMeasurement(measuredOmega, deltaT);
 
   EXPECT(assert_equal(expectedDeltaR2, Rot2(actual2.deltaRij()), 1e-6));
   DOUBLES_EQUAL(deltaT * 2, actual2.deltaTij(), 1e-6);
-}
-
-//******************************************************************************
-TEST(PlanarGyroFactor, PlanarGyroConstructor) {
-  double gyroscopeCovariance = 0.4;
-  double bias = 1.0;  ///< Current estimate of angular rate bias
-  Rot2 deltaRij(Rot2(M_PI / 12.0));
-  double deltaTij = 0.02;
-  Matrix1 delRdelBiasOmega = I_1x1 * 0.5;
-  Matrix1 preintMeasCov = I_1x1 * 0.2;
-  PlanarGyro actualPim(
-      gyroscopeCovariance, bias, deltaTij,
-      deltaRij, delRdelBiasOmega, preintMeasCov);
-  EXPECT(assert_equal(gyroscopeCovariance,
-                      actualPim.gyroscopeCovariance(), 1e-6));
-  EXPECT(assert_equal(bias, actualPim.biasHat(), 1e-6));
-  DOUBLES_EQUAL(deltaTij, actualPim.deltaTij(), 1e-6);
-  EXPECT(assert_equal(deltaRij, Rot2(actualPim.deltaRij()), 1e-6));
-  EXPECT(assert_equal(delRdelBiasOmega, actualPim.delRdelBiasOmega(), 1e-6));
-  EXPECT(assert_equal(preintMeasCov, actualPim.preintMeasCov(), 1e-6));
 }
 
 /* ************************************************************************* */
@@ -119,7 +98,7 @@ TEST(PlanarGyroFactor, PlanarGyroPredict) {
   // Measurements
   double measuredOmega = M_PI / 10.0;
   double deltaT = 0.2;
-  PlanarGyro pim(kMeasuredOmegaCovariance, bias);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, bias);
   for (int i = 0; i < 1000; ++i) {
     pim.integrateMeasurement(measuredOmega, deltaT);
   }
@@ -142,7 +121,7 @@ TEST(PlanarGyroFactor, PlanarGyroComputeError) {
   // Measurements
   double measuredOmega = M_PI / 100 + 0.1;
   double deltaT = 1.0;
-  PlanarGyro pim(kMeasuredOmegaCovariance, 0);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, 0);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Use a wrapper to call the new PIM::computeError for numerical derivatives
@@ -175,7 +154,7 @@ TEST(PlanarGyroFactor, Error) {
   // Measurements
   double measuredOmega = M_PI / 100;
   double deltaT = 1.0;
-  PlanarGyro pim(kMeasuredOmegaCovariance, bias);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, bias);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Create factor
@@ -204,7 +183,7 @@ TEST(PlanarGyroFactor, ErrorWithBiases) {
   // Measurements
   double measuredOmega = M_PI / 10.0 + 0.3;
   double deltaT = 1.0;
-  PlanarGyro pim(kMeasuredOmegaCovariance, 0);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, 0);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Create factor
@@ -320,7 +299,7 @@ TEST(PlanarGyroFactor, FirstOrderPlanarGyro) {
   }
 
   // Actual preintegrated values
-  PlanarGyro preintegrated =
+  PlanarGyroMeasurement preintegrated =
       integrateMeasurements(bias, measuredOmegas, deltaTs);
 
   auto f = [&](const double& bias) {
@@ -348,7 +327,7 @@ TEST(PlanarGyroFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
   double measuredOmega = M_PI / 10.0 + 0.3;
   double deltaT = 1.0;
 
-  PlanarGyro pim(
+  PlanarGyroMeasurement pim(
     kMeasuredOmegaCovariance, 0.0);
 
   pim.integrateMeasurement(measuredOmega, deltaT);
@@ -373,7 +352,7 @@ TEST(PlanarGyroFactor, PIM_predict_and_Jacobians) {
   double bias = 0.1;
   Rot2 Ri = Rot2(M_PI / 4.0);
 
-  PlanarGyro pim(kMeasuredOmegaCovariance, 0.0);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, 0.0);
 
   // Integrate a few measurements
   double measuredOmega = M_PI / 10.0;
@@ -415,7 +394,7 @@ TEST(PlanarGyroFactor, PIM_predict_and_Jacobians_with_Coriolis) {
   double bias = 0.1;
   Rot2 Ri = Rot2(M_PI / 4.0);
 
-  PlanarGyro pim(
+  PlanarGyroMeasurement pim(
     kMeasuredOmegaCovariance, 0.0);
 
   // Integrate a few measurements
@@ -448,7 +427,7 @@ TEST(PlanarGyroFactor, graphTest) {
 
   // PreIntegrator
   double biasHat = 0;
-  PlanarGyro pim(kMeasuredOmegaCovariance, biasHat);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, biasHat);
 
   // Pre-integrate measurements
   double measuredOmega = M_PI / 20;
@@ -505,7 +484,7 @@ TEST(PlanarGyroFactor, bodyPSensorWithBias) {
 
   // The key to this test is that we specify the bias, in the sensor frame, as
   // known a priori. We also create factors below that encode our assumption
-  // that this bias is constant over time In theory, after optimization, we
+  // that this bias is constant over time. In theory, after optimization, we
   // should recover that same bias estimate
   graph.addPrior(B(0), realBias, priorNoiseBias);
   values.insert(B(0), realBias);
@@ -513,7 +492,7 @@ TEST(PlanarGyroFactor, bodyPSensorWithBias) {
   // Now add IMU factors and bias noise models
   const double zeroBias = 0;
   for (int i = 1; i < numRotations; i++) {
-    PlanarGyro pim(1e-8, realBias);
+    PlanarGyroMeasurement pim(1e-8, realBias);
     for (int j = 0; j < 200; ++j)
       pim.integrateMeasurement(measuredOmega, deltaT);
 

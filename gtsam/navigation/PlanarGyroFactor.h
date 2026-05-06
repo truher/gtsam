@@ -20,7 +20,7 @@
  */
 
 #pragma once
-#include <gtsam/navigation/PlanarGyro.h>
+#include <gtsam/navigation/PlanarGyroMeasurement.h>
 #include <gtsam/geometry/Pose2.h>
 #include <gtsam/nonlinear/NoiseModelFactorN.h>
 #include <gtsam/nonlinear/NonlinearFactor.h>
@@ -40,7 +40,7 @@ class GTSAM_EXPORT PlanarGyroFactor
   typedef PlanarGyroFactor This;
   typedef NoiseModelFactorN<Rot2, Rot2, double> Base;
 
-  PlanarGyro measurement_;
+  PlanarGyroMeasurement measurement_;
 
  public:
   // Provide access to the Matrix& version of evaluateError:
@@ -54,7 +54,7 @@ class GTSAM_EXPORT PlanarGyroFactor
 #endif
 
   PlanarGyroFactor(Key rot_i, Key rot_j, Key bias,
-                   const PlanarGyro& measurement);
+                   const PlanarGyroMeasurement& measurement);
 
   ~PlanarGyroFactor() override {}
 

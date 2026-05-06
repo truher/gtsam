@@ -14,7 +14,7 @@
  *
  * @see https://www.firstinspires.org/
  *
- * @file PlanarAHRSFactor.h
+ * @file PlanarGyroMeasurement.h
  * @author joel@truher.org
  * @date May 1, 2026
  */
@@ -34,76 +34,51 @@
 
 namespace gtsam {
 
-class GTSAM_EXPORT PlanarGyro {
+class GTSAM_EXPORT PlanarGyroMeasurement {
  protected:
+  // Published or measured continuous-time "Covariance" of gyroscope
+  // measurements.
+  // This is white noise in omega, which results in "angle random walk"
+  // in the integrated measurement.
+  // The units for stddev are σ = rad/s/√Hz.
+  // Note variance should be σ^2 so (rad/s)^2/Hz or rad^2/s
   const double gyroscopeCovariance_;
+  // Angular rate bias (rad/s) used during preintegration.
+  // Bias is applied at each update.
+  // Use the estimate from the previous solution at i.
+  const double biasHat_;
+
   // Time interval from i to j
   double deltaTij_;
   // Rotation of j relative to i
   Rot2 deltaRij_;
-  // Jacobian of preintegrated rotation w.r.t. angular rate bias
-  Matrix1 delRdelBiasOmega_;
-  // Angular rate bias values used during preintegration.
-  double biasHat_;
-  // Covariance matrix of the preintegrated measurements
-  // (first-order propagation from *measurementCovariance*)
-
-  Matrix1 preintMeasCov_;
 
   friend class PlanarGyroFactor;
 
  public:
-  explicit PlanarGyro(double gyroscopeCovariance)
-      : gyroscopeCovariance_(gyroscopeCovariance) {
-    resetIntegration();
-  }
-
-  PlanarGyro(double gyroscopeCovariance, double biasHat)
-      : gyroscopeCovariance_(gyroscopeCovariance), biasHat_(biasHat) {
-    resetIntegration();
-  }
-
-  /**
-   *  Non-Default constructor, initialize with measurements
-   *  @param p: Parameters for AHRS pre-integration
-   *  @param bias_hat: Current estimate of rotation rate biases
-   *  @param deltaTij: Delta time in pre-integration
-   *  @param deltaRij: Delta rotation in pre-integration
-   *  @param delRdelBiasOmega: Jacobian of rotation wrt gyro bias
-   *  @param preint_meas_cov: Pre-integration covariance
-   */
-  PlanarGyro(double gyroscopeCovariance, double bias_hat, double deltaTij,
-             const Rot2& deltaRij, const Matrix1& delRdelBiasOmega,
-             const Matrix1& preint_meas_cov)
+  PlanarGyroMeasurement(double gyroscopeCovariance, double biasHat)
       : gyroscopeCovariance_(gyroscopeCovariance),
-        deltaTij_(deltaTij),
-        deltaRij_(deltaRij),
-        delRdelBiasOmega_(delRdelBiasOmega),
-        biasHat_(bias_hat),
-        preintMeasCov_(preint_meas_cov) {}
+        biasHat_(biasHat),
+        deltaTij_(0.0),
+        deltaRij_(Rot2()) {}
 
   const double& gyroscopeCovariance() const { return gyroscopeCovariance_; }
   const double& deltaTij() const { return deltaTij_; }
   const Rot2& deltaRij() const { return deltaRij_; }
-  const Matrix1& delRdelBiasOmega() const { return delRdelBiasOmega_; }
+  const Matrix1 delRdelBiasOmega() const {
+    Matrix1 m;
+    m << -deltaTij_;
+    return m;
+  }
   const double& biasHat() const { return biasHat_; }
-  const Matrix1& preintMeasCov() const { return preintMeasCov_; }
+  const Matrix1 preintMeasCov() const {
+    Matrix1 m;
+    m << gyroscopeCovariance_ * deltaTij_;
+    return m;
+  }
 
   void print(const std::string& s = "Preintegrated Measurements: ") const;
-
-  bool equals(const PlanarGyro& expected, double tol = 1e-9) const;
-
-  void resetIntegration();
-
-  /**
-   * @brief Calculate an incremental rotation given the gyro measurement and a
-   * time interval, and update both deltaTij_ and deltaRij_.
-   * @param measuredOmega The measured angular velocity (as given by the sensor)
-   * @param bias The biasHat estimate
-   * @param deltaT The time interval
-   */
-  void integrateGyroMeasurement(double measuredOmega, double biasHat,
-                                double deltaT);
+  bool equals(const PlanarGyroMeasurement& expected, double tol = 1e-9) const;
 
   /**
    * @brief Return a bias corrected version of the integrated rotation.
@@ -115,7 +90,10 @@ class GTSAM_EXPORT PlanarGyro {
                              OptionalJacobian<1, 1> H = {}) const;
 
   /**
-   * Add a single gyroscope measurement to the preintegration.
+   * Adds a single gyroscope measurement to the preintegration.
+   *
+   * Calculates an incremental rotation given the gyro measurement and a
+   * time interval, and update both deltaTij_ and deltaRij_.
    *
    * @param measuredOmega Measured angular velocity (as given by the sensor)
    * @param deltaT Time step
