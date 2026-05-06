@@ -39,27 +39,7 @@ double gyroNoiseVar = 0.01;
 const double kMeasuredOmegaCovariance = gyroNoiseVar;
 
 //******************************************************************************
-namespace {
-PlanarGyroMeasurement integrateMeasurements(
-    const double biasHat, const list<double>& measuredOmegas,
-    const list<double>& deltaTs) {
-  PlanarGyroMeasurement result(1.0, biasHat);
-
-  list<double>::const_iterator itOmega = measuredOmegas.begin();
-  list<double>::const_iterator itDeltaT = deltaTs.begin();
-  for (; itOmega != measuredOmegas.end(); ++itOmega, ++itDeltaT) {
-    result.integrateMeasurement(*itOmega, *itDeltaT);
-  }
-
-  return result;
-}
-}  // namespace
-
-//******************************************************************************
 TEST(PlanarGyroFactor, PlanarGyroMeasurement) {
-  // Linearization point
-  double biasHat = 0;  ///< Current estimate of angular rate bias
-
   // Measurements
   double measuredOmega = M_PI / 100.0;
   double deltaT = 0.5;
@@ -68,7 +48,7 @@ TEST(PlanarGyroFactor, PlanarGyroMeasurement) {
   Rot2 expectedDeltaR1 = Rot2(0.5 * M_PI / 100.0);
 
   // Actual preintegrated values
-  PlanarGyroMeasurement actual1(kMeasuredOmegaCovariance, biasHat);
+  PlanarGyroMeasurement actual1(kMeasuredOmegaCovariance);
   actual1.integrateMeasurement(measuredOmega, deltaT);
 
   EXPECT(assert_equal(expectedDeltaR1, Rot2(actual1.deltaRij()), 1e-6));
@@ -76,7 +56,7 @@ TEST(PlanarGyroFactor, PlanarGyroMeasurement) {
 
   // Check the covariance
   Matrix1 expectedMeasCov;
-  expectedMeasCov <<  kMeasuredOmegaCovariance * deltaT;
+  expectedMeasCov << kMeasuredOmegaCovariance * deltaT;
   EXPECT(assert_equal(expectedMeasCov, actual1.preintMeasCov(), 1e-6));
 
   // Integrate again
@@ -98,7 +78,7 @@ TEST(PlanarGyroFactor, PlanarGyroPredict) {
   // Measurements
   double measuredOmega = M_PI / 10.0;
   double deltaT = 0.2;
-  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, bias);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
   for (int i = 0; i < 1000; ++i) {
     pim.integrateMeasurement(measuredOmega, deltaT);
   }
@@ -121,7 +101,7 @@ TEST(PlanarGyroFactor, PlanarGyroComputeError) {
   // Measurements
   double measuredOmega = M_PI / 100 + 0.1;
   double deltaT = 1.0;
-  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, 0);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Use a wrapper to call the new PIM::computeError for numerical derivatives
@@ -154,7 +134,7 @@ TEST(PlanarGyroFactor, Error) {
   // Measurements
   double measuredOmega = M_PI / 100;
   double deltaT = 1.0;
-  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, bias);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Create factor
@@ -183,7 +163,7 @@ TEST(PlanarGyroFactor, ErrorWithBiases) {
   // Measurements
   double measuredOmega = M_PI / 10.0 + 0.3;
   double deltaT = 1.0;
-  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, 0);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Create factor
@@ -241,7 +221,7 @@ TEST(PlanarGyroFactor, PartialDerivativeLogmap) {
   Vector1 deltaTheta(0);
   Matrix expectedH = numericalDerivative11<Vector1, Vector1>(f, deltaTheta);
 
-  const Vector1 x = thetaHat;          // parametrization of so(3)
+  const Vector1 x = thetaHat;    // parametrization of so(3)
   const Matrix1 X = Matrix1(0);  // element of Lie algebra so(3): X = x^
   double norm = x.norm();
   const Matrix1 actualH =
@@ -282,6 +262,22 @@ TEST(PlanarGyroFactor, fistOrderExponential) {
 }
 
 //******************************************************************************
+namespace {
+PlanarGyroMeasurement integrateMeasurements(const list<double>& measuredOmegas,
+                                            const list<double>& deltaTs) {
+  PlanarGyroMeasurement result(1.0);
+
+  list<double>::const_iterator itOmega = measuredOmegas.begin();
+  list<double>::const_iterator itDeltaT = deltaTs.begin();
+  for (; itOmega != measuredOmegas.end(); ++itOmega, ++itDeltaT) {
+    result.integrateMeasurement(*itOmega, *itDeltaT);
+  }
+
+  return result;
+}
+}  // namespace
+
+//******************************************************************************
 TEST(PlanarGyroFactor, FirstOrderPlanarGyro) {
   // Linearization point
   double bias = 0.0;  ///< Current estimate of rotation rate bias
@@ -291,8 +287,6 @@ TEST(PlanarGyroFactor, FirstOrderPlanarGyro) {
   list<double> deltaTs;
   measuredOmegas.push_back(M_PI / 100.0);
   deltaTs.push_back(0.01);
-  measuredOmegas.push_back(M_PI / 100.0);
-  deltaTs.push_back(0.01);
   for (int i = 1; i < 100; i++) {
     measuredOmegas.push_back(M_PI / 100.0);
     deltaTs.push_back(0.01);
@@ -300,21 +294,21 @@ TEST(PlanarGyroFactor, FirstOrderPlanarGyro) {
 
   // Actual preintegrated values
   PlanarGyroMeasurement preintegrated =
-      integrateMeasurements(bias, measuredOmegas, deltaTs);
+      integrateMeasurements(measuredOmegas, deltaTs);
 
   auto f = [&](const double& bias) {
-    return integrateMeasurements(bias, measuredOmegas, deltaTs).deltaRij();
+    return integrateMeasurements(measuredOmegas, deltaTs)
+        .deltaRij()
+        .compose(Rot2::fromAngle(-bias));
   };
 
   // Compute numerical derivatives
   Matrix expectedDelRdelBias = numericalDerivative11<Rot2, double>(f, bias);
-  Matrix expectedDelRdelBiasOmega = expectedDelRdelBias;
 
-  // should be around -1, so expected is correct, actual is wrong.
   // Compare Jacobians
-  EXPECT(assert_equal(expectedDelRdelBiasOmega,
+  EXPECT(assert_equal(expectedDelRdelBias,
                       preintegrated.delRdelBiasOmega(), 1e-3));
-  // 1e-3 needs to be added only when using quaternions for rotations
+
 }
 
 //******************************************************************************
@@ -327,8 +321,7 @@ TEST(PlanarGyroFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
   double measuredOmega = M_PI / 10.0 + 0.3;
   double deltaT = 1.0;
 
-  PlanarGyroMeasurement pim(
-    kMeasuredOmegaCovariance, 0.0);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
 
   pim.integrateMeasurement(measuredOmega, deltaT);
 
@@ -352,7 +345,7 @@ TEST(PlanarGyroFactor, PIM_predict_and_Jacobians) {
   double bias = 0.1;
   Rot2 Ri = Rot2(M_PI / 4.0);
 
-  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, 0.0);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
 
   // Integrate a few measurements
   double measuredOmega = M_PI / 10.0;
@@ -365,7 +358,7 @@ TEST(PlanarGyroFactor, PIM_predict_and_Jacobians) {
   Rot2 predictedRot = pim.predict(Ri, bias, {}, {});
 
   // Calculate expected value manually for verification
-  double biasOmegaIncr = bias - pim.biasHat();
+  double biasOmegaIncr = bias;
   Rot2 expected_biascorrected_delta = pim.biascorrectedDeltaRij(biasOmegaIncr);
   Rot2 expectedRot = Ri.compose(expected_biascorrected_delta);
   EXPECT(assert_equal(expectedRot, predictedRot, 1e-6));
@@ -394,8 +387,7 @@ TEST(PlanarGyroFactor, PIM_predict_and_Jacobians_with_Coriolis) {
   double bias = 0.1;
   Rot2 Ri = Rot2(M_PI / 4.0);
 
-  PlanarGyroMeasurement pim(
-    kMeasuredOmegaCovariance, 0.0);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
 
   // Integrate a few measurements
   double measuredOmega = 0.1;
@@ -426,8 +418,7 @@ TEST(PlanarGyroFactor, graphTest) {
   double bias = 0;
 
   // PreIntegrator
-  double biasHat = 0;
-  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance, biasHat);
+  PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
 
   // Pre-integrate measurements
   double measuredOmega = M_PI / 20;
@@ -492,14 +483,14 @@ TEST(PlanarGyroFactor, bodyPSensorWithBias) {
   // Now add IMU factors and bias noise models
   const double zeroBias = 0;
   for (int i = 1; i < numRotations; i++) {
-    PlanarGyroMeasurement pim(1e-8, realBias);
+    PlanarGyroMeasurement pim(1e-8);
     for (int j = 0; j < 200; ++j)
       pim.integrateMeasurement(measuredOmega, deltaT);
 
     // Create factors
     graph.emplace_shared<PlanarGyroFactor>(R(i - 1), R(i), B(i - 1), pim);
     graph.emplace_shared<BetweenFactor<double> >(B(i - 1), B(i), zeroBias,
-                                                  biasNoiseModel);
+                                                 biasNoiseModel);
 
     values.insert(R(i), Rot2());
     values.insert(B(i), realBias);

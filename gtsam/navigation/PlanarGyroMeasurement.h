@@ -43,10 +43,6 @@ class GTSAM_EXPORT PlanarGyroMeasurement {
   // The units for stddev are σ = rad/s/√Hz.
   // Note variance should be σ^2 so (rad/s)^2/Hz or rad^2/s
   const double gyroscopeCovariance_;
-  // Angular rate bias (rad/s) used during preintegration.
-  // Bias is applied at each update.
-  // Use the estimate from the previous solution at i.
-  const double biasHat_;
 
   // Time interval from i to j
   double deltaTij_;
@@ -56,9 +52,8 @@ class GTSAM_EXPORT PlanarGyroMeasurement {
   friend class PlanarGyroFactor;
 
  public:
-  PlanarGyroMeasurement(double gyroscopeCovariance, double biasHat)
+  PlanarGyroMeasurement(double gyroscopeCovariance)
       : gyroscopeCovariance_(gyroscopeCovariance),
-        biasHat_(biasHat),
         deltaTij_(0.0),
         deltaRij_(Rot2()) {}
 
@@ -70,7 +65,6 @@ class GTSAM_EXPORT PlanarGyroMeasurement {
     m << -deltaTij_;
     return m;
   }
-  const double& biasHat() const { return biasHat_; }
   const Matrix1 preintMeasCov() const {
     Matrix1 m;
     m << gyroscopeCovariance_ * deltaTij_;

@@ -14,15 +14,13 @@ void PlanarGyroMeasurement::print(const string& s) const {
   cout << s;
   cout << " dt [" << deltaTij_ << "]" << endl;
   cout << " dtheta = (" << deltaRij_.theta() << ")" << endl;
-  cout << " bias [" << biasHat_ << "]" << endl;
 }
 
 bool PlanarGyroMeasurement::equals(const PlanarGyroMeasurement& other,
                                    double tol) const {
   return std::abs(gyroscopeCovariance_ - other.gyroscopeCovariance_) < tol &&
          deltaRij_.equals(other.deltaRij_, tol) &&
-         std::abs(deltaTij_ - other.deltaTij_) < tol &&
-         abs(biasHat_ - other.biasHat_) < tol;
+         std::abs(deltaTij_ - other.deltaTij_) < tol;
 }
 
 Rot2 PlanarGyroMeasurement::biascorrectedDeltaRij(
@@ -36,7 +34,7 @@ Rot2 PlanarGyroMeasurement::biascorrectedDeltaRij(
 
 void PlanarGyroMeasurement::integrateMeasurement(double measuredOmega,
                                                  double deltaT) {
-  const Rot2 incrR = Rot2::fromAngle((measuredOmega - biasHat_) * deltaT);
+  const Rot2 incrR = Rot2::fromAngle(measuredOmega * deltaT);
   deltaTij_ += deltaT;
   deltaRij_ = deltaRij_.compose(incrR);
 }
@@ -44,7 +42,7 @@ void PlanarGyroMeasurement::integrateMeasurement(double measuredOmega,
 Rot2 PlanarGyroMeasurement::predict(const Rot2& Ri, double bias,
                                     gtsam::OptionalJacobian<1, 1> H1,
                                     gtsam::OptionalJacobian<1, 1> H2) const {
-  double biasOmegaIncr = bias - biasHat_;
+  double biasOmegaIncr = bias;
   const Rot2 biascorrected = this->biascorrectedDeltaRij(biasOmegaIncr, H2);
   return Ri.compose(biascorrected, H1);
 }
