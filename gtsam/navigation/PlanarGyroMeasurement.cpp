@@ -23,31 +23,27 @@ bool PlanarGyroMeasurement::equals(const PlanarGyroMeasurement& other,
          std::abs(deltaT_ - other.deltaT_) < tol;
 }
 
-Rot2 PlanarGyroMeasurement::deltaR(
-    double bias, OptionalJacobian<1, 1> H) const {
-  const double dtheta = -deltaT_ * bias;
-  const Rot2 deltaR = deltaR_.compose(Rot2::fromAngle(dtheta));
-  if (H) (*H)(0) = -deltaT_;
-  return deltaR;
+void PlanarGyroMeasurement::integrate(double omega, double deltaT) {
+  deltaT_ += deltaT;
+  deltaR_ = deltaR_.compose(Rot2::fromAngle(omega * deltaT));
 }
 
-void PlanarGyroMeasurement::integrate(double omega,
-                                                 double deltaT) {
-  const Rot2 dtheta = Rot2::fromAngle(omega * deltaT);
-  deltaT_ += deltaT;
-  deltaR_ = deltaR_.compose(dtheta);
+Rot2 PlanarGyroMeasurement::deltaR(double bias,
+                                   OptionalJacobian<1, 1> H) const {
+  if (H) (*H)(0) = -deltaT_;
+  return deltaR_.compose(Rot2::fromAngle(-deltaT_ * bias));
 }
 
 Rot2 PlanarGyroMeasurement::predict(const Rot2& Ri, double bias,
-                                    gtsam::OptionalJacobian<1, 1> H1,
-                                    gtsam::OptionalJacobian<1, 1> H2) const {
+                                    OptionalJacobian<1, 1> H1,
+                                    OptionalJacobian<1, 1> H2) const {
   return Ri.compose(deltaR(bias, H2), H1);
 }
 
 Vector1 PlanarGyroMeasurement::computeError(
     const Rot2& Ri, const Rot2& Rj, double bias,
-    gtsam::OptionalJacobian<1, 1> H1, gtsam::OptionalJacobian<1, 1> H2,
-    gtsam::OptionalJacobian<1, 1> H3) const {
+    OptionalJacobian<1, 1> H1, OptionalJacobian<1, 1> H2,
+    OptionalJacobian<1, 1> H3) const {
   // Predict orientation at time j
   Matrix1 D_predict_Ri, D_predict_bias;
   Rot2 predicted_Rj = predict(Ri, bias, H1 ? &D_predict_Ri : nullptr,
