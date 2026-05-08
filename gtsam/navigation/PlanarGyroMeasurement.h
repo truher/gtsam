@@ -38,8 +38,14 @@ class GTSAM_EXPORT PlanarGyroMeasurement {
   FRIEND_TEST(PlanarGyroMeasurement, integrate)
 
  public:
-  PlanarGyroMeasurement(double ARW)
+  explicit PlanarGyroMeasurement(double ARW)
       : ARW_(ARW), deltaR_(Rot2()), deltaT_(0.0) {}
+
+  // Convenience constructor for a single interval.
+  PlanarGyroMeasurement(double ARW, double omega, double dt)
+      : PlanarGyroMeasurement(ARW) {
+    integrate(omega, dt);
+  }
 
   // Variance of the integrated measurement (rad^2)
   const Matrix1 variance() const {
@@ -78,8 +84,7 @@ class GTSAM_EXPORT PlanarGyroMeasurement {
    * @param H2 derivative of prediction wrt bias
    * @return predicted orientation at time j
    */
-  Rot2 predict(const Rot2& Ri, double bias,
-               OptionalJacobian<1, 1> H1 = {},
+  Rot2 predict(const Rot2& Ri, double bias, OptionalJacobian<1, 1> H1 = {},
                OptionalJacobian<1, 1> H2 = {}) const;
 
   /**

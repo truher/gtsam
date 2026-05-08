@@ -108,9 +108,7 @@ TEST(PlanarGyroMeasurement, computeError) {
   Rot2 Ri = Rot2::fromAngle(1);
   Rot2 Rj = Rot2::fromAngle(2);
   const double bias = 0.05;
-  Matrix1 H1;
-  Matrix1 H2;
-  Matrix1 H3;
+  Matrix1 H1, H2, H3;
   Vector1 err = measurement.computeError(Ri, Rj, bias, H1, H2, H3);
 
   // estimate - prediction = 2 - 1.025 = -0.975
