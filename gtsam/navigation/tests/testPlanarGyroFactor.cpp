@@ -50,7 +50,7 @@ TEST(PlanarGyroFactor, PlanarGyroMeasurement) {
 
   // Actual preintegrated values
   PlanarGyroMeasurement actual1(kMeasuredOmegaCovariance);
-  actual1.integrateMeasurement(measuredOmega, deltaT);
+  actual1.integrate(measuredOmega, deltaT);
 
   EXPECT(assert_equal(expectedDeltaR1, Rot2(actual1.deltaR_), 1e-6));
   DOUBLES_EQUAL(deltaT, actual1.deltaT_, 1e-6);
@@ -65,7 +65,7 @@ TEST(PlanarGyroFactor, PlanarGyroMeasurement) {
 
   // Actual preintegrated values
   PlanarGyroMeasurement actual2 = actual1;
-  actual2.integrateMeasurement(measuredOmega, deltaT);
+  actual2.integrate(measuredOmega, deltaT);
 
   EXPECT(assert_equal(expectedDeltaR2, Rot2(actual2.deltaR_), 1e-6));
   DOUBLES_EQUAL(deltaT * 2, actual2.deltaT_, 1e-6);
@@ -81,7 +81,7 @@ TEST(PlanarGyroFactor, PlanarGyroPredict) {
   double deltaT = 0.2;
   PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
   for (int i = 0; i < 1000; ++i) {
-    pim.integrateMeasurement(measuredOmega, deltaT);
+    pim.integrate(measuredOmega, deltaT);
   }
 
   // Predict
@@ -103,7 +103,7 @@ TEST(PlanarGyroFactor, PlanarGyroComputeError) {
   double measuredOmega = M_PI / 100 + 0.1;
   double deltaT = 1.0;
   PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
-  pim.integrateMeasurement(measuredOmega, deltaT);
+  pim.integrate(measuredOmega, deltaT);
 
   // Use a wrapper to call the new PIM::computeError for numerical derivatives
   auto f = [&pim](const Rot2& r1, const Rot2& r2, const double& b) -> Vector1 {
@@ -136,7 +136,7 @@ TEST(PlanarGyroFactor, Error) {
   double measuredOmega = M_PI / 100;
   double deltaT = 1.0;
   PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
-  pim.integrateMeasurement(measuredOmega, deltaT);
+  pim.integrate(measuredOmega, deltaT);
 
   // Create factor
   PlanarGyroFactor factor(R(1), R(2), B(1), pim);
@@ -165,7 +165,7 @@ TEST(PlanarGyroFactor, ErrorWithBiases) {
   double measuredOmega = M_PI / 10.0 + 0.3;
   double deltaT = 1.0;
   PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
-  pim.integrateMeasurement(measuredOmega, deltaT);
+  pim.integrate(measuredOmega, deltaT);
 
   // Create factor
   PlanarGyroFactor factor(R(1), R(2), B(1), pim);
@@ -271,7 +271,7 @@ PlanarGyroMeasurement integrateMeasurements(const list<double>& measuredOmegas,
   list<double>::const_iterator itOmega = measuredOmegas.begin();
   list<double>::const_iterator itDeltaT = deltaTs.begin();
   for (; itOmega != measuredOmegas.end(); ++itOmega, ++itDeltaT) {
-    result.integrateMeasurement(*itOmega, *itDeltaT);
+    result.integrate(*itOmega, *itDeltaT);
   }
 
   return result;
@@ -317,7 +317,7 @@ TEST(PlanarGyroFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
 
   PlanarGyroMeasurement pim(kMeasuredOmegaCovariance);
 
-  pim.integrateMeasurement(measuredOmega, deltaT);
+  pim.integrate(measuredOmega, deltaT);
 
   // Check preintegrated covariance
   EXPECT(assert_equal(kMeasuredOmegaCovariance, pim.variance()(0)));
@@ -344,8 +344,8 @@ TEST(PlanarGyroFactor, PIM_predict_and_Jacobians) {
   // Integrate a few measurements
   double measuredOmega = M_PI / 10.0;
   double deltaT = 0.5;
-  pim.integrateMeasurement(measuredOmega, deltaT);
-  pim.integrateMeasurement(measuredOmega, deltaT);
+  pim.integrate(measuredOmega, deltaT);
+  pim.integrate(measuredOmega, deltaT);
 
   // --- Test Prediction Value ---
   // Call the new predict method without requesting Jacobians
@@ -353,7 +353,7 @@ TEST(PlanarGyroFactor, PIM_predict_and_Jacobians) {
 
   // Calculate expected value manually for verification
   double biasOmegaIncr = bias;
-  Rot2 expected_biascorrected_delta = pim.biascorrectedDeltaR(biasOmegaIncr);
+  Rot2 expected_biascorrected_delta = pim.deltaR(biasOmegaIncr);
   Rot2 expectedRot = Ri.compose(expected_biascorrected_delta);
   EXPECT(assert_equal(expectedRot, predictedRot, 1e-6));
 
@@ -386,7 +386,7 @@ TEST(PlanarGyroFactor, PIM_predict_and_Jacobians_with_Coriolis) {
   // Integrate a few measurements
   double measuredOmega = 0.1;
   double deltaT = 0.5;
-  pim.integrateMeasurement(measuredOmega, deltaT);
+  pim.integrate(measuredOmega, deltaT);
 
   // --- Test Jacobians ---
   // Define a wrapper for numerical derivatives
@@ -424,7 +424,7 @@ TEST(PlanarGyroFactor, graphTest) {
   NonlinearFactorGraph graph;
   Values values;
   for (size_t i = 0; i < 5; ++i) {
-    pim.integrateMeasurement(measuredOmega, deltaT);
+    pim.integrate(measuredOmega, deltaT);
   }
 
   PlanarGyroFactor factor(R(1), R(2), B(1), pim);
@@ -479,7 +479,7 @@ TEST(PlanarGyroFactor, bodyPSensorWithBias) {
   for (int i = 1; i < numRotations; i++) {
     PlanarGyroMeasurement pim(1e-8);
     for (int j = 0; j < 200; ++j)
-      pim.integrateMeasurement(measuredOmega, deltaT);
+      pim.integrate(measuredOmega, deltaT);
 
     // Create factors
     graph.emplace_shared<PlanarGyroFactor>(R(i - 1), R(i), B(i - 1), pim);

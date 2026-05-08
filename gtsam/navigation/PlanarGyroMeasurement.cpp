@@ -23,16 +23,15 @@ bool PlanarGyroMeasurement::equals(const PlanarGyroMeasurement& other,
          std::abs(deltaT_ - other.deltaT_) < tol;
 }
 
-Rot2 PlanarGyroMeasurement::biascorrectedDeltaR(
+Rot2 PlanarGyroMeasurement::deltaR(
     double bias, OptionalJacobian<1, 1> H) const {
   const double dtheta = -deltaT_ * bias;
-  const Rot2 deltaRij_biascorrected = deltaR_.compose(Rot2::fromAngle(dtheta));
-  // bias derivative is just opposite of the time
+  const Rot2 deltaR = deltaR_.compose(Rot2::fromAngle(dtheta));
   if (H) (*H)(0) = -deltaT_;
-  return deltaRij_biascorrected;
+  return deltaR;
 }
 
-void PlanarGyroMeasurement::integrateMeasurement(double omega,
+void PlanarGyroMeasurement::integrate(double omega,
                                                  double deltaT) {
   const Rot2 dtheta = Rot2::fromAngle(omega * deltaT);
   deltaT_ += deltaT;
@@ -42,8 +41,7 @@ void PlanarGyroMeasurement::integrateMeasurement(double omega,
 Rot2 PlanarGyroMeasurement::predict(const Rot2& Ri, double bias,
                                     gtsam::OptionalJacobian<1, 1> H1,
                                     gtsam::OptionalJacobian<1, 1> H2) const {
-  const Rot2 biascorrected = this->biascorrectedDeltaR(bias, H2);
-  return Ri.compose(biascorrected, H1);
+  return Ri.compose(deltaR(bias, H2), H1);
 }
 
 Vector1 PlanarGyroMeasurement::computeError(
