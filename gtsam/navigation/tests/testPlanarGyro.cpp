@@ -13,8 +13,7 @@
 namespace gtsam {
 
 TEST(PlanarGyroMeasurement, integrate) {
-  const double arw = 1.0;
-  PlanarGyroMeasurement measurement(arw);
+  PlanarGyroMeasurement measurement(1.0);
   auto f = [&measurement](const double& bias) {
     return measurement.deltaR(bias, {});
   };
@@ -25,51 +24,49 @@ TEST(PlanarGyroMeasurement, integrate) {
   // Check integration.
   measurement.integrate(omega, deltaT);
   // need FRIEND_TEST for this
-  DOUBLES_EQUAL(0.05, measurement.deltaR_.theta(), 1e-9)
-  DOUBLES_EQUAL(0.5, measurement.deltaT_, 1e-6);
+  EXPECT(assert_equal(0.05, measurement.deltaR_.theta(), 1e-9))
+  EXPECT(assert_equal(0.5, measurement.deltaT_, 1e-6))
 
   const double bias = 0.05;
   Matrix1 H;
 
   // Check the effect of bias.
   Rot2 corrected = measurement.deltaR(bias, H);
-  DOUBLES_EQUAL(0.025, corrected.theta(), 1e-9)
-  DOUBLES_EQUAL(-0.5, H(0, 0), 1e-9)
+  EXPECT(assert_equal(0.025, corrected.theta(), 1e-9))
+  EXPECT(assert_equal(-0.5, H(0, 0), 1e-9))
 
   // Numeric derivative matches.
   Matrix1 numericH = numericalDerivative11(f, bias);
-  DOUBLES_EQUAL(-0.5, numericH(0, 0), 1e-9)
+  EXPECT(assert_equal(-0.5, numericH(0, 0), 1e-9))
 
   // Integrate a second IMU measurement.
   measurement.integrate(omega, deltaT);
   // need FRIEND_TEST for this
-  DOUBLES_EQUAL(0.1, measurement.deltaR_.theta(), 1e-9)
-  DOUBLES_EQUAL(1.0, measurement.deltaT_, 1e-6);
+  EXPECT(assert_equal(0.1, measurement.deltaR_.theta(), 1e-9))
+  EXPECT(assert_equal(1.0, measurement.deltaT_, 1e-6))
 
   // Check the effect of bias.
   corrected = measurement.deltaR(bias, H);
-  DOUBLES_EQUAL(0.05, corrected.theta(), 1e-9)
-  DOUBLES_EQUAL(-1.0, H(0, 0), 1e-9)
+  EXPECT(assert_equal(0.05, corrected.theta(), 1e-9))
+  EXPECT(assert_equal(-1.0, H(0, 0), 1e-9))
 
   // Numeric derivative matches.
   numericH = numericalDerivative11(f, bias);
-  DOUBLES_EQUAL(-1.0, numericH(0, 0), 1e-9)
+  EXPECT(assert_equal(-1.0, numericH(0, 0), 1e-9))
 }
 
 TEST(PlanarGyroMeasurement, variance) {
-  const double arw = 1.0;
-  PlanarGyroMeasurement measurement(arw);
+  PlanarGyroMeasurement measurement(1.0);
   const double omega = 0.1;
   const double deltaT = 0.5;
   measurement.integrate(omega, deltaT);
 
   // 1.0 * 0.5 = 0.5
-  DOUBLES_EQUAL(0.5, measurement.variance()(0, 0), 1e-9)
+  EXPECT(assert_equal(0.5, measurement.variance()(0, 0), 1e-9))
 }
 
 TEST(PlanarGyroMeasurement, predict) {
-  const double arw = 1.0;
-  PlanarGyroMeasurement measurement(arw);
+  PlanarGyroMeasurement measurement(1.0);
   auto f = [&measurement](const Rot2& r, const double& b) -> Rot2 {
     return measurement.predict(r, b);
   };
@@ -85,22 +82,21 @@ TEST(PlanarGyroMeasurement, predict) {
   Rot2 predictedRj = measurement.predict(Ri, bias, H1, H2);
 
   // 1 + 0.025 = 1.025
-  DOUBLES_EQUAL(1.025, predictedRj.theta(), 1e-9)
+  EXPECT(assert_equal(1.025, predictedRj.theta(), 1e-9))
   // Ri adds to prediction.
-  DOUBLES_EQUAL(1, H1(0, 0), 1e-9)
+  EXPECT(assert_equal(1.0, H1(0, 0), 1e-9))
   // Bias * dt subtracts from prediction.
-  DOUBLES_EQUAL(-0.5, H2(0, 0), 1e-9)
+  EXPECT(assert_equal(-0.5, H2(0, 0), 1e-9))
 
   // Numeric derivative matches.
   Matrix1 nH1 = numericalDerivative21(f, Ri, bias);
   Matrix1 nH2 = numericalDerivative22(f, Ri, bias);
-  DOUBLES_EQUAL(1, nH1(0, 0), 1e-9)
-  DOUBLES_EQUAL(-0.5, nH2(0, 0), 1e-9)
+  EXPECT(assert_equal(1.0, nH1(0, 0), 1e-9))
+  EXPECT(assert_equal(-0.5, nH2(0, 0), 1e-9))
 }
 
 TEST(PlanarGyroMeasurement, computeError) {
-  const double arw = 1.0;
-  PlanarGyroMeasurement measurement(arw);
+  PlanarGyroMeasurement measurement(1.0);
   auto f = [&measurement](const Rot2& r1, const Rot2& r2,
                           const double& b) -> Vector1 {
     return measurement.computeError(r1, r2, b);
@@ -118,21 +114,21 @@ TEST(PlanarGyroMeasurement, computeError) {
   Vector1 err = measurement.computeError(Ri, Rj, bias, H1, H2, H3);
 
   // estimate - prediction = 2 - 1.025 = -0.975
-  DOUBLES_EQUAL(-0.975, err(0), 1e-9)
+  EXPECT(assert_equal(-0.975, err(0), 1e-9))
   // Ri up => error up (less negative)
-  DOUBLES_EQUAL(1, H1(0, 0), 1e-9)
+  EXPECT(assert_equal(1.0, H1(0, 0), 1e-9))
   // Rj up -> error down (more negative)
-  DOUBLES_EQUAL(-1, H2(0, 0), 1e-9)
+  EXPECT(assert_equal(-1.0, H2(0, 0), 1e-9))
   // bias up -> error down (more negative), scaled by dt
-  DOUBLES_EQUAL(-0.5, H3(0, 0), 1e-9)
+  EXPECT(assert_equal(-0.5, H3(0, 0), 1e-9))
 
   // Numeric derivative matches
   Matrix1 nH1 = numericalDerivative31(f, Ri, Rj, bias);
   Matrix1 nH2 = numericalDerivative32(f, Ri, Rj, bias);
   Matrix1 nH3 = numericalDerivative33(f, Ri, Rj, bias);
-  DOUBLES_EQUAL(1, nH1(0, 0), 1e-9)
-  DOUBLES_EQUAL(-1, nH2(0, 0), 1e-9)
-  DOUBLES_EQUAL(-0.5, nH3(0, 0), 1e-9)
+  EXPECT(assert_equal(1.0, nH1(0, 0), 1e-9))
+  EXPECT(assert_equal(-1.0, nH2(0, 0), 1e-9))
+  EXPECT(assert_equal(-0.5, nH3(0, 0), 1e-9))
 }
 
 }  // namespace gtsam
