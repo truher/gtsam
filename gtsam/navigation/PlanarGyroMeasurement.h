@@ -1,16 +1,7 @@
 /**
- * Like AHRSFactor, except:
- *
- * * using Rot2 instead of Rot3
- * * without the preintegrator: measurements are preintegrated by the gyro
- * hardware
- * * without coriolis correction: rotating reference frame is irrelevant
- * * without deprecated v4 stuff
- * * without the body transform: translation doesn't matter, rotation is always
- * identity.
- *
- * This factor is useful for high-school robotics competitions,
- * which run robots on the floor: they really only care about yaw.
+ * Measurement of a one-dimensional gyro.
+ * 
+ * Integrates omega over time, corrects for bias.
  *
  * @see https://www.firstinspires.org/
  *
@@ -20,13 +11,9 @@
  */
 
 #pragma once
-
+#include <CppUnitLite/TestHarness.h>
 #include <gtsam/base/Matrix.h>
-#include <gtsam/base/std_optional_serialization.h>
-#include <gtsam/geometry/Pose2.h>
 #include <gtsam/geometry/Rot2.h>
-#include <gtsam/nonlinear/NoiseModelFactorN.h>
-#include <gtsam/nonlinear/NonlinearFactor.h>
 
 #include <optional>
 
@@ -35,39 +22,33 @@
 namespace gtsam {
 
 class GTSAM_EXPORT PlanarGyroMeasurement {
- protected:
-  // Published or measured continuous-time "Covariance" of gyroscope
+ private:
+  // Published or measured continuous-time variance of gyroscope
   // measurements.
   // This is white noise in omega, which results in "angle random walk"
-  // in the integrated measurement.
+  // (ARW) in the integrated measurement.
   // The units for stddev are σ = rad/s/√Hz.
   // Note variance should be σ^2 so (rad/s)^2/Hz or rad^2/s
-  const double gyroscopeCovariance_;
-
-  // Time interval from i to j
-  double deltaTij_;
-  // Rotation of j relative to i
-  Rot2 deltaRij_;
+  const double ARW_;
+  // Integrated time interval (sec)
+  double deltaT_;
+  // Integrated rotation
+  Rot2 deltaR_;
 
   friend class PlanarGyroFactor;
+  FRIEND_TEST(PlanarGyroFactor, PlanarGyroMeasurement)
+  FRIEND_TEST(PlanarGyroFactor, FirstOrderPlanarGyro)
+  FRIEND_TEST(PlanarGyroMeasurement, integrateGyroMeasurement)
 
  public:
-  PlanarGyroMeasurement(double gyroscopeCovariance)
-      : gyroscopeCovariance_(gyroscopeCovariance),
-        deltaTij_(0.0),
-        deltaRij_(Rot2()) {}
+  PlanarGyroMeasurement(double ARW)
+      : ARW_(ARW), deltaT_(0.0), deltaR_(Rot2()) {}
 
-  const double& gyroscopeCovariance() const { return gyroscopeCovariance_; }
-  const double& deltaTij() const { return deltaTij_; }
-  const Rot2& deltaRij() const { return deltaRij_; }
-  const Matrix1 delRdelBiasOmega() const {
+  // Variance of the integrated measurement (rad^2)
+  const Matrix1 variance() const {
+    // Integrating white noise => variance scales linearly with time.
     Matrix1 m;
-    m << -deltaTij_;
-    return m;
-  }
-  const Matrix1 preintMeasCov() const {
-    Matrix1 m;
-    m << gyroscopeCovariance_ * deltaTij_;
+    m << ARW_ * deltaT_;
     return m;
   }
 
@@ -75,29 +56,29 @@ class GTSAM_EXPORT PlanarGyroMeasurement {
   bool equals(const PlanarGyroMeasurement& expected, double tol = 1e-9) const;
 
   /**
-   * @brief Return a bias corrected version of the integrated rotation.
-   * @param biasOmegaIncr An increment with respect to biasHat used above.
-   * @param H optional Jacobian of the correction w.r.t. the bias increment.
-   * @note The *key* functionality of this class used in optimizing the bias.
+   * Bias corrected integrated rotation.
+   *
+   * @param bias rate rad/s
+   * @param H optional Jacobian of the correction w.r.t. the bias.
    */
-  Rot2 biascorrectedDeltaRij(double biasOmegaIncr,
-                             OptionalJacobian<1, 1> H = {}) const;
+  Rot2 biascorrectedDeltaR(double bias, OptionalJacobian<1, 1> H = {}) const;
 
   /**
    * Adds a single gyroscope measurement to the preintegration.
    *
    * Calculates an incremental rotation given the gyro measurement and a
-   * time interval, and update both deltaTij_ and deltaRij_.
+   * time interval.  Updates both deltaTij_ and deltaRij_.
    *
-   * @param measuredOmega Measured angular velocity (as given by the sensor)
-   * @param deltaT Time step
+   * @param omega rotation rate (rad/s)
+   * @param dt time step (s)
    */
-  void integrateMeasurement(double measuredOmega, double deltaT);
+  void integrateMeasurement(double omega, double dt);
 
   /**
    * Predict the orientation at time j, given orientation and bias at time i.
-   * @param Ri orientation at time i
-   * @param bias gyroscope bias
+   *
+   * @param Ri rotation at time i (rad)
+   * @param bias rate (rad/s)
    * @param H1 optional Jacobian wrt Ri
    * @param H2 optional Jacobian wrt bias
    * @return predicted orientation at time j
@@ -108,9 +89,10 @@ class GTSAM_EXPORT PlanarGyroMeasurement {
 
   /**
    * Calculate the error between the predicted and actual rotation.
-   * @param Ri The orientation at time i
-   * @param Rj The orientation at time j
-   * @param bias The gyroscope bias
+   *
+   * @param Ri rotation at time i (rad)
+   * @param Rj rotation at time j (rad)
+   * @param bias rate (rad/s)
    * @param H1 Optional Jacobian of the error with respect to Ri
    * @param H2 Optional Jacobian of the error with respect to Rj
    * @param H3 Optional Jacobian of the error with respect to bias

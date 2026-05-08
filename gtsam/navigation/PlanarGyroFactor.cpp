@@ -13,7 +13,7 @@ namespace gtsam {
 
 PlanarGyroFactor::PlanarGyroFactor(Key rot_i, Key rot_j, Key bias,
                                    const PlanarGyroMeasurement& measurement)
-    : Base(noiseModel::Gaussian::Covariance(measurement.preintMeasCov()), rot_i, rot_j,
+    : Base(noiseModel::Gaussian::Covariance(measurement.variance()), rot_i, rot_j,
            bias),
       measurement_(measurement) {}
 

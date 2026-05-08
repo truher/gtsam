@@ -28,7 +28,8 @@
 
 using namespace std::placeholders;
 using namespace std;
-using namespace gtsam;
+
+namespace gtsam {
 
 // Convenience for named keys
 using symbol_shorthand::B;
@@ -51,13 +52,13 @@ TEST(PlanarGyroFactor, PlanarGyroMeasurement) {
   PlanarGyroMeasurement actual1(kMeasuredOmegaCovariance);
   actual1.integrateMeasurement(measuredOmega, deltaT);
 
-  EXPECT(assert_equal(expectedDeltaR1, Rot2(actual1.deltaRij()), 1e-6));
-  DOUBLES_EQUAL(deltaT, actual1.deltaTij(), 1e-6);
+  EXPECT(assert_equal(expectedDeltaR1, Rot2(actual1.deltaR_), 1e-6));
+  DOUBLES_EQUAL(deltaT, actual1.deltaT_, 1e-6);
 
   // Check the covariance
   Matrix1 expectedMeasCov;
   expectedMeasCov << kMeasuredOmegaCovariance * deltaT;
-  EXPECT(assert_equal(expectedMeasCov, actual1.preintMeasCov(), 1e-6));
+  EXPECT(assert_equal(expectedMeasCov, actual1.variance(), 1e-6));
 
   // Integrate again
   Rot2 expectedDeltaR2 = Rot2(2.0 * 0.5 * M_PI / 100.0);
@@ -66,8 +67,8 @@ TEST(PlanarGyroFactor, PlanarGyroMeasurement) {
   PlanarGyroMeasurement actual2 = actual1;
   actual2.integrateMeasurement(measuredOmega, deltaT);
 
-  EXPECT(assert_equal(expectedDeltaR2, Rot2(actual2.deltaRij()), 1e-6));
-  DOUBLES_EQUAL(deltaT * 2, actual2.deltaTij(), 1e-6);
+  EXPECT(assert_equal(expectedDeltaR2, Rot2(actual2.deltaR_), 1e-6));
+  DOUBLES_EQUAL(deltaT * 2, actual2.deltaT_, 1e-6);
 }
 
 /* ************************************************************************* */
@@ -292,23 +293,16 @@ TEST(PlanarGyroFactor, FirstOrderPlanarGyro) {
     deltaTs.push_back(0.01);
   }
 
-  // Actual preintegrated values
-  PlanarGyroMeasurement preintegrated =
-      integrateMeasurements(measuredOmegas, deltaTs);
-
   auto f = [&](const double& bias) {
     return integrateMeasurements(measuredOmegas, deltaTs)
-        .deltaRij()
-        .compose(Rot2::fromAngle(-bias));
+        .deltaR_.compose(Rot2::fromAngle(-bias));
   };
 
   // Compute numerical derivatives
   Matrix expectedDelRdelBias = numericalDerivative11<Rot2, double>(f, bias);
 
-  // Compare Jacobians
-  EXPECT(assert_equal(expectedDelRdelBias,
-                      preintegrated.delRdelBiasOmega(), 1e-3));
-
+  // bias is inverse, dt is 1, so delR/delBias = -1.0
+  DOUBLES_EQUAL(expectedDelRdelBias(0, 0), -1, 1e-6);
 }
 
 //******************************************************************************
@@ -326,7 +320,7 @@ TEST(PlanarGyroFactor, ErrorWithBiasesAndSensorBodyDisplacement) {
   pim.integrateMeasurement(measuredOmega, deltaT);
 
   // Check preintegrated covariance
-  EXPECT(assert_equal(kMeasuredOmegaCovariance, pim.preintMeasCov()(0)));
+  EXPECT(assert_equal(kMeasuredOmegaCovariance, pim.variance()(0)));
 
   // Create factor
   PlanarGyroFactor factor(R(1), R(2), B(1), pim);
@@ -359,7 +353,7 @@ TEST(PlanarGyroFactor, PIM_predict_and_Jacobians) {
 
   // Calculate expected value manually for verification
   double biasOmegaIncr = bias;
-  Rot2 expected_biascorrected_delta = pim.biascorrectedDeltaRij(biasOmegaIncr);
+  Rot2 expected_biascorrected_delta = pim.biascorrectedDeltaR(biasOmegaIncr);
   Rot2 expectedRot = Ri.compose(expected_biascorrected_delta);
   EXPECT(assert_equal(expectedRot, predictedRot, 1e-6));
 
@@ -426,7 +420,7 @@ TEST(PlanarGyroFactor, graphTest) {
 
   // Create Factor
   noiseModel::Base::shared_ptr model =  //
-      noiseModel::Gaussian::Covariance(pim.preintMeasCov());
+      noiseModel::Gaussian::Covariance(pim.variance());
   NonlinearFactorGraph graph;
   Values values;
   for (size_t i = 0; i < 5; ++i) {
@@ -514,6 +508,7 @@ TEST(PlanarGyroFactor, bodyPSensorWithBias) {
     EXPECT(assert_equal(expectedRot, actualRot, 1e-3));
   }
 }
+}  // namespace gtsam
 
 //******************************************************************************
 int main() {
