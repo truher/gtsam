@@ -40,7 +40,7 @@ Rot2 PlanarGyroMeasurement::predict(const Rot2& Ri, double bias,
   return Ri.compose(deltaR(bias, H2), H1);
 }
 
-Vector1 PlanarGyroMeasurement::computeError(
+double PlanarGyroMeasurement::computeError(
     const Rot2& Ri, const Rot2& Rj, double bias,
     OptionalJacobian<1, 1> H1, OptionalJacobian<1, 1> H2,
     OptionalJacobian<1, 1> H3) const {
@@ -59,6 +59,6 @@ Vector1 PlanarGyroMeasurement::computeError(
   if (H2) *H2 = D_error_Rj;
   if (H3) *H3 = D_error_predict * D_predict_bias;
 
-  return error;
+  return error(0);
 }
 }  // namespace gtsam

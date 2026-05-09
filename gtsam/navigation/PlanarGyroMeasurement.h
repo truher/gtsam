@@ -48,11 +48,9 @@ class GTSAM_EXPORT PlanarGyroMeasurement {
   }
 
   // Variance of the integrated measurement (rad^2)
-  const Matrix1 variance() const {
+  double variance() const {
     // Integrating white noise => variance scales linearly with time.
-    Matrix1 m;
-    m << ARW_ * deltaT_;
-    return m;
+    return ARW_ * deltaT_;
   }
 
   void print(const std::string& s = "Preintegrated Measurements: ") const;
@@ -98,7 +96,7 @@ class GTSAM_EXPORT PlanarGyroMeasurement {
    * @param H3 derivative of error wrt bias
    * @return Rotation error (rad)
    */
-  Vector1 computeError(const Rot2& Ri, const Rot2& Rj, double bias,
+  double computeError(const Rot2& Ri, const Rot2& Rj, double bias,
                        OptionalJacobian<1, 1> H1 = {},
                        OptionalJacobian<1, 1> H2 = {},
                        OptionalJacobian<1, 1> H3 = {}) const;

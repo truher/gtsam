@@ -1,16 +1,8 @@
 /**
- * Like AHRSFactor, except:
- *
- * * using Rot2 instead of Rot3
- * * without the preintegrator: measurements are preintegrated by the gyro
- * hardware
- * * without coriolis correction: rotating reference frame is irrelevant
- * * without deprecated v4 stuff
- * * without the body transform: translation doesn't matter, rotation is always
- * identity.
+ * A "between" factor for pose rotation, with variable bias.
  *
  * This factor is useful for high-school robotics competitions,
- * which run robots on the floor: they really only care about yaw.
+ * which run robots on the floor, and so measure yaw.
  *
  * @see https://www.firstinspires.org/
  *
@@ -20,25 +12,24 @@
  */
 
 #pragma once
-#include <gtsam/navigation/PlanarGyroMeasurement.h>
+#include <gtsam/base/Matrix.h>
+#include <gtsam/base/Vector.h>
+#include <gtsam/base/std_optional_serialization.h>
 #include <gtsam/geometry/Pose2.h>
+#include <gtsam/navigation/PlanarGyroMeasurement.h>
 #include <gtsam/nonlinear/NoiseModelFactorN.h>
 #include <gtsam/nonlinear/NonlinearFactor.h>
 
-#include <gtsam/base/Matrix.h>
-#include <gtsam/base/std_optional_serialization.h>
-#include <gtsam/geometry/Rot2.h>
+#include <optional>
 
 #include "gtsam/dllexport.h"
-
-#include <optional>
 
 namespace gtsam {
 
 class GTSAM_EXPORT PlanarGyroFactor
-    : public NoiseModelFactorN<Rot2, Rot2, double> {
+    : public NoiseModelFactorN<Pose2, Pose2, double> {
   typedef PlanarGyroFactor This;
-  typedef NoiseModelFactorN<Rot2, Rot2, double> Base;
+  typedef NoiseModelFactorN<Pose2, Pose2, double> Base;
 
   PlanarGyroMeasurement measurement_;
 
@@ -53,7 +44,7 @@ class GTSAM_EXPORT PlanarGyroFactor
   typedef std::shared_ptr<PlanarGyroFactor> shared_ptr;
 #endif
 
-  PlanarGyroFactor(Key rot_i, Key rot_j, Key bias,
+  PlanarGyroFactor(Key pose_i, Key pose_j, Key bias,
                    const PlanarGyroMeasurement& measurement);
 
   ~PlanarGyroFactor() override {}
@@ -65,7 +56,13 @@ class GTSAM_EXPORT PlanarGyroFactor
 
   bool equals(const NonlinearFactor&, double tol = 1e-9) const override;
 
-  Vector evaluateError(const Rot2& Ri, const Rot2& Rj, const double& bias,
+  /**
+   * @param H1 dErr/dPi (3x3)
+   * @param H2 dErr/dPj (3x3)
+   * @param H3 dErr/dBias (3x1)
+   * @return Vector3 err
+   */
+  Vector evaluateError(const Pose2& Pi, const Pose2& Pj, const double& bias,
                        OptionalMatrixType H1, OptionalMatrixType H2,
                        OptionalMatrixType H3) const override;
 };

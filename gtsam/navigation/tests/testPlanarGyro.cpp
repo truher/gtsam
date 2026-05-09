@@ -62,7 +62,7 @@ TEST(PlanarGyroMeasurement, variance) {
   measurement.integrate(omega, deltaT);
 
   // 1.0 * 0.5 = 0.5
-  EXPECT(assert_equal(0.5, measurement.variance()(0, 0), 1e-9))
+  EXPECT(assert_equal(0.5, measurement.variance(), 1e-9))
 }
 
 TEST(PlanarGyroMeasurement, predict) {
@@ -98,7 +98,7 @@ TEST(PlanarGyroMeasurement, predict) {
 TEST(PlanarGyroMeasurement, computeError) {
   PlanarGyroMeasurement measurement(1.0);
   auto f = [&measurement](const Rot2& r1, const Rot2& r2,
-                          const double& b) -> Vector1 {
+                          const double& b) -> double {
     return measurement.computeError(r1, r2, b);
   };
   const double omega = 0.1;
@@ -109,10 +109,10 @@ TEST(PlanarGyroMeasurement, computeError) {
   Rot2 Rj = Rot2::fromAngle(2);
   const double bias = 0.05;
   Matrix1 H1, H2, H3;
-  Vector1 err = measurement.computeError(Ri, Rj, bias, H1, H2, H3);
+  double err = measurement.computeError(Ri, Rj, bias, H1, H2, H3);
 
   // estimate - prediction = 2 - 1.025 = -0.975
-  EXPECT(assert_equal(-0.975, err(0), 1e-9))
+  EXPECT(assert_equal(-0.975, err, 1e-9))
   // Ri up => error up (less negative)
   EXPECT(assert_equal(1.0, H1(0, 0), 1e-9))
   // Rj up -> error down (more negative)
