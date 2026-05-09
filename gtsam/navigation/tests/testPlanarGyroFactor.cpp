@@ -65,9 +65,6 @@ TEST(PlanarGyroFactor, evaluateError) {
 
 TEST(PlanarGyroFactor, optimize) {
   using noiseModel::Diagonal;
-  const double trueOmega = 0.1;
-  const double bias = 1;  // large !
-  const double measuredOmega = trueOmega + bias;
 
   NonlinearFactorGraph graph;
 
@@ -75,25 +72,29 @@ TEST(PlanarGyroFactor, optimize) {
   graph.add(PriorFactor<Pose2>(P(0), Pose2(),
                                Diagonal::Sigmas(Vector3(0.001, 0.001, 0.001))));
 
+  // BetweenFactors that simulate odometry.
+  Pose2 p0 = Pose2(0, 0, 0);
+  Pose2 p1 = Pose2(0, 0, 0.1);
+  Pose2 p2 = Pose2(0.1, 0, 0.2);
+  Pose2 p3 = Pose2(0.2, 0, 0.3);
+  Pose2 p4 = Pose2(0.3, 0, 0.4);
   // When motionless, the rotation is known.
   // This is how we learn the bias.
-  SharedDiagonal translationNoise =
+  SharedDiagonal lowRotationNoise =
       noiseModel::Diagonal::Sigmas(Vector3(1e-3, 1e-3, 1e-3));
-  graph.add(
-      BetweenFactor<Pose2>(P(0), P(1), Pose2(0.0, 0.0, 0.1), translationNoise));
+  graph.add(BetweenFactor<Pose2>(P(0), P(1), p0.between(p1), lowRotationNoise));
 
   // When moving, rotation is much less certain.
-  // TODO: how to make "between" operate on the "twist" so that
-  // this actually travels in x alone.
-  translationNoise = noiseModel::Diagonal::Sigmas(Vector3(1e-3, 1e-3, 1));
+  SharedDiagonal highRotationNoise =
+      noiseModel::Diagonal::Sigmas(Vector3(1e-3, 1e-3, 1));
   graph.add(
-      BetweenFactor<Pose2>(P(1), P(2), Pose2(0.1, 0.0, 0.1), translationNoise));
+      BetweenFactor<Pose2>(P(1), P(2), p1.between(p2), highRotationNoise));
   graph.add(
-      BetweenFactor<Pose2>(P(2), P(3), Pose2(0.1, 0.0, 0.1), translationNoise));
+      BetweenFactor<Pose2>(P(2), P(3), p2.between(p3), highRotationNoise));
   graph.add(
-      BetweenFactor<Pose2>(P(3), P(4), Pose2(0.1, 0.0, 0.1), translationNoise));
+      BetweenFactor<Pose2>(P(3), P(4), p3.between(p4), highRotationNoise));
 
-  // Bias prior: we have no idea really.
+  // Bias prior: very uncertain.
   graph.add(PriorFactor<double>(B(0), 1.0, Diagonal::Sigmas(Vector1(1))));
 
   // Bias evolution.  Bias stability is an important parameter.
@@ -105,7 +106,11 @@ TEST(PlanarGyroFactor, optimize) {
 
   // Gyro measurements affect rotation only.
   double arw = 1e-8;
+  const double trueOmega = 0.1;
+  const double bias = 1;  // large !
+  const double measuredOmega = trueOmega + bias;
   double dt = 1.0;
+
   graph.add(PlanarGyroFactor(P(0), P(1), B(0),
                              PlanarGyroMeasurement(arw, measuredOmega, dt)));
   graph.add(PlanarGyroFactor(P(1), P(2), B(1),
@@ -129,18 +134,15 @@ TEST(PlanarGyroFactor, optimize) {
   values.insert(P(4), Pose2());
 
   LevenbergMarquardtParams params;
-  // default is 1e-5, 1e-6 is required to pass
-  params.setAbsoluteErrorTol(1e-6);
-  // params.setVerbosityLM("SUMMARY");
   LevenbergMarquardtOptimizer optimizer(graph, values, params);
   Values result = optimizer.optimize();
 
-  // Rotation increments are roughly what the "between" factor said.
-  EXPECT(assert_equal(Pose2(0.000, 0.000, 0.0), result.at<Pose2>(P(0)), 1e-3));
-  EXPECT(assert_equal(Pose2(0.000, 0.000, 0.1), result.at<Pose2>(P(1)), 1e-3));
-  EXPECT(assert_equal(Pose2(0.100, 0.010, 0.2), result.at<Pose2>(P(2)), 1e-3));
-  EXPECT(assert_equal(Pose2(0.197, 0.030, 0.3), result.at<Pose2>(P(3)), 1e-3));
-  EXPECT(assert_equal(Pose2(0.293, 0.059, 0.4), result.at<Pose2>(P(4)), 1e-3));
+  // Rotation increments are exactly what the "between" factor said.
+  EXPECT(assert_equal(Pose2(0.0, 0.0, 0.0), result.at<Pose2>(P(0)), 1e-6));
+  EXPECT(assert_equal(Pose2(0.0, 0.0, 0.1), result.at<Pose2>(P(1)), 1e-6));
+  EXPECT(assert_equal(Pose2(0.1, 0.0, 0.2), result.at<Pose2>(P(2)), 1e-6));
+  EXPECT(assert_equal(Pose2(0.2, 0.0, 0.3), result.at<Pose2>(P(3)), 1e-6));
+  EXPECT(assert_equal(Pose2(0.3, 0.0, 0.4), result.at<Pose2>(P(4)), 1e-6));
 
   // Bias is correctly learned.
   EXPECT(assert_equal(1.0, result.at<double>(B(0)), 1e-6));
@@ -153,32 +155,32 @@ TEST(PlanarGyroFactor, optimize) {
 
   // Look at std dev because it's not so tiny.
   EXPECT(assert_equal(
-      Vector3(0.001, 0.001, 0.001),
-      Vector3(marginals.marginalCovariance(P(0)).diagonal().cwiseSqrt()), 1e-3))
+      Vector3(0.001000, 0.001000, 0.001000),
+      Vector3(marginals.marginalCovariance(P(0)).diagonal().cwiseSqrt()), 1e-6))
   EXPECT(assert_equal(
-      Vector3(0.001, 0.001, 0.001),
-      Vector3(marginals.marginalCovariance(P(1)).diagonal().cwiseSqrt()), 1e-3))
+      Vector3(0.001414, 0.001414, 0.001414),
+      Vector3(marginals.marginalCovariance(P(1)).diagonal().cwiseSqrt()), 1e-6))
   EXPECT(assert_equal(
-      Vector3(0.002, 0.002, 0.002),
-      Vector3(marginals.marginalCovariance(P(2)).diagonal().cwiseSqrt()), 1e-3))
+      Vector3(0.001732, 0.001738, 0.002261),
+      Vector3(marginals.marginalCovariance(P(2)).diagonal().cwiseSqrt()), 1e-6))
   EXPECT(assert_equal(
-      Vector3(0.002, 0.002, 0.003),
-      Vector3(marginals.marginalCovariance(P(3)).diagonal().cwiseSqrt()), 1e-3))
+      Vector3(0.002003, 0.002030, 0.003242),
+      Vector3(marginals.marginalCovariance(P(3)).diagonal().cwiseSqrt()), 1e-6))
   EXPECT(assert_equal(
-      Vector3(0.002, 0.002, 0.004),
-      Vector3(marginals.marginalCovariance(P(4)).diagonal().cwiseSqrt()), 1e-3))
+      Vector3(0.002252, 0.002322, 0.004287),
+      Vector3(marginals.marginalCovariance(P(4)).diagonal().cwiseSqrt()), 1e-6))
 
   // Bias variance is roughly constant.
-  EXPECT(
-      assert_equal(0.001, sqrt(marginals.marginalCovariance(B(0))(0, 0)), 1e-3))
-  EXPECT(
-      assert_equal(0.001, sqrt(marginals.marginalCovariance(B(1))(0, 0)), 1e-3))
-  EXPECT(
-      assert_equal(0.001, sqrt(marginals.marginalCovariance(B(2))(0, 0)), 1e-3))
-  EXPECT(
-      assert_equal(0.001, sqrt(marginals.marginalCovariance(B(3))(0, 0)), 1e-3))
-  EXPECT(
-      assert_equal(0.001, sqrt(marginals.marginalCovariance(B(4))(0, 0)), 1e-3))
+  EXPECT(assert_equal(0.001005, sqrt(marginals.marginalCovariance(B(0))(0, 0)),
+                      1e-6))
+  EXPECT(assert_equal(0.001049, sqrt(marginals.marginalCovariance(B(1))(0, 0)),
+                      1e-6))
+  EXPECT(assert_equal(0.001091, sqrt(marginals.marginalCovariance(B(2))(0, 0)),
+                      1e-6))
+  EXPECT(assert_equal(0.001131, sqrt(marginals.marginalCovariance(B(3))(0, 0)),
+                      1e-6))
+  EXPECT(assert_equal(0.001170, sqrt(marginals.marginalCovariance(B(4))(0, 0)),
+                      1e-6))
 }
 }  // namespace gtsam
 
