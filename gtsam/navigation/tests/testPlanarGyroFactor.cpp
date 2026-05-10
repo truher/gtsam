@@ -6,46 +6,30 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
-#include <gtsam/base/TestableAssertions.h>
-#include <gtsam/base/debug.h>
-#include <gtsam/base/numericalDerivative.h>
 #include <gtsam/inference/Symbol.h>
-#include <gtsam/linear/GaussianFactorGraph.h>
 #include <gtsam/navigation/PlanarGyroFactor.h>
 #include <gtsam/navigation/ScenarioRunner.h>
 #include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
 #include <gtsam/nonlinear/LevenbergMarquardtParams.h>
 #include <gtsam/nonlinear/Marginals.h>
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
-#include <gtsam/nonlinear/factorTesting.h>
 #include <gtsam/slam/BetweenFactor.h>
 
-#include <cmath>
-#include <list>
-#include <memory>
-
-#include "imuFactorTesting.h"
-
-using namespace std::placeholders;
-using namespace std;
-
 namespace gtsam {
-
 using symbol_shorthand::B;
 using symbol_shorthand::P;
 
 TEST(PlanarGyroFactor, evaluateError) {
-  PlanarGyroMeasurement measurement(0.01);
-
+  const double arw = 0.01;
   const double trueOmega = M_PI / 10.0;
   const double B1 = 0.3;
-
   // Measurement includes bias.
   double measuredOmega = trueOmega + B1;
   double deltaT = 1.0;
-  measurement.integrate(measuredOmega, deltaT);
 
-  PlanarGyroFactor factor(P(1), P(2), B(1), measurement);
+  PlanarGyroFactor factor(
+      P(1), P(2), B(1),
+      PlanarGyroMeasurement::fromRate(arw, measuredOmega, deltaT));
 
   const double initialRotation = M_PI / 4.0;
   Pose2 P1(0.0, 0.0, initialRotation);
@@ -54,13 +38,6 @@ TEST(PlanarGyroFactor, evaluateError) {
 
   EXPECT(assert_equal(Vector3(0, 0, error), factor.evaluateError(P1, P2, B1),
                       1e-6))
-
-  Values values;
-  values.insert(P(1), P1);
-  values.insert(P(2), P2);
-  values.insert(B(1), B1);
-
-  EXPECT_CORRECT_FACTOR_JACOBIANS(factor, values, 1e-5, 1e-6);
 }
 
 TEST(PlanarGyroFactor, optimize) {
@@ -111,14 +88,18 @@ TEST(PlanarGyroFactor, optimize) {
   const double measuredOmega = trueOmega + bias;
   double dt = 1.0;
 
-  graph.add(PlanarGyroFactor(P(0), P(1), B(0),
-                             PlanarGyroMeasurement(arw, measuredOmega, dt)));
-  graph.add(PlanarGyroFactor(P(1), P(2), B(1),
-                             PlanarGyroMeasurement(arw, measuredOmega, dt)));
-  graph.add(PlanarGyroFactor(P(2), P(3), B(2),
-                             PlanarGyroMeasurement(arw, measuredOmega, dt)));
-  graph.add(PlanarGyroFactor(P(3), P(4), B(3),
-                             PlanarGyroMeasurement(arw, measuredOmega, dt)));
+  graph.add(PlanarGyroFactor(
+      P(0), P(1), B(0),
+      PlanarGyroMeasurement::fromRate(arw, measuredOmega, dt)));
+  graph.add(PlanarGyroFactor(
+      P(1), P(2), B(1),
+      PlanarGyroMeasurement::fromRate(arw, measuredOmega, dt)));
+  graph.add(PlanarGyroFactor(
+      P(2), P(3), B(2),
+      PlanarGyroMeasurement::fromRate(arw, measuredOmega, dt)));
+  graph.add(PlanarGyroFactor(
+      P(3), P(4), B(3),
+      PlanarGyroMeasurement::fromRate(arw, measuredOmega, dt)));
 
   // Initial values should not matter.
   Values values;

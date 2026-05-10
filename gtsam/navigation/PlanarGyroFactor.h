@@ -1,7 +1,7 @@
 /**
  * A "between" factor for pose rotation, with variable bias.
  *
- * This factor is useful for high-school robotics competitions,
+ * Useful for high-school robotics competitions,
  * which run robots on the floor, and so measure yaw.
  *
  * @see https://www.firstinspires.org/
@@ -12,9 +12,7 @@
  */
 
 #pragma once
-#include <gtsam/base/Matrix.h>
 #include <gtsam/base/Vector.h>
-#include <gtsam/base/std_optional_serialization.h>
 #include <gtsam/geometry/Pose2.h>
 #include <gtsam/navigation/PlanarGyroMeasurement.h>
 #include <gtsam/nonlinear/NoiseModelFactorN.h>
@@ -25,7 +23,6 @@
 #include "gtsam/dllexport.h"
 
 namespace gtsam {
-
 class GTSAM_EXPORT PlanarGyroFactor
     : public NoiseModelFactorN<Pose2, Pose2, double> {
   typedef PlanarGyroFactor This;
@@ -50,10 +47,8 @@ class GTSAM_EXPORT PlanarGyroFactor
   ~PlanarGyroFactor() override {}
 
   gtsam::NonlinearFactor::shared_ptr clone() const override;
-
   void print(const std::string& s, const KeyFormatter& keyFormatter =
                                        DefaultKeyFormatter) const override;
-
   bool equals(const NonlinearFactor&, double tol = 1e-9) const override;
 
   /**
