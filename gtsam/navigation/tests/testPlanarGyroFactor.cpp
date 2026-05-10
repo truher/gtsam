@@ -6,6 +6,8 @@
  */
 
 #include <CppUnitLite/TestHarness.h>
+#include <gtsam/base/Matrix.h>
+#include <gtsam/base/numericalDerivative.h>
 #include <gtsam/inference/Symbol.h>
 #include <gtsam/navigation/PlanarGyroFactor.h>
 #include <gtsam/navigation/ScenarioRunner.h>
@@ -16,13 +18,117 @@
 #include <gtsam/slam/BetweenFactor.h>
 
 namespace gtsam {
-using symbol_shorthand::B;
-using symbol_shorthand::P;
+
+TEST(PlanarGyroMeasurement, fromRate) {
+  double arw = 1.0;
+  double omega = 0.1;
+  double dt = 0.5;
+  PlanarGyroMeasurement x = PlanarGyroMeasurement::fromRate(arw, omega, dt);
+
+  // Check the effect of bias.
+  double bias = 0.05;
+  Matrix1 H;
+  Rot2 corrected = x.deltaR(bias, H);
+  EXPECT(assert_equal(0.025, corrected.theta(), 1e-9))
+  EXPECT(assert_equal(-0.5, H(0, 0), 1e-9))
+
+  // Numeric derivative matches.
+  auto f = [&x](const double& bias) { return x.deltaR(bias, {}); };
+  Matrix1 numericH = numericalDerivative11(f, bias);
+  EXPECT(assert_equal(-0.5, numericH(0, 0), 1e-9))
+}
+
+TEST(PlanarGyroMeasurement, fromRotation) {
+  double arw = 1.0;
+  Rot2 dr = 0.05;
+  double dt = 0.5;
+  PlanarGyroMeasurement x = PlanarGyroMeasurement::fromRotation(arw, dr, dt);
+  double bias = 0.05;
+  Matrix1 H;
+  Rot2 corrected = x.deltaR(bias, H);
+  EXPECT(assert_equal(0.025, corrected.theta(), 1e-9))
+  EXPECT(assert_equal(-0.5, H(0, 0), 1e-9))
+}
+
+TEST(PlanarGyroMeasurement, variance) {
+  double arw = 1.0;
+  double omega = 0.1;
+  double dt = 0.5;
+  PlanarGyroMeasurement x = PlanarGyroMeasurement::fromRate(arw, omega, dt);
+
+  // 1.0 * 0.5 = 0.5
+  EXPECT(assert_equal(0.5, x.variance(), 1e-9))
+}
+
+TEST(PlanarGyroMeasurement, predict) {
+  double arw = 1.0;
+  double omega = 0.1;
+  double dt = 0.5;
+  PlanarGyroMeasurement x = PlanarGyroMeasurement::fromRate(arw, omega, dt);
+
+  // Check prediction.
+  Rot2 Ri = Rot2::fromAngle(1);
+  double bias = 0.05;
+  Matrix1 H1, H2;
+  Rot2 predictedRj = x.predict(Ri, bias, H1, H2);
+
+  // 1 + 0.025 = 1.025
+  EXPECT(assert_equal(1.025, predictedRj.theta(), 1e-9))
+  // Ri adds to prediction.
+  EXPECT(assert_equal(1.0, H1(0, 0), 1e-9))
+  // Bias * dt subtracts from prediction.
+  EXPECT(assert_equal(-0.5, H2(0, 0), 1e-9))
+
+  // Numeric derivative matches.
+  auto f = [&x](const Rot2& r, const double& b) -> Rot2 {
+    return x.predict(r, b);
+  };
+  Matrix1 nH1 = numericalDerivative21(f, Ri, bias);
+  Matrix1 nH2 = numericalDerivative22(f, Ri, bias);
+  EXPECT(assert_equal(1.0, nH1(0, 0), 1e-9))
+  EXPECT(assert_equal(-0.5, nH2(0, 0), 1e-9))
+}
+
+TEST(PlanarGyroMeasurement, computeError) {
+  double arw = 1.0;
+  double omega = 0.1;
+  double dt = 0.5;
+  PlanarGyroMeasurement x = PlanarGyroMeasurement::fromRate(arw, omega, dt);
+
+  // Check error.
+  Rot2 Ri = Rot2::fromAngle(1);
+  Rot2 Rj = Rot2::fromAngle(2);
+  double bias = 0.05;
+  Matrix1 H1, H2, H3;
+  double err = x.computeError(Ri, Rj, bias, H1, H2, H3);
+
+  // estimate - prediction = 2 - 1.025 = -0.975
+  EXPECT(assert_equal(-0.975, err, 1e-9))
+  // Ri up => error up (less negative)
+  EXPECT(assert_equal(1.0, H1(0, 0), 1e-9))
+  // Rj up -> error down (more negative)
+  EXPECT(assert_equal(-1.0, H2(0, 0), 1e-9))
+  // bias up -> error down (more negative), scaled by dt
+  EXPECT(assert_equal(-0.5, H3(0, 0), 1e-9))
+
+  // Numeric derivative matches
+  auto f = [&x](const Rot2& r1, const Rot2& r2, const double& b) -> double {
+    return x.computeError(r1, r2, b);
+  };
+  Matrix1 nH1 = numericalDerivative31(f, Ri, Rj, bias);
+  Matrix1 nH2 = numericalDerivative32(f, Ri, Rj, bias);
+  Matrix1 nH3 = numericalDerivative33(f, Ri, Rj, bias);
+  EXPECT(assert_equal(1.0, nH1(0, 0), 1e-9))
+  EXPECT(assert_equal(-1.0, nH2(0, 0), 1e-9))
+  EXPECT(assert_equal(-0.5, nH3(0, 0), 1e-9))
+}
 
 TEST(PlanarGyroFactor, evaluateError) {
-  const double arw = 0.01;
-  const double trueOmega = M_PI / 10.0;
-  const double B1 = 0.3;
+  using symbol_shorthand::B;
+  using symbol_shorthand::P;
+  double arw = 0.01;
+  double trueOmega = M_PI / 10.0;
+  double B1 = 0.3;
   // Measurement includes bias.
   double measuredOmega = trueOmega + B1;
   double deltaT = 1.0;
@@ -31,7 +137,7 @@ TEST(PlanarGyroFactor, evaluateError) {
       P(1), P(2), B(1),
       PlanarGyroMeasurement::fromRate(arw, measuredOmega, deltaT));
 
-  const double initialRotation = M_PI / 4.0;
+  double initialRotation = M_PI / 4.0;
   Pose2 P1(0.0, 0.0, initialRotation);
   double error = 0.1;
   Pose2 P2(0.0, 0.0, initialRotation + trueOmega * deltaT - error);
@@ -42,6 +148,8 @@ TEST(PlanarGyroFactor, evaluateError) {
 
 TEST(PlanarGyroFactor, optimize) {
   using noiseModel::Diagonal;
+  using symbol_shorthand::B;
+  using symbol_shorthand::P;
 
   NonlinearFactorGraph graph;
 
@@ -55,6 +163,8 @@ TEST(PlanarGyroFactor, optimize) {
   Pose2 p2 = Pose2(0.1, 0, 0.2);
   Pose2 p3 = Pose2(0.2, 0, 0.3);
   Pose2 p4 = Pose2(0.3, 0, 0.4);
+  // Add error in the "between" rotation, so the gyro factor can fix it.
+  Pose2 pErr = Pose2(0, 0, 0.1);
   // When motionless, the rotation is known.
   // This is how we learn the bias.
   SharedDiagonal lowRotationNoise =
@@ -64,12 +174,12 @@ TEST(PlanarGyroFactor, optimize) {
   // When moving, rotation is much less certain.
   SharedDiagonal highRotationNoise =
       noiseModel::Diagonal::Sigmas(Vector3(1e-3, 1e-3, 1));
-  graph.add(
-      BetweenFactor<Pose2>(P(1), P(2), p1.between(p2), highRotationNoise));
-  graph.add(
-      BetweenFactor<Pose2>(P(2), P(3), p2.between(p3), highRotationNoise));
-  graph.add(
-      BetweenFactor<Pose2>(P(3), P(4), p3.between(p4), highRotationNoise));
+  graph.add(BetweenFactor<Pose2>(P(1), P(2), p1.between(p2).compose(pErr),
+                                 highRotationNoise));
+  graph.add(BetweenFactor<Pose2>(P(2), P(3), p2.between(p3).compose(pErr),
+                                 highRotationNoise));
+  graph.add(BetweenFactor<Pose2>(P(3), P(4), p3.between(p4).compose(pErr),
+                                 highRotationNoise));
 
   // Bias prior: very uncertain.
   graph.add(PriorFactor<double>(B(0), 1.0, Diagonal::Sigmas(Vector1(1))));
@@ -83,9 +193,9 @@ TEST(PlanarGyroFactor, optimize) {
 
   // Gyro measurements affect rotation only.
   double arw = 1e-8;
-  const double trueOmega = 0.1;
-  const double bias = 1;  // large !
-  const double measuredOmega = trueOmega + bias;
+  double trueOmega = 0.1;
+  double bias = 1;  // large !
+  double measuredOmega = trueOmega + bias;
   double dt = 1.0;
 
   graph.add(PlanarGyroFactor(
@@ -118,12 +228,13 @@ TEST(PlanarGyroFactor, optimize) {
   LevenbergMarquardtOptimizer optimizer(graph, values, params);
   Values result = optimizer.optimize();
 
-  // Rotation increments are exactly what the "between" factor said.
-  EXPECT(assert_equal(Pose2(0.0, 0.0, 0.0), result.at<Pose2>(P(0)), 1e-6));
-  EXPECT(assert_equal(Pose2(0.0, 0.0, 0.1), result.at<Pose2>(P(1)), 1e-6));
-  EXPECT(assert_equal(Pose2(0.1, 0.0, 0.2), result.at<Pose2>(P(2)), 1e-6));
-  EXPECT(assert_equal(Pose2(0.2, 0.0, 0.3), result.at<Pose2>(P(3)), 1e-6));
-  EXPECT(assert_equal(Pose2(0.3, 0.0, 0.4), result.at<Pose2>(P(4)), 1e-6));
+  // Rotation increments are what the more-certain gyro factor said, overriding
+  // what the less-certain "between" factor said.
+  EXPECT(assert_equal(Pose2(0.0, 0.0, 0.0), result.at<Pose2>(P(0)), 1e-5));
+  EXPECT(assert_equal(Pose2(0.0, 0.0, 0.1), result.at<Pose2>(P(1)), 1e-5));
+  EXPECT(assert_equal(Pose2(0.1, 0.0, 0.2), result.at<Pose2>(P(2)), 1e-5));
+  EXPECT(assert_equal(Pose2(0.2, 0.0, 0.3), result.at<Pose2>(P(3)), 1e-5));
+  EXPECT(assert_equal(Pose2(0.3, 0.0, 0.4), result.at<Pose2>(P(4)), 1e-5));
 
   // Bias is correctly learned.
   EXPECT(assert_equal(1.0, result.at<double>(B(0)), 1e-6));
