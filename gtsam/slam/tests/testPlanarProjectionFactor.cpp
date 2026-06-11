@@ -99,6 +99,27 @@ TEST(PlanarProjectionFactor1, Error3) {
 }
 
 /* ************************************************************************* */
+TEST(PlanarProjectionFactor1, CheiralityError1) {
+    // Example: landmark is behind the camera.
+    Point3 landmark(0, 0, 0);
+    Point2 measured(200, 200);
+    Pose3 offset(
+        Rot3(0, 0, 1,//
+            -1, 0, 0, //
+            0, -1, 0),
+        Vector3(0, 0, 0)
+    );
+    Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
+    SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
+    PlanarProjectionFactor1 factor(X(0), landmark, measured, offset, calib, model);
+    Pose2 pose(1, 0, 0);
+    Matrix H;
+#ifdef GTSAM_THROW_CHEIRALITY_EXCEPTION
+    CHECK_EXCEPTION(factor.evaluateError(pose, H), CheiralityException);
+#endif
+}
+
+/* ************************************************************************* */
 TEST(PlanarProjectionFactor1, Jacobian) {
     // Verify Jacobians with numeric derivative
     std::default_random_engine rng(42);

@@ -63,9 +63,7 @@ namespace gtsam {
             OptionalJacobian<2, 6> HbTc = {}, // (rx, ry, rz, x, y, theta)
             OptionalJacobian<2, 9> Hcalib = {}
         ) const {
-#ifndef GTSAM_THROW_CHEIRALITY_EXCEPTION
             try {
-#endif
                 Matrix63 Hp; // 6x3
                 Matrix66 H0; // 6x6
                 Pose3 wTc = Pose3::FromPose2(wTb, HwTb ? &Hp : nullptr).compose(bTc, HwTb ? &H0 : nullptr);
@@ -82,7 +80,6 @@ namespace gtsam {
                 } else {
                     return camera.project(landmark, {}, {}, {});
                 }
-#ifndef GTSAM_THROW_CHEIRALITY_EXCEPTION
             } catch (CheiralityException& e) {
                 std::cout << "****** CHIRALITY EXCEPTION ******\n";
                 if (Hlandmark) Hlandmark->setZero();
@@ -92,7 +89,6 @@ namespace gtsam {
                 // return a large error
                 return Matrix::Constant(2, 1, 2.0 * calib.fx());
             }
-#endif
         }
 
         Point2 measured_; // pixel measurement
