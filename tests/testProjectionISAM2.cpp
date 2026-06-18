@@ -6,6 +6,7 @@
 #include <gtsam/inference/Symbol.h>
 #include <gtsam/nonlinear/GaussNewtonOptimizer.h>
 #include <gtsam/nonlinear/ISAM2.h>
+#include <gtsam/nonlinear/ISAM2Params.h>
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/Values.h>
 #include <gtsam/slam/ProjectionFactor.h>
@@ -69,10 +70,39 @@ TEST(testProjectionISAM2, projectionGN) {
 
 TEST(testProjectionISAM2, projectionISAM) {
   cout << " ********** PROJECTION ISAM2 **********" << endl;
-  ISAM2 isam2;
+  ISAM2Params parameters;
+  // relinearize every time, helps a lot!
+  parameters.relinearizeSkip = 1;
+  // these seem not to help
+  // parameters.relinearizeThreshold = 0.01;
+  // parameters.factorization = ISAM2Params::Factorization::QR;
+  // parameters.optimizationParams = ISAM2DoglegParams(
+  // 1.0, 1e-5, DoglegOptimizerImpl::SEARCH_EACH_ITERATION, true);
+  // parameters.optimizationParams = ISAM2GaussNewtonParams(1.0);
+  ISAM2 isam2(parameters);
   ISAM2Result isam2Result = isam2.update(graph(), initial());
   isam2Result.print();
   Values result = isam2.calculateBestEstimate();
+  result.print("result");
+
+  isam2Result = isam2.update();
+  isam2Result.print();
+  result = isam2.calculateBestEstimate();
+  result.print("result");
+
+  isam2Result = isam2.update();
+  isam2Result.print();
+  result = isam2.calculateBestEstimate();
+  result.print("result");
+
+  isam2Result = isam2.update();
+  isam2Result.print();
+  result = isam2.calculateBestEstimate();
+  result.print("result");
+
+  isam2Result = isam2.update();
+  isam2Result.print();
+  result = isam2.calculateBestEstimate();
   result.print("result");
 }
 
