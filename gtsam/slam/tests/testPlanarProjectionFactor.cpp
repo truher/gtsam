@@ -102,8 +102,8 @@ TEST(PlanarProjectionFactor1, Error3) {
 TEST(PlanarProjectionFactor1, CheiralityError1) {
     // Example: landmark is behind the camera.
     Point3 landmark(0, 0, 0);
-    Point2 measured(200, 200);
-    Pose3 offset(
+    Point2 measured(200, 200); // on bore
+    Pose3 offset( // camera pointing +x
         Rot3(0, 0, 1,//
             -1, 0, 0, //
             0, -1, 0),
@@ -112,10 +112,14 @@ TEST(PlanarProjectionFactor1, CheiralityError1) {
     Cal3DS2 calib(200, 200, 0, 200, 200, 0, 0);
     SharedNoiseModel model = noiseModel::Diagonal::Sigmas(Vector2(1, 1));
     PlanarProjectionFactor1 factor(X(0), landmark, measured, offset, calib, model);
-    Pose2 pose(1, 0, 0);
+    Pose2 pose(1, 0, 0); // camera is in front of the origin
     Matrix H;
 #ifdef GTSAM_THROW_CHEIRALITY_EXCEPTION
-    CHECK_EXCEPTION(factor.evaluateError(pose, H), CheiralityException);
+    // catch the exception and return a prediction out of frame
+    CHECK(assert_equal(Vector2(-400, -400), factor.evaluateError(pose, H), 1e-6));
+#else
+    // no exception, we get the "on bore" answer even though it's "behind"
+    CHECK(assert_equal(Vector2(0, 0), factor.evaluateError(pose, H), 1e-6));
 #endif
 }
 

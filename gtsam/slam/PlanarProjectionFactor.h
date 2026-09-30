@@ -86,8 +86,8 @@ namespace gtsam {
                 if (HwTb) HwTb->setZero();
                 if (HbTc) HbTc->setZero();
                 if (Hcalib) Hcalib->setZero();
-                // return a large error
-                return Matrix::Constant(2, 1, 2.0 * calib.fx());
+                // return a prediction far out of frame
+                return Point2(-1.0 * calib.px(), -1.0 * calib.py());
             }
         }
 
