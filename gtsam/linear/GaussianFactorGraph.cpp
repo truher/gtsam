@@ -18,16 +18,17 @@
  * @author  Frank Dellaert
  */
 
-#include <gtsam/linear/GaussianFactorGraph.h>
-#include <gtsam/linear/GaussianBayesTree.h>
-#include <gtsam/linear/GaussianEliminationTree.h>
-#include <gtsam/linear/GaussianJunctionTree.h>
-#include <gtsam/linear/HessianFactor.h>
-#include <gtsam/inference/FactorGraph-inst.h>
-#include <gtsam/inference/EliminateableFactorGraph-inst.h>
 #include <gtsam/base/debug.h>
 #include <gtsam/base/timing.h>
-#include <gtsam/base/cholesky.h>
+#include <gtsam/inference/EliminateableFactorGraph-inst.h>
+#include <gtsam/inference/FactorGraph-inst.h>
+#include <gtsam/linear/GaussianBayesTree.h>
+#include <gtsam/linear/GaussianEliminationTree.h>
+#include <gtsam/linear/GaussianFactorGraph.h>
+#include <gtsam/linear/GaussianJunctionTree.h>
+#include <gtsam/linear/HessianFactor.h>
+
+#include <Eigen/Cholesky>
 
 using namespace std;
 using namespace gtsam;
@@ -57,6 +58,7 @@ namespace gtsam {
   std::map<Key, size_t> GaussianFactorGraph::getKeyDimMap() const {
     map<Key, size_t> spec;
     for (const GaussianFactor::shared_ptr& gf : *this) {
+      if (!gf) continue;
       for (GaussianFactor::const_iterator it = gf->begin(); it != gf->end(); it++) {
         map<Key,size_t>::iterator it2 = spec.find(*it);
         if ( it2 == spec.end() ) {

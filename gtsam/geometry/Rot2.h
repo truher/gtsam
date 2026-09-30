@@ -19,10 +19,15 @@
 
 #pragma once
 
-#include <gtsam/geometry/Point2.h>
+#include <gtsam/base/Matrix.h>
+#include <gtsam/base/MatrixConstants.h>
 #include <gtsam/base/MatrixLieGroup.h>
+#include <gtsam/geometry/Point2.h>
 
 #include <random>
+#include <stdexcept>
+#include <utility>
+#include <vector>
 
 namespace gtsam {
 
@@ -35,9 +40,6 @@ namespace gtsam {
   class GTSAM_EXPORT Rot2 : public MatrixLieGroup<Rot2, 1, 2> {
     /** we store cos(theta) and sin(theta) */
     double c_, s_;
-
-    /** normalize to make sure cos and sin form unit vector */
-    Rot2& normalize();
 
     /** private constructor from cos/sin */
     inline Rot2(double c, double s) : c_(c), s_(s) {}
@@ -248,10 +250,117 @@ namespace gtsam {
 
   };
 
-  template <>
-struct traits<Rot2> : public internal::MatrixLieGroup<Rot2, 2> {};
+template <>
+struct traits<Rot2> : public internal::MatrixLieGroup<Rot2, 2> {
+  /// Dimension of the D=1 homogenized QCQP vector [h, cos(theta), sin(theta)].
+  inline constexpr static int QcqpVectorDim = 3;
+
+  /**
+   * Return a matrix-valued QCQP variable for Rot2.
+   *
+   * D=1 uses the minimal homogeneous representation [1, cos(theta),
+   * sin(theta)]', yielding a 3-by-1 matrix. The remaining matrix entries are
+   * recovered from the exact linear identities r01=-r10 and r11=r00.
+   * D>=2 returns [R', 0] as a 2-by-D row-orthonormal matrix. These matrix
+   * variables form a Stiefel relaxation with a common right-O(D) gauge.
+   */
+  template <int D = 1>
+  static Matrix QcqpValue(const Rot2& value) {
+    if constexpr (D == 1) {
+      return Vector3(1.0, value.c(), value.s());
+    } else if constexpr (D >= 2) {
+      Matrix X = Matrix::Zero(2, D);
+      X.leftCols<2>() = value.matrix().transpose();
+      return X;
+    } else {
+      throw std::invalid_argument(
+          "traits<Rot2>::QcqpValue requires D>=1.");
+    }
+  }
+
+  /**
+   * Return row-space QCQP equality constraints A, b such that
+   * trace(x_i' A x_i) = b[j]. For D=1 these fix h^2=1 and impose the
+   * unit-circle constraint c^2+s^2=1. For D>=2 the same 2-by-2 constraints
+   * enforce row orthonormality. The matrix constraints enforce XX'=I, not
+   * determinant +1; square D=2 variables therefore admit both components of
+   * O(2).
+   */
+  template <int D = 1>
+  static std::vector<std::pair<Matrix, double>> QcqpConstraints() {
+    if constexpr (D == 1) {
+      // The minimal homogenized Rot2 lifted vector is x = [h, c, s].
+      std::vector<std::pair<Matrix, double>> constraints;
+      constraints.reserve(2);
+
+      Matrix A = Matrix::Zero(QcqpVectorDim, QcqpVectorDim);
+
+      // The quadratic lift fixes x(0)^2 = 1; a hard prior pins its sign.
+      A(0, 0) = 1.0;
+      constraints.emplace_back(A, 1.0);
+
+      // c^2 + s^2 = 1 simultaneously enforces orthonormality and det(R)=1.
+      A.setZero();
+      A(1, 1) = 1.0;
+      A(2, 2) = 1.0;
+      constraints.emplace_back(A, 1.0);
+
+      return constraints;
+    } else if constexpr (D >= 2) {
+      std::vector<std::pair<Matrix, double>> constraints;
+      constraints.reserve(3);
+
+      Matrix A = Matrix::Zero(2, 2);
+      A(0, 0) = 1.0;
+      constraints.emplace_back(A, 1.0);
+
+      A.setZero();
+      A(1, 1) = 1.0;
+      constraints.emplace_back(A, 1.0);
+
+      A.setZero();
+      A(0, 1) = 0.5;
+      A(1, 0) = 0.5;
+      constraints.emplace_back(A, 0.0);
+
+      return constraints;
+    } else {
+      throw std::invalid_argument(
+          "traits<Rot2>::QcqpConstraints only supports D=1 and D>=2.");
+    }
+  }
+
+  /**
+   * Project a D=1 minimal vector or canonical 2-by-D lift back to Rot2.
+   *
+   * Matrix-form QCQP solutions have a right-O(D) gauge, making this
+   * leading-block projection gauge-dependent unless the caller has first
+   * chosen a gauge. Matrix-form X must be exactly 2-by-D.
+   */
+  template <int D>
+  static Rot2 FromQcqpValue(const Matrix& X) {
+    if constexpr (D == 1) {
+      if (X.rows() != QcqpVectorDim || X.cols() != 1 ||
+          std::abs(X(0, 0)) < 1e-9) {
+        throw std::invalid_argument(
+            "traits<Rot2>::FromQcqpValue requires a 3-by-1 vector with a "
+            "nonzero homogenization entry.");
+      }
+      const Vector x = X.col(0) / X(0, 0);
+      return Rot2::atan2(x(2), x(1));
+    } else {
+      static_assert(D >= 2,
+                    "traits<Rot2>::FromQcqpValue requires D >= 2.");
+      if (X.rows() != 2 || X.cols() != D) {
+        throw std::invalid_argument(
+            "traits<Rot2>::FromQcqpValue requires a 2-by-D matrix.");
+      }
+      return Rot2::ClosestTo(X.template leftCols<2>().transpose());
+    }
+  }
+};
 
 template <>
-struct traits<const Rot2> : public internal::MatrixLieGroup<Rot2, 2> {};
+struct traits<const Rot2> : public traits<Rot2> {};
 
-} // gtsam
+}  // namespace gtsam
