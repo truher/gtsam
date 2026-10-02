@@ -33,7 +33,7 @@ bool PlanarGyroParams::operator==(const PlanarGyroParams& other) const {
 void PlanarGyroParams::print(const std::string& s) const {
   std::cout << s                                               //
             << " arw [" << arw << "]"                          //
-            << " biasInstability [" << biasInstability << ")"  //
+            << " biasInstability [" << biasInstability << "]"  //
             << std::endl;
 }
 
@@ -92,11 +92,11 @@ gtsam::NonlinearFactor::shared_ptr PlanarGyroFactor::clone() const {
 void PlanarGyroFactor::print(const std::string& s,
                              const KeyFormatter& keyFormatter) const {
   std::cout << s << "PlanarGyroFactor("              //
-            << keyFormatter(this->key<1>()) << ","   //
-            << keyFormatter(this->key<2>()) << ","   //
+            << keyFormatter(this->key<1>()) << ", "   //
+            << keyFormatter(this->key<2>()) << ", "   //
             << keyFormatter(this->key<3>()) << ","   //
             << " dt [" << deltaT_ << "]" << ","      //
-            << " dtheta [" << deltaR_.theta() << ""  //
+            << " dtheta [" << deltaR_.theta() << "]"  //
             << std::endl;
   p_->print("params: ");
   noiseModel_->print(" noise model: ");

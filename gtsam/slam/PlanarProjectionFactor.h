@@ -91,7 +91,8 @@ namespace gtsam {
                     return camera.project(landmark, {}, {}, {});
                 }
             } catch (CheiralityException& e) {
-                std::cout << "****** CHIRALITY EXCEPTION ******\n";
+                // Avoid spamming stdout
+                // std::cout << "****** CHIRALITY EXCEPTION ******\n";
                 if (Hlandmark) Hlandmark->setZero();
                 if (HwTb) HwTb->setZero();
                 if (HbTc) HbTc->setZero();
