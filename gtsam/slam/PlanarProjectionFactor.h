@@ -127,6 +127,14 @@ namespace gtsam {
                 NonlinearFactor::shared_ptr(new PlanarProjectionFactor1(*this)));
         }
 
+        void print(
+            const std::string& s = "",
+            const KeyFormatter& keyFormatter = DefaultKeyFormatter) const override {
+            std::cout << s << "PlanarProjectionFactor1("
+                << keyFormatter(this->key<1>()) << ")\n";
+            std::cout << "  measured: " << measured_ << "\n";
+            this->noiseModel_->print("  noise model: ");
+        }
 
         /**
          * @brief constructor for known landmark, offset, and calibration
@@ -189,6 +197,16 @@ namespace gtsam {
         NonlinearFactor::shared_ptr clone() const override {
             return std::static_pointer_cast<NonlinearFactor>(
                 NonlinearFactor::shared_ptr(new PlanarProjectionFactor2(*this)));
+        }
+
+        void print(
+            const std::string& s = "",
+            const KeyFormatter& keyFormatter = DefaultKeyFormatter) const override {
+            std::cout << s << "PlanarProjectionFactor1("
+                << keyFormatter(this->key<1>()) << ", "
+                << keyFormatter(this->key<2>()) << ")\n";
+            std::cout << "  measured: " << measured_ << "\n";
+            this->noiseModel_->print("  noise model: ");
         }
 
         /**
@@ -256,6 +274,17 @@ namespace gtsam {
         NonlinearFactor::shared_ptr clone() const override {
             return std::static_pointer_cast<NonlinearFactor>(
                 NonlinearFactor::shared_ptr(new PlanarProjectionFactor3(*this)));
+        }
+
+        void print(
+            const std::string& s = "",
+            const KeyFormatter& keyFormatter = DefaultKeyFormatter) const override {
+            std::cout << s << "PlanarProjectionFactor1("
+                << keyFormatter(this->key<1>()) << ", "
+                << keyFormatter(this->key<2>()) << ", "
+                << keyFormatter(this->key<3>()) << ")\n";
+            std::cout << "  measured: " << measured_ << "\n";
+            this->noiseModel_->print("  noise model: ");
         }
 
         /**
