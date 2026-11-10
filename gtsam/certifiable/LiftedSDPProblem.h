@@ -73,12 +73,18 @@ class GTSAM_EXPORT LiftedSDPProblem<MonolithicSDP, MosekSDPSolver> {
   /**
    * Construct the monolithic SDP relaxation of a QCQP problem.
    *
+   * Every PSD block is the lifted matrix [1 x'; x X] of its keys, with one
+   * constant entry.
+   *
+   * Fixed variables are substituted out before lifting: a unary linear
+   * equality I x = v, which a hard FrobeniusPrior emits, fixes x to v. The
+   * costs that involve it are rewritten on the remaining variables, the
+   * constraints that involve it are dropped, and it gets no SDP block, so no
+   * singular rank-one block is pinned. The QCQP itself is unchanged.
+   *
    * @param problem QCQP to relax.
-   * @param shareHomogeneousCoordinates Share homogeneous coordinates when every
-   * key has explicit unit normalization; false retains the original cones.
    */
-  explicit LiftedSDPProblem(const QcqpProblem& problem,
-                            bool shareHomogeneousCoordinates = true);
+  explicit LiftedSDPProblem(const QcqpProblem& problem);
 
   /// Dispose of the owned MOSEK model.
   ~LiftedSDPProblem();
@@ -100,13 +106,16 @@ class GTSAM_EXPORT LiftedSDPProblem<MonolithicSDP, MosekSDPSolver> {
   /// Return MOSEK's optimizer time in seconds after solve().
   double solveTimeSeconds() const;
 
-  /// Return one keyed D=1 QCQP vector per diagonal SDP block after solve().
+  /**
+   * Return one keyed D=1 QCQP vector per diagonal SDP block after solve(),
+   * together with the fixed variables, which are not in the SDP.
+   */
   Values qcqpValues() const;
 
   /// Return largest-to-second-largest eigenvalue ratios for recovered blocks.
   std::vector<double> variableEVRs() const;
 
-  /// Return QCQP variable keys in SDP block order.
+  /// Return QCQP variable keys in SDP block order, without fixed variables.
   const KeyVector& orderedKeys() const;
 
   /// Return the QCQP dimension associated with each ordered key.
@@ -132,14 +141,20 @@ class GTSAM_EXPORT LiftedSDPProblem<ChordalSDP, MosekSDPSolver> {
   /**
    * Construct the chordal SDP relaxation of a QCQP problem.
    *
+   * Every PSD block is the lifted matrix [1 x'; x X] of its keys, with one
+   * constant entry.
+   *
+   * Fixed variables are substituted out before lifting: a unary linear
+   * equality I x = v, which a hard FrobeniusPrior emits, fixes x to v. The
+   * costs that involve it are rewritten on the remaining variables, the
+   * constraints that involve it are dropped, and it gets no SDP block, so no
+   * singular rank-one block is pinned. The QCQP itself is unchanged.
+   *
    * @param problem QCQP to relax.
    * @param orderingType Ordering used for symbolic elimination.
-   * @param shareHomogeneousCoordinates Share homogeneous coordinates when every
-   * key has explicit unit normalization; false retains the original cones.
    */
   LiftedSDPProblem(const QcqpProblem& problem,
-                   ChordalOrderingType orderingType,
-                   bool shareHomogeneousCoordinates = true);
+                   ChordalOrderingType orderingType);
 
   /// Dispose of the owned MOSEK model.
   ~LiftedSDPProblem();
@@ -161,13 +176,16 @@ class GTSAM_EXPORT LiftedSDPProblem<ChordalSDP, MosekSDPSolver> {
   /// Return MOSEK's optimizer time in seconds after solve().
   double solveTimeSeconds() const;
 
-  /// Return one keyed D=1 QCQP vector per diagonal SDP block after solve().
+  /**
+   * Return one keyed D=1 QCQP vector per diagonal SDP block after solve(),
+   * together with the fixed variables, which are not in the SDP.
+   */
   Values qcqpValues() const;
 
   /// Return largest-to-second-largest eigenvalue ratios for recovered blocks.
   std::vector<double> variableEVRs() const;
 
-  /// Return QCQP variable keys in SDP block order.
+  /// Return QCQP variable keys in SDP block order, without fixed variables.
   const KeyVector& orderedKeys() const;
 
   /// Return the QCQP dimension associated with each ordered key.

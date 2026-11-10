@@ -48,7 +48,8 @@ namespace gtsam {
  * See `gtsam/slam/doc/WahbaFactor.ipynb` for a comparison of the two residuals
  * and a runnable QCQP objective check.
  */
-class WahbaFactor : public NoiseModelFactorN<Rot3> {
+class WahbaFactor : public NoiseModelFactorN<Rot3>,
+                    public RedundantQcqpProvider {
  public:
   using Base = NoiseModelFactorN<Rot3>;
   using This = WahbaFactor;
@@ -86,15 +87,13 @@ class WahbaFactor : public NoiseModelFactorN<Rot3> {
   }
 
   /** Add the exact D=1 chordal Wahba cost to a QCQP. */
-  void qcqpFactors(NonlinearFactorGraph* costs,
-                   NonlinearEqualityConstraints* constraints,
+  void qcqpFactors(NonlinearFactorGraph& costs,
+                   NonlinearEqualityConstraints& constraints,
+                   QcqpVariableConstraints& variableConstraints,
                    size_t columnDimension = 1) const override {
     if (columnDimension != 1) {
       throw std::invalid_argument(
           "WahbaFactor::qcqpFactors only supports column dimension 1");
-    }
-    if (!costs) {
-      throw std::invalid_argument("WahbaFactor::qcqpFactors costs is null");
     }
     if (!this->noiseModel_ ||
         std::dynamic_pointer_cast<noiseModel::Robust>(this->noiseModel_) ||
@@ -106,13 +105,15 @@ class WahbaFactor : public NoiseModelFactorN<Rot3> {
 
     constexpr int PointDim = 3;
     constexpr int N = 3;
-    constexpr int LiftedDim = 1 + PointDim * N;
+    constexpr int LiftedDim = PointDim * N;
 
-    Matrix B = Matrix::Zero(PointDim, LiftedDim);
-    B.col(0) = -measured_aDirection_.unitVector();
+    // The residual is B vec(aRb) - c with c = measured_aDirection. The final
+    // column of B holds c, so Q is the augmented information [G g; g' f].
+    Matrix B = Matrix::Zero(PointDim, LiftedDim + 1);
+    B.col(LiftedDim) = measured_aDirection_.unitVector();
     const Point3 bDirection = bDirection_.unitVector();
     for (int column = 0; column < N; ++column) {
-      B.block(0, 1 + column * PointDim, PointDim, PointDim)
+      B.block(0, column * PointDim, PointDim, PointDim)
           .diagonal()
           .setConstant(bDirection(column));
     }
@@ -120,9 +121,19 @@ class WahbaFactor : public NoiseModelFactorN<Rot3> {
     const Matrix whitenedB = this->noiseModel_->Whiten(B);
     const Matrix Q = whitenedB.transpose() * whitenedB;
 
-    InsertQcqpConstraints<Rot3, 1>(this->key(), constraints);
-    const SymmetricBlockMatrix blockQ(std::vector<DenseIndex>{LiftedDim}, Q);
-    costs->push_back(std::make_shared<QpCost>(KeyVector{this->key()}, blockQ));
+    variableConstraints.add(
+        this->key(), traits<Rot3>::template QcqpConstraints<1>);
+    const SymmetricBlockMatrix blockQ(std::vector<DenseIndex>{LiftedDim, 1}, Q);
+    costs.push_back(std::make_shared<QpCost>(
+        HessianFactor(KeyVector{this->key()}, blockQ)));
+  }
+
+  /** Add the rotation variable's redundant D=1 equalities once per key. */
+  void appendRedundantConstraints(
+      size_t columnDimension, QcqpVariableConstraints& constraints) const override {
+    if (columnDimension == 1) {
+      constraints.add(this->key(), traits<Rot3>::QcqpRedundantConstraints);
+    }
   }
 };
 

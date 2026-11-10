@@ -230,7 +230,9 @@ TEST(QuadraticRangeFactor, QcqpCostMatchesTypedResidual) {
 
   NonlinearFactorGraph costs;
   NonlinearEqualityConstraints constraints;
-  factor.qcqpFactors(&costs, &constraints, /*columnDimension=*/2);
+  QcqpVariableConstraints variableConstraints;
+  factor.qcqpFactors(costs, constraints, variableConstraints,
+                     /*columnDimension=*/2);
   EXPECT_LONGS_EQUAL(1, static_cast<long>(costs.size()));
 
   Values Y;
@@ -255,9 +257,9 @@ TEST(QuadraticRangeFactor, QcqpCostMatchesTypedResidualAtD1) {
   const QcqpProblem problem(graph, 1);
 
   Values qcqpValues;
-  InsertQcqpValue<Vector2, 1>(kTi, ti, &qcqpValues);
-  InsertQcqpValue<Vector2, 1>(kTarget, target, &qcqpValues);
-  InsertQcqpValue<Rot2, 1>(kU, u, &qcqpValues);
+  insertQcqpValue<Vector2, 1>(kTi, ti, &qcqpValues);
+  insertQcqpValue<Vector2, 1>(kTarget, target, &qcqpValues);
+  insertQcqpValue<Rot2, 1>(kU, u, &qcqpValues);
 
   const double directCost =
       0.5 * factor.evaluateError(ti, target, u, {}, {}, {}).squaredNorm();
@@ -274,20 +276,22 @@ TEST(QuadraticRangeFactor, EmitsItsAuxiliarysOwnConstraints) {
 
   NonlinearFactorGraph costs;
   NonlinearEqualityConstraints constraints;
-  factor.qcqpFactors(&costs, &constraints, 2);
+  QcqpVariableConstraints variableConstraints;
+  factor.qcqpFactors(costs, constraints, variableConstraints, 2);
 
   const auto expected = traits<Rot2>::QcqpConstraints<2>();
   EXPECT_LONGS_EQUAL(static_cast<long>(expected.size()),
-                     static_cast<long>(constraints.size()));
+                     static_cast<long>(variableConstraints.constraints().size()));
   for (size_t i = 0; i < expected.size(); ++i) {
     const auto quadratic =
         std::dynamic_pointer_cast<QuadraticEqualityConstraintFactor>(
-            constraints.at(i));
+            variableConstraints.constraints().at(i));
     CHECK(quadratic);
     const QuadraticConstraint& constraint = quadratic->quadraticConstraint();
     EXPECT(constraint.key() == kU);
-    EXPECT_DOUBLES_EQUAL(expected[i].second, constraint.b(), 1e-12);
-    EXPECT(assert_equal(expected[i].first, constraint.A(), 1e-12));
+    const auto& [A, a, b] = expected[i];
+    EXPECT_DOUBLES_EQUAL(b, constraint.b(), 1e-12);
+    EXPECT(assert_equal(A, constraint.A(), 1e-12));
   }
 }
 
@@ -315,7 +319,9 @@ TEST(QuadraticRangeFactor, QcqpCostMatchesTypedResidualIn3D) {
 
   NonlinearFactorGraph costs;
   NonlinearEqualityConstraints constraints;
-  factor.qcqpFactors(&costs, &constraints, /*columnDimension=*/3);
+  QcqpVariableConstraints variableConstraints;
+  factor.qcqpFactors(costs, constraints, variableConstraints,
+                     /*columnDimension=*/3);
   EXPECT_LONGS_EQUAL(1, static_cast<long>(costs.size()));
 
   Values Y;
@@ -339,9 +345,9 @@ TEST(QuadraticRangeFactor, QcqpCostMatchesTypedResidualAtD1In3D) {
   const QcqpProblem problem(graph, 1);
 
   Values qcqpValues;
-  InsertQcqpValue<Vector3, 1>(kTi, ti, &qcqpValues);
-  InsertQcqpValue<Vector3, 1>(kTarget, target, &qcqpValues);
-  InsertQcqpValue<Unit3, 1>(kU, u, &qcqpValues);
+  insertQcqpValue<Vector3, 1>(kTi, ti, &qcqpValues);
+  insertQcqpValue<Vector3, 1>(kTarget, target, &qcqpValues);
+  insertQcqpValue<Unit3, 1>(kU, u, &qcqpValues);
 
   const double directCost =
       0.5 * factor.evaluateError(ti, target, u, {}, {}, {}).squaredNorm();
@@ -362,7 +368,9 @@ TEST(QuadraticRangeFactor, QcqpCostIsUnchangedByLifting) {
   for (int p : {2, 3, 5}) {
     NonlinearFactorGraph costs;
     NonlinearEqualityConstraints constraints;
-    factor.qcqpFactors(&costs, &constraints, static_cast<size_t>(p));
+    QcqpVariableConstraints variableConstraints;
+    factor.qcqpFactors(costs, constraints, variableConstraints,
+                       static_cast<size_t>(p));
 
     Matrix translation = Matrix::Zero(1, p), landmark = Matrix::Zero(1, p);
     translation.leftCols<2>() = ti.transpose();
@@ -383,7 +391,8 @@ TEST(QuadraticRangeFactor, QcqpFactorsRejectTooFewColumns) {
   const QuadraticRangeFactor3 factor(kTi, kTarget, kU, 1.0, 1.0);
   NonlinearFactorGraph costs;
   NonlinearEqualityConstraints constraints;
-  CHECK_EXCEPTION(factor.qcqpFactors(&costs, &constraints, 2),
+  QcqpVariableConstraints variableConstraints;
+  CHECK_EXCEPTION(factor.qcqpFactors(costs, constraints, variableConstraints, 2),
                   std::invalid_argument);
 }
 

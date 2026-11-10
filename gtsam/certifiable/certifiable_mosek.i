@@ -4,16 +4,7 @@
 // MATLAB uses these container proxies; Python uses native lists and dictionaries.
 namespace std {
 
-#include <vector>
-template<T>
-class vector {
-  vector();
-  size_t size() const;
-  T at(size_t pos) const;
-  void push_back(const T& value);
-};
-typedef std::vector<double> vectordouble;
-
+// The shared vector proxy is declared in constrained.i.
 #include <map>
 template<K, V>
 class map {
@@ -31,8 +22,7 @@ namespace gtsam {
 
 #include <gtsam/certifiable/LiftedSDPProblem.h>
 class MosekMonolithicSDP {
-  MosekMonolithicSDP(const gtsam::QcqpProblem& problem,
-                     bool shareHomogeneousCoordinates = true);
+  MosekMonolithicSDP(const gtsam::QcqpProblem& problem);
 
   bool solve(
       const std::map<std::string, double>& mosekParams =
@@ -52,8 +42,7 @@ enum class ChordalOrderingType { Metis, Colamd };
 
 class MosekChordalSDP {
   MosekChordalSDP(const gtsam::QcqpProblem& problem,
-                  gtsam::ChordalOrderingType orderingType,
-                  bool shareHomogeneousCoordinates = true);
+                  gtsam::ChordalOrderingType orderingType);
 
   bool solve(
       const std::map<std::string, double>& mosekParams =

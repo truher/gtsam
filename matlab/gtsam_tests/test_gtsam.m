@@ -21,8 +21,23 @@ testJacobianFactor
 display 'Starting: testValues'
 testValues
 
+display 'Starting: testGradients'
+testGradients
+
 display 'Starting: testCustomFactor'
 testCustomFactor
+
+display 'Starting: testAugmentedLagrangianSolver'
+testAugmentedLagrangianSolver
+
+display 'Starting: testQpFormulations'
+testQpFormulations
+
+display 'Starting: testLpProblem'
+testLpProblem
+
+display 'Starting: testQcqpProblem'
+testQcqpProblem
 
 display 'Starting: testMosekSDP'
 testMosekSDP

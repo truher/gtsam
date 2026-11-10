@@ -200,12 +200,15 @@ class TestMosekCertifiableWrappers(unittest.TestCase):
         self.assertTrue(np.isfinite(solver.objectiveValue()))
         self.assertGreaterEqual(solver.solveTimeSeconds(), 0.0)
 
-        expected_keys = [X(index) for index in range(len(ground_truth))]
+        # X(0) is fixed by its hard FrobeniusPrior: it has no SDP block, but
+        # qcqpValues() returns it.
+        all_keys = [X(index) for index in range(len(ground_truth))]
+        expected_keys = all_keys[1:]
         self.assertEqual(list(solver.orderedKeys()), expected_keys)
         ordered_key_dims = solver.orderedKeyDims()
         self.assertIsInstance(ordered_key_dims, dict)
         self.assertEqual(set(ordered_key_dims), set(expected_keys))
-        self.assertTrue(all(dimension == 3 for dimension in ordered_key_dims.values()))
+        self.assertTrue(all(dimension == 2 for dimension in ordered_key_dims.values()))
 
         variable_evrs = solver.variableEVRs()
         self.assertIsInstance(variable_evrs, list)
@@ -213,11 +216,11 @@ class TestMosekCertifiableWrappers(unittest.TestCase):
         repeated_qcqp_values = solver.qcqpValues()
         repeated_variable_evrs = solver.variableEVRs()
         self.assertEqual(qcqp_values.size(), len(ground_truth))
-        self.assertEqual(len(variable_evrs), len(ground_truth))
+        self.assertEqual(len(variable_evrs), len(expected_keys))
         self.assertTrue(all(np.isfinite(evr) for evr in variable_evrs))
         np.testing.assert_allclose(variable_evrs, repeated_variable_evrs)
-        for key in expected_keys:
-            self.assertEqual(qcqp_values.atMatrix(key).shape, (3, 1))
+        for key in all_keys:
+            self.assertEqual(qcqp_values.atMatrix(key).shape, (2, 1))
             np.testing.assert_allclose(
                 qcqp_values.atMatrix(key), repeated_qcqp_values.atMatrix(key)
             )
@@ -248,15 +251,6 @@ class TestMosekCertifiableWrappers(unittest.TestCase):
         solver = MosekChordalSDP(problem, ChordalOrderingType.Colamd)
         self.assertGreater(solver.bayesTree().size(), 0)
         self.assert_solver_solution(solver, ground_truth)
-
-    def test_unshared_homogeneous_coordinates(self):
-        """Opt out through both constructor bindings and retain pose recovery."""
-        problem, ground_truth = rot2_ring_qcqp()
-        monolithic = MosekMonolithicSDP(problem, shareHomogeneousCoordinates=False)
-        chordal = MosekChordalSDP(problem, ChordalOrderingType.Colamd, False)
-        for solver in (monolithic, chordal):
-            with self.subTest(solver=type(solver).__name__):
-                self.assert_solver_solution(solver, ground_truth)
 
 
 if __name__ == "__main__":

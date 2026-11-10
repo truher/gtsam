@@ -152,8 +152,9 @@ class QuadraticRangeFactor
   }
 
   /// Add this range factor as a QCQP cost when traits exist.
-  void qcqpFactors(NonlinearFactorGraph* costs,
-                   NonlinearEqualityConstraints* constraints,
+  void qcqpFactors(NonlinearFactorGraph& costs,
+                   NonlinearEqualityConstraints& constraints,
+                   QcqpVariableConstraints& variableConstraints,
                    size_t columnDimension = 1) const override {
     if (columnDimension == 0) {
       throw std::invalid_argument(
@@ -161,7 +162,7 @@ class QuadraticRangeFactor
           "columnDimension.");
     }
     if (columnDimension == 1) {
-      qcqpFactorsForVector(costs, constraints);
+      qcqpFactorsForVector(costs, constraints, variableConstraints);
       return;
     }
     if (columnDimension < static_cast<size_t>(d)) {
@@ -169,12 +170,9 @@ class QuadraticRangeFactor
           "QuadraticRangeFactor::qcqpFactors requires columnDimension "
           ">= d.");
     }
-    if (!costs) {
-      throw std::invalid_argument(
-          "QuadraticRangeFactor::qcqpFactors: costs is null.");
-    }
 
-    InsertQcqpConstraints<Direction, d>(this->key3(), constraints);
+    variableConstraints.add(
+        this->key3(), traits<Direction>::template QcqpConstraints<d>);
 
     // The direction is a Rot2 in 2D, which takes 2 rows, and a Unit3 in 3D,
     // which takes 1. Only the first row is used; any others stay zero.
@@ -187,43 +185,40 @@ class QuadraticRangeFactor
     const Matrix Q = B.transpose() * B;
     const SymmetricBlockMatrix blockQ(
         std::vector<DenseIndex>{1, 1, kDirectionRows}, Q);
-    costs->push_back(std::make_shared<QpCost>(
+    costs.push_back(std::make_shared<QpCost>(
         KeyVector{this->key1(), this->key2(), this->key3()}, blockQ,
         columnDimension));
   }
 
  private:
-  /// Add the exact D=1 homogeneous-vector cost and variable constraints.
-  void qcqpFactorsForVector(NonlinearFactorGraph* costs,
-                            NonlinearEqualityConstraints* constraints) const {
-    if (!costs) {
-      throw std::invalid_argument(
-          "QuadraticRangeFactor::qcqpFactors: costs is null.");
-    }
-
+  /// Add the exact D=1 vector cost and variable constraints.
+  void qcqpFactorsForVector(NonlinearFactorGraph& costs,
+                            NonlinearEqualityConstraints& constraints,
+                            QcqpVariableConstraints& variableConstraints) const {
     constexpr int kPointDim = traits<Point>::QcqpVectorDim;
     constexpr int kDirectionDim = traits<Direction>::QcqpVectorDim;
     const double sw = std::sqrt(weight_);
 
-    // Both Rot2 and Unit3 store the relevant direction in the d entries after
-    // the homogeneous coordinate (Rot2's first matrix column in 2D).
-    Matrix directionSelector = Matrix::Zero(d, kDirectionDim);
-    directionSelector.block(0, 1, d, d).setIdentity();
+    // Both Rot2 and Unit3 store the relevant direction in their d entries
+    // (Rot2's first matrix column in 2D).
+    static_assert(kDirectionDim == d);
 
     Matrix B = Matrix::Zero(d, 2 * kPointDim + kDirectionDim);
-    B.block(0, 1, d, d) = -sw * Matrix::Identity(d, d);
-    B.block(0, kPointDim + 1, d, d) = sw * Matrix::Identity(d, d);
-    B.block(0, 2 * kPointDim, d, kDirectionDim) =
-        -sw * range_ * directionSelector;
+    B.block(0, 0, d, d) = -sw * Matrix::Identity(d, d);
+    B.block(0, kPointDim, d, d) = sw * Matrix::Identity(d, d);
+    B.block(0, 2 * kPointDim, d, d) = -sw * range_ * Matrix::Identity(d, d);
 
-    InsertQcqpConstraints<Point, 1>(this->key1(), constraints);
-    InsertQcqpConstraints<Point, 1>(this->key2(), constraints);
-    InsertQcqpConstraints<Direction, 1>(this->key3(), constraints);
+    variableConstraints.add(
+        this->key1(), traits<Point>::template QcqpConstraints<1>);
+    variableConstraints.add(
+        this->key2(), traits<Point>::template QcqpConstraints<1>);
+    variableConstraints.add(
+        this->key3(), traits<Direction>::template QcqpConstraints<1>);
 
     const Matrix Q = B.transpose() * B;
     const SymmetricBlockMatrix blockQ(
         std::vector<DenseIndex>{kPointDim, kPointDim, kDirectionDim}, Q);
-    costs->push_back(std::make_shared<QpCost>(
+    costs.push_back(std::make_shared<QpCost>(
         KeyVector{this->key1(), this->key2(), this->key3()}, blockQ));
   }
 };

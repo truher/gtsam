@@ -130,11 +130,25 @@ class QuadraticConstraint {
                       gtsam::QuadraticConstraint::Sense sense);
   QuadraticConstraint(gtsam::Key key, const gtsam::Matrix& A, double b,
                       gtsam::QuadraticConstraint::Sense sense, double sigma);
+  QuadraticConstraint(gtsam::Key key, const gtsam::Matrix& A,
+                      const gtsam::Vector& a, double b,
+                      gtsam::QuadraticConstraint::Sense sense, double sigma);
+  static gtsam::QuadraticConstraint FromPqr(
+      gtsam::Key key, const gtsam::Matrix& P, const gtsam::Vector& q, double r,
+      gtsam::QuadraticConstraint::Sense sense, double sigma = 1.0);
 
   static gtsam::QuadraticConstraint Equal(gtsam::Key key,
                                           const gtsam::Matrix& A, double b);
   static gtsam::QuadraticConstraint Equal(gtsam::Key key,
                                           const gtsam::Matrix& A, double b,
+                                          double sigma);
+  static gtsam::QuadraticConstraint Equal(gtsam::Key key,
+                                          const gtsam::Matrix& A,
+                                          const gtsam::Vector& a, double b);
+  // MATLAB needs the explicit sigma to avoid the scalar four-argument overload.
+  static gtsam::QuadraticConstraint Equal(gtsam::Key key,
+                                          const gtsam::Matrix& A,
+                                          const gtsam::Vector& a, double b,
                                           double sigma);
   static gtsam::QuadraticConstraint LessEqual(gtsam::Key key,
                                               const gtsam::Matrix& A, double b);
@@ -150,6 +164,8 @@ class QuadraticConstraint {
 
   gtsam::Key key() const;
   const gtsam::Matrix& A() const;
+  const gtsam::Vector& a() const;
+  bool hasLinearTerm() const;
   double b() const;
   gtsam::QuadraticConstraint::Sense sense() const;
   bool isEquality() const;
@@ -158,7 +174,13 @@ class QuadraticConstraint {
 
 #include <gtsam/constrained/ActiveSetSolver.h>
 class ActiveSetSolverParams {
+  enum class QpFormulation { Primal, Dual, Automatic };
   enum class QpSubproblemSolver { Sparse, Dense };
+  enum class QpInitialization {
+    TightConstraints,
+    ProjectedGradient,
+    FeasibleStepThenProjectedGradient
+  };
 
   ActiveSetSolverParams();
 
@@ -170,6 +192,13 @@ class ActiveSetSolverParams {
   double regularization;
   double phaseOneFeasibilityTolerance;
   gtsam::ActiveSetSolverParams::QpSubproblemSolver qpSubproblemSolver;
+  bool projectDenseQpEqualities;
+  bool useIncrementalSparseQp;
+  gtsam::ActiveSetSolverParams::QpFormulation qpFormulation;
+  gtsam::ActiveSetSolverParams::QpInitialization qpInitialization;
+  void setOrdering(const gtsam::Ordering& ordering);
+  void clearOrdering();
+  bool hasOrdering() const;
 };
 
 #include <gtsam/constrained/LpProblem.h>
@@ -190,9 +219,9 @@ class LpProblem : gtsam::ConstrainedOptProblem {
   double objective(const gtsam::Values& values) const;
   gtsam::Values optimize(
       const gtsam::Values& initialValues,
-      std::shared_ptr<gtsam::ActiveSetSolverParams> params = nullptr) const;
+      gtsam::ActiveSetSolverParams* params = nullptr) const;
   gtsam::Values optimize(
-      std::shared_ptr<gtsam::ActiveSetSolverParams> params = nullptr) const;
+      gtsam::ActiveSetSolverParams* params = nullptr) const;
 };
 
 #include <gtsam/constrained/QpCost.h>
@@ -207,7 +236,7 @@ virtual class QpCost : gtsam::NonlinearFactor {
 };
 
 #include <gtsam/constrained/QpProblem.h>
-enum class QpSolverType { Sparse, Dense };
+enum class QpSolverType { Sparse, Dense, AugmentedLagrangian };
 
 class QpProblem : gtsam::ConstrainedOptProblem {
   QpProblem();
@@ -222,13 +251,43 @@ class QpProblem : gtsam::ConstrainedOptProblem {
       gtsam::QpSolverType solverType = gtsam::QpSolverType::Sparse) const;
   gtsam::Values optimize(
       gtsam::QpSolverType solverType = gtsam::QpSolverType::Sparse) const;
+  gtsam::Values optimize(
+      const gtsam::Values& initialValues,
+      const gtsam::AugmentedLagrangianParams& params) const;
+  gtsam::Values optimize(const gtsam::AugmentedLagrangianParams& params) const;
+};
+
+class ActiveSetFeasibleStepResult {
+  enum class Status { FeasibleProgress, NoProgress, NumericalFailure, IterationLimit };
+  ActiveSetFeasibleStepResult();
+  gtsam::Values values;
+  gtsam::Vector activeInequalityMask() const;
+  gtsam::ActiveSetFeasibleStepResult::Status status;
+  size_t iterations;
+  double initialObjective;
+  double objective;
+  double objectiveDecrease;
+  double constraintViolation;
+  std::string message;
+};
+
+class ActiveSetSolver {
+  ActiveSetSolver(const gtsam::QpProblem& problem,
+      gtsam::ActiveSetSolverParams* params = nullptr);
+  ActiveSetSolver(const gtsam::LpProblem& problem,
+      gtsam::ActiveSetSolverParams* params = nullptr);
+  gtsam::Values optimize(const gtsam::Values& initialValues) const;
+  gtsam::Values optimize() const;
+  gtsam::ActiveSetFeasibleStepResult computeFeasibleStep(
+      const gtsam::Values& initialValues) const;
 };
 
 #include <gtsam/constrained/QcqpProblem.h>
 class QcqpProblem : gtsam::ConstrainedOptProblem {
   QcqpProblem();
   QcqpProblem(const gtsam::NonlinearFactorGraph& graph,
-               size_t columnDimension = 1);
+               size_t columnDimension = 1,
+               bool useRedundantConstraints = false);
 
   void addCost(const gtsam::QpCost& cost);
   void addConstraint(const gtsam::LinearConstraint& constraint);
@@ -277,6 +336,7 @@ class PenaltyOptimizerParams : gtsam::ConstrainedOptimizerParams {
   double initialMuIneq;
   double muEqIncreaseRate;
   double muIneqIncreaseRate;
+  gtsam::LevenbergMarquardtParams lmParams;
 };
 
 #include <gtsam/constrained/AugmentedLagrangianOptimizer.h>
@@ -301,15 +361,102 @@ class AugmentedLagrangianParams : gtsam::PenaltyOptimizerParams {
   double bclBetaOmega;
   double bclAlphaEta;
   double bclBetaEta;
+  bool enableProfiling;
+};
+
+#include <gtsam/constrained/AugmentedLagrangianSolver.h>
+enum class AugmentedLagrangianStatus {
+  NotConverged, Converged, InnerIterationLimit, OuterIterationLimit,
+  DampingLimit, NumericalFailure
+};
+enum class AugmentedLagrangianUpdateType {
+  None, Multiplier, Penalty, MultiplierAndPenalty
+};
+
+class AugmentedLagrangianStatistics {
+  AugmentedLagrangianStatistics();
+  int modelLinearizations;
+  int modelUpdates;
+  int symbolicFactorizations;
+  int numericalEliminations;
+  int objectiveFactorCopies;
+  int constraintCoefficientUpdates;
+  int roundoffChecks;
+  double preparationSeconds;
+  double evaluationSeconds;
+  double assemblySeconds;
+  double eliminationSeconds;
+  double backSubstitutionSeconds;
+  double diagnosticsSeconds;
+};
+
+class AugmentedLagrangianDiagnostics {
+  AugmentedLagrangianDiagnostics();
+  std::vector<gtsam::Vector> lambdaEq;
+  std::vector<double> lambdaIneq;
+  double augmentedLagrangianStationarity;
+  double generalizedConstraintViolation;
+  double primalInequalityViolation;
+  double complementarity;
+  int totalUnconstrainedIterations;
+  bool innerConverged;
+  bool converged;
+  gtsam::AugmentedLagrangianUpdateType updateType;
+  double bclAlpha;
+  double bclOmega;
+  double bclEta;
+  gtsam::AugmentedLagrangianStatus status;
+  gtsam::AugmentedLagrangianStatistics statistics;
+};
+
+class AugmentedLagrangianSolverState : gtsam::AugmentedLagrangianDiagnostics {
+  AugmentedLagrangianSolverState();
+  gtsam::VectorValues values;
+  int iteration;
+  double cost;
+  double eqConstraintViolation;
+  double ineqConstraintViolation;
+  double time;
+  double muEq;
+  double muIneq;
+  int unconstrainedIterations;
+  double violation() const;
+};
+
+class AugmentedLagrangianSolver {
+  AugmentedLagrangianSolver(const gtsam::GaussianFactorGraph& costs,
+                           const gtsam::GaussianFactorGraph& equalities,
+                           const gtsam::GaussianFactorGraph& inequalities,
+                           gtsam::AugmentedLagrangianParams* params = nullptr);
+  gtsam::VectorValues optimize() const;
+  gtsam::VectorValues optimize(const gtsam::VectorValues& initialValues) const;
+  gtsam::AugmentedLagrangianSolverState optimizeWithState() const;
+  gtsam::AugmentedLagrangianSolverState optimizeWithState(const gtsam::VectorValues& initialValues) const;
+  const std::vector<gtsam::AugmentedLagrangianSolverState>& progress() const;
 };
 
 virtual class AugmentedLagrangianOptimizer {
   AugmentedLagrangianOptimizer(
       const gtsam::ConstrainedOptProblem& problem,
       const gtsam::Values& initialValues,
-      gtsam::AugmentedLagrangianParams::shared_ptr p);
+      gtsam::AugmentedLagrangianParams* p);
 
   gtsam::Values optimize() const;
 };
 
 }  // namespace gtsam
+
+// MATLAB container proxies; Python uses native lists through STL conversion.
+namespace std {
+#include <vector>
+template<T>
+class vector {
+  vector();
+  size_t size() const;
+  T at(size_t pos) const;
+  void push_back(const T& value);
+};
+typedef std::vector<double> vectordouble;
+typedef std::vector<gtsam::Vector> vectorVector;
+typedef std::vector<gtsam::AugmentedLagrangianSolverState> vectorAugmentedLagrangianSolverState;
+}
