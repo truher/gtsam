@@ -368,4 +368,116 @@ template <class CALIBRATION>
 struct traits<GeneralSFMFactor2<CALIBRATION>>
     : Testable<GeneralSFMFactor2<CALIBRATION>> {};
 
+/**
+ * SFM factor with free pose and calibration only; landmarks are fixed.
+ * 
+ * This is for camera calibration.
+ */
+template <class CALIBRATION>
+class GeneralSFMFactor3
+    : public NoiseModelFactorT<Vector2, Pose3, CALIBRATION> {
+
+  GTSAM_CONCEPT_MANIFOLD_TYPE(CALIBRATION)
+  static const int DimK = FixedDimension<CALIBRATION>::value;
+
+ protected:
+  Point3 landmark_;  ///< the 3D landmark
+  Point2 measured_;  ///< the 2D measurement
+
+ public:
+  typedef GeneralSFMFactor3<CALIBRATION> This;
+  typedef PinholeCamera<CALIBRATION> Camera;  ///< typedef for camera type
+  typedef NoiseModelFactorT<Vector2, Pose3, CALIBRATION>
+      Base;  ///< typedef for the base class
+
+  // shorthand for a smart pointer to a factor
+  typedef std::shared_ptr<This> shared_ptr;
+
+
+
+  /**
+   * Constructor
+   * @param landmark is the 3 dimensional point in space
+   * @param measured is the 2 dimensional measurement of point in image
+   * @param model is the standard deviation of the measurements
+   * @param poseKey is the index of the camera
+   * @param calibKey is the index of the calibration
+   */
+  GeneralSFMFactor3(const Point3& landmark, const Point2& measured, 
+                    const SharedNoiseModel& model, Key poseKey, Key calibKey)
+      : Base(model, poseKey, calibKey), landmark_(landmark), measured_(measured) {}
+  GeneralSFMFactor3() : landmark_(0.0, 0.0, 0.0), measured_(0.0, 0.0) {}  ///< default constructor
+
+  ~GeneralSFMFactor3() override {}  ///< destructor
+
+  /// @return a deep copy of this factor
+  gtsam::NonlinearFactor::shared_ptr clone() const override {
+    return std::static_pointer_cast<gtsam::NonlinearFactor>(
+        gtsam::NonlinearFactor::shared_ptr(new This(*this)));
+  }
+
+  /**
+   * print
+   * @param s optional string naming the factor
+   * @param keyFormatter optional formatter useful for printing Symbols
+   */
+  void print(
+      const std::string& s = "SFMFactor3",
+      const KeyFormatter& keyFormatter = DefaultKeyFormatter) const override {
+    Base::print(s, keyFormatter);
+    traits<Point2>::Print(measured_, s + ".z");
+  }
+      
+  /**
+   * equals
+   */
+  bool equals(const NonlinearFactor& p, double tol = 1e-9) const override {
+    const This* e = dynamic_cast<const This*>(&p);
+    return e && Base::equals(p, tol) &&
+           traits<Point3>::Equals(this->landmark_, e->landmark_, tol) &&
+           traits<Point2>::Equals(this->measured_, e->measured_, tol);
+  }
+
+  /** h(x)-z */
+  Vector2 evaluateError(const Pose3& pose3,
+                        const CALIBRATION& calib,
+                        OptionalMatrixType H1,
+                        OptionalMatrixType H3) const override {
+    try {
+      Camera camera(pose3, calib);
+      return camera.project(landmark_, H1, {}, H3) - measured_;
+    } catch (CheiralityException& e) {
+      if (H1) *H1 = Matrix::Zero(2, 6);
+      if (H3) *H3 = Matrix::Zero(2, DimK);
+      std::cout << e.what() << ": Landmark "
+                << landmark_ << " behind Camera "
+                << DefaultKeyFormatter(this->key1()) << std::endl;
+    }
+    // return a large error
+    return Matrix::Constant(2, 1, 2.0 * calib.fx());
+  }
+
+  /** return the landmark */
+  inline const Point3 landmark() const { return landmark_; }
+
+  /** return the measured */
+  inline const Point2 measured() const { return measured_; }
+
+ private:
+#if GTSAM_ENABLE_BOOST_SERIALIZATION
+  /** Serialization function */
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/) {
+    // NoiseModelFactor2 instead of NoiseModelFactorN for backward compatibility
+    ar& boost::serialization::make_nvp(
+        "NoiseModelFactor2", boost::serialization::base_object<Base>(*this));
+    ar& BOOST_SERIALIZATION_NVP(measured_);
+  }
+#endif
+};
+template <class CALIBRATION>
+struct traits<GeneralSFMFactor3<CALIBRATION>>
+    : Testable<GeneralSFMFactor3<CALIBRATION>> {};
+
 }  // namespace gtsam
