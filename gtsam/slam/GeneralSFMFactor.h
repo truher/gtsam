@@ -383,6 +383,8 @@ class GeneralSFMFactor3
  protected:
   Point3 landmark_;  ///< the 3D landmark
   Point2 measured_;  ///< the 2D measurement
+  bool verboseCheirality_; ///< If true, prints text for Cheirality exceptions (default: false)
+
 
  public:
   typedef GeneralSFMFactor3<CALIBRATION> This;
@@ -404,9 +406,9 @@ class GeneralSFMFactor3
    * @param calibKey is the index of the calibration
    */
   GeneralSFMFactor3(const Point3& landmark, const Point2& measured, 
-                    const SharedNoiseModel& model, Key poseKey, Key calibKey)
-      : Base(model, poseKey, calibKey), landmark_(landmark), measured_(measured) {}
-  GeneralSFMFactor3() : landmark_(0.0, 0.0, 0.0), measured_(0.0, 0.0) {}  ///< default constructor
+                    const SharedNoiseModel& model, Key poseKey, Key calibKey, bool verboseCheirality = false)
+      : Base(model, poseKey, calibKey), landmark_(landmark), measured_(measured), verboseCheirality_(verboseCheirality) {}
+  GeneralSFMFactor3() : landmark_(0.0, 0.0, 0.0), measured_(0.0, 0.0), verboseCheirality_(false) {}  ///< default constructor
 
   ~GeneralSFMFactor3() override {}  ///< destructor
 
@@ -449,12 +451,15 @@ class GeneralSFMFactor3
     } catch (CheiralityException& e) {
       if (H1) *H1 = Matrix::Zero(2, 6);
       if (H3) *H3 = Matrix::Zero(2, DimK);
-      std::cout << e.what() << ": Landmark "
-                << landmark_ << " behind Camera "
-                << DefaultKeyFormatter(this->key1()) << std::endl;
+      if (verboseCheirality_)
+        std::cout << e.what() << ": Landmark: "
+                << landmark_ << " is behind camera: "
+                << pose3 << " for camera key: "
+                << DefaultKeyFormatter(this->key1())
+                << std::endl;
     }
     // return a large error
-    return Matrix::Constant(2, 1, 2.0 * calib.fx());
+    return Vector2::Constant(2.0 * calib.fx());
   }
 
   /** return the landmark */
