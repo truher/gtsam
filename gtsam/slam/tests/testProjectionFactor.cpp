@@ -40,6 +40,7 @@ static SharedNoiseModel model(noiseModel::Unit::Create(2));
 
 // Convenience for named keys
 using symbol_shorthand::X;
+using symbol_shorthand::C;
 using symbol_shorthand::L;
 
 typedef GenericProjectionFactor<Pose3, Point3> TestProjectionFactor;
@@ -57,6 +58,23 @@ TEST( ProjectionFactor, Constructor) {
   Point2 measurement(323.0, 240.0);
 
   TestProjectionFactor factor(measurement, model, poseKey, pointKey, K);
+}
+
+TEST( GenericProjectionFactor2, Constructor) {
+  Key poseKey(X(1));
+  Key calibKey(C(1));
+  Point3 landmark(1.0, 1.0, 1.0);
+  Point2 measurement(323.0, 240.0);
+  GenericProjectionFactor2<Cal3DS2> factor(poseKey, calibKey, landmark, measurement, model, false);
+}
+
+TEST( GenericProjectionFactor3, Constructor) {
+  Key poseKey(X(1));
+  Point3 landmark(1.0, 1.0, 1.0);
+  Point2 measurement(323.0, 240.0);
+  static Cal3DS2::shared_ptr DK(new Cal3DS2());
+  GenericProjectionFactor3<Cal3DS2> factor(poseKey, landmark, measurement, DK, model, false);
+    
 }
 
 /* ************************************************************************* */
