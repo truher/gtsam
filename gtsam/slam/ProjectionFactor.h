@@ -213,4 +213,246 @@ namespace gtsam {
       public Testable<GenericProjectionFactor<POSE, LANDMARK, CALIBRATION> > {
   };
 
+
+/**
+ * Projection factor with free pose and calibration only; landmarks are fixed.
+ * 
+ * This is for camera calibration, using the typical "chessboard" target, which
+ * is modeled with a fixed array of landmarks, and a variable camera pose.
+ */
+template <class CALIBRATION>
+class GenericProjectionFactor2
+    : public NoiseModelFactorT<Vector2, Pose3, CALIBRATION> {
+
+  GTSAM_CONCEPT_MANIFOLD_TYPE(CALIBRATION)
+  static const int DimK = FixedDimension<CALIBRATION>::value;
+
+ protected:
+  Point3 landmark_;  ///< the 3D landmark
+  Point2 measured_;  ///< the 2D measurement
+  bool verboseCheirality_; ///< If true, prints text for Cheirality exceptions (default: false)
+
+
+ public:
+  typedef GenericProjectionFactor2<CALIBRATION> This;
+  typedef NoiseModelFactorT<Vector2, Pose3, CALIBRATION> Base;
+  typedef std::shared_ptr<This> shared_ptr;
+
+
+  /**
+   * @param poseKey           index of the camera
+   * @param calibKey          index of the calibration
+   * @param landmark          3-dimensional point in space
+   * @param measured          2-dimensional measurement of point in image
+   * @param model             standard deviation of the measurements
+   * @param verboseCheirality determines whether exceptions are printed for Cheirality
+   */
+  GenericProjectionFactor2(
+    Key poseKey,
+    Key calibKey,
+    const Point3& landmark,
+    const Point2& measured,
+    const SharedNoiseModel& model,
+    bool verboseCheirality = false)
+      : Base(model, poseKey, calibKey),
+      landmark_(landmark),
+      measured_(measured),
+      verboseCheirality_(verboseCheirality) {}
+
+  GenericProjectionFactor2()
+      : landmark_(0.0, 0.0, 0.0),
+      measured_(0.0, 0.0),
+      verboseCheirality_(false) {}
+
+  ~GenericProjectionFactor2() override {}
+
+  /// @return a deep copy of this factor
+  gtsam::NonlinearFactor::shared_ptr clone() const override {
+    return std::static_pointer_cast<gtsam::NonlinearFactor>(
+        gtsam::NonlinearFactor::shared_ptr(new This(*this)));
+  }
+
+  /**
+   * @param s optional string naming the factor
+   * @param keyFormatter optional formatter useful for printing Symbols
+   */
+  void print(
+      const std::string& s = "GenericProjectionFactor2",
+      const KeyFormatter& keyFormatter = DefaultKeyFormatter) const override {
+    std::cout << s << ", z = ";
+    Base::print(s, keyFormatter);
+    traits<Point2>::Print(measured_);
+    traits<Point3>::Print(landmark_);
+  }
+      
+  bool equals(const NonlinearFactor& p, double tol = 1e-9) const override {
+    const This* e = dynamic_cast<const This*>(&p);
+    return e && Base::equals(p, tol) &&
+           traits<Point3>::Equals(this->landmark_, e->landmark_, tol) &&
+           traits<Point2>::Equals(this->measured_, e->measured_, tol);
+  }
+
+  /** h(x)-z */
+  Vector2 evaluateError(const Pose3& pose3,
+                        const CALIBRATION& calib,
+                        OptionalMatrixType Dpose,
+                        OptionalMatrixType Dcal) const override {
+    try {
+      PinholeCamera<CALIBRATION> camera(pose3, calib);
+      return camera.project(landmark_, Dpose, {}, Dcal) - measured_;
+    } catch (CheiralityException& e) {
+      if (Dpose) *Dpose = Matrix::Zero(2, 6);
+      if (Dcal) *Dcal = Matrix::Zero(2, DimK);
+      if (verboseCheirality_)
+        std::cout << e.what() << ": Landmark: "
+                << landmark_ << " is behind camera: "
+                << pose3 << " for camera key: "
+                << DefaultKeyFormatter(this->key1())
+                << std::endl;
+    }
+    // return a large error
+    return Vector2::Constant(2.0 * calib.fx());
+  }
+
+  inline const Point3 landmark() const { return landmark_; }
+
+  inline const Point2 measured() const { return measured_; }
+
+ private:
+#if GTSAM_ENABLE_BOOST_SERIALIZATION
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/) {
+    // NoiseModelFactor2 instead of NoiseModelFactorN for backward compatibility
+    ar & boost::serialization::make_nvp(
+        "NoiseModelFactor2", boost::serialization::base_object<Base>(*this));
+    ar & BOOST_SERIALIZATION_NVP(measured_)
+    ar & BOOST_SERIALIZATION_NVP(landmark_);
+  }
+#endif
+};
+template <class CALIBRATION>
+struct traits<GenericProjectionFactor2<CALIBRATION>>
+    : Testable<GenericProjectionFactor2<CALIBRATION>> {};
+
+
+/**
+ * Projection factor with free pose only; landmarks and calibration are fixed.
+ * 
+ * Also called "Resectioning".
+ * 
+ * This is to measure the camera body transform.
+ */
+template <class CALIBRATION>
+class GenericProjectionFactor3
+    : public NoiseModelFactorT<Vector2, Pose3> {
+
+ protected:
+  Point3 landmark_;  ///< the 3D landmark
+  Point2 measured_;  ///< the 2D measurement
+  std::shared_ptr<CALIBRATION> K_;  ///< shared pointer to calibration object
+  bool verboseCheirality_; ///< If true, prints text for Cheirality exceptions (default: false)
+
+
+ public:
+  typedef GenericProjectionFactor3<CALIBRATION> This;
+  typedef NoiseModelFactorT<Vector2, Pose3> Base; 
+  typedef std::shared_ptr<This> shared_ptr;
+
+
+  /**
+   * @param poseKey           index of the camera
+   * @param landmark          3-dimensional point in space
+   * @param measured          2-dimensional measurement of point in image
+   * @param K                 shared pointer to the constant calibration
+   * @param model             standard deviation of the measurements
+   * @param verboseCheirality determines whether exceptions are printed for Cheirality
+   */
+  GenericProjectionFactor3(
+    Key poseKey,
+    const Point3& landmark,
+    const Point2& measured,
+    const std::shared_ptr<CALIBRATION>& K,
+    const SharedNoiseModel& model,
+    bool verboseCheirality = false)
+      : Base(model, poseKey),
+      landmark_(landmark),
+      measured_(measured),
+      K_(K),
+      verboseCheirality_(verboseCheirality) {}
+
+  GenericProjectionFactor3()
+      : landmark_(0.0, 0.0, 0.0),
+      measured_(0.0, 0.0),
+      verboseCheirality_(false) {}  ///< default constructor
+
+  ~GenericProjectionFactor3() override {}  ///< destructor
+
+  /// @return a deep copy of this factor
+  gtsam::NonlinearFactor::shared_ptr clone() const override {
+    return std::static_pointer_cast<gtsam::NonlinearFactor>(
+        gtsam::NonlinearFactor::shared_ptr(new This(*this)));
+  }
+
+  /**
+   * @param s optional string naming the factor
+   * @param keyFormatter optional formatter useful for printing Symbols
+   */
+  void print(
+      const std::string& s = "GenericProjectionFactor3",
+      const KeyFormatter& keyFormatter = DefaultKeyFormatter) const override {
+    std::cout << s << ", z = ";
+    Base::print(s, keyFormatter);
+    traits<Point2>::Print(measured_);
+    traits<Point3>::Print(landmark_);
+  }
+      
+  bool equals(const NonlinearFactor& p, double tol = 1e-9) const override {
+    const This* e = dynamic_cast<const This*>(&p);
+    return e && Base::equals(p, tol) &&
+           traits<Point3>::Equals(this->landmark_, e->landmark_, tol) &&
+           traits<Point2>::Equals(this->measured_, e->measured_, tol) &&
+           this->K_->equals(*e->K_, tol);
+  }
+
+  /** h(x)-z */
+  Vector2 evaluateError(const Pose3& pose3,
+                        OptionalMatrixType Dpose) const override {
+    try {
+      PinholeCamera<CALIBRATION> camera(pose3, *K_);
+      return camera.project(landmark_, Dpose, {}, {}) - measured_;
+    } catch (CheiralityException& e) {
+      if (Dpose) *Dpose = Matrix::Zero(2, 6);
+      if (verboseCheirality_)
+        std::cout << e.what() << ": Landmark: "
+                << landmark_ << " is behind camera: "
+                << pose3 << " for camera key: "
+                << DefaultKeyFormatter(this->key1())
+                << std::endl;
+    }
+    // return a large error
+    return Vector2::Constant(2.0 * K_->fx());
+  }
+
+  inline const Point3 landmark() const { return landmark_; }
+
+  inline const Point2 measured() const { return measured_; }
+
+ private:
+#if GTSAM_ENABLE_BOOST_SERIALIZATION
+  friend class boost::serialization::access;
+  template <class Archive>
+  void serialize(Archive& ar, const unsigned int /*version*/) {
+    // NoiseModelFactor2 instead of NoiseModelFactorN for backward compatibility
+    ar & boost::serialization::make_nvp(
+        "NoiseModelFactor2", boost::serialization::base_object<Base>(*this));
+    ar & BOOST_SERIALIZATION_NVP(measured_)
+    ar & BOOST_SERIALIZATION_NVP(landmark_);
+  }
+#endif
+};
+template <class CALIBRATION>
+struct traits<GenericProjectionFactor3<CALIBRATION>>
+    : Testable<GenericProjectionFactor3<CALIBRATION>> {};
+
 } // \ namespace gtsam
